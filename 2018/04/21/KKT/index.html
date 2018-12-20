@@ -20,16 +20,16 @@
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
 <meta property="og:description" content="In mathematical optimization, the method of Lagrange multipliers is a strategy for finding the local maximum and minimum of a function subject to equality constraints, while KKT conditions solve the">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/Math/KKT/1.png?Expires=1545331274&OSSAccessKeyId=TMP.AQFWhOXs_-85s9VkI0Lw9Gxu1G4Nt-0m2ILQGi5DbZfHvibdxnAJiHcPDshEAAAwLAIUPmaRgoHn6IYDGDkMdD6E67ilWYoCFCCUHwqucZD8bnTuyAXHM-j_EWXv&Signature=Cj15kB1zzegLFiOSBY%2FmJaOCvEg%3D">
-<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/Math/KKT/2.png?Expires=1545331294&OSSAccessKeyId=TMP.AQFWhOXs_-85s9VkI0Lw9Gxu1G4Nt-0m2ILQGi5DbZfHvibdxnAJiHcPDshEAAAwLAIUPmaRgoHn6IYDGDkMdD6E67ilWYoCFCCUHwqucZD8bnTuyAXHM-j_EWXv&Signature=Jj0m9Pj9AcIhBSGBfSRblCzqdQE%3D">
-<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/Math/KKT/3.png?Expires=1545331309&OSSAccessKeyId=TMP.AQFWhOXs_-85s9VkI0Lw9Gxu1G4Nt-0m2ILQGi5DbZfHvibdxnAJiHcPDshEAAAwLAIUPmaRgoHn6IYDGDkMdD6E67ilWYoCFCCUHwqucZD8bnTuyAXHM-j_EWXv&Signature=jferAt%2FblwYhcpTeaIYl%2FSgVFzU%3D">
-<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/Math/KKT/4.png?Expires=1545331319&OSSAccessKeyId=TMP.AQFWhOXs_-85s9VkI0Lw9Gxu1G4Nt-0m2ILQGi5DbZfHvibdxnAJiHcPDshEAAAwLAIUPmaRgoHn6IYDGDkMdD6E67ilWYoCFCCUHwqucZD8bnTuyAXHM-j_EWXv&Signature=hqzCXcsxxKYfOCrrWDOhCSVodi4%3D">
-<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/Math/KKT/5.png?Expires=1545331330&OSSAccessKeyId=TMP.AQFWhOXs_-85s9VkI0Lw9Gxu1G4Nt-0m2ILQGi5DbZfHvibdxnAJiHcPDshEAAAwLAIUPmaRgoHn6IYDGDkMdD6E67ilWYoCFCCUHwqucZD8bnTuyAXHM-j_EWXv&Signature=hVrAeRtU0bOcxiUynfb8ltLhEvE%3D">
-<meta property="og:updated_time" content="2018-12-20T17:42:38.148Z">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/32336612.jpg">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/15242653.jpg">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/65223811.jpg">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/65427367.jpg">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/24813213.jpg">
+<meta property="og:updated_time" content="2018-12-20T19:37:40.015Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lagrange Multiplier and KKT Conditions">
 <meta name="twitter:description" content="In mathematical optimization, the method of Lagrange multipliers is a strategy for finding the local maximum and minimum of a function subject to equality constraints, while KKT conditions solve the">
-<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/Math/KKT/1.png?Expires=1545331274&OSSAccessKeyId=TMP.AQFWhOXs_-85s9VkI0Lw9Gxu1G4Nt-0m2ILQGi5DbZfHvibdxnAJiHcPDshEAAAwLAIUPmaRgoHn6IYDGDkMdD6E67ilWYoCFCCUHwqucZD8bnTuyAXHM-j_EWXv&Signature=Cj15kB1zzegLFiOSBY%2FmJaOCvEg%3D">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/32336612.jpg">
 
 
 
@@ -124,7 +124,7 @@
         <span class="column is-narrow">
             
             
-            11 minutes read (About 1609 words)
+            10 minutes read (About 1479 words)
         </span>
         
     </div>
@@ -153,7 +153,7 @@ g(x_1, x_2) = 0
 <p>To see this, consider the total differential <span class="math inline">\(dg = \nabla g(\mathbf{x})^T d \mathbf{x}\)</span>, then if the point <span class="math inline">\(\mathbf{x}+d\mathbf{x}\)</span> also lies on the constraint surface, then <span class="math inline">\(dg=0\)</span>, so we have <span class="math inline">\(\nabla g(\mathbf{x})^T d\mathbf{x} = 0\)</span>.</p>
 </blockquote>
 <p>Next, the point <span class="math inline">\(\mathbf{x}^*\)</span> on the constraint surface that maximize <span class="math inline">\(f(\mathbf{x})\)</span> must have the property that <span class="math inline">\(\nabla g(\mathbf{x}^*) \parallel \nabla f(\mathbf{x^*})\)</span>, in other words, <span class="math inline">\(\nabla g(\mathbf{x}^*)\)</span> is orthogonal to the constraint surface, because otherwise we could increase the value of <span class="math inline">\(f(\mathbf{x})\)</span> by moving a short distance along the constraint surface.</p>
-<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/Math/KKT/1.png?Expires=1545331274&amp;OSSAccessKeyId=TMP.AQFWhOXs_-85s9VkI0Lw9Gxu1G4Nt-0m2ILQGi5DbZfHvibdxnAJiHcPDshEAAAwLAIUPmaRgoHn6IYDGDkMdD6E67ilWYoCFCCUHwqucZD8bnTuyAXHM-j_EWXv&amp;Signature=Cj15kB1zzegLFiOSBY%2FmJaOCvEg%3D"></p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/32336612.jpg"></p>
 <blockquote>
 <p>Personally, I think it's quite similar to the force resolution, where we can view the point <span class="math inline">\(\mathbf{x}\)</span> as a ball on its orbit -- the constraint surface. A force, <span class="math inline">\(\nabla f(\mathbf{x})\)</span>, is applied on it and the ball will finally moves up to a place where no force can be resolved on the tangent plane of the place.</p>
 </blockquote>
@@ -163,7 +163,7 @@ g(x_1, x_2) = 0
 L(\mathbf{x}, \lambda) \equiv f(\mathbf{x}) + \lambda g(\mathbf{x})
 \]</span> By setting <span class="math inline">\(\nabla_{\mathbf{x}} L=\mathbf{0}\)</span> together with the constraint <span class="math inline">\(g(\mathbf{x}) = 0\)</span>, we can get all the <em>necessary conditions (but not sufficient)</em> when <span class="math inline">\(\mathbf{x}\)</span> is an extreme point on the constraint surface.</p>
 <h3 id="example-1">Example 1</h3>
-<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/Math/KKT/2.png?Expires=1545331294&amp;OSSAccessKeyId=TMP.AQFWhOXs_-85s9VkI0Lw9Gxu1G4Nt-0m2ILQGi5DbZfHvibdxnAJiHcPDshEAAAwLAIUPmaRgoHn6IYDGDkMdD6E67ilWYoCFCCUHwqucZD8bnTuyAXHM-j_EWXv&amp;Signature=Jj0m9Pj9AcIhBSGBfSRblCzqdQE%3D"> <span class="math display">\[
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/15242653.jpg"> <span class="math display">\[
 \max \ 1-x_1^2 - x_2^2
 \\ \text{s.t.} \ \ x_1 + x_2 -1 =0
 \]</span> The corresponding Lagrange function is given by <span class="math inline">\(L(\mathbf{x}, \lambda) = 1-x_1^2 - x_2^2 + \lambda (x_1 + x_2 -1)\)</span>, then set <span class="math display">\[
@@ -182,7 +182,7 @@ L(\mathbf{x}, \lambda) \equiv f(\mathbf{x}) + \lambda g(\mathbf{x})
 <li>When the constraint is <em>active</em>, that is when the stationary point lies on the boundary <span class="math inline">\(g(\mathbf{x})=0\)</span>, the problem is just analogous to the one discussed previously and corresponds to a stationary point with <span class="math inline">\(\lambda \neq 0\)</span>. Note that now the sign of <span class="math inline">\(\lambda\)</span> is crucial, since <span class="math inline">\(f(\mathbf{x})\)</span> will only be at a maximum if <span class="math inline">\(\nabla f(\mathbf{x})\)</span> is away from the region <span class="math inline">\(g(\mathbf{x})&gt;0\)</span>. So further we have the corresponding <span class="math inline">\(\lambda &gt; 0\)</span>.</li>
 <li>When the constraint is <em>inactive</em>, the stationary point lies in the region <span class="math inline">\(g(\mathbf{x})&gt;0\)</span>, with corresponding <span class="math inline">\(\lambda = 0\)</span>.</li>
 </ul>
-<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/Math/KKT/3.png?Expires=1545331309&amp;OSSAccessKeyId=TMP.AQFWhOXs_-85s9VkI0Lw9Gxu1G4Nt-0m2ILQGi5DbZfHvibdxnAJiHcPDshEAAAwLAIUPmaRgoHn6IYDGDkMdD6E67ilWYoCFCCUHwqucZD8bnTuyAXHM-j_EWXv&amp;Signature=jferAt%2FblwYhcpTeaIYl%2FSgVFzU%3D"></p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/65223811.jpg"></p>
 <p>Again for the convenience of representation, note that for both cases, the product <span class="math inline">\(\lambda g(\mathbf{x})=0\)</span>, thus the solution can be obtained by maximizing the Lagrange function w.r.t. <span class="math inline">\(\mathbf{x}\)</span> s.t. the conditions <span class="math display">\[
 \begin{aligned}
 g(\mathbf{x}) &amp;\geq 0 &amp; &amp; \text{(constriant function)}
@@ -232,12 +232,12 @@ L(\mathbf{x}, w, v) = (x_1^2 - x_2 - 3x_3) - w(-x_1 - x_2 - x_3) - v(x_1^2 + 2x_
 <ol type="1">
 <li><a href="https://www.maa.org/sites/default/files/nunemacher01010325718.pdf" target="_blank" rel="noopener">Lagrange Multipliers Can Fail To Determine Extrema</a> In single variable case, when the gradient of the constraint function <span class="math inline">\(\nabla g(\mathbf{x})=0\)</span>, the simple Lagrangian multiplier discussed above doesn't work. e.g. <span class="math inline">\(\min \ x \text{, s.t.} \ \ g(x,y) = y^2 + x^4 - x^3=0\)</span>.</li>
 </ol>
-<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/Math/KKT/4.png?Expires=1545331319&amp;OSSAccessKeyId=TMP.AQFWhOXs_-85s9VkI0Lw9Gxu1G4Nt-0m2ILQGi5DbZfHvibdxnAJiHcPDshEAAAwLAIUPmaRgoHn6IYDGDkMdD6E67ilWYoCFCCUHwqucZD8bnTuyAXHM-j_EWXv&amp;Signature=hqzCXcsxxKYfOCrrWDOhCSVodi4%3D"></p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/65427367.jpg"></p>
 <ol start="2" type="1">
 <li><a href="http://web.cs.iastate.edu/~cs577/handouts/lagrange-multiplier.pdf" target="_blank" rel="noopener">http://web.cs.iastate.edu/~cs577/handouts/lagrange-multiplier.pdf</a> Explain Lagrange multiplier in multi-constraint case in detail, and give the <strong>second-order sufficient conditions</strong>, which use the definitive property of Lagrangian function's Hessian on the <strong>tangent space</strong> to verify if a stationary point is also an extreme point in a more mathematical way. Besides, it avoids discussing the cases like that mentioned in the above article by introducing the concept of <strong>regular point</strong>.</li>
 </ol>
 <figure>
-<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/Math/KKT/5.png?Expires=1545331330&amp;OSSAccessKeyId=TMP.AQFWhOXs_-85s9VkI0Lw9Gxu1G4Nt-0m2ILQGi5DbZfHvibdxnAJiHcPDshEAAAwLAIUPmaRgoHn6IYDGDkMdD6E67ilWYoCFCCUHwqucZD8bnTuyAXHM-j_EWXv&amp;Signature=hVrAeRtU0bOcxiUynfb8ltLhEvE%3D" alt="Tangent space at \mathbf{x}^* on a surface defined by (a) one constraint (shown as a tangent plane) and (b) two constraints (shown as a tangent line)."><figcaption>Tangent space at <span class="math inline">\(\mathbf{x}^*\)</span> on a surface defined by (a) one constraint (shown as a tangent plane) and (b) two constraints (shown as a tangent line).</figcaption>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/24813213.jpg" alt="Tangent space at ^* on a surface defined by (a) one constraint (shown as a tangent plane) and (b) two constraints (shown as a tangent line)."><figcaption>Tangent space at ^* on a surface defined by (a) one constraint (shown as a tangent plane) and (b) two constraints (shown as a tangent line).</figcaption>
 </figure>
 <p>According to the second-order sufficient conditions mentioned in <em>further reading 2</em>, we can verifying the solution as optimum in example 2 by first calculating the Hessian at this point <span class="math display">\[
 \nabla_{\mathbf{x}}^2L(\mathbf{x}^*, w, v) = \begin{bmatrix} \frac{2}{3} &amp;0&amp; 0 \\0&amp;0&amp;0\\0&amp;0&amp;0 \end{bmatrix}
@@ -291,15 +291,26 @@ L(\mathbf{x}, w, v) = (x_1^2 - x_2 - 3x_3) - w(-x_1 - x_2 - x_3) - v(x_1^2 + 2x_
 <div class="comments">
     <h3 class="title is-4">Comments</h3>
     
-<div id="SOHUCS" sid="2018/04/21/KKT/"></div>
-<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
-<script type="text/javascript">
-window.changyan.api.config({
-    appid: 'cytzuUh1h',
-    conf: 'prod_00c6bdbfabdb896365e34e1f7d0e078d'
-});
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/2018/04/21/KKT/';
+        this.page.identifier = 'wiljohnhong-github-io';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
 </script>
 
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
 </div>
 
     </div>
