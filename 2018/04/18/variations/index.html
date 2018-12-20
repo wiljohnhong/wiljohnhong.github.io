@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Calculus of Variations - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+    <meta name="description" content="Calculus of variations is a field of mathematical analysis that uses variations, which are small changes in functions and functionals, to find maximum and minimum of functionals.  Introduction Functi">
+<meta name="keywords" content="math">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Calculus of Variations">
+<meta property="og:url" content="http://wiljohn.top/2018/04/18/variations/index.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="Calculus of variations is a field of mathematical analysis that uses variations, which are small changes in functions and functionals, to find maximum and minimum of functionals.  Introduction Functi">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-20T16:50:40.767Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Calculus of Variations">
+<meta name="twitter:description" content="Calculus of variations is a field of mathematical analysis that uses variations, which are small changes in functions and functionals, to find maximum and minimum of functionals.  Introduction Functi">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Calculus of Variations
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-18T03:11:11.000Z" itemprop="datePublished">Apr 18 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            6 minutes read (About 909 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p><em>Calculus of variations</em> is a field of mathematical analysis that uses variations, which are small changes in functions and functionals, to find maximum and minimum of functionals.</p>
+</blockquote>
+<h2 id="introduction">Introduction</h2>
+<p><strong>Functional</strong> is the function's function, in other words, functional takes a function as input and outputs a real number, or more mathematically, it refers to a mapping from a space <span class="math inline">\(X\)</span> (commonly <span class="math inline">\(X\)</span> is a space of functions) into the real numbers.</p>
+<p>In the <strong>calculus of variations</strong>, we seek a functional <span class="math inline">\(f(x)\)</span> that maximizes (or minimizes) a functional <span class="math inline">\(F[f]\)</span>. For example, as we all know, the shortest curve between two fixed points is the straight line, and this can be proved using calculus of variations.</p>
+<h2 id="example-1-shortest-curve">Example 1: Shortest Curve</h2>
+<p>To find out the shortest curve <span class="math inline">\(y(x)\)</span> between two fixed points <span class="math inline">\((a_1, b_1)\)</span> and <span class="math inline">\((a_2, b_2)\)</span>, we first express the length of the curve in the form of integration <span class="math display">\[
+F[y] = \int_{a_1}^{a_2} \sqrt{1+[y&#39;(x)]^2} dx
+\]</span> <a id="more"></a></p>
+<p>where we have the boundary conditions of <span class="math inline">\(y(x)\)</span> <span class="math display">\[
+y(a_1) = b_1,\ y(a_2) = b_2
+\]</span> Suppose <span class="math inline">\(y(x)\)</span> is twice continuously differentiable. Now if the functional <span class="math inline">\(F\)</span> attains a local minimum at <span class="math inline">\(y=f\)</span>, consider <span class="math inline">\(\eta(x)\)</span> to be an arbitrary function that has at least one derivative and vanishes at end points <span class="math inline">\(a_1\)</span> and <span class="math inline">\(a_2\)</span>, i.e. <span class="math inline">\(\eta(a_1) = 0\)</span> and <span class="math inline">\(\eta(a_2)=0\)</span>, then we have <span class="math display">\[
+F[f] \leq F[f + \epsilon\eta]
+\]</span> where <span class="math inline">\(\epsilon\)</span> can be any number close to <span class="math inline">\(0\)</span>, here the term <span class="math inline">\(\epsilon \eta\)</span> is called the <strong>variation</strong> of the function <span class="math inline">\(f\)</span> and is denoted by <span class="math inline">\(\delta f\)</span>.</p>
+<p>We can view <span class="math inline">\(F[f+\epsilon \eta]\)</span> as a function of <span class="math inline">\(\epsilon\)</span> and denote it as <span class="math inline">\(J(\epsilon)\)</span>, then <span class="math inline">\(J&#39;(0) = 0\)</span> must be true for any arbitrary choice of <span class="math inline">\(\eta\)</span> since the functional <span class="math inline">\(F[y]\)</span> achieves minimum when <span class="math inline">\(y=f\)</span>. By calculating <span class="math display">\[
+\begin{aligned}
+\left. J&#39;(\epsilon) \right|_{\epsilon=0} &amp;= \left. \frac{d}{d\epsilon}F[f+\epsilon\eta] \right|_{\epsilon=0}
+\\ &amp;=  \left. \frac{d}{d\epsilon} \int_{a_1}^{a_2} \sqrt{1  + [f&#39;(x) + \epsilon\eta&#39;(x)]^2}dx \right|_{\epsilon=0}
+\\ &amp;=  \int_{a_1}^{a_2} \left. \frac{d}{d\epsilon} \sqrt{1  + [f&#39;(x) + \epsilon\eta&#39;(x)]^2} \right|_{\epsilon=0} dx
+\\ &amp;=  \int_{a_1}^{a_2} \left. \frac{[f&#39;(x) + \epsilon\eta&#39;(x)]\eta&#39;(x)}{\sqrt{1  + [f&#39;(x) + \epsilon\eta&#39;(x)]^2}} \right|_{\epsilon=0} dx
+\\ &amp;=  \int_{a_1}^{a_2} \frac{f&#39;(x)\eta&#39;(x)}{\sqrt{1  + [f&#39;(x)]^2}}dx
+\end{aligned}
+\]</span> We get <span class="math display">\[
+\int_{a_1}^{a_2} \frac{f&#39;(x)\eta&#39;(x)}{\sqrt{1  + [f&#39;(x)]^2}}dx = 0
+\]</span> which means that in differentiable function space, <span class="math inline">\(F[y]\)</span>'s derivatives in all directions (all <span class="math inline">\(\eta\)</span>) are zero. Since <span class="math inline">\(y(x)\)</span> is twice continuously differentiable, we can further integrate the left hand side of above equation by parts <span class="math display">\[
+\begin{aligned}
+\int_{a_1}^{a_2} \frac{f&#39;(x)\eta&#39;(x)}{\sqrt{1  + [f&#39;(x)]^2}}dx &amp;= \left. \eta(x) \frac{f&#39;(x)}{\sqrt{1  + [f&#39;(x)]^2}} \right|_{a_1}^{a_2} -\int_{a_1}^{a_2} \eta(x) \frac{d}{dx}\left[\frac{f&#39;(x)}{\sqrt{1  + [f&#39;(x)]^2}}\right]dx
+\\ &amp;= -\int_{a_1}^{a_2} \eta(x) \frac{d}{dx}\left[\frac{f&#39;(x)}{\sqrt{1  + [f&#39;(x)]^2}}\right]dx\ \ \ \text{(since $\eta(a_1) = 0$ and $\eta(a_2) = 0$)}
+\end{aligned}
+\]</span> then now we have <span class="math display">\[
+\int_{a_1}^{a_2} \eta(x) \frac{d}{dx}\left[\frac{f&#39;(x)}{\sqrt{1  + [f&#39;(x)]^2}}\right]dx = 0
+\]</span> Since <span class="math inline">\(\eta(x)\)</span> is arbitrary, imagine choosing a perturbation <span class="math inline">\(\eta(x)\)</span> that is zero everywhere except in the neighborhood of a point <span class="math inline">\(\hat{x}\)</span>, in which case the functional derivative must be zero at <span class="math inline">\(x=\hat{x}\)</span>, otherwise the integral will not be equal to zero. However, because this must be true for every choice of <span class="math inline">\(\hat{x}\)</span>, the functional derivative must vanish for all values of <span class="math inline">\(x\)</span>, that is <span class="math display">\[
+\frac{d}{dx}\left[\frac{f&#39;(x)}{\sqrt{1  + [f&#39;(x)]^2}} \right] = 0
+\]</span> This is called the <strong>fundamental lemma of calculus of variations</strong>. Follow this result we have <span class="math display">\[
+\frac{d}{dx}\left[\frac{f&#39;(x)}{\sqrt{1  + [f&#39;(x)]^2}} \right] = \frac{f&#39;&#39;(x)}{(1  + [f&#39;(x)]^2)^{\frac{3}{2}}} = 0 
+\]</span> So <span class="math display">\[
+f&#39;&#39;(x)=0
+\]</span></p>
+<h2 id="eulerlagrange-equation">Euler–Lagrange Equation</h2>
+<p>Now consider the more general case, for the functional <span class="math display">\[
+F[y] = \int_{x_1}^{x_2} L(x,y(x), y&#39;(x)) dx
+\]</span> Again suppose the functional attains a local minimum at <span class="math inline">\(y=f\)</span>, and define <span class="math inline">\(J(\epsilon) = F[f+\epsilon\eta]\)</span>. Then we have <span class="math display">\[
+\begin{aligned}
+\left. J&#39;(\epsilon) \right|_{\epsilon=0} &amp;= \int_{x_1}^{x_2} \left. \frac{dL}{d\epsilon} \right|_{\epsilon=0}dx
+\\ &amp;=  \int_{x_1}^{x_2} \left(\frac{\partial L}{\partial f}\eta +\frac{\partial L}{\partial f&#39;}\eta&#39; \right) dx
+\\ &amp;=  \int_{x_1}^{x_2} \frac{\partial L}{\partial f}\eta\  dx +\left.\frac{\partial L}{\partial f&#39;}\eta \ \right|_{x_1}^{x_2} - \int_{x_1}^{x_2} \eta \frac{d}{dx}\left[ \frac{\partial L}{\partial f&#39;}\right]  dx
+\\ &amp;=  \int_{x_1}^{x_2} \frac{\partial L}{\partial f}\eta\  dx - \int_{x_1}^{x_2} \eta \frac{d}{dx}\left[ \frac{\partial L}{\partial f&#39;}\right]  dx
+\\ &amp;=  \int_{x_1}^{x_2} \eta \left(\frac{\partial L}{\partial f}-  \frac{d}{dx}\left[ \frac{\partial L}{\partial f&#39;}\right] \right) dx
+\end{aligned}
+\]</span> According to the fundamental lemma of calculus of variations, we get <span class="math display">\[
+\frac{\partial L}{\partial f}-  \frac{d}{dx}\left[ \frac{\partial L}{\partial f&#39;}\right] = 0
+\]</span> which is called the <strong>Euler–Lagrange equation</strong>. The left hand side of this equation is called the <strong>functional derivative</strong> of <span class="math inline">\(F[f]\)</span>, denoted as <span class="math display">\[
+\frac{\delta J}{\delta f} = \frac{\partial L}{\partial f}-  \frac{d}{dx}\left[ \frac{\partial L}{\partial f&#39;}\right]
+\]</span></p>
+<h2 id="references">References</h2>
+<p>[1] <a href="https://en.wikipedia.org/wiki/Calculus_of_variations" target="_blank" rel="noopener">Wikipedia: Calculus of variations</a></p>
+<p>[2] Bishop, C. M. (2006). <em>Pattern recognition and machine learning, appendix D</em>. New York: Springer.</p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/math/">#math</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2018/04/21/KKT/">Lagrange Multiplier and KKT Conditions</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2018/01/12/hexo-install/">hexo配置细节备忘</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=sticky-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<div id="SOHUCS" sid="2018/04/18/variations/"></div>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+    appid: 'cytzuUh1h',
+    conf: 'prod_00c6bdbfabdb896365e34e1f7d0e078d'
+});
+</script>
+
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2018 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>hexo配置细节备忘 - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+    <meta name="description" content="基本流程 hexo建站基本配置直接参照官网步骤，配置主题为Minos。 公式支持 网上广为流传的替换hexo默认渲染为hexo-renderer-kramed的方法，仍然会存在行内公式含两个引号时中间部分被渲染为斜体的问题。 最后参照Hexo 书写 LaTeX 公式时的一些问题及解决方法，替换默认渲染为hexo-renderer-pandoc。 -- 注意事先去pandoc官方下载最新版本的pan">
+<meta name="keywords" content="tech_memo,hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hexo配置细节备忘">
+<meta property="og:url" content="http://wiljohn.top/2018/01/12/hexo-install/index.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="基本流程 hexo建站基本配置直接参照官网步骤，配置主题为Minos。 公式支持 网上广为流传的替换hexo默认渲染为hexo-renderer-kramed的方法，仍然会存在行内公式含两个引号时中间部分被渲染为斜体的问题。 最后参照Hexo 书写 LaTeX 公式时的一些问题及解决方法，替换默认渲染为hexo-renderer-pandoc。 -- 注意事先去pandoc官方下载最新版本的pan">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-12-20T18:34:17.095Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hexo配置细节备忘">
+<meta name="twitter:description" content="基本流程 hexo建站基本配置直接参照官网步骤，配置主题为Minos。 公式支持 网上广为流传的替换hexo默认渲染为hexo-renderer-kramed的方法，仍然会存在行内公式含两个引号时中间部分被渲染为斜体的问题。 最后参照Hexo 书写 LaTeX 公式时的一些问题及解决方法，替换默认渲染为hexo-renderer-pandoc。 -- 注意事先去pandoc官方下载最新版本的pan">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            hexo配置细节备忘
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-01-12T01:44:51.000Z" itemprop="datePublished">Jan 12 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            2 minutes read (About 227 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <h3 id="基本流程">基本流程</h3>
+<p>hexo建站基本配置直接参照<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官网步骤</a>，配置主题为<a href="https://github.com/ppoffice/hexo-theme-minos" target="_blank" rel="noopener">Minos</a>。</p>
+<h3 id="公式支持">公式支持</h3>
+<p>网上广为流传的替换hexo默认渲染为<code>hexo-renderer-kramed</code>的方法，仍然会存在<strong>行内公式含两个引号时中间部分被渲染为斜体</strong>的问题。</p>
+<p>最后参照<a href="https://jdhao.github.io/2017/10/06/hexo-markdown-latex-equation/" target="_blank" rel="noopener">Hexo 书写 LaTeX 公式时的一些问题及解决方法</a>，替换默认渲染为<code>hexo-renderer-pandoc</code>。</p>
+<p>-- <em>注意事先去<a href="https://github.com/jgm/pandoc/releases" target="_blank" rel="noopener">pandoc官方下载</a>最新版本的pandoc，否则直接使用<code>apt install pandoc</code>可能在run服务时因为版本过低出现<code>pandoc: Unknown extension: smart</code>的问题。</em></p>
+<h3 id="图像居中">图像居中</h3>
+<p>为了美观（强迫症），修改<code>themes/source/css/style.scss</code>中<code>display</code>属性为<code>block</code>，添加属性<code>text-align: center</code>。</p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/tech-memo/">#tech_memo</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/hexo/">#hexo</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2018/04/18/variations/">Calculus of Variations</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-next">
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=sticky-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<div id="SOHUCS" sid="2018/01/12/hexo-install/"></div>
+<script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+<script type="text/javascript">
+window.changyan.api.config({
+    appid: 'cytzuUh1h',
+    conf: 'prod_00c6bdbfabdb896365e34e1f7d0e078d'
+});
+</script>
+
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2018 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
