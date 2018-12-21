@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Tag: tech_memo - Wiljohn&#39;s Blog</title>
+<title>Tag: tech memo - Wiljohn&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -99,7 +99,7 @@
     <section class="section section-heading">
     <div class="container">
         <div class="content">
-            <h5>#tech_memo</h5>
+            <h5>#tech memo</h5>
         </div>
     </div>
 </section>
@@ -109,33 +109,32 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2018/01/12/hexo-install/" itemprop="url">hexo配置细节备忘</a>
+            <a href="/2018/12/21/ssr/" itemprop="url">ShadowsocksR资源整理</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2018-01-12T01:44:51.000Z" itemprop="datePublished">Jan 12 2018</time>
+            <time datetime="2018-12-21T04:41:26.000Z" itemprop="datePublished">Dec 21 2018</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            2 minutes read (About 227 words)
+            10 minutes read (About 1533 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <h3 id="基本流程">基本流程</h3>
-<p>hexo建站基本配置直接参照<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官网步骤</a>，配置主题为<a href="https://github.com/ppoffice/hexo-theme-minos" target="_blank" rel="noopener">Minos</a>。</p>
-<h3 id="公式支持">公式支持</h3>
-<p>网上广为流传的替换hexo默认渲染为<code>hexo-renderer-kramed</code>的方法，仍然会存在<strong>行内公式含两个引号时中间部分被渲染为斜体</strong>的问题。</p>
-<p>最后参照<a href="https://jdhao.github.io/2017/10/06/hexo-markdown-latex-equation/" target="_blank" rel="noopener">Hexo 书写 LaTeX 公式时的一些问题及解决方法</a>，替换默认渲染为<code>hexo-renderer-pandoc</code>。</p>
-<p>-- <em>注意事先去<a href="https://github.com/jgm/pandoc/releases" target="_blank" rel="noopener">pandoc官方下载</a>最新版本的pandoc，否则直接使用<code>apt install pandoc</code>可能在run服务时因为版本过低出现<code>pandoc: Unknown extension: smart</code>的问题。</em></p>
-<h3 id="图像居中">图像居中</h3>
-<p>为了美观（强迫症），修改<code>themes/source/css/style.scss</code>中<code>display</code>属性为<code>block</code>，添加属性<code>text-align: center</code>。</p>
-
+        <blockquote>
+<p>由于一些众所周知的原因，我们并不能自由访问完整的互联网。但是互联网审查粒度过粗，导致许多本不需要审查的内容被拒之墙外，如Google Scholar，Wikipedia等。</p>
+<p>ShadowsocksR是一种基于Socks5代理的加密传输协议，是shadowsocks的加强版本，可以帮助我们突破中国互联网审查(GFW)从而浏览被封锁的内容。ShadowsocksR分为服务器端和客户端，在使用之前，需要先将服务器端部署到服务器上面，然后通过客户端连接并创建本地代理。</p>
+</blockquote>
+<p>下面整理的是近期配置SSR时收集的一些资源。</p>
+        <p class="article-more-link">
+            <a href="/2018/12/21/ssr/#more">Read More</a>
+        </p>
     
     </div>
     

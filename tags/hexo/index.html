@@ -109,7 +109,7 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2018/01/12/hexo-install/" itemprop="url">hexo配置细节备忘</a>
+            <a href="/2018/01/12/hexo-install/" itemprop="url">Hexo配置备忘</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -121,18 +121,23 @@
         <span class="column is-narrow">
             
             
-            2 minutes read (About 227 words)
+            2 minutes read (About 350 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <h3 id="基本流程">基本流程</h3>
+        <blockquote>
+<p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+<p>Minos is a simple and retro styled Hexo theme, concentrating more on your ideas.</p>
+</blockquote>
+<h3 id="基本流程">基本流程</h3>
 <p>hexo建站基本配置直接参照<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官网步骤</a>，配置主题为<a href="https://github.com/ppoffice/hexo-theme-minos" target="_blank" rel="noopener">Minos</a>。</p>
 <h3 id="公式支持">公式支持</h3>
 <p>网上广为流传的替换hexo默认渲染为<code>hexo-renderer-kramed</code>的方法，仍然会存在<strong>行内公式含两个引号时中间部分被渲染为斜体</strong>的问题。</p>
 <p>最后参照<a href="https://jdhao.github.io/2017/10/06/hexo-markdown-latex-equation/" target="_blank" rel="noopener">Hexo 书写 LaTeX 公式时的一些问题及解决方法</a>，替换默认渲染为<code>hexo-renderer-pandoc</code>。</p>
-<p>-- <em>注意事先去<a href="https://github.com/jgm/pandoc/releases" target="_blank" rel="noopener">pandoc官方下载</a>最新版本的pandoc，否则直接使用<code>apt install pandoc</code>可能在run服务时因为版本过低出现<code>pandoc: Unknown extension: smart</code>的问题。</em></p>
+<p>-- <em>注意1：事先去<a href="https://github.com/jgm/pandoc/releases" target="_blank" rel="noopener">pandoc官方下载</a>最新版本的pandoc，否则直接使用<code>apt install pandoc</code>可能在run服务时因为版本过低出现<code>pandoc: Unknown extension: smart</code>的问题</em></p>
+<p>-- <em>注意2：替换完成后主题内的依赖关系不会自动更改，需要将<code>themes/minos/scripts/01_check.js</code>中对默认渲染的依赖项<code>'hexo-renderer-marked'</code>手动替换为<code>'hexo-renderer-pandoc'</code></em></p>
 <h3 id="图像居中">图像居中</h3>
 <p>为了美观（强迫症），修改<code>themes/source/css/style.scss</code>中<code>display</code>属性为<code>block</code>，添加属性<code>text-align: center</code>。</p>
 
