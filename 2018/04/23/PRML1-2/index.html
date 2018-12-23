@@ -22,7 +22,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/55730390.jpg">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/7669247.jpg">
-<meta property="og:updated_time" content="2018-12-23T13:19:55.718Z">
+<meta property="og:updated_time" content="2018-12-23T13:21:18.807Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 1.2 Probability Theory">
 <meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Probability Theory Due to the finite size of data sets and the noise on measurements, we use probability to express the uncerta">
@@ -121,7 +121,7 @@
         <span class="column is-narrow">
             
             
-            12 minutes read (About 1866 words)
+            12 minutes read (About 1862 words)
         </span>
         
     </div>
@@ -163,9 +163,13 @@ p_y(y) &amp;= p_x(x)\left| \frac{\mathrm{d}x}{\mathrm{d}y} \right|
 <p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/55730390.jpg"></p>
 <p>Here <span class="math inline">\(y = g^{-1}(x) =1/(1+exp(-x+5))\)</span> is a <em>logistic sigmoid</em> function, and <span class="math inline">\(p_x(x)\)</span> is a Gaussian <span class="math inline">\(\mathcal{N}(6, 1)\)</span>. The green curve stands for <span class="math inline">\(p_x(g(y))\)</span>, while the purple one stands for <span class="math inline">\(p_x(g(y))|g&#39;(y)|\)</span>, with a different maximum.</p>
 <h3 id="expectations-and-covariances">Expectations and Covariances</h3>
-<p>Most are mentioned in statistics class. Here a subscript is used when we consider expectations of functions of several variables to indicate which variable is being averaged over, e.g. below we only average over <span class="math inline">\(x\)</span> <span class="math display">\[
+<p>Most are mentioned in statistics class. Here a subscript is used when we consider expectations of functions of several variables to indicate which variable is being averaged over, e.g. below we only average over <span class="math inline">\(x\)</span></p>
+<p><span class="math display">\[
 \mathbb{E}_x[f(x,y)] = \sum_x p(x)f(x,y)
-\]</span> &gt; But personally I think this definition requires that <span class="math inline">\(y\)</span> is irrelevant to <span class="math inline">\(x\)</span>, or just a parameter, otherwise it's somewhat nonsense if we multiply <span class="math inline">\(f(x,y)\)</span>, which considers a specific <span class="math inline">\(y\)</span>, with a marginal distribution <span class="math inline">\(p(x)\)</span>, which already integrated out the <span class="math inline">\(y\)</span>.</p>
+\]</span></p>
+<blockquote>
+<p>But personally I think this definition requires that <span class="math inline">\(y\)</span> is irrelevant to <span class="math inline">\(x\)</span>, or just a parameter, otherwise it's somewhat nonsense if we multiply <span class="math inline">\(f(x,y)\)</span>, which considers a specific <span class="math inline">\(y\)</span>, with a marginal distribution <span class="math inline">\(p(x)\)</span>, which already integrated out the <span class="math inline">\(y\)</span>.</p>
+</blockquote>
 <p>Sometimes we also consider a conditional expectation, e.g. now we average <span class="math inline">\(x\)</span> with <span class="math inline">\(y\)</span> fixed <span class="math display">\[
 \mathbb{E}_x[f(x,y)|y] = \sum_x p(x|y)f(x,y)
 \]</span> In the case of two random variables <span class="math inline">\(\mathbf{x}\)</span> and <span class="math inline">\(\mathbf{y}\)</span>, the covariance is a matrix <span class="math display">\[
@@ -235,7 +239,7 @@ p(\mathbf{w}|\mathtt{x}, \mathtt{t}, \alpha, \beta) = \frac{p(\mathtt{t}|\mathtt
 \end{aligned}
 \]</span> This technique is called <strong>maximum posterior (MAP)</strong>, and we can see that <em>maximizing the posterior is equivalent to minimizing the regularized sum-of-square error with <span class="math inline">\(\lambda = \alpha/\beta\)</span></em>.</p>
 <h3 id="bayesian-curve-fitting">Bayesian Curve Fitting</h3>
-<p>So far the predictive distribution gives a non-point estimate for <span class="math inline">\(t​\)</span>, but it is predicted under a point estimate <span class="math inline">\(\mathbf{w}_\mathrm{ML}​\)</span>, or <span class="math inline">\(\mathbf{w}_\mathrm{MAP}​\)</span>. In a fully Bayesian approach, we should integrate all values of <span class="math inline">\(\mathbf{w}​\)</span> <span class="math display">\[
+<p>So far the predictive distribution gives a non-point estimate for <span class="math inline">\(t\)</span>, but it is predicted under a point estimate <span class="math inline">\(\mathbf{w}_\mathrm{ML}\)</span>, or <span class="math inline">\(\mathbf{w}_\mathrm{MAP}\)</span>. In a fully Bayesian approach, we should integrate all values of <span class="math inline">\(\mathbf{w}\)</span> <span class="math display">\[
 p(t|x,\mathtt{x},\mathtt{t}) = \int p(t|x,\mathbf{w})p(\mathbf{w}|\mathtt{x},\mathtt{t})\mathrm{d}\mathbf{w}
 \]</span> Here the precisions <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are assumed fixed and known in advance, which will discussed in section 3.3, together with the solution of the integral above.</p>
 
