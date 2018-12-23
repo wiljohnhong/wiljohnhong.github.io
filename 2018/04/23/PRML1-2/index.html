@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>(PRML Notes) 1.2 Probability Theory - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Probability Theory Due to the finite size of data sets and the noise on measurements, we use probability to express the uncerta">
+<meta name="keywords" content="PRML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(PRML Notes) 1.2 Probability Theory">
+<meta property="og:url" content="http://wiljohn.top/2018/04/23/PRML1-2/index.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Probability Theory Due to the finite size of data sets and the noise on measurements, we use probability to express the uncerta">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/55730390.jpg">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/7669247.jpg">
+<meta property="og:updated_time" content="2018-12-23T08:37:22.383Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(PRML Notes) 1.2 Probability Theory">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Probability Theory Due to the finite size of data sets and the noise on measurements, we use probability to express the uncerta">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/55730390.jpg">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            (PRML Notes) 1.2 Probability Theory
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-23T10:16:57.000Z" itemprop="datePublished">Apr 23 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            12 minutes read (About 1813 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<h2 id="probability-theory">Probability Theory</h2>
+<p>Due to the finite size of data sets and the noise on measurements, we use probability to express the uncertainty in pattern recognition. Some concepts like sum rule, product rule, marginal probability, joint probability, conditional probability are very basic, but for this book it would be worthy of gaining insight into <strong>Bayes theorem</strong>, which plays a central role in PRML <span class="math display">\[
+p(Y|X) = \frac{p(X|Y)p(Y)}{p(X)}
+\]</span> Using sum rule, the denominator, which can be viewed as a normalizer, can also be expressed in terms of quantities appearing in the numerator <span class="math display">\[
+p(X) = \sum_Y p(X|Y)p(Y)
+\]</span></p>
+<a id="more"></a>
+<h3 id="probability-densities">Probability Densities</h3>
+<p>If the probability of a real-valued variable <span class="math inline">\(x\)</span> falling in the interval <span class="math inline">\((x, x+\delta x)\)</span> is given by <span class="math inline">\(p(x)\delta x\)</span> for <span class="math inline">\(\delta x \rightarrow 0\)</span>, then <span class="math inline">\(p(x)\)</span> is called the <strong>probability density</strong> over <span class="math inline">\(x\)</span>.</p>
+<blockquote>
+<p>If <span class="math inline">\(x\)</span> is a discrete variable, then <span class="math inline">\(p(x)\)</span> is sometimes called a <strong>probability mass</strong> function.</p>
+</blockquote>
+<p>The probability density <span class="math inline">\(p(x)\)</span> must satisfy two conditions <span class="math display">\[
+\begin{align}
+p(x) &amp;\geq 0
+\\ \int_{-\infty}^\infty p(x) \mathrm{d}x &amp;= 1
+\end{align}
+\]</span> Note that under a nonlinear change of variable, a probability density transforms differently from a simple function replacement, but due to a Jacobian factor.</p>
+<p>Consider a change <span class="math inline">\(x=g(y)\)</span>, and <span class="math inline">\(p_x(x)\)</span> and <span class="math inline">\(p_y(y)\)</span> <em>are different densities</em> corresponding to each variables, since for some small values of <span class="math inline">\(\delta x\)</span>, the observed values falling in the range <span class="math inline">\((x, x+\delta x)\)</span> will be transformed into the range <span class="math inline">\((y, y + \delta y)\)</span>, or sometimes <span class="math inline">\((y + \delta y, y)\)</span>, we have <span class="math display">\[
+p_x(x)|\delta x| \simeq p_y(y) |\delta y|
+\]</span> and hence <span class="math display">\[
+\begin{align}
+p_y(y) &amp;= p_x(x)\left| \frac{\mathrm{d}x}{\mathrm{d}y} \right|
+\\ &amp;= p_x(g(y))|g&#39;(y)|
+\end{align}
+\]</span></p>
+<blockquote>
+<p>Intuitively, the larger the derivative <span class="math inline">\(g&#39;(y)\)</span> is, the sparser the changed distribution <span class="math inline">\(p_x(x)\)</span> is.</p>
+</blockquote>
+<p>One consequence is that the maximum of a probability density is dependent on the choice of variable.</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/55730390.jpg"></p>
+<p>Here <span class="math inline">\(y = g^{-1}(x) =1/(1+exp(-x+5))\)</span> is a <em>logistic sigmoid</em> function, and <span class="math inline">\(p_x(x)\)</span> is a Gaussian <span class="math inline">\(\mathcal{N}(6, 1)\)</span>. The green curve stands for <span class="math inline">\(p_x(g(y))\)</span>, while the purple one stands for <span class="math inline">\(p_x(g(y))|g&#39;(y)|\)</span>, with a different maximum.</p>
+<h3 id="expectations-and-covariances">Expectations and Covariances</h3>
+<p>Most are mentioned in statistics class. Here a subscript is used when we consider expectations of functions of several variables to indicate which variable is being averaged over, e.g. below we only average over <span class="math inline">\(x\)</span> <span class="math display">\[
+\mathbb{E}_x[f(x,y)] = \sum_x p(x,y)f(x,y)
+\]</span> Sometimes we also consider a conditional expectation, e.g. now we average <span class="math inline">\(x\)</span> with <span class="math inline">\(y\)</span> fixed <span class="math display">\[
+\mathbb{E}_x[f(x,y)|y] = \sum_x p(x|y)f(x,y)
+\]</span> In the case of two random variables <span class="math inline">\(\mathbf{x}\)</span> and <span class="math inline">\(\mathbf{y}\)</span>, the covariance is a matrix <span class="math display">\[
+\begin{align}
+\mathrm{cov} [\mathbf{x,y}] &amp;= \mathbb{E}_\mathbf{x,y}[\{\mathbf{x} - \mathbb{E}[\mathbf{x}]\}\{\mathbf{y}^T - \mathbb{E}[\mathbf{y^T}]\}]
+\\ &amp;= \mathbb{E}_\mathbf{x,y}[\mathbf{xy}^T] - \mathbb{E}[\mathbf{x}]\mathbb{E}[\mathbf{y}^T]
+\end{align}
+\]</span> If we consider the covariance of the components of <span class="math inline">\(\mathbf{x}\)</span> with each over, we denote <span class="math inline">\(\mathrm{cov}[\mathbf{x}] \equiv \mathrm{cov}[\mathbf{x},\mathbf{x}]\)</span>.</p>
+<h3 id="bayesian-probabilities">Bayesian Probabilities</h3>
+<p>Frequentists view probability as frequencies of random events, while Bayesian view probability as quantification of uncertainty.</p>
+<p>Given a data set <span class="math inline">\(\mathcal{D} = \{t_1,...,t_n\}\)</span> and model parameters <span class="math inline">\(\mathbf{w}\)</span>, Bayes theorem takes the form <span class="math display">\[
+p(\mathbf{w}|\mathcal{D})  = \frac{p(\mathcal{D}|\mathbf{w})p(\mathbf{w})}{p(\mathcal{D})}
+\]</span> allowing us to evaluate uncertainty <em>after</em> <span class="math inline">\(\mathcal{D}\)</span> is observed. Here <span class="math inline">\(p(\mathbf{w}|\mathcal{D})\)</span> is called the <strong>posterior probability</strong>, <span class="math inline">\(p(\mathcal{D}|\mathbf{w})\)</span> can be viewed as a function of <span class="math inline">\(\mathbf{w}\)</span> called <strong>likelihood function</strong>, and <span class="math inline">\(p(\mathbf{w})\)</span> is <strong>prior probability</strong> where the prior knowledge is included. We can state the theorem in the form <span class="math display">\[
+\mathrm{posterior \propto likelihood \times prior}
+\]</span> By integrating both sides of the equation above, we have <span class="math display">\[
+{p(\mathcal{D})} = \int p(\mathcal{D}|\mathbf{w})p(\mathbf{w})\ \mathrm{d}\mathbf{w}
+\]</span> The likelihood function plays a central role in both Bayesian and frequentist paradigms. In a frequentist setting, <span class="math inline">\(\mathbf{w}\)</span> is being fixed, usually determined by some estimator like <strong>maximum likelihood</strong>, which is the same as minimizing the negative logarithm of it called <strong>error function</strong>. For example, we will later see that minimizing <span class="math inline">\(E(\mathbf{w} ) = \frac{1}{2} \sum_{n=1}^N [y(x_n ,\mathbf{w}) - t_n]^2\)</span> is a form of likelihood maximization. While from the Bayesian viewpoint, there is only a single <span class="math inline">\(\mathcal{D}\)</span> and uncertainty is expressed through <span class="math inline">\(p(\mathbf{w})\)</span>.</p>
+<p><strong>Bootstrap</strong> is a frequentist way to evaluate accuracy, for example given a set <span class="math inline">\(\mathcal{D} = \{1,2,3,4,5\}\)</span>, multi-datasets are generated like <span class="math inline">\(\{4,3,4,1,5\}\)</span>, <span class="math inline">\(\{1,3,5,5,1\}\)</span>, which can contain duplicates and evaluation is done on these new datasets.</p>
+<h3 id="the-gaussian-distribution">The Gaussian Distribution</h3>
+<p>Univariate Gaussian distribution is defined by <span class="math display">\[
+\mathcal{N} (x|\mu, \sigma^2) = \frac{1}{\sqrt{2\pi} \sigma} \mathrm{exp}\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\}
+\]</span> Note that the reciprocal of the variance in this book is often written as <span class="math inline">\(\beta = 1/\sigma^2\)</span> called the <strong>precision</strong>.</p>
+<p>Multivariate <span class="math inline">\(D\)</span>-dimensional Gaussian distribution is defined by <span class="math display">\[
+\mathcal{N} (\mathbf{x}|\boldsymbol{\mu}, \mathbf{\Sigma}) = \frac{1}{(2\pi)^{D/2} |\mathbf{\Sigma}|^{1/2}} \mathrm{exp}\left\{-\frac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\right\}
+\]</span> Suppose a dataset <span class="math inline">\(\mathtt{x} = (x_1,...,x_N)^T\)</span> sampled from a univariate Gaussian, i.i.d. between each of them (independently and identically distributed). So the probability of the data set given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma^2\)</span> is <span class="math display">\[
+p(\mathtt x| \mu , \sigma^2) = \prod_{n=1}^N \mathcal{N}(x_n| \mu, \sigma^2)
+\]</span> One way to determine the parameters is to maximize the likelihood function above, which can be changed into the logarithm form <span class="math display">\[
+\ln p(\mathtt x| \mu , \sigma^2) = -\frac{N}{2}\ln (2\pi) - N \ln \sigma - \frac{1}{2\sigma^2}\sum_{n=1}^N(x_n-\mu)^2
+\]</span> By first differentiating it w.r.t. <span class="math inline">\(\mu\)</span> we get the solution of <span class="math inline">\(\mu\)</span> is just the sample mean <span class="math display">\[
+\mu_\mathrm{ML} = \frac{1}{N}\sum_{n=1}^N x_n
+\]</span> and then differentiating it w.r.t. <span class="math inline">\(\sigma^2\)</span> and use the solution of <span class="math inline">\(\mu\)</span> above we get the solution of <span class="math inline">\(\sigma^2\)</span> is just the sample variance <span class="math display">\[
+\sigma^2_\mathrm{ML} = \frac{1}{N}\sum_{n=1}^N (x_n-\mu_\mathrm{ML})^2
+\]</span> However, in fact, maximum likelihood approach underestimates the variance of the distribution <span class="math display">\[
+\mathbb{E} [\sigma^2_\mathrm{ML}] = \frac{N-1}{N} \sigma^2
+\]</span> which can be easily proved by using <span class="math inline">\(\mathbb{E}[x_nx_m] = \mu^2 + I_{nm}\sigma^2\)</span>, where <span class="math inline">\(I_{nm}=1\)</span> if <span class="math inline">\(n=m\)</span> and <span class="math inline">\(I_{nm}=1\)</span> otherwise. Although the influence of underestimation will be less severe as <span class="math inline">\(N\)</span> grows larger, however, more complex models with many parameters will still suffer.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/7669247.jpg" alt="Bias arises in using maximum likelihood to determine the variance of a Gaussian."><figcaption>Bias arises in using maximum likelihood to determine the variance of a Gaussian.</figcaption>
+</figure>
+<h3 id="curve-fitting-re-visited">Curve Fitting Re-visited</h3>
+<p>Before we solve this problem by minimizing error, now from a probabilistic perspective we can gain some insights into <em>error function</em>, <em>regularization</em> and <em>a full Bayesian treatment</em>.</p>
+<p>Now we first use a Gaussian to predict the distribution of data <span class="math display">\[
+p(t|x,\mathbf{w}, \beta) = \mathcal{N} (t| y(x,\mathbf{w}), \beta^{-1})
+\]</span> Here <span class="math inline">\(y(x,\mathbf{w})= \sum_{j=0}^M w_j x^j\)</span> is the polynomial function defined before, and <span class="math inline">\(\beta = 1/\sigma^2\)</span> is called the precision of the Gaussian. Using maximum likelihood on the training data <span class="math inline">\(\{\mathtt{x}, \mathtt{t}\}\)</span>, the likelihood function is given by <span class="math display">\[
+p(\mathtt{t}|\mathtt{x},\mathbf{w}, \beta) = \prod_{n=1}^N\mathcal{N} (t_n| y(x_n,\mathbf{w}), \beta^{-1})
+\]</span> And we have <span class="math display">\[
+\begin{aligned}
+&amp;\mathop{\arg\max}_\mathbf{w} \ p(\mathtt{t}|\mathtt{x},\mathbf{w}, \beta)
+\\=\ &amp;\mathop{\arg\max}_\mathbf{w} \ \ln p(\mathtt{t}|\mathtt{x},\mathbf{w}, \beta)
+\\=\ &amp;\mathop{\arg\max}_\mathbf{w} \ -\frac{\beta}{2}\sum_{n=1}^N [y(x_n,\mathbf{w})-t_n]^2 + \frac{N}{2}\ln\beta - \frac{N}{2}\ln (2\pi)
+\\=\ &amp;\mathop{\arg\min}_\mathbf{w} \ \frac{1}{2}\sum_{n=1}^N [y(x_n,\mathbf{w})-t_n]^2
+\end{aligned}
+\]</span> We can see that <em>maximizing the log likelihood reach the same optimum as minimizing the sum-of squares error function</em>. Further maximize w.r.t. <span class="math inline">\(\beta\)</span> we get <span class="math display">\[
+\frac{1}{\beta_\mathrm{ML}} =  \frac{1}{N}\sum_{n=1}^N [y(x_n,\mathbf{w}_\mathrm{ML})-t_n]^2
+\]</span> Now we have a probabilistic model expressed in terms of the <strong>predictive distribution</strong> by <span class="math display">\[
+p(t|x,\mathbf{w}_\mathrm{ML}, \beta_\mathrm{ML}) = \mathcal{N} (t| y(x,\mathbf{w}_\mathrm{ML}), \beta_\mathrm{ML}^{-1})
+\]</span> For a more Bayesian approach, we introduce a prior distribution over <span class="math inline">\(\mathbf{w}\)</span> as Gaussian for simplicity <span class="math display">\[
+p(\mathbf{w}|\alpha) = \mathcal{N}(\mathbf{w}|\mathbf{0}, \alpha^{-1}\mathbf{I}) = \left(\frac{\alpha}{2\pi}\right)^{(M+1)/2} \exp \left\{-\frac{\alpha}{2}\mathbf{w}^T\mathbf{w}\right\}
+\]</span> Using Bayes theorem, <span class="math display">\[
+p(\mathbf{w}|\mathtt{x}, \mathtt{t}, \alpha, \beta) = \frac{p(\mathtt{t}|\mathtt{x}, \mathbf{w}, \beta)p(\mathbf{w}|\alpha)}{p(\mathtt{t}|\mathtt{x}, \beta)} \propto p(\mathtt{t}|\mathtt{x}, \mathbf{w}, \beta)p(\mathbf{w}|\alpha)
+\]</span> To maximize the posterior probability w.r.t. <span class="math inline">\(\mathbf{w}\)</span>, it is equivalent to <span class="math display">\[
+\begin{aligned}
+&amp;\mathop{\arg\max}_\mathbf{w} \ p(\mathbf{w}|\mathtt{x}, \mathtt{t}, \alpha, \beta) 
+\\=\ &amp;\mathop{\arg\max}_\mathbf{w} \ \ln [p(\mathtt{t}|\mathtt{x}, \mathbf{w}, \beta)p(\mathbf{w}|\alpha)]
+\\=\ &amp;\mathop{\arg\max}_\mathbf{w} \ -\frac{\beta}{2}\sum_{n=1}^N [y(x_n,\mathbf{w})-t_n]^2 + \frac{N}{2}\ln\beta - \frac{N}{2}\ln (2\pi) -\frac{\alpha}{2}\mathbf{w}^T\mathbf{w}+ \frac{M+1}{2}\ln\alpha - \frac{M+1}{2}\ln(2\pi)
+\\=\ &amp;\mathop{\arg\max}_\mathbf{w} \ -\frac{\beta}{2}\sum_{n=1}^N [y(x_n,\mathbf{w})-t_n]^2 -\frac{\alpha}{2}\mathbf{w}^T\mathbf{w}
+\\=\ &amp;\mathop{\arg\min}_\mathbf{w} \ \sum_{n=1}^N [y(x_n,\mathbf{w})-t_n]^2 +\frac{\alpha}{\beta}\mathbf{w}^T\mathbf{w}
+\end{aligned}
+\]</span> This technique is called <strong>maximum posterior (MAP)</strong>, and we can see that <em>maximizing the posterior is equivalent to minimizing the regularized sum-of-square error with <span class="math inline">\(\lambda = \alpha/\beta\)</span></em>.</p>
+<h3 id="bayesian-curve-fitting">Bayesian Curve Fitting</h3>
+<p>So far the predictive distribution gives a non-point estimate for <span class="math inline">\(t\)</span>, but it is predicted under a point estimate <span class="math inline">\(\mathbf{w}_\mathrm{ML}\)</span>, or <span class="math inline">\(\mathbf{w}_\mathrm{MAP}\)</span>. In a fully Bayesian approach, we should integrate all values of <span class="math inline">\(\mathbf{w}\)</span> <span class="math display">\[
+p(t|x,\mathtt{x},\mathtt{t}) = \int p(t|x,\mathbf{w})p(\mathbf{w}|\mathtt{x},\mathtt{t})\mathrm{d}\mathbf{w}
+\]</span> Here the precisions <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are assumed fixed and known in advance, which will discussed in section 3.3, together with the solution of the integral above.</p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/PRML/">#PRML</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2018/12/21/ssr/">ShadowsocksR资源整理</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2018/04/22/PRML1-1/">(PRML Notes 1.1) Polynomial Curve Fitting as an Introductory Example</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/2018/04/23/PRML1-2/';
+        this.page.identifier = 'prml1-2';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2018 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
