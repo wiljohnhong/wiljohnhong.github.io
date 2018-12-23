@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Hexo配置备忘 - Wiljohn&#39;s Blog</title>
+<title>PRML Notes 1.1 Example -- Polynomial Curve Fitting - Wiljohn&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -12,18 +12,22 @@
 
 
 
-    <meta name="description" content="Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。 Minos is a simple and retro styled Hexo theme, concentrating more on your ideas.  基本流程 hexo建站基本配置直接参照官网步骤，配置主题为Minos。 公式支持 网上">
-<meta name="keywords" content="memo,hexo">
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This introduction chapter is mainly composed of these three theories:  Probability theory provides a framework for expressing u">
+<meta name="keywords" content="PRML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo配置备忘">
-<meta property="og:url" content="http://wiljohn.top/2018/01/12/hexo-install/index.html">
+<meta property="og:title" content="PRML Notes 1.1 Example -- Polynomial Curve Fitting">
+<meta property="og:url" content="http://wiljohn.top/2018/04/22/PRML1-1/index.html">
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
-<meta property="og:description" content="Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。 Minos is a simple and retro styled Hexo theme, concentrating more on your ideas.  基本流程 hexo建站基本配置直接参照官网步骤，配置主题为Minos。 公式支持 网上">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This introduction chapter is mainly composed of these three theories:  Probability theory provides a framework for expressing u">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-12-21T14:10:06.964Z">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/46692220.jpg">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/27012787.jpg">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/6343827.jpg">
+<meta property="og:updated_time" content="2018-12-23T08:27:02.429Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo配置备忘">
-<meta name="twitter:description" content="Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。 Minos is a simple and retro styled Hexo theme, concentrating more on your ideas.  基本流程 hexo建站基本配置直接参照官网步骤，配置主题为Minos。 公式支持 网上">
+<meta name="twitter:title" content="PRML Notes 1.1 Example -- Polynomial Curve Fitting">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This introduction chapter is mainly composed of these three theories:  Probability theory provides a framework for expressing u">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/46692220.jpg">
 
 
 
@@ -106,46 +110,69 @@
     <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            Hexo配置备忘
+            PRML Notes 1.1 Example -- Polynomial Curve Fitting
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2018-01-12T01:44:51.000Z" itemprop="datePublished">Jan 12 2018</time>
+            <time datetime="2018-04-22T08:06:07.000Z" itemprop="datePublished">Apr 22 2018</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            2 minutes read (About 350 words)
+            4 minutes read (About 580 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
         <blockquote>
-<p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
-<p>Minos is a simple and retro styled Hexo theme, concentrating more on your ideas.</p>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
 </blockquote>
-<h3 id="基本流程">基本流程</h3>
-<p>hexo建站基本配置直接参照<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官网步骤</a>，配置主题为<a href="https://github.com/ppoffice/hexo-theme-minos" target="_blank" rel="noopener">Minos</a>。</p>
-<h3 id="公式支持">公式支持</h3>
-<p>网上广为流传的替换hexo默认渲染为<code>hexo-renderer-kramed</code>的方法，仍然会存在<strong>行内公式含两个引号时中间部分被渲染为斜体</strong>的问题。</p>
-<p>最后参照<a href="https://jdhao.github.io/2017/10/06/hexo-markdown-latex-equation/" target="_blank" rel="noopener">Hexo 书写 LaTeX 公式时的一些问题及解决方法</a>，替换默认渲染为<code>hexo-renderer-pandoc</code>。</p>
-<p>-- <em>注意1：事先去<a href="https://github.com/jgm/pandoc/releases" target="_blank" rel="noopener">pandoc官方下载</a>最新版本的pandoc，否则直接使用<code>apt install pandoc</code>可能在run服务时因为版本过低出现<code>pandoc: Unknown extension: smart</code>的问题</em></p>
-<p>-- <em>注意2：替换完成后主题内的依赖关系不会自动更改，需要将<code>themes/minos/scripts/01_check.js</code>中对默认渲染的依赖项<code>'hexo-renderer-marked'</code>手动替换为<code>'hexo-renderer-pandoc'</code></em></p>
-<h3 id="图像居中">图像居中</h3>
-<p>为了美观（强迫症），修改<code>themes/source/css/style.scss</code>中<code>display</code>属性为<code>block</code>，添加属性<code>text-align: center</code>。</p>
+<p>This introduction chapter is mainly composed of these three theories:</p>
+<ul>
+<li><p><strong>Probability theory</strong> provides a framework for expressing uncertainty in a precise and quantitative manner.</p></li>
+<li><p><strong>Decision theory</strong> allows us to exploit probabilistic representation in order to make predictions that are optimal.</p></li>
+<li><p><strong>Information theory</strong> studies the quantification, storage, and communication of information.</p></li>
+</ul>
+<a id="more"></a>
+<h2 id="example-polynomial-curve-fitting">Example: Polynomial Curve Fitting</h2>
+<p>Consider a given data set <span class="math inline">\(\mathbf{x} \equiv (x_1, ..., x_N)^T\)</span> and with the corresponding values <span class="math inline">\(\mathbf{t} \equiv (t_1, ..., t_N)^T\)</span>, where the values are generated by <span class="math display">\[
+t_i = \sin(2\pi x_i) + \epsilon, \ i= 1,2,...,N
+\]</span> Here <span class="math inline">\(\epsilon\)</span> is a small random noise following a Gaussian distribution. A simple approach of curve fitting is to fit the data using a polynomial function <span class="math display">\[
+y(x, \mathbf{w}) = w_0 + w_1x  + w_2x^2 + ... + w_Mx^M = \sum_{j=0}^M w_j x^j
+\]</span> It is not a linear function of <span class="math inline">\(x\)</span>, but linear in <span class="math inline">\(\mathbf{w}\)</span> by viewing <span class="math inline">\(x^j\)</span> as the parameter of <span class="math inline">\(w_j\)</span>. The curve fitting can be done by minimizing an <em>error function</em> like <span class="math display">\[
+E(\mathbf{w} ) = \frac{1}{2} \sum_{n=1}^N [y(x_n ,\mathbf{w}) - t_n]^2
+\]</span> <img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/46692220.jpg" alt="Representation of the error."></p>
+<p>Since the error function is quadratic of <span class="math inline">\(\mathbf{w}\)</span>, the minimization of <span class="math inline">\(E(\mathbf{w})\)</span> has a unique solution <span class="math inline">\(\mathbf{x}^*\)</span>. To compare different sizes of data sets on an equal footing, it is sometimes more convenient to use the <strong>root-mean-square(RMS) error</strong> <span class="math display">\[
+E_{RMS}  = \sqrt{2E(\mathbf{w}^*)/N}
+\]</span> However, minimizing the error is not the same thing as getting a better model. if our model is more complex, for example if <span class="math inline">\(M\)</span> is too large, we may suffer from the <strong>over-fitting</strong> problem, namely our model will perform much worse on unseen data.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/27012787.jpg" alt="Over-fitting problem."><figcaption>Over-fitting problem.</figcaption>
+</figure>
+<blockquote>
+<p>Generally speaking, I think the most data generated from nature follows the law of simplicity, something like the Occam's Razor, so one should select the model that makes the fewest assumptions. This is expressed as prior knowledge later in Bayesian probability later.</p>
+</blockquote>
+<p>One approach to avoid over-fitting is <strong>regularization</strong>, adding a penalty term to the error function, for example <span class="math display">\[
+\widetilde{E}(\mathbf{w}) = \frac{1}{2} \sum_{n=1}^N [y(x_n ,\mathbf{w}) - t_n]^2 + \frac{\lambda}{2} \|\mathbf{w}\|^2
+\]</span> Note that often the coefficient <span class="math inline">\(w_0\)</span> is omitted from the regularization because its inclusion causes the results to depend on the choice of origin for the target variable. It may be included but with its own regularization coefficient.</p>
+<blockquote>
+<p>Perhaps under many circumstances, the data may be generated from some rule like <span class="math inline">\(t_i = \sin(2\pi x_i) + b + \epsilon\)</span>, not simply as <span class="math inline">\(t_i = \sin(2\pi x_i) + \epsilon\)</span>, and we should learn the natural bias instead of penalize it.</p>
+</blockquote>
+<p>Such techniques are known as <strong>shrinkage</strong> in statistics literature, the particular case of a quadratic regularizer is called <strong>ridge regression</strong>, and in the context of neural networks, this approach is known as <strong>weight decay</strong>.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/6343827.jpg" alt="Selection of Models with different complexity"><figcaption>Selection of Models with different complexity</figcaption>
+</figure>
+<p>To determine the suitable value of model complexity (either <span class="math inline">\(M\)</span> or <span class="math inline">\(\lambda\)</span> here in the context), we can partition the available data into a <strong>training set</strong>, used to determine the coefficients <span class="math inline">\(\mathbf{w}\)</span>, and a separate <strong>validation set</strong>, or called a <strong>hold-out set</strong>, used to optimize the model complexity.</p>
 
     
     </div>
     
     <div class="columns is-variable is-1 is-multiline is-mobile">
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/memo/">#memo</a></span>
-    
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/hexo/">#hexo</a></span>
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/PRML/">#PRML</a></span>
     
     </div>
     
@@ -153,10 +180,12 @@
     <div class="columns is-mobile is-multiline article-nav">
         <span class="column is-12-mobile is-half-desktop  article-nav-prev">
             
-            <a href="/2018/04/18/variations/">Calculus of Variations</a>
+            <a href="/2018/12/21/ssr/">ShadowsocksR资源整理</a>
             
         </span>
-        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-next">
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2018/04/21/KKT/">Lagrange Multiplier and KKT Conditions</a>
             
         </span>
     </div>
@@ -178,8 +207,8 @@
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://wiljohn.top/2018/01/12/hexo-install/';
-        this.page.identifier = 'hexo-install';
+        this.page.url = 'http://wiljohn.top/2018/04/22/PRML1-1/';
+        this.page.identifier = 'prml1-1';
         
         this.language = 'en';
         
