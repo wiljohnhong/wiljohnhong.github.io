@@ -21,7 +21,7 @@
 <meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Model Selection Training set is used to generate the predictive models and validation set to select the one with the best predi">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/96251872.jpg">
-<meta property="og:updated_time" content="2018-12-23T16:05:48.254Z">
+<meta property="og:updated_time" content="2018-12-23T16:14:27.867Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 1.3 Model Selection">
 <meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Model Selection Training set is used to generate the predictive models and validation set to select the one with the best predi">
@@ -132,11 +132,11 @@
 <h2 id="model-selection">Model Selection</h2>
 <p><strong>Training set</strong> is used to generate the predictive models and <strong>validation set</strong> to select the one with the best predictive performance. But if the model design is iterated many times using a limited size data set, then some over-fitting to the validation data can occur and we keep aside a third <strong>test set</strong> to evaluate the performance of the final selected model.</p>
 <a id="more"></a>
-<p>Since separating a finite data set into these subsets is wasteful for data, we use K-fold cross-validation to assess performance. At the beginning the data is separated into groups, each time groups is used to train model and the remained one to evaluate. This procedure is repeated for all possible choices. When data is particularly scarce, we consider the case , where the number of groups equals to the data points, which gives out the leave-one-out technique.</p>
+<p>Since separating a finite data set into these subsets is wasteful for data, we use <strong>K-fold</strong> cross-validation to assess performance. At the beginning the data is separated into groups, each time groups are used to train model and the remained one to evaluate. This procedure is repeated for all possible choices. When data is particularly scarce, we consider the case where the number of groups equals to the data points, which gives out the <strong>leave-one-out</strong> technique.</p>
 <figure>
 <img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/96251872.jpg" alt="4-fold example."><figcaption>4-fold example.</figcaption>
 </figure>
-<p>It's computationally expensive if <span class="math inline">\(K\)</span> is large, and often we should evaluate a model under every possible hyperparameter choice, which require training runs exponential in the number of parameters. So we need to find a measure of performance which depends only on the training data and not suffer from bias due to over-fitting (so that only a single run is needed).</p>
+<p>It's computationally expensive if <span class="math inline">\(K\)</span> is large, and often we should evaluate a model under every possible hyperparameter choice, which require training runs exponential in the number of parameters. So we need to find a measure of performance which depends only on the training data and not suffers from bias due to over-fitting (so that only a single run is needed).</p>
 <p><strong>Akaike information criterion (AIC)</strong> chooses model for which the quantity <span class="math display">\[
 \ln p(\mathcal{D}|\mathbf{w}_\mathrm{ML}) -M
 \]</span> is largest, where <span class="math inline">\(p(\mathcal{D}|\mathbf{w}_\mathrm{ML})\)</span> is the best-fit likelihood, and <span class="math inline">\(M\)</span> is the number of adjustable parameters in the model.</p>
@@ -155,7 +155,7 @@
     <div class="columns is-mobile is-multiline article-nav">
         <span class="column is-12-mobile is-half-desktop  article-nav-prev">
             
-            <a href="/2018/12/21/ssr/">ShadowsocksR资源整理</a>
+            <a href="/2018/04/29/PRML1-4/">(PRML Notes) 1.4 The Curse of Dimensionality</a>
             
         </span>
         <span class="column is-12-mobile is-half-desktop  article-nav-next">

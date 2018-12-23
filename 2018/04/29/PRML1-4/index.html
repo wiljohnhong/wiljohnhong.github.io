@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Tag: PRML - Wiljohn&#39;s Blog</title>
+<title>(PRML Notes) 1.4 The Curse of Dimensionality - Wiljohn&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -12,13 +12,21 @@
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Wiljohn&#39;s Blog">
-<meta property="og:url" content="http://wiljohn.top/tags/PRML/index.html">
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  The Curse of Dimensionality Consider a naive &quot;cell&quot; solution for classification, which divide the input space into many cells a">
+<meta name="keywords" content="PRML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(PRML Notes) 1.4 The Curse of Dimensionality">
+<meta property="og:url" content="http://wiljohn.top/2018/04/29/PRML1-4/index.html">
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  The Curse of Dimensionality Consider a naive &quot;cell&quot; solution for classification, which divide the input space into many cells a">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/49913951.jpg">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/6320386.jpg">
+<meta property="og:updated_time" content="2018-12-23T16:18:47.192Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Wiljohn&#39;s Blog">
+<meta name="twitter:title" content="(PRML Notes) 1.4 The Curse of Dimensionality">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  The Curse of Dimensionality Consider a naive &quot;cell&quot; solution for classification, which divide the input space into many cells a">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/49913951.jpg">
 
 
 
@@ -96,62 +104,12 @@
     </div>
 </nav>
 
-    <section class="section section-heading">
+    <section class="section">
     <div class="container">
-        <div class="content">
-            <h5>#PRML</h5>
-        </div>
-    </div>
-</section>
-<section class="section">
-    <div class="container">
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2018/04/30/PRML1-5/" itemprop="url">(PRML Notes) 1.5 Decision Theory</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-30T10:38:59.000Z" itemprop="datePublished">Apr 30 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            16 minutes read (About 2379 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<h2 id="decision-theory">Decision Theory</h2>
-<p>Decision theory allows us to make optimal decisions in situations involving uncertainty.</p>
-<p>Informally, for classification problem, we are interested in the posterior probability given data which belongs to a class <span class="math inline">\(\mathcal{C}_k\)</span> <span class="math display">\[
-p(\mathcal{C}_k|\mathbf{x}) = \frac{p(\mathbf{x}|\mathcal{C}_k)p(\mathcal{C}_k)}{p(\mathbf{x})}
-\]</span> Our aim is to minimize the chance of assigning <span class="math inline">\(\mathbf{x}\)</span> to the wrong class, then intuitively we would choose the class having the higher posterior probability. Actually the intuition is correct, which is shown below.</p>
-        <p class="article-more-link">
-            <a href="/2018/04/30/PRML1-5/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/04/29/PRML1-4/" itemprop="url">(PRML Notes) 1.4 The Curse of Dimensionality</a>
+            (PRML Notes) 1.4 The Curse of Dimensionality
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -176,145 +134,81 @@ p(\mathcal{C}_k|\mathbf{x}) = \frac{p(\mathbf{x}|\mathcal{C}_k)p(\mathcal{C}_k)}
 <p>Consider a naive "cell" solution for classification, which divide the input space into many cells and any point is assigned to the class that has a majority number of representatives in the same cell as the test point.</p>
 <p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/49913951.jpg"></p>
 <p>One problem is we need to gather exponentially large quantity of data as the number of cells grows exponentially in higher dimensions in order to ensure that the cells are not empty.</p>
-        <p class="article-more-link">
-            <a href="/2018/04/29/PRML1-4/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/04/28/PRML1-3/" itemprop="url">(PRML Notes) 1.3 Model Selection</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-28T10:38:59.000Z" itemprop="datePublished">Apr 28 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            2 minutes read (About 291 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<h2 id="model-selection">Model Selection</h2>
-<p><strong>Training set</strong> is used to generate the predictive models and <strong>validation set</strong> to select the one with the best predictive performance. But if the model design is iterated many times using a limited size data set, then some over-fitting to the validation data can occur and we keep aside a third <strong>test set</strong> to evaluate the performance of the final selected model.</p>
-        <p class="article-more-link">
-            <a href="/2018/04/28/PRML1-3/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/04/23/PRML1-2/" itemprop="url">(PRML Notes) 1.2 Probability Theory</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-23T10:16:57.000Z" itemprop="datePublished">Apr 23 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            12 minutes read (About 1862 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<h2 id="probability-theory">Probability Theory</h2>
-<p>Due to the finite size of data sets and the noise on measurements, we use probability to express the uncertainty in pattern recognition. Some concepts like sum rule, product rule, marginal probability, joint probability, conditional probability are very basic, but for this book it would be worthy of gaining insight into <strong>Bayes theorem</strong>, which plays a central role in PRML <span class="math display">\[
-p(Y|X) = \frac{p(X|Y)p(Y)}{p(X)}
-\]</span> Using sum rule, the denominator, which can be viewed as a normalizer, can also be expressed in terms of quantities appearing in the numerator <span class="math display">\[
-p(X) = \sum_Y p(X|Y)p(Y)
-\]</span></p>
-        <p class="article-more-link">
-            <a href="/2018/04/23/PRML1-2/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/04/22/PRML1-1/" itemprop="url">(PRML Notes) 1.1 Polynomial Curve Fitting as an Introductory Example</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-22T08:06:07.000Z" itemprop="datePublished">Apr 22 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            4 minutes read (About 580 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>This introduction chapter is mainly composed of these three theories:</p>
+<a id="more"></a>
+<p>Similarly, the number of coefficients in polynomial curve fitting will grow in power law as the dimension increases, making the method becomes unwieldy. For example an order-3 polynomial takes the form <span class="math display">\[
+y(\mathbf{x}, \mathbf{w}) = w_0 + \sum_{i=1}^D w_i x_i + \sum_{i=1}^D\sum_{j=1}^i w_{ij}x_ix_j + \sum_{i=1}^D\sum_{j=1}^i\sum_{k=1}^j w_{ijk} x_i x_j x_k
+\]</span> On geometrical intuitions, the volume of <span class="math inline">\(D\)</span>-dimensional sphere <span class="math inline">\(V_D(r)=K_Dr^D\)</span> where the constant <span class="math inline">\(K_D\)</span> only depends on <span class="math inline">\(D\)</span>, and most of the volume is concentrated in a thin shell near the surface since <span class="math display">\[
+\frac{V_D(1) - V_D(1-\epsilon)}{V_D(1)} = 1-(1-\epsilon)^D
+\]</span> For a Gaussian as well, most of the probability mass is located within a thin shell at a specific radius.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/6320386.jpg" alt="Plot of the probability density w.r.t. r of a Gaussian."><figcaption>Plot of the probability density w.r.t. <span class="math inline">\(r\)</span> of a Gaussian.</figcaption>
+</figure>
+<p>So not all intuitions developed in spaces of low dimensionality will generalize to spaces of many dimensions, such difficulty is called the <strong>curse of dimensionality</strong>. However, It's not a severe problem in real application because</p>
 <ul>
-<li><p><strong>Probability theory</strong> provides a framework for expressing uncertainty in a precise and quantitative manner.</p></li>
-<li><p><strong>Decision theory</strong> allows us to exploit probabilistic representation in order to make predictions that are optimal.</p></li>
-<li><p><strong>Information theory</strong> studies the quantification, storage, and communication of information.</p></li>
+<li>Real data is often confined to a <em>subspace</em> in high dimensional space (like high dimensional image data generated from <span class="math inline">\(3D\)</span> real world)</li>
+<li>Real data typically exhibit some <em>smoothness</em> properties, where interpolation can be applied to gain more data (the same reason for regularization being applied)</li>
 </ul>
-        <p class="article-more-link">
-            <a href="/2018/04/22/PRML1-1/#more">Read More</a>
-        </p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/PRML/">#PRML</a></span>
     
     </div>
     
     
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2018/04/30/PRML1-5/">(PRML Notes) 1.5 Decision Theory</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2018/04/28/PRML1-3/">(PRML Notes) 1.3 Model Selection</a>
+            
+        </span>
+    </div>
+    
 </article>
 
 
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
 
 
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
     
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/2018/04/29/PRML1-4/';
+        this.page.identifier = 'prml1-4';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
     
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
     </div>
 </section>
     <footer class="footer">
