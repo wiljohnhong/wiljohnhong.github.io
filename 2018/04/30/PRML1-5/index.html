@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/11235035.jpg">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/80196176.jpg">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/76982210.jpg">
-<meta property="og:updated_time" content="2018-12-23T16:21:14.542Z">
+<meta property="og:updated_time" content="2018-12-24T06:29:29.947Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 1.5 Decision Theory">
 <meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Decision Theory Decision theory allows us to make optimal decisions in situations involving uncertainty. Informally, for classi">
@@ -122,7 +122,7 @@
         <span class="column is-narrow">
             
             
-            16 minutes read (About 2379 words)
+            16 minutes read (About 2383 words)
         </span>
         
     </div>
@@ -138,22 +138,22 @@ p(\mathcal{C}_k|\mathbf{x}) = \frac{p(\mathbf{x}|\mathcal{C}_k)p(\mathcal{C}_k)}
 \]</span> Our aim is to minimize the chance of assigning <span class="math inline">\(\mathbf{x}\)</span> to the wrong class, then intuitively we would choose the class having the higher posterior probability. Actually the intuition is correct, which is shown below.</p>
 <a id="more"></a>
 <h3 id="minimizing-the-miss-classification-rate">Minimizing the Miss Classification Rate</h3>
-<p>Suppose the input space is divided into regions <span class="math inline">\(\mathcal{R_k}\)</span>, called <strong>decision regions</strong>, one for each class, so that all points in it are classifies to <span class="math inline">\(\mathcal{C_k}\)</span>. The boundaries between decision regions are called <strong>decision boundaries</strong> or <strong>decision surfaces</strong>. First consider the binary classification, the probability of a mistake that <span class="math inline">\(\mathbf{x}\)</span> in <span class="math inline">\(\mathcal{C_1}\)</span> assigned to <span class="math inline">\(\mathcal{C_2}\)</span> and vice versa is <span class="math display">\[
+<p>Suppose the input space is divided into regions <span class="math inline">\(\mathcal{R_k}\)</span>, called <strong>decision regions</strong>, one for each class, so that all points in it are classified to <span class="math inline">\(\mathcal{C_k}\)</span>. The boundaries between decision regions are called <strong>decision boundaries</strong> or <strong>decision surfaces</strong>. First consider the binary classification, the probability of a mistake that <span class="math inline">\(\mathbf{x}\)</span> in <span class="math inline">\(\mathcal{C_1}\)</span> assigned to <span class="math inline">\(\mathcal{C_2}\)</span> and vice versa is <span class="math display">\[
 \begin{aligned}
 p(\mathrm{mistake}) &amp;= p(\mathbf{x}\in \mathcal{R}_1, \mathcal{C_2}) + p(\mathbf{x}\in \mathcal{R}_2, \mathcal{C_1})
 \\&amp;= \int_\mathcal{R_1} p(\mathbf{x}, \mathcal{C}_2)\ \mathrm{d}\mathbf{x} + \int_\mathcal{R_2} p(\mathbf{x}, \mathcal{C}_1)\ \mathrm{d}\mathbf{x}
 \end{aligned}
 \]</span> For a <em>given</em> value of <span class="math inline">\(\mathbf{x}\)</span>, to minimize <span class="math inline">\(p(\mathrm{mistake})\)</span>, obviously we should assign it to class <span class="math inline">\(\mathcal{C_1}\)</span> if <span class="math inline">\(p(\mathbf{x}, \mathcal{C}_1) &gt; p(\mathbf{x}, \mathcal{C}_2)\)</span>. And since <span class="math inline">\(p(\mathbf{x}, \mathcal{C}_k) = p(\mathcal{C}_k|\mathbf{x})p(\mathbf{x})\)</span>, where <span class="math inline">\(p(\mathbf{x})\)</span> is common for both terms, we can only compare the posterior <span class="math inline">\(p(\mathcal{C}_k|\mathbf{x})\)</span>, and the minimum <span class="math inline">\(p(\mathrm{mistake})\)</span> is achieved by assigning <span class="math inline">\(\mathbf{x}\)</span> to the class with the larger <span class="math inline">\(p(\mathcal{C}_k|\mathbf{x})\)</span>.</p>
 <figure>
-<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/11235035.jpg" alt="The decision boundary is at x_0, since when  moves towards x_0, the red error area disappears."><figcaption>The decision boundary is at x_0, since when  moves towards x_0, the red error area disappears.</figcaption>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/11235035.jpg" alt="The decision boundary is at x_0, since when \hat{x} moves towards x_0, the red error area disappears."><figcaption>The decision boundary is at <span class="math inline">\(x_0\)</span>, since when <span class="math inline">\(\hat{x}\)</span> moves towards <span class="math inline">\(x_0\)</span>, the red error area disappears.</figcaption>
 </figure>
 <p>For the more general case of <span class="math inline">\(K\)</span> classes, the mistake occurs when <span class="math inline">\(\mathbf{x}\)</span> in class <span class="math inline">\(\mathcal{C_k}\)</span> is assigned to <span class="math inline">\(\mathcal{C_j}\)</span> <span class="math display">\[
 p(\mathrm{mistake}) = \sum_j \sum_{k\neq j}\int_\mathcal{R_j} p(\mathbf{x}, \mathcal{C}_k)\ \mathrm{d}\mathbf{x}
-\]</span> It is more clear and equivalent by maximizing the probability of being correct <span class="math display">\[
+\]</span> It is equivalent and more clear to maximize the probability of being correct <span class="math display">\[
 p(\mathrm{correct}) = 1-p(\mathrm{mistake}) =\sum_k \int_\mathcal{R_k} p(\mathbf{x}, \mathcal{C}_k)\ \mathrm{d}\mathbf{x}
 \]</span> Again if aim to minimizing the misclassification rate only, each single <span class="math inline">\(\mathbf{x}\)</span> should be assigned to the class having the maximum posterior <span class="math inline">\(p(\mathcal{C}_k|\mathbf{x})\)</span>.</p>
 <h3 id="minimizing-the-expected-loss">Minimizing the Expected Loss</h3>
-<p>Usually some misclassification like diagnosing a patient with cancer as healthy is much more severe than other case and should be punished more. Here we can introduce a <strong>loss matrix</strong> like <span class="math display">\[
+<p>Usually some misclassification like diagnosing a patient with cancer as healthy is much more severe than the opposite case and should be punished more. Here we can introduce a <strong>loss matrix</strong> like <span class="math display">\[
 \begin{array}{@{}r@{}c@{}c@{}c@{}c@{}l@{}}
     &amp; \mathrm{cancer} &amp; \mathrm{normal}  \\
     \left.\begin{array}
@@ -165,7 +165,7 @@ p(\mathrm{correct}) = 1-p(\mathrm{mistake}) =\sum_k \int_\mathcal{R_k} p(\mathbf
 \]</span> Here 1000 denotes a man with cancer diagnosed as normal will be punished 1000 times than a normal man misdiagnosed.</p>
 <p>Again the mistake occurs when <span class="math inline">\(\mathbf{x}\)</span> in class <span class="math inline">\(\mathcal{C_k}\)</span> is assigned to <span class="math inline">\(\mathcal{C_j}\)</span>, and the expected loss is given by <span class="math display">\[
 \mathbb{E}[L]= \sum_j \sum_{k}\int_\mathcal{R_j} L_{kj}p(\mathbf{x}, \mathcal{C}_k)\ \mathrm{d}\mathbf{x}
-\]</span> Consider for a single data <span class="math inline">\(\mathbf{x}\)</span> and choose the region <span class="math inline">\(\mathcal{R_j}\)</span> it belongs to, we should minimize <span class="math inline">\(\sum_k L_{kj}p(\mathbf{x}, \mathcal{C}_k)\)</span>, and as before it is equivalent to minimize <span class="math inline">\(\sum_k L_{kj}p( \mathcal{C}_k|\mathbf{x})\)</span>. For example, if a patient with diagnosis <span class="math inline">\(\mathbf{x}\)</span> has <span class="math inline">\(0.9\)</span> probability having cancer, i.e. <span class="math inline">\(p( \mathcal{C}_\mathrm{cancer}|\mathbf{x})=0.1\)</span> and <span class="math inline">\(p( \mathcal{C}_\mathrm{normal}|\mathbf{x})=0.9\)</span>, then the error at this specific point <span class="math inline">\(\mathbf{x}\)</span> is <span class="math inline">\(0*0.1+1*0.9 = 0.9\)</span> if we classify it as having cancer and <span class="math inline">\(1000*0.1+0*0.9=100\)</span> if we classify it as normal.</p>
+\]</span> Consider for a single data <span class="math inline">\(\mathbf{x}\)</span> and choose the region <span class="math inline">\(\mathcal{R_j}\)</span> it belongs to, we should minimize <span class="math inline">\(\sum_k L_{kj}p(\mathbf{x}, \mathcal{C}_k)\)</span>, and as before it is equivalent to minimize <span class="math inline">\(\sum_k L_{kj}p( \mathcal{C}_k|\mathbf{x})\)</span> w.r.t. <span class="math inline">\(j\)</span>. For example, if a patient with diagnosis <span class="math inline">\(\mathbf{x}\)</span> has <span class="math inline">\(0.1\)</span> probability having cancer, i.e. <span class="math inline">\(p( \mathcal{C}_\mathrm{cancer}|\mathbf{x})=0.1\)</span> and <span class="math inline">\(p( \mathcal{C}_\mathrm{normal}|\mathbf{x})=0.9\)</span>, then the expected error at this specific point <span class="math inline">\(\mathbf{x}\)</span> is <span class="math inline">\(0*0.1+1*0.9 = 0.9\)</span> if we classify it as having cancer and <span class="math inline">\(1000*0.1+0*0.9=100\)</span> if we classify it as normal.</p>
 <h3 id="the-rejection-opinion">The Rejection Opinion</h3>
 <p>Usually it will be appropriate to <em>avoid making decision</em> if we are uncertain about class membership, by introducing a threshold <span class="math inline">\(\theta\)</span> to reject those inputs <span class="math inline">\(\mathbf{x}\)</span> where <span class="math inline">\(\max_k p( \mathcal{C}_k|\mathbf{x}) &lt; \theta\)</span>.</p>
 <p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/80196176.jpg"></p>
@@ -176,34 +176,34 @@ p(\mathrm{correct}) = 1-p(\mathrm{mistake}) =\sum_k \int_\mathcal{R_k} p(\mathbf
 <li><strong>Decision</strong> stage: making optimal class assignments for new data</li>
 </ul>
 <p>Alternatively we can combine the two stages and simply learn a discriminant function that maps inputs <span class="math inline">\(\mathbf{x}\)</span> directly into decisions.</p>
-<p>In fact, there are three approaches to solve decision problem, in increasing order of complexity they are</p>
+<p>In fact, there are three approaches to solve decision problem, in decreasing order of complexity they are</p>
 <ol type="1">
 <li><p><strong>Generative model</strong>: explicitly or implicitly model the distribution of inputs as well as outputs, by sampling from it is possible to generate synthetic data points in the input space. It first solve the inference problem by determining <span class="math inline">\(p(\mathbf{x}|\mathcal{C_k})\)</span> and <span class="math inline">\(p(\mathcal{C_k})\)</span>, then we can infer the posterior and make decision from <span class="math display">\[
 p(\mathcal{C_k}|\mathbf{x}) = \frac{p(\mathbf{x}|\mathcal{C_k})p(\mathcal{C_k})}{p(\mathbf{x})} = \frac{p(\mathbf{x}|\mathcal{C_k})p(\mathcal{C_k})}{\sum_kp(\mathbf{x}|\mathcal{C_k})p(\mathcal{C_k})}
 \]</span></p></li>
-<li><strong>Discriminative model</strong>: solve the inference problem directly from learning the posterior $p(|) $ and then make decision.</li>
+<li><strong>Discriminative model</strong>: solve the inference problem directly from learning the posterior <span class="math inline">\(p(\mathcal{C_k}|\mathbf{x})\)</span> and then make decision.</li>
 <li><p><strong>Discriminative function</strong>: combine both the inference and decision stage, learn a function that maps each input directly onto a class label.</p></li>
 </ol>
-<p>Generative model is the most demanding and often need large data to ensure accuracy, but is useful for detecting new data with low probability, known as <strong>outlier detection</strong> or <strong>novelty detection</strong>. If we only need to make decisions for classification, we only need the $p(|) $ in discriminative model.</p>
+<p><em>G model VS D model:</em> Generative model is the most demanding and often need large data to ensure accuracy, but is useful for detecting new data with low probability, known as <strong>outlier detection</strong> or <strong>novelty detection</strong>. If we only need to make decisions for classification, we only need the <span class="math inline">\(p(\mathcal{C_k}|\mathbf{x})\)</span> in discriminative model as shown below.</p>
 <figure>
 <img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/76982210.jpg" alt="The class-conditional density (or likelihood function) has no effect on posterior probabilities."><figcaption>The class-conditional density (or likelihood function) has no effect on posterior probabilities.</figcaption>
 </figure>
-<p>There are many reasons for wanting to compute the posterior, which can not be access in a single discriminative function</p>
+<p><em>Drawbacks of only D function:</em> There are many reasons for wanting to compute the posterior, which can not be accessed in a single discriminative function</p>
 <ul>
-<li><em>Minimizing risk</em>: no need to retrain the model if we only modify the loss matrix in decision stage.n</li>
+<li><em>Minimizing risk</em>: no need to retrain the model if we only modify the loss matrix in decision stage.</li>
 <li><em>Reject option</em>: depends on posterior.</li>
-<li><em>Compensating for class prior</em>: for better generalization, compute posterior on modified data set and then compensate the effects of modification.</li>
-<li><em>Combining models</em>: combine posterior for small problems which is tackle by a separate model.</li>
+<li><em>Compensating for class prior</em>: for better generalization, compute posterior on modified data set and then compensate the effects of modification. (Details shown below)</li>
+<li><em>Combining models</em>: combine posterior for small problems which is tackle by a separate model. (Details shown below)</li>
 </ul>
 <blockquote>
 <p>Details of "compensating for class prior": For example, cancer is rare and there may be only 1 in every 1000 training examples corresponds to cancer, our model can achieve 99.9% accuracy by simply assigning every point to the normal class, which is lack of generalization. One approach is to artificially select equal number of examples from both classes, but we have to compensate for this modification. The compensated posterior takes the form <span class="math display">\[
 \begin{aligned}
-p(\mathcal{C_\mathrm{cancer}}|\mathbf{x}) &amp;= \frac{p(\mathbf{x}|\mathcal{C_\mathrm{cancer}})p(\mathcal{C_k})}{p(\mathbf{x})} 
+p(\mathcal{C_\mathrm{cancer}}|\mathbf{x}) &amp;= \frac{p(\mathbf{x}|\mathcal{C_\mathrm{cancer}})p(\mathcal{C_\mathrm{cancer}})}{p(\mathbf{x})} 
 \\&amp;= \frac{p(\mathbf{x}|\mathcal{C_\mathrm{cancer}})\hat{p}(\mathcal{C_\mathrm{cancer}})}{p(\mathbf{x})} \frac{p(\mathcal{C_\mathrm{cancer}})}{\hat{p}(\mathcal{C_\mathrm{cancer}})} 
 \\&amp;= \hat{p}(\mathcal{C_\mathrm{cancer}}|\mathbf{x}) \frac{p(\mathcal{C_\mathrm{cancer}})}{\hat{p}(\mathcal{C_\mathrm{cancer}})}
 \end{aligned}
-\]</span> where $(|) $ is the posterior generated in balanced data set, and both the priors <span class="math inline">\(p(\mathcal{C_k})\)</span> and <span class="math inline">\(\hat{p}(\mathcal{C_k})\)</span> can be interpreted as the fractions of points in each class. And finally normalize the new posteriors to ensure they sum to 1. <em>(Here <span class="math inline">\(p(\mathbf{x})\)</span> doesn't change?)</em></p>
-<p>Details of "combining models": If the input spaces not only include the X-ray images but also blood tests, and there are models using only one kind of data, from <strong>conditional independent property</strong> we have <span class="math display">\[
+\]</span> where <span class="math inline">\(\hat{p}(\mathcal{C_\mathrm{cancer}}|\mathbf{x})\)</span> is the posterior generated in balanced data set, and both the priors <span class="math inline">\(p(\mathcal{C_\mathrm{cancer}})\)</span> and <span class="math inline">\(\hat{p}(\mathcal{C_\mathrm{cancer}})\)</span> can be interpreted as the fractions of points in each class.</p>
+<p>Details of "combining models": If the input spaces, for example, not only include the X-ray images but also blood tests, but now there are models using only one kind of data. Using <strong>conditional independent property</strong> we can combine these two models <span class="math display">\[
 \begin{aligned}
 p(\mathcal{C_k}|\mathbf{x_I}, \mathbf{x_B}) &amp;\propto p(\mathbf{x_I}, \mathbf{x_B}|\mathcal{C_k}) p(\mathcal{C_k})
 \\ &amp;= p(\mathbf{x_I}|\mathcal{C_k}) p(\mathbf{x_B}|\mathcal{C_k}) p(\mathcal{C_k})
@@ -211,7 +211,7 @@ p(\mathcal{C_k}|\mathbf{x_I}, \mathbf{x_B}) &amp;\propto p(\mathbf{x_I}, \mathbf
 \\ &amp;= \frac{ p(\mathcal{C_k}|\mathbf{x_I})p(\mathbf{x_I}) p(\mathcal{C_k}|\mathbf{x_B})p(\mathbf{x_B}) }{p(\mathcal{C_k})}
 \\ &amp;\propto  \frac{ p(\mathcal{C_k}|\mathbf{x_I}) p(\mathcal{C_k}|\mathbf{x_B}) }{p(\mathcal{C_k})}
 \end{aligned}
-\]</span> And again, finally normalize the new posteriors to ensure they sum to 1.</p>
+\]</span> And finally we should normalize the new posteriors to ensure they sum to 1.</p>
 </blockquote>
 <h3 id="loss-functions-for-regression">Loss Functions for Regression</h3>
 <p>For regression problem, the decision can be made similarly by minimizing the expected loss <span class="math display">\[
@@ -239,15 +239,13 @@ y(\mathbf{x}) = \frac{\int tp(\mathbf{x},t)\ \mathrm{d}t}{p(\mathbf{x})} = \int 
 &amp;\int \int 2[y(\mathbf{x})-\mathbb{E}[t|\mathbf{x}]][\mathbb{E}[t|\mathbf{x}]-t]p(\mathbf{x},t) \ \mathrm{d}\mathbf{x}\ \mathrm{d}t 
 \\= &amp;
 \ 2\int  [y(\mathbf{x})-\mathbb{E}[t|\mathbf{x}]]p(\mathbf{x})\int[\mathbb{E}[t|\mathbf{x}]-t]p(t|\mathbf{x})\ \mathrm{d}t \ \mathrm{d}\mathbf{x}
-\\ =&amp;\ 2\int  [y(\mathbf{x})-\mathbb{E}[t|\mathbf{x}]]*0\ \mathrm{d}\mathbf{x}
+\\ =&amp;\ 2\int  [y(\mathbf{x})-\mathbb{E}[t|\mathbf{x}]]p(\mathbf{x})*0\ \mathrm{d}\mathbf{x}
 \\=&amp;\ 0
 \end{aligned}
 \]</span></p>
 <p>And for the last term <span class="math display">\[
 \begin{aligned}
 &amp;\int \int [\mathbb{E}[t|\mathbf{x}]-t]^2p(\mathbf{x},t) \ \mathrm{d}\mathbf{x}\ \mathrm{d}t 
-\\=&amp; 
-\int \int [\mathbb{E}[t|\mathbf{x}]-t]^2p(\mathbf{x},t) \ \mathrm{d}\mathbf{x}\ \mathrm{d}t 
 \\ =&amp; \int \int [\mathbb{E}^2[t|\mathbf{x}]-2t\mathbb{E}[t|\mathbf{x}]+t^2]p(t|\mathbf{x})p(\mathbf{x}) \ \mathrm{d}\mathbf{x}\ \mathrm{d}t 
 \\ =&amp; \int  \mathbb{E}^2[t|\mathbf{x}]p(\mathbf{x})\int p(t|\mathbf{x})\ \mathrm{d}t  \ \mathrm{d}\mathbf{x} + \int \mathbb{E}[t|\mathbf{x}]p(\mathbf{x}) \int -2tp(t|\mathbf{x})\ \mathrm{d}t \ \mathrm{d}\mathbf{x} + \int p(\mathbf{x})  \int t^2p(t|\mathbf{x})\ \mathrm{d}t \ \mathrm{d}\mathbf{x}
 \\ =&amp; \int  \mathbb{E}^2[t|\mathbf{x}]p(\mathbf{x})\ \mathrm{d}\mathbf{x} + \int -2\mathbb{E}^2[t|\mathbf{x}]p(\mathbf{x}) \ \mathrm{d}\mathbf{x} + \int \mathbb{E}[t^2|\mathbf{x}]p(\mathbf{x}) \ \mathrm{d}\mathbf{x}
@@ -258,14 +256,14 @@ y(\mathbf{x}) = \frac{\int tp(\mathbf{x},t)\ \mathrm{d}t}{p(\mathbf{x})} = \int 
 <p>So finally we have <span class="math display">\[
 \mathbb{E}[L] = \int [y(\mathbf{x})-\mathbb{E}[t|\mathbf{x}]]^2 p(\mathbf{x}) \ \mathrm{d}\mathbf{x} + \int \mathrm{var}[t|\mathbf{x}]p(\mathbf{x}) \ \mathrm{d}\mathbf{x}
 \]</span> The function <span class="math inline">\(y(\mathbf{x})\)</span> we seek to determine only enters in the first term called <strong>bias</strong>, which will vanish if we choose <span class="math inline">\(y(\mathbf{x}) = \mathbb{E}[t|\mathbf{x}]\)</span>, and the second term is called <strong>variance</strong>, which represents the noise during data generation and is irreducible.</p>
-<p>Similarly, there are three approaches to solve a regression problem:</p>
+<p>Similarly, there are three approaches to solve a regression problem, respectively by using:</p>
 <ol type="1">
 <li><p><strong>Generative model</strong>: learn a joint distribution <span class="math inline">\(p(\mathbf{x}, t)\)</span> then compute posterior <span class="math inline">\(p(t|\mathbf{x}) = p(\mathbf{x}, t)/\int p(\mathbf{x}, t)\ \mathrm{d}t\)</span>, and finally get <span class="math inline">\(y(\mathbf{x}) = \int t p(t|\mathbf{x})\ \mathrm{d}t\)</span>.</p></li>
 <li><p><strong>Discriminative model</strong>: only learn the posterior <span class="math inline">\(p(t|\mathbf{x}) = p(\mathbf{x}, t)/\int p(\mathbf{x}, t)\ \mathrm{d}t\)</span>, and then get <span class="math inline">\(y(\mathbf{x}) = \int t p(t|\mathbf{x})\ \mathrm{d}t\)</span>.</p></li>
 <li><p><strong>Discriminative function</strong>: Directly find <span class="math inline">\(y(\mathbf{x})\)</span> like what we do in multinomial curve fitting before.</p></li>
 </ol>
 <p>Sometimes like when <span class="math inline">\(p(t|\mathbf{x})\)</span> is multimodal, the square loss leads to poor results since <span class="math inline">\(t\)</span> may less likely locates at <span class="math inline">\(\mathbb{E}[t|\mathbf{x}]\)</span>. We can consider a generalization of the square loss called <strong>Minkowski loss</strong> <span class="math display">\[
-\mathbb{E}[L_q]=\int\int |y(\mathbf{x}-t)|^q p(\mathbf{x},t) \ \mathrm{d}\mathbf{x}\ \mathrm{d}t
+\mathbb{E}[L_q]=\int\int |y(\mathbf{x})-t|^q p(\mathbf{x},t) \ \mathrm{d}\mathbf{x}\ \mathrm{d}t
 \]</span> The minimum of <span class="math inline">\(\mathbb{E}[L_2]\)</span> is as before the conditional mean, and the minimum of <span class="math inline">\(\mathbb{E}[L_1]\)</span> is the conditional median, and as <span class="math inline">\(q\rightarrow 0\)</span>, the minimum of <span class="math inline">\(\mathbb{E}[L_q]\)</span> is the conditional mode.</p>
 
     

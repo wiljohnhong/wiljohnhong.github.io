@@ -12,20 +12,20 @@
 
 
 
-    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  The Curse of Dimensionality Consider a naive &quot;cell&quot; solution for classification, which divide the input space into many cells a">
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  The Curse of Dimensionality Consider a naive &quot;cell&quot; solution for classification, which divides the input space into many cells">
 <meta name="keywords" content="PRML">
 <meta property="og:type" content="article">
 <meta property="og:title" content="(PRML Notes) 1.4 The Curse of Dimensionality">
 <meta property="og:url" content="http://wiljohn.top/2018/04/29/PRML1-4/index.html">
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
-<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  The Curse of Dimensionality Consider a naive &quot;cell&quot; solution for classification, which divide the input space into many cells a">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  The Curse of Dimensionality Consider a naive &quot;cell&quot; solution for classification, which divides the input space into many cells">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/49913951.jpg">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/6320386.jpg">
-<meta property="og:updated_time" content="2018-12-23T16:18:47.192Z">
+<meta property="og:updated_time" content="2018-12-24T04:26:04.058Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 1.4 The Curse of Dimensionality">
-<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  The Curse of Dimensionality Consider a naive &quot;cell&quot; solution for classification, which divide the input space into many cells a">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  The Curse of Dimensionality Consider a naive &quot;cell&quot; solution for classification, which divides the input space into many cells">
 <meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/49913951.jpg">
 
 
@@ -121,7 +121,7 @@
         <span class="column is-narrow">
             
             
-            2 minutes read (About 338 words)
+            2 minutes read (About 335 words)
         </span>
         
     </div>
@@ -131,17 +131,17 @@
 <p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
 </blockquote>
 <h2 id="the-curse-of-dimensionality">The Curse of Dimensionality</h2>
-<p>Consider a naive "cell" solution for classification, which divide the input space into many cells and any point is assigned to the class that has a majority number of representatives in the same cell as the test point.</p>
+<p>Consider a naive "cell" solution for classification, which divides the input space into many cells and each test point is assigned to the class that has a majority number of representatives in the same cell.</p>
 <p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/49913951.jpg"></p>
 <p>One problem is we need to gather exponentially large quantity of data as the number of cells grows exponentially in higher dimensions in order to ensure that the cells are not empty.</p>
 <a id="more"></a>
 <p>Similarly, the number of coefficients in polynomial curve fitting will grow in power law as the dimension increases, making the method becomes unwieldy. For example an order-3 polynomial takes the form <span class="math display">\[
 y(\mathbf{x}, \mathbf{w}) = w_0 + \sum_{i=1}^D w_i x_i + \sum_{i=1}^D\sum_{j=1}^i w_{ij}x_ix_j + \sum_{i=1}^D\sum_{j=1}^i\sum_{k=1}^j w_{ijk} x_i x_j x_k
-\]</span> On geometrical intuitions, the volume of <span class="math inline">\(D\)</span>-dimensional sphere <span class="math inline">\(V_D(r)=K_Dr^D\)</span> where the constant <span class="math inline">\(K_D\)</span> only depends on <span class="math inline">\(D\)</span>, and most of the volume is concentrated in a thin shell near the surface since <span class="math display">\[
+\]</span> On geometrical intuitions, the volume of <span class="math inline">\(D\)</span>-dimensional spherecis <span class="math inline">\(V_D(r)=K_Dr^D\)</span>, where the constant <span class="math inline">\(K_D\)</span> only depends on <span class="math inline">\(D\)</span>, and most of the volume is concentrated in a thin shell near the surface since <span class="math display">\[
 \frac{V_D(1) - V_D(1-\epsilon)}{V_D(1)} = 1-(1-\epsilon)^D
 \]</span> For a Gaussian as well, most of the probability mass is located within a thin shell at a specific radius.</p>
 <figure>
-<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/6320386.jpg" alt="Plot of the probability density w.r.t. r of a Gaussian."><figcaption>Plot of the probability density w.r.t. <span class="math inline">\(r\)</span> of a Gaussian.</figcaption>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/6320386.jpg" alt="Plot of the probability density of a Gaussian w.r.t. r."><figcaption>Plot of the probability density of a Gaussian w.r.t. <span class="math inline">\(r\)</span>.</figcaption>
 </figure>
 <p>So not all intuitions developed in spaces of low dimensionality will generalize to spaces of many dimensions, such difficulty is called the <strong>curse of dimensionality</strong>. However, It's not a severe problem in real application because</p>
 <ul>
