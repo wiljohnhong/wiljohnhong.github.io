@@ -12,21 +12,21 @@
 
 
 
-    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Decision Theory Decision theory allows us to make optimal decisions in situations involving uncertainty. Informally, for classi">
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Decision theory allows us to make optimal decisions in situations involving uncertainty. Informally, for classification problem">
 <meta name="keywords" content="PRML">
 <meta property="og:type" content="article">
 <meta property="og:title" content="(PRML Notes) 1.5 Decision Theory">
 <meta property="og:url" content="http://wiljohn.top/2018/04/30/PRML1-5/index.html">
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
-<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Decision Theory Decision theory allows us to make optimal decisions in situations involving uncertainty. Informally, for classi">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Decision theory allows us to make optimal decisions in situations involving uncertainty. Informally, for classification problem">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/11235035.jpg">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/80196176.jpg">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/76982210.jpg">
-<meta property="og:updated_time" content="2018-12-24T06:29:29.947Z">
+<meta property="og:updated_time" content="2018-12-25T04:44:56.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 1.5 Decision Theory">
-<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Decision Theory Decision theory allows us to make optimal decisions in situations involving uncertainty. Informally, for classi">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Decision theory allows us to make optimal decisions in situations involving uncertainty. Informally, for classification problem">
 <meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/11235035.jpg">
 
 
@@ -122,7 +122,7 @@
         <span class="column is-narrow">
             
             
-            16 minutes read (About 2383 words)
+            16 minutes read (About 2382 words)
         </span>
         
     </div>
@@ -131,13 +131,12 @@
         <blockquote>
 <p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
 </blockquote>
-<h2 id="decision-theory">Decision Theory</h2>
 <p>Decision theory allows us to make optimal decisions in situations involving uncertainty.</p>
 <p>Informally, for classification problem, we are interested in the posterior probability given data which belongs to a class <span class="math inline">\(\mathcal{C}_k\)</span> <span class="math display">\[
 p(\mathcal{C}_k|\mathbf{x}) = \frac{p(\mathbf{x}|\mathcal{C}_k)p(\mathcal{C}_k)}{p(\mathbf{x})}
 \]</span> Our aim is to minimize the chance of assigning <span class="math inline">\(\mathbf{x}\)</span> to the wrong class, then intuitively we would choose the class having the higher posterior probability. Actually the intuition is correct, which is shown below.</p>
 <a id="more"></a>
-<h3 id="minimizing-the-miss-classification-rate">Minimizing the Miss Classification Rate</h3>
+<h2 id="minimizing-the-miss-classification-rate">Minimizing the Miss Classification Rate</h2>
 <p>Suppose the input space is divided into regions <span class="math inline">\(\mathcal{R_k}\)</span>, called <strong>decision regions</strong>, one for each class, so that all points in it are classified to <span class="math inline">\(\mathcal{C_k}\)</span>. The boundaries between decision regions are called <strong>decision boundaries</strong> or <strong>decision surfaces</strong>. First consider the binary classification, the probability of a mistake that <span class="math inline">\(\mathbf{x}\)</span> in <span class="math inline">\(\mathcal{C_1}\)</span> assigned to <span class="math inline">\(\mathcal{C_2}\)</span> and vice versa is <span class="math display">\[
 \begin{aligned}
 p(\mathrm{mistake}) &amp;= p(\mathbf{x}\in \mathcal{R}_1, \mathcal{C_2}) + p(\mathbf{x}\in \mathcal{R}_2, \mathcal{C_1})
@@ -152,7 +151,7 @@ p(\mathrm{mistake}) = \sum_j \sum_{k\neq j}\int_\mathcal{R_j} p(\mathbf{x}, \mat
 \]</span> It is equivalent and more clear to maximize the probability of being correct <span class="math display">\[
 p(\mathrm{correct}) = 1-p(\mathrm{mistake}) =\sum_k \int_\mathcal{R_k} p(\mathbf{x}, \mathcal{C}_k)\ \mathrm{d}\mathbf{x}
 \]</span> Again if aim to minimizing the misclassification rate only, each single <span class="math inline">\(\mathbf{x}\)</span> should be assigned to the class having the maximum posterior <span class="math inline">\(p(\mathcal{C}_k|\mathbf{x})\)</span>.</p>
-<h3 id="minimizing-the-expected-loss">Minimizing the Expected Loss</h3>
+<h2 id="minimizing-the-expected-loss">Minimizing the Expected Loss</h2>
 <p>Usually some misclassification like diagnosing a patient with cancer as healthy is much more severe than the opposite case and should be punished more. Here we can introduce a <strong>loss matrix</strong> like <span class="math display">\[
 \begin{array}{@{}r@{}c@{}c@{}c@{}c@{}l@{}}
     &amp; \mathrm{cancer} &amp; \mathrm{normal}  \\
@@ -166,10 +165,10 @@ p(\mathrm{correct}) = 1-p(\mathrm{mistake}) =\sum_k \int_\mathcal{R_k} p(\mathbf
 <p>Again the mistake occurs when <span class="math inline">\(\mathbf{x}\)</span> in class <span class="math inline">\(\mathcal{C_k}\)</span> is assigned to <span class="math inline">\(\mathcal{C_j}\)</span>, and the expected loss is given by <span class="math display">\[
 \mathbb{E}[L]= \sum_j \sum_{k}\int_\mathcal{R_j} L_{kj}p(\mathbf{x}, \mathcal{C}_k)\ \mathrm{d}\mathbf{x}
 \]</span> Consider for a single data <span class="math inline">\(\mathbf{x}\)</span> and choose the region <span class="math inline">\(\mathcal{R_j}\)</span> it belongs to, we should minimize <span class="math inline">\(\sum_k L_{kj}p(\mathbf{x}, \mathcal{C}_k)\)</span>, and as before it is equivalent to minimize <span class="math inline">\(\sum_k L_{kj}p( \mathcal{C}_k|\mathbf{x})\)</span> w.r.t. <span class="math inline">\(j\)</span>. For example, if a patient with diagnosis <span class="math inline">\(\mathbf{x}\)</span> has <span class="math inline">\(0.1\)</span> probability having cancer, i.e. <span class="math inline">\(p( \mathcal{C}_\mathrm{cancer}|\mathbf{x})=0.1\)</span> and <span class="math inline">\(p( \mathcal{C}_\mathrm{normal}|\mathbf{x})=0.9\)</span>, then the expected error at this specific point <span class="math inline">\(\mathbf{x}\)</span> is <span class="math inline">\(0*0.1+1*0.9 = 0.9\)</span> if we classify it as having cancer and <span class="math inline">\(1000*0.1+0*0.9=100\)</span> if we classify it as normal.</p>
-<h3 id="the-rejection-opinion">The Rejection Opinion</h3>
+<h2 id="the-rejection-opinion">The Rejection Opinion</h2>
 <p>Usually it will be appropriate to <em>avoid making decision</em> if we are uncertain about class membership, by introducing a threshold <span class="math inline">\(\theta\)</span> to reject those inputs <span class="math inline">\(\mathbf{x}\)</span> where <span class="math inline">\(\max_k p( \mathcal{C}_k|\mathbf{x}) &lt; \theta\)</span>.</p>
 <p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/80196176.jpg"></p>
-<h3 id="inference-and-decision">Inference and Decision</h3>
+<h2 id="inference-and-decision">Inference and Decision</h2>
 <p>Now we have broken the classification problem down into two separate stages</p>
 <ul>
 <li><strong>Inference</strong> stage: learning a model for <span class="math inline">\(p(\mathcal{}C_k|\mathbf{x})\)</span> from a set of training data</li>
@@ -213,10 +212,10 @@ p(\mathcal{C_k}|\mathbf{x_I}, \mathbf{x_B}) &amp;\propto p(\mathbf{x_I}, \mathbf
 \end{aligned}
 \]</span> And finally we should normalize the new posteriors to ensure they sum to 1.</p>
 </blockquote>
-<h3 id="loss-functions-for-regression">Loss Functions for Regression</h3>
+<h2 id="loss-functions-for-regression">Loss Functions for Regression</h2>
 <p>For regression problem, the decision can be made similarly by minimizing the expected loss <span class="math display">\[
 \mathbb{E}[L] = \int\int L(t,y(\mathbf{x}))p(\mathbf{x},t) \ \mathrm{d}\mathbf{x}\ \mathrm{d}t
-\]</span> A common choice for loss function in regression problem is <span class="math inline">\(L(t,y(\mathbf{x})) = [y(\mathbf{x})-t]^2\)</span>, and then minimize the <span class="math inline">\(\mathbb{E}[L]\)</span> using the calculus of variations we have <span class="math display">\[
+\]</span> A common choice for loss function in regression problem is <span class="math inline">\(L(t,y(\mathbf{x})) = [y(\mathbf{x})-t]^2\)</span>, and then minimize the <span class="math inline">\(\mathbb{E}[L]​\)</span> using the calculus of variations we have <span class="math display">\[
 \frac{\delta\mathbb{E}[L]}{\delta y(\mathbf{x})} = 2 \int [y(\mathbf{x})-t]p(\mathbf{x},t) \ \mathrm{d}t = 0
 \]</span> Then solving <span class="math inline">\(y(\mathbf{x})\)</span> from it <span class="math display">\[
 y(\mathbf{x}) = \frac{\int tp(\mathbf{x},t)\ \mathrm{d}t}{p(\mathbf{x})} = \int tp(t|\mathbf{x})\ \mathrm{d}t = \mathbb{E}[t|\mathbf{x}]
@@ -260,7 +259,7 @@ y(\mathbf{x}) = \frac{\int tp(\mathbf{x},t)\ \mathrm{d}t}{p(\mathbf{x})} = \int 
 <ol type="1">
 <li><p><strong>Generative model</strong>: learn a joint distribution <span class="math inline">\(p(\mathbf{x}, t)\)</span> then compute posterior <span class="math inline">\(p(t|\mathbf{x}) = p(\mathbf{x}, t)/\int p(\mathbf{x}, t)\ \mathrm{d}t\)</span>, and finally get <span class="math inline">\(y(\mathbf{x}) = \int t p(t|\mathbf{x})\ \mathrm{d}t\)</span>.</p></li>
 <li><p><strong>Discriminative model</strong>: only learn the posterior <span class="math inline">\(p(t|\mathbf{x}) = p(\mathbf{x}, t)/\int p(\mathbf{x}, t)\ \mathrm{d}t\)</span>, and then get <span class="math inline">\(y(\mathbf{x}) = \int t p(t|\mathbf{x})\ \mathrm{d}t\)</span>.</p></li>
-<li><p><strong>Discriminative function</strong>: Directly find <span class="math inline">\(y(\mathbf{x})\)</span> like what we do in multinomial curve fitting before.</p></li>
+<li><p><strong>Discriminative function</strong>: Directly find <span class="math inline">\(y(\mathbf{x})\)</span> like what we did in multinomial curve fitting before.</p></li>
 </ol>
 <p>Sometimes like when <span class="math inline">\(p(t|\mathbf{x})\)</span> is multimodal, the square loss leads to poor results since <span class="math inline">\(t\)</span> may less likely locates at <span class="math inline">\(\mathbb{E}[t|\mathbf{x}]\)</span>. We can consider a generalization of the square loss called <strong>Minkowski loss</strong> <span class="math display">\[
 \mathbb{E}[L_q]=\int\int |y(\mathbf{x})-t|^q p(\mathbf{x},t) \ \mathrm{d}\mathbf{x}\ \mathrm{d}t

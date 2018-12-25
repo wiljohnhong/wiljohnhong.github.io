@@ -12,20 +12,20 @@
 
 
 
-    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Probability Theory Due to the finite size of data sets and the noise on measurements, we use probability to express the uncerta">
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Due to the finite size of data sets and the noise on measurements, we use probability to express the uncertainty in pattern rec">
 <meta name="keywords" content="PRML">
 <meta property="og:type" content="article">
 <meta property="og:title" content="(PRML Notes) 1.2 Probability Theory">
 <meta property="og:url" content="http://wiljohn.top/2018/04/23/PRML1-2/index.html">
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
-<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Probability Theory Due to the finite size of data sets and the noise on measurements, we use probability to express the uncerta">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Due to the finite size of data sets and the noise on measurements, we use probability to express the uncertainty in pattern rec">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/55730390.jpg">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/7669247.jpg">
-<meta property="og:updated_time" content="2018-12-23T13:21:18.807Z">
+<meta property="og:updated_time" content="2018-12-25T04:43:28.678Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 1.2 Probability Theory">
-<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Probability Theory Due to the finite size of data sets and the noise on measurements, we use probability to express the uncerta">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Due to the finite size of data sets and the noise on measurements, we use probability to express the uncertainty in pattern rec">
 <meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/55730390.jpg">
 
 
@@ -121,7 +121,7 @@
         <span class="column is-narrow">
             
             
-            12 minutes read (About 1862 words)
+            12 minutes read (About 1860 words)
         </span>
         
     </div>
@@ -130,14 +130,13 @@
         <blockquote>
 <p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
 </blockquote>
-<h2 id="probability-theory">Probability Theory</h2>
 <p>Due to the finite size of data sets and the noise on measurements, we use probability to express the uncertainty in pattern recognition. Some concepts like sum rule, product rule, marginal probability, joint probability, conditional probability are very basic, but for this book it would be worthy of gaining insight into <strong>Bayes theorem</strong>, which plays a central role in PRML <span class="math display">\[
 p(Y|X) = \frac{p(X|Y)p(Y)}{p(X)}
 \]</span> Using sum rule, the denominator, which can be viewed as a normalizer, can also be expressed in terms of quantities appearing in the numerator <span class="math display">\[
 p(X) = \sum_Y p(X|Y)p(Y)
 \]</span></p>
 <a id="more"></a>
-<h3 id="probability-densities">Probability Densities</h3>
+<h2 id="probability-densities">Probability Densities</h2>
 <p>If the probability of a real-valued variable <span class="math inline">\(x\)</span> falling in the interval <span class="math inline">\((x, x+\delta x)\)</span> is given by <span class="math inline">\(p(x)\delta x\)</span> for <span class="math inline">\(\delta x \rightarrow 0\)</span>, then <span class="math inline">\(p(x)\)</span> is called the <strong>probability density</strong> over <span class="math inline">\(x\)</span>.</p>
 <blockquote>
 <p>If <span class="math inline">\(x\)</span> is a discrete variable, then <span class="math inline">\(p(x)\)</span> is sometimes called a <strong>probability mass</strong> function.</p>
@@ -162,7 +161,7 @@ p_y(y) &amp;= p_x(x)\left| \frac{\mathrm{d}x}{\mathrm{d}y} \right|
 <p>One consequence is that the maximum of a probability density is dependent on the choice of variable.</p>
 <p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/55730390.jpg"></p>
 <p>Here <span class="math inline">\(y = g^{-1}(x) =1/(1+exp(-x+5))\)</span> is a <em>logistic sigmoid</em> function, and <span class="math inline">\(p_x(x)\)</span> is a Gaussian <span class="math inline">\(\mathcal{N}(6, 1)\)</span>. The green curve stands for <span class="math inline">\(p_x(g(y))\)</span>, while the purple one stands for <span class="math inline">\(p_x(g(y))|g&#39;(y)|\)</span>, with a different maximum.</p>
-<h3 id="expectations-and-covariances">Expectations and Covariances</h3>
+<h2 id="expectations-and-covariances">Expectations and Covariances</h2>
 <p>Most are mentioned in statistics class. Here a subscript is used when we consider expectations of functions of several variables to indicate which variable is being averaged over, e.g. below we only average over <span class="math inline">\(x\)</span></p>
 <p><span class="math display">\[
 \mathbb{E}_x[f(x,y)] = \sum_x p(x)f(x,y)
@@ -178,7 +177,7 @@ p_y(y) &amp;= p_x(x)\left| \frac{\mathrm{d}x}{\mathrm{d}y} \right|
 \\ &amp;= \mathbb{E}_\mathbf{x,y}[\mathbf{xy}^T] - \mathbb{E}[\mathbf{x}]\mathbb{E}[\mathbf{y}^T]
 \end{align}
 \]</span> If we consider the covariance of the components of <span class="math inline">\(\mathbf{x}\)</span> with each over, we denote <span class="math inline">\(\mathrm{cov}[\mathbf{x}] \equiv \mathrm{cov}[\mathbf{x},\mathbf{x}]\)</span>.</p>
-<h3 id="bayesian-probabilities">Bayesian Probabilities</h3>
+<h2 id="bayesian-probabilities">Bayesian Probabilities</h2>
 <p>Frequentists view probability as frequencies of random events, while Bayesian view probability as quantification of uncertainty.</p>
 <p>Given a data set <span class="math inline">\(\mathcal{D} = \{t_1,...,t_n\}\)</span> and model parameters <span class="math inline">\(\mathbf{w}\)</span>, Bayes theorem takes the form <span class="math display">\[
 p(\mathbf{w}|\mathcal{D})  = \frac{p(\mathcal{D}|\mathbf{w})p(\mathbf{w})}{p(\mathcal{D})}
@@ -188,7 +187,7 @@ p(\mathbf{w}|\mathcal{D})  = \frac{p(\mathcal{D}|\mathbf{w})p(\mathbf{w})}{p(\ma
 {p(\mathcal{D})} = \int p(\mathcal{D}|\mathbf{w})p(\mathbf{w})\ \mathrm{d}\mathbf{w}
 \]</span> The likelihood function plays a central role in both Bayesian and frequentist paradigms. In a frequentist setting, <span class="math inline">\(\mathbf{w}\)</span> is being fixed, usually determined by some estimator like <strong>maximum likelihood</strong>, which is the same as minimizing the negative logarithm of it called <strong>error function</strong>. For example, we will later see that minimizing <span class="math inline">\(E(\mathbf{w} ) = \frac{1}{2} \sum_{n=1}^N [y(x_n ,\mathbf{w}) - t_n]^2\)</span> is a form of likelihood maximization. While from the Bayesian viewpoint, there is only a single <span class="math inline">\(\mathcal{D}\)</span> and uncertainty is expressed through <span class="math inline">\(p(\mathbf{w})\)</span>.</p>
 <p><strong>Bootstrap</strong> is a frequentist way to evaluate accuracy, for example given a set <span class="math inline">\(\mathcal{D} = \{1,2,3,4,5\}\)</span>, multi-datasets are generated like <span class="math inline">\(\{4,3,4,1,5\}\)</span>, <span class="math inline">\(\{1,3,5,5,1\}\)</span>, which can contain duplicates and evaluation is done on these new datasets.</p>
-<h3 id="the-gaussian-distribution">The Gaussian Distribution</h3>
+<h2 id="the-gaussian-distribution">The Gaussian Distribution</h2>
 <p>Univariate Gaussian distribution is defined by <span class="math display">\[
 \mathcal{N} (x|\mu, \sigma^2) = \frac{1}{\sqrt{2\pi} \sigma} \mathrm{exp}\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\}
 \]</span> Note that the reciprocal of the variance in this book is often written as <span class="math inline">\(\beta = 1/\sigma^2\)</span> called the <strong>precision</strong>.</p>
@@ -208,7 +207,7 @@ p(\mathtt x| \mu , \sigma^2) = \prod_{n=1}^N \mathcal{N}(x_n| \mu, \sigma^2)
 <figure>
 <img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-23/7669247.jpg" alt="Bias arises in using maximum likelihood to determine the variance of a Gaussian."><figcaption>Bias arises in using maximum likelihood to determine the variance of a Gaussian.</figcaption>
 </figure>
-<h3 id="curve-fitting-re-visited">Curve Fitting Re-visited</h3>
+<h2 id="curve-fitting-re-visited">Curve Fitting Re-visited</h2>
 <p>Previously we solved this problem by minimizing error, now from a probabilistic perspective we can gain some insights into <em>error function</em>, <em>regularization</em> and then <em>a full Bayesian treatment</em>.</p>
 <p>Now we first use a Gaussian to predict the distribution of data <span class="math display">\[
 p(t|x,\mathbf{w}, \beta) = \mathcal{N} (t| y(x,\mathbf{w}), \beta^{-1})
@@ -238,7 +237,7 @@ p(\mathbf{w}|\mathtt{x}, \mathtt{t}, \alpha, \beta) = \frac{p(\mathtt{t}|\mathtt
 \\=\ &amp;\mathop{\arg\min}_\mathbf{w} \ \sum_{n=1}^N [y(x_n,\mathbf{w})-t_n]^2 +\frac{\alpha}{\beta}\mathbf{w}^T\mathbf{w}
 \end{aligned}
 \]</span> This technique is called <strong>maximum posterior (MAP)</strong>, and we can see that <em>maximizing the posterior is equivalent to minimizing the regularized sum-of-square error with <span class="math inline">\(\lambda = \alpha/\beta\)</span></em>.</p>
-<h3 id="bayesian-curve-fitting">Bayesian Curve Fitting</h3>
+<h2 id="bayesian-curve-fitting">Bayesian Curve Fitting</h2>
 <p>So far the predictive distribution gives a non-point estimate for <span class="math inline">\(t\)</span>, but it is predicted under a point estimate <span class="math inline">\(\mathbf{w}_\mathrm{ML}\)</span>, or <span class="math inline">\(\mathbf{w}_\mathrm{MAP}\)</span>. In a fully Bayesian approach, we should integrate all values of <span class="math inline">\(\mathbf{w}\)</span> <span class="math display">\[
 p(t|x,\mathtt{x},\mathtt{t}) = \int p(t|x,\mathbf{w})p(\mathbf{w}|\mathtt{x},\mathtt{t})\mathrm{d}\mathbf{w}
 \]</span> Here the precisions <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are assumed fixed and known in advance, which will discussed in section 3.3, together with the solution of the integral above.</p>
