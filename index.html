@@ -179,6 +179,179 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/10/01/RL_prediction/" itemprop="url">Model-Free Prediction</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-10-01T12:10:22.000Z" itemprop="datePublished">Oct 1 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            11 minutes read (About 1699 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>In this and next notes, different from the DP, we do all the things within an <strong>unknown MDP</strong>, just what the <em>model-free</em> means.</p>
+</blockquote>
+<h2 id="monte-carlo-learning">Monte-Carlo Learning</h2>
+<p>The basic idea is very simple, it uses the mean return of episodes as the true value.</p>
+<ul>
+<li>Learn from complete <strong>episodes</strong>, which refers to the procedure from current state to the final state. (The opposite learning method is <strong>bootstrapping</strong>, which means updating the current state value from incomplete episodes.)</li>
+<li>Restrict to the learning method, MC can only be applied to <em>episodic</em> MDPs, whose all episodes must terminates.</li>
+<li>MC is <strong>model-free</strong>, it has no knowledge of MDP transitions or rewards.</li>
+</ul>
+        <p class="article-more-link">
+            <a href="/2018/10/01/RL_prediction/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/09/25/RL_DP/" itemprop="url">Planning by Dynamic Programming</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-09-25T03:33:44.000Z" itemprop="datePublished">Sep 25 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            7 minutes read (About 1102 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p><em>Dynamic programming assumes <strong>full knowledge</strong> of the MDP.</em></p>
+</blockquote>
+<h2 id="dynamic-programming">Dynamic Programming</h2>
+<p><strong>Dynamic</strong>: sequential or temporal component to the problem (like a table storing subproblem solutions)</p>
+<p><strong>Programming</strong>: optimizing a "problem", i.e. a policy</p>
+<p>DP is a very general solution method for problems which have two properties (MDP satisfies both):</p>
+<ul>
+<li>Optimal substructure (see the first theorem for optimal policy in last note)</li>
+<li>Overlapping subproblems (recurring many times, reused by Bellman equation)</li>
+</ul>
+        <p class="article-more-link">
+            <a href="/2018/09/25/RL_DP/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/09/23/RL_MDP/" itemprop="url">Markov Decision Process</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-09-23T07:30:15.000Z" itemprop="datePublished">Sep 23 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            10 minutes read (About 1533 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p><em>Markov decision processes</em> formally describe an <strong>environment</strong> for reinforcement learning, where the environment is <em>fully observable</em>.</p>
+</blockquote>
+<h2 id="markov-process">Markov Process</h2>
+<h3 id="definition">Definition</h3>
+<p>A <em>Markov Process</em> (or <em>Markov Chain</em>) is a memoryless random process (which satisfies Markov Property), denoted by a tuple <span class="math inline">\(⟨\mathcal{S},\mathcal{P}⟩\)</span>, where</p>
+<ul>
+<li><p><span class="math inline">\(\mathcal{S}\)</span> is a (finite) set of states</p></li>
+<li><p><span class="math inline">\(\mathcal{P}\)</span> is a state transition probability matrix, <span class="math inline">\(\mathcal{P}_{ss&#39;} = \mathbb{P}[S_{t+1}=s&#39;|S_t=s]\)</span></p></li>
+</ul>
+        <p class="article-more-link">
+            <a href="/2018/09/23/RL_MDP/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/09/18/RL_intro/" itemprop="url">Introduction to Reinforcement Learning</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-09-17T18:38:10.000Z" itemprop="datePublished">Sep 18 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            6 minutes read (About 944 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>RL is the study of agents and how they learn by trial and error. It formalizes the idea that rewarding or punishing an agent for its behavior makes it more likely to repeat or forego that behavior in the future.</p>
+</blockquote>
+<h2 id="about-reinforcement-learning">About Reinforcement Learning</h2>
+<h3 id="many-faces-of-reinforcement-learning">Many Faces of Reinforcement Learning</h3>
+<p>Reinforcement learning is about a science of decision making, sitting in many different fields of science.</p>
+        <p class="article-more-link">
+            <a href="/2018/09/18/RL_intro/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/04/30/PRML1-5/" itemprop="url">(PRML Notes) 1.5 Decision Theory</a>
         
     </h1>
@@ -337,179 +510,23 @@ p(X) = \sum_Y p(X|Y)p(Y)
 
 
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+    
         
-            <a href="/2018/04/22/PRML1-1/" itemprop="url">(PRML Notes) 1.1 Polynomial Curve Fitting as an Introductory Example</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-22T08:06:07.000Z" itemprop="datePublished">Apr 22 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            4 minutes read (About 580 words)
-        </span>
-        
+<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+    <div class="pagination-previous is-invisible is-hidden-mobile">
+        <a href="/page/0/">Prev</a>
     </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>This introduction chapter is mainly composed of these three theories:</p>
-<ul>
-<li><p><strong>Probability theory</strong> provides a framework for expressing uncertainty in a precise and quantitative manner.</p></li>
-<li><p><strong>Decision theory</strong> allows us to exploit probabilistic representation in order to make predictions that are optimal.</p></li>
-<li><p><strong>Information theory</strong> studies the quantification, storage, and communication of information.</p></li>
-</ul>
-        <p class="article-more-link">
-            <a href="/2018/04/22/PRML1-1/#more">Read More</a>
-        </p>
-    
+    <div class="pagination-next">
+        <a href="/page/2/">Next</a>
     </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+    <ul class="pagination-list is-hidden-mobile">
         
-            <a href="/2018/04/21/KKT/" itemprop="url">Lagrange Multiplier and KKT Conditions</a>
+        <li><a class="pagination-link is-current" href="/">1</a></li>
         
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-21T03:11:11.000Z" itemprop="datePublished">Apr 21 2018</time>
-        </span>
+        <li><a class="pagination-link" href="/page/2/">2</a></li>
         
-        
-        <span class="column is-narrow">
-            
-            
-            10 minutes read (About 1478 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>In mathematical optimization, the method of Lagrange multipliers is a strategy for finding the local maximum and minimum of a function subject to equality constraints, while KKT conditions solve the problems with inequality constraints.</p>
-</blockquote>
-<h2 id="naive-approach">Naive Approach</h2>
-<p>Consider the problem of finding the maximum of a function <span class="math inline">\(f(x_1, x_2)\)</span> subject to a constraint relating <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>, which we write in the form <span class="math display">\[
-g(x_1, x_2) = 0
-\]</span> One approach would be to solve the above equation to express <span class="math inline">\(x_2\)</span> as a function of <span class="math inline">\(x_1\)</span> in the form of <span class="math inline">\(x_2 = h(x_1)\)</span>, then apply differentiation to <span class="math inline">\(f(x_1, h(x_1))\)</span> w.r.t. <span class="math inline">\(x_1\)</span> in the usual way. However, there are at least two drawbacks of this simple approach:</p>
-        <p class="article-more-link">
-            <a href="/2018/04/21/KKT/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/04/18/variations/" itemprop="url">Calculus of Variations</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-18T03:11:11.000Z" itemprop="datePublished">Apr 18 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            6 minutes read (About 909 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p><em>Calculus of variations</em> is a field of mathematical analysis that uses variations, which are small changes in functions and functionals, to find maximum and minimum of functionals.</p>
-</blockquote>
-<h2 id="introduction">Introduction</h2>
-<p><strong>Functional</strong> is the function's function, in other words, functional takes a function as input and outputs a real number, or more mathematically, it refers to a mapping from a space <span class="math inline">\(X\)</span> (commonly <span class="math inline">\(X\)</span> is a space of functions) into the real numbers.</p>
-<p>In the <strong>calculus of variations</strong>, we seek a functional <span class="math inline">\(f(x)\)</span> that maximizes (or minimizes) a functional <span class="math inline">\(F[f]\)</span>. For example, as we all know, the shortest curve between two fixed points is the straight line, and this can be proved using calculus of variations.</p>
-<h2 id="example-1-shortest-curve">Example 1: Shortest Curve</h2>
-<p>To find out the shortest curve <span class="math inline">\(y(x)\)</span> between two fixed points <span class="math inline">\((a_1, b_1)\)</span> and <span class="math inline">\((a_2, b_2)\)</span>, we first express the length of the curve in the form of integration <span class="math display">\[
-F[y] = \int_{a_1}^{a_2} \sqrt{1+[y&#39;(x)]^2} dx
-\]</span></p>
-        <p class="article-more-link">
-            <a href="/2018/04/18/variations/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/01/12/hexo-install/" itemprop="url">Hexo配置备忘</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-01-12T01:44:51.000Z" itemprop="datePublished">Jan 12 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            2 minutes read (About 350 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
-<p>Minos is a simple and retro styled Hexo theme, concentrating more on your ideas.</p>
-</blockquote>
-<h3 id="基本流程">基本流程</h3>
-<p>hexo建站基本配置直接参照<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官网步骤</a>，配置主题为<a href="https://github.com/ppoffice/hexo-theme-minos" target="_blank" rel="noopener">Minos</a>。</p>
-<h3 id="公式支持">公式支持</h3>
-<p>网上广为流传的替换hexo默认渲染为<code>hexo-renderer-kramed</code>的方法，仍然会存在<strong>行内公式含两个引号时中间部分被渲染为斜体</strong>的问题。</p>
-<p>最后参照<a href="https://jdhao.github.io/2017/10/06/hexo-markdown-latex-equation/" target="_blank" rel="noopener">Hexo 书写 LaTeX 公式时的一些问题及解决方法</a>，替换默认渲染为<code>hexo-renderer-pandoc</code>。</p>
-<p>-- <em>注意1：事先去<a href="https://github.com/jgm/pandoc/releases" target="_blank" rel="noopener">pandoc官方下载</a>最新版本的pandoc，否则直接使用<code>apt install pandoc</code>可能在run服务时因为版本过低出现<code>pandoc: Unknown extension: smart</code>的问题</em></p>
-<p>-- <em>注意2：替换完成后主题内的依赖关系不会自动更改，需要将<code>themes/minos/scripts/01_check.js</code>中对默认渲染的依赖项<code>'hexo-renderer-marked'</code>手动替换为<code>'hexo-renderer-pandoc'</code></em></p>
-<h3 id="图像居中">图像居中</h3>
-<p>为了美观（强迫症），修改<code>themes/source/css/style.scss</code>中<code>display</code>属性为<code>block</code>，添加属性<code>text-align: center</code>。</p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
+    </ul>
+</nav>
     
     </div>
 </section>
@@ -517,7 +534,7 @@ F[y] = \int_{a_1}^{a_2} \sqrt{1+[y&#39;(x)]^2} dx
     <div class="container">
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
-                &copy; 2018 wiljohn&nbsp;
+                &copy; 2019 wiljohn&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>

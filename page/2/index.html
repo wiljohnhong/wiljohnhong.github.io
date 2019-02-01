@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Tag: PRML - Wiljohn&#39;s Blog</title>
+<title>Wiljohn&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,7 +14,7 @@
 
     <meta property="og:type" content="website">
 <meta property="og:title" content="Wiljohn&#39;s Blog">
-<meta property="og:url" content="http://wiljohn.top/tags/PRML/index.html">
+<meta property="og:url" content="http://wiljohn.top/page/2/index.html">
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
 <meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
@@ -96,214 +96,8 @@
     </div>
 </nav>
 
-    <section class="section section-heading">
+    <section class="section">
     <div class="container">
-        <div class="content">
-            <h5>#PRML</h5>
-        </div>
-    </div>
-</section>
-<section class="section">
-    <div class="container">
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/12/24/PRML1-6/" itemprop="url">(PRML Notes) 1.6 Information Theory</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-12-24T11:53:23.000Z" itemprop="datePublished">Dec 24 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            14 minutes read (About 2052 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>When observing a specific value of <span class="math inline">\(x\)</span>, the amount of information received can be viewed as the "degree of surprise". Higher information is received when a highly improbable value of <span class="math inline">\(x\)</span> has just observed, so the measure of information will depend monotonically on <span class="math inline">\(p(x)\)</span>, we denote it as <span class="math inline">\(h(x)\)</span>.</p>
-        <p class="article-more-link">
-            <a href="/2018/12/24/PRML1-6/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/04/30/PRML1-5/" itemprop="url">(PRML Notes) 1.5 Decision Theory</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-30T10:38:59.000Z" itemprop="datePublished">Apr 30 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            16 minutes read (About 2382 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>Decision theory allows us to make optimal decisions in situations involving uncertainty.</p>
-<p>Informally, for classification problem, we are interested in the posterior probability given data which belongs to a class <span class="math inline">\(\mathcal{C}_k\)</span> <span class="math display">\[
-p(\mathcal{C}_k|\mathbf{x}) = \frac{p(\mathbf{x}|\mathcal{C}_k)p(\mathcal{C}_k)}{p(\mathbf{x})}
-\]</span> Our aim is to minimize the chance of assigning <span class="math inline">\(\mathbf{x}\)</span> to the wrong class, then intuitively we would choose the class having the higher posterior probability. Actually the intuition is correct, which is shown below.</p>
-        <p class="article-more-link">
-            <a href="/2018/04/30/PRML1-5/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/04/29/PRML1-4/" itemprop="url">(PRML Notes) 1.4 The Curse of Dimensionality</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-29T07:18:34.000Z" itemprop="datePublished">Apr 29 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            2 minutes read (About 331 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>Consider a naive "cell" solution for classification, which divides the input space into many cells and each test point is assigned to the class that has a majority number of representatives in the same cell.</p>
-<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/49913951.jpg"></p>
-<p>One problem is we need to gather exponentially large quantity of data as the number of cells grows exponentially in higher dimensions in order to ensure that the cells are not empty.</p>
-        <p class="article-more-link">
-            <a href="/2018/04/29/PRML1-4/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/04/28/PRML1-3/" itemprop="url">(PRML Notes) 1.3 Model Selection</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-28T10:38:59.000Z" itemprop="datePublished">Apr 28 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            2 minutes read (About 289 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p><strong>Training set</strong> is used to generate the predictive models and <strong>validation set</strong> to select the one with the best predictive performance. But if the model design is iterated many times using a limited size data set, then some over-fitting to the validation data can occur and we keep aside a third <strong>test set</strong> to evaluate the performance of the final selected model.</p>
-        <p class="article-more-link">
-            <a href="/2018/04/28/PRML1-3/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/04/23/PRML1-2/" itemprop="url">(PRML Notes) 1.2 Probability Theory</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-23T10:16:57.000Z" itemprop="datePublished">Apr 23 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            12 minutes read (About 1860 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>Due to the finite size of data sets and the noise on measurements, we use probability to express the uncertainty in pattern recognition. Some concepts like sum rule, product rule, marginal probability, joint probability, conditional probability are very basic, but for this book it would be worthy of gaining insight into <strong>Bayes theorem</strong>, which plays a central role in PRML <span class="math display">\[
-p(Y|X) = \frac{p(X|Y)p(Y)}{p(X)}
-\]</span> Using sum rule, the denominator, which can be viewed as a normalizer, can also be expressed in terms of quantities appearing in the numerator <span class="math display">\[
-p(X) = \sum_Y p(X|Y)p(Y)
-\]</span></p>
-        <p class="article-more-link">
-            <a href="/2018/04/23/PRML1-2/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
     
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
@@ -348,6 +142,153 @@ p(X) = \sum_Y p(X|Y)p(Y)
 
 
     
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/04/21/KKT/" itemprop="url">Lagrange Multiplier and KKT Conditions</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-21T03:11:11.000Z" itemprop="datePublished">Apr 21 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            10 minutes read (About 1479 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>In mathematical optimization, the method of Lagrange multipliers is a strategy for finding the local maximum and minimum of a function subject to equality constraints, while KKT conditions solve the problems with inequality constraints.</p>
+</blockquote>
+<h2 id="naive-approach">Naive Approach</h2>
+<p>Consider the problem of finding the maximum of a function <span class="math inline">\(f(x_1, x_2)\)</span> subject to a constraint relating <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>, which we write in the form <span class="math display">\[
+g(x_1, x_2) = 0
+\]</span> One approach would be to solve the above equation to express <span class="math inline">\(x_2\)</span> as a function of <span class="math inline">\(x_1\)</span> in the form of <span class="math inline">\(x_2 = h(x_1)\)</span>, then apply differentiation to <span class="math inline">\(f(x_1, h(x_1))\)</span> w.r.t. <span class="math inline">\(x_1\)</span> in the usual way. However, there are at least two drawbacks of this simple approach:</p>
+        <p class="article-more-link">
+            <a href="/2018/04/21/KKT/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/04/18/variations/" itemprop="url">Calculus of Variations</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-18T03:11:11.000Z" itemprop="datePublished">Apr 18 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            6 minutes read (About 909 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p><em>Calculus of variations</em> is a field of mathematical analysis that uses variations, which are small changes in functions and functionals, to find maximum and minimum of functionals.</p>
+</blockquote>
+<h2 id="introduction">Introduction</h2>
+<p><strong>Functional</strong> is the function's function, in other words, functional takes a function as input and outputs a real number, or more mathematically, it refers to a mapping from a space <span class="math inline">\(X\)</span> (commonly <span class="math inline">\(X\)</span> is a space of functions) into the real numbers.</p>
+<p>In the <strong>calculus of variations</strong>, we seek a functional <span class="math inline">\(f(x)\)</span> that maximizes (or minimizes) a functional <span class="math inline">\(F[f]\)</span>. For example, as we all know, the shortest curve between two fixed points is the straight line, and this can be proved using calculus of variations.</p>
+<h2 id="example-1-shortest-curve">Example 1: Shortest Curve</h2>
+<p>To find out the shortest curve <span class="math inline">\(y(x)\)</span> between two fixed points <span class="math inline">\((a_1, b_1)\)</span> and <span class="math inline">\((a_2, b_2)\)</span>, we first express the length of the curve in the form of integration <span class="math display">\[
+F[y] = \int_{a_1}^{a_2} \sqrt{1+[y&#39;(x)]^2} dx
+\]</span></p>
+        <p class="article-more-link">
+            <a href="/2018/04/18/variations/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/01/12/hexo-install/" itemprop="url">Hexo配置备忘</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-01-12T01:44:51.000Z" itemprop="datePublished">Jan 12 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            2 minutes read (About 350 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+<p>Minos is a simple and retro styled Hexo theme, concentrating more on your ideas.</p>
+</blockquote>
+<h3 id="基本流程">基本流程</h3>
+<p>hexo建站基本配置直接参照<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官网步骤</a>，配置主题为<a href="https://github.com/ppoffice/hexo-theme-minos" target="_blank" rel="noopener">Minos</a>。</p>
+<h3 id="公式支持">公式支持</h3>
+<p>网上广为流传的替换hexo默认渲染为<code>hexo-renderer-kramed</code>的方法，仍然会存在<strong>行内公式含两个引号时中间部分被渲染为斜体</strong>的问题。</p>
+<p>最后参照<a href="https://jdhao.github.io/2017/10/06/hexo-markdown-latex-equation/" target="_blank" rel="noopener">Hexo 书写 LaTeX 公式时的一些问题及解决方法</a>，替换默认渲染为<code>hexo-renderer-pandoc</code>。</p>
+<p>-- <em>注意1：事先去<a href="https://github.com/jgm/pandoc/releases" target="_blank" rel="noopener">pandoc官方下载</a>最新版本的pandoc，否则直接使用<code>apt install pandoc</code>可能在run服务时因为版本过低出现<code>pandoc: Unknown extension: smart</code>的问题</em></p>
+<p>-- <em>注意2：替换完成后主题内的依赖关系不会自动更改，需要将<code>themes/minos/scripts/01_check.js</code>中对默认渲染的依赖项<code>'hexo-renderer-marked'</code>手动替换为<code>'hexo-renderer-pandoc'</code></em></p>
+<h3 id="图像居中">图像居中</h3>
+<p>为了美观（强迫症），修改<code>themes/source/css/style.scss</code>中<code>display</code>属性为<code>block</code>，添加属性<code>text-align: center</code>。</p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+    
+        
+<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
+    <div class="pagination-previous">
+        <a href="/">Prev</a>
+    </div>
+    <div class="pagination-next is-invisible is-hidden-mobile">
+        <a href="/page/3/">Next</a>
+    </div>
+    <ul class="pagination-list is-hidden-mobile">
+        
+        <li><a class="pagination-link" href="/">1</a></li>
+        
+        <li><a class="pagination-link is-current" href="/page/2/">2</a></li>
+        
+    </ul>
+</nav>
     
     </div>
 </section>

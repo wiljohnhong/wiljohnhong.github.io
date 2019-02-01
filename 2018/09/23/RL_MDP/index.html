@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>Markov Decision Process - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+    <meta name="description" content="Markov decision processes formally describe an environment for reinforcement learning, where the environment is fully observable.  Markov Process Definition A Markov Process (or Markov Chain) is a me">
+<meta name="keywords" content="RL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Markov Decision Process">
+<meta property="og:url" content="http://wiljohn.top/2018/09/23/RL_MDP/index.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="Markov decision processes formally describe an environment for reinforcement learning, where the environment is fully observable.  Markov Process Definition A Markov Process (or Markov Chain) is a me">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-1.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-2.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-3.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-4.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-5.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-6.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-7.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-8.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-9.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-10.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-11.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-12.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-13.png">
+<meta property="og:updated_time" content="2019-02-01T15:17:33.009Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Markov Decision Process">
+<meta name="twitter:description" content="Markov decision processes formally describe an environment for reinforcement learning, where the environment is fully observable.  Markov Process Definition A Markov Process (or Markov Chain) is a me">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-1.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Markov Decision Process
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-09-23T07:30:15.000Z" itemprop="datePublished">Sep 23 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            10 minutes read (About 1533 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p><em>Markov decision processes</em> formally describe an <strong>environment</strong> for reinforcement learning, where the environment is <em>fully observable</em>.</p>
+</blockquote>
+<h2 id="markov-process">Markov Process</h2>
+<h3 id="definition">Definition</h3>
+<p>A <em>Markov Process</em> (or <em>Markov Chain</em>) is a memoryless random process (which satisfies Markov Property), denoted by a tuple <span class="math inline">\(⟨\mathcal{S},\mathcal{P}⟩\)</span>, where</p>
+<ul>
+<li><p><span class="math inline">\(\mathcal{S}\)</span> is a (finite) set of states</p></li>
+<li><p><span class="math inline">\(\mathcal{P}\)</span> is a state transition probability matrix, <span class="math inline">\(\mathcal{P}_{ss&#39;} = \mathbb{P}[S_{t+1}=s&#39;|S_t=s]\)</span></p></li>
+</ul>
+<a id="more"></a>
+<h3 id="state-transition-matrix">State Transition Matrix</h3>
+<p>State transition matrix <span class="math inline">\(\mathcal{P}\)</span> defines transition matrix probability from all states <span class="math inline">\(s\)</span> to all successor states <span class="math inline">\(s′\)</span>, <span class="math display">\[
+\mathcal{P} = \begin{bmatrix} \mathcal{P}_{11} &amp; \cdots &amp; \mathcal{P}_{1n} \\ \vdots &amp; \ddots &amp; \vdots \\ \mathcal{P}_{n1} &amp; \cdots &amp; \mathcal{P}_{nn} \end{bmatrix}
+\]</span> where <span class="math display">\[
+\mathcal{P}_{ss&#39;} = \mathbb{P}[S_{t+1}=s&#39;|S_t=s]
+\]</span> Note that each row of <span class="math inline">\(\mathcal{P}\)</span> sums to 1.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-1.png" alt="A student Markov Chain example with its transition matrix."><figcaption>A student Markov Chain example with its transition matrix.</figcaption>
+</figure>
+<h2 id="markov-reward-process">Markov Reward Process</h2>
+<p>A Markov reward process is a Markov chain with values, denoted by a tuple <span class="math inline">\(\left\langle \mathcal{S,P,\boldsymbol{R},\boldsymbol{\gamma}}\right\rangle\)</span> where</p>
+<ul>
+<li><span class="math inline">\(\mathcal{S}\)</span> is a finite set of states</li>
+<li><span class="math inline">\(\mathcal{P}\)</span> is a state transition probability matrix, <span class="math inline">\(\mathcal{P}_{ss&#39;} = \mathbb{P}[S_{t+1}=s&#39;|S_t=s]\)</span></li>
+<li><span class="math inline">\(\boldsymbol{\mathcal{R}}\)</span> <strong>is a reward function</strong>, <span class="math inline">\(\mathcal{R}_s=\mathbb{E}[R_{t+1}|S_{t}=s]\)</span></li>
+<li><span class="math inline">\(\boldsymbol{\mathcal{\gamma}}\)</span> <strong>is a discount factor</strong>, <span class="math inline">\(\mathcal{\gamma} \in [0,1]\)</span></li>
+</ul>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-2.png" alt="Student MRP, note that each reward is associated to a state, denoting the reward AFTER reaching that state"><figcaption>Student MRP, note that each reward is associated to a state, denoting the reward AFTER reaching that state</figcaption>
+</figure>
+<h3 id="return">Return</h3>
+<p>The return <span class="math inline">\(G_t\)</span> is the total discounted reward from time-step <span class="math inline">\(t\)</span> <span class="math display">\[
+G_t = R_{t+1}+\gamma{R}_{t+2}+…=\sum_{k=0}^{\infty}\gamma^{k}R_{t+k+1}
+\]</span></p>
+<blockquote>
+<p>Reasons of using the discount factor <span class="math inline">\(\gamma\)</span>:</p>
+<ul>
+<li><p><strong>Mathematically convenient</strong> to compute the discounted rewards</p></li>
+<li><p><strong>Avoids infinite</strong> returns in cyclic Markov processes</p></li>
+<li><p><strong>Uncertainty</strong> about the future may not be fully presented</p></li>
+<li><p>Focus more on <strong>immediate reward</strong> above delayed reward</p></li>
+<li><p><strong>Human behavior</strong> shows preference for immediate reward</p></li>
+</ul>
+</blockquote>
+<h3 id="value-function">Value Function</h3>
+<p>The <strong>state value function</strong> <span class="math inline">\(v(s)\)</span> of an MRP is a expected return starting from state <span class="math inline">\(s\)</span> <span class="math display">\[
+v(s) = \mathbb{E}[G_t|S_t=s]
+\]</span></p>
+<h3 id="bellman-equation">Bellman Equation</h3>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-3.png" alt="State value function for Student MRP, using Bellman Equation, for example, -5.0 = -2 + 0.9\times (-7.6\times 0.5+0.9\times 0.5)"><figcaption>State value function for Student MRP, using Bellman Equation, for example, <span class="math inline">\(-5.0 = -2 + 0.9\times (-7.6\times 0.5+0.9\times 0.5)\)</span></figcaption>
+</figure>
+<p>It can be easily shown that <span class="math display">\[
+\begin{aligned}
+v(s) &amp;= \mathbb{E}[R_{t+1}+\gamma{v}(S_{t+1})|S_t=s]\\
+&amp;= \mathcal{R}_s + \gamma\sum_{s&#39; \in \mathcal{S}} \mathcal{P}_{ss&#39;}v(s&#39;)
+\end{aligned}
+\]</span> To express concisely into matrix form <span class="math display">\[
+v = \mathcal{R} + \gamma{\mathcal{P}}v
+\]</span> Then it can be solved directly since it’s a linear equation.</p>
+<blockquote>
+<p>Since the complexity of matrix inversion is <span class="math inline">\(O(n^3)\)</span>, direct solution is only possible for small MRPs. For large MRPs we need to use iterative methods.</p>
+</blockquote>
+<h2 id="markov-decision-process">Markov Decision Process</h2>
+<p>A Markov decision process (MDP) is a Markov reward process with decisions, denoted by a tuple <span class="math inline">\(\left\langle \mathcal{S,\boldsymbol{A},P,R,\gamma}\right\rangle\)</span> where</p>
+<ul>
+<li><span class="math inline">\(\mathcal{S}\)</span> is a finite set of states</li>
+<li><span class="math inline">\(\boldsymbol{\mathcal{A}}\)</span> <strong>is a finite state of actions</strong></li>
+<li><span class="math inline">\(\mathcal{P}\)</span> is a state transition probability matrix, <span class="math inline">\(\mathcal{P}_{ss&#39;}^\boldsymbol{a} = \mathbb{P}[S_{t+1}=s&#39;|S_t=s,A_t=\boldsymbol{a}]\)</span></li>
+<li><span class="math inline">\(\mathcal{R}\)</span> is a reward function, <span class="math inline">\(\mathcal{R}_s^\boldsymbol{a}=\mathbb{E}[R_{t+1}|S_{t}=s,A_t=\boldsymbol{a}]\)</span></li>
+<li><span class="math inline">\(\mathcal{\gamma}\)</span> is a discount factor, <span class="math inline">\(\mathcal{\gamma} \in [0,1]\)</span></li>
+</ul>
+<h3 id="policies">Policies</h3>
+<p>A policy <span class="math inline">\(\pi\)</span> is a distribution over actions given states, fully defines the behavior of an agent <span class="math display">\[
+\pi{(a|s)} = \mathbb{P}[A_t=a|S_t=s]
+\]</span> It can be easily shown that by definition, <span class="math display">\[
+\mathcal{P}_{ss&#39;}^{\pi} = \sum_{a\in\mathcal{A}}\pi{(a|s)}\mathcal{P}_{ss&#39;}^a \\ \mathcal{R}_{s}^{\pi} = \sum_{a\in\mathcal{A}}\pi{(a|s)}\mathcal{R}_{s}^a
+\]</span></p>
+<h3 id="value-function-1">Value Function</h3>
+<p>Different from the value function defined in MRP, we can define two kinds of value functions in MDP.</p>
+<p>The <strong>state value function <span class="math inline">\(v_\pi(s)\)</span></strong> of an MDP is the expected return starting from state <span class="math inline">\(s\)</span>, and then following policy <span class="math inline">\(\pi\)</span> <span class="math display">\[
+v_{\pi}(s) = \mathbb{E}_{\pi}[G_t|S_t=t]
+\]</span> The <strong>action value function <span class="math inline">\(q_\pi(s)\)</span></strong> of an MDP is the expected return starting from state <span class="math inline">\(s\)</span>, <em>taking an action <span class="math inline">\(a\)</span></em>, and then following policy <span class="math inline">\(\pi\)</span> <span class="math display">\[
+q_{\pi}(s,a) = \mathbb{E}_{\pi}[G_t|S_t=t, A_t=a]
+\]</span></p>
+<h3 id="bellman-expectation-equation">Bellman Expectation Equation</h3>
+<p>Suppose an agent follows a <strong>specific policy</strong> <span class="math inline">\(\pi\)</span> (may not be deterministic).</p>
+<p>By decomposing state value function for one action onward,</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-4.png"> <span class="math display">\[
+v_{\pi}(s) = \sum_{a\in{\mathcal{A}}} \pi{(a|s)} q_{\pi}(s,a)
+\]</span> By decomposing action value function for one state onward,</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-5.png"> <span class="math display">\[
+q_{\pi}(s,a) = \mathcal{R}_s^a + \gamma \sum_{s&#39;\in{\mathcal{S}}} \mathcal{P}_{ss&#39;}^a v_\pi(s&#39;)
+\]</span> Two steps onward for state value function,</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-6.png"> <span class="math display">\[
+v_{\pi}(s) = \sum_{a\in{\mathcal{A}}} \pi{(a|s)} \left( \mathcal{R}_s^a + \gamma \sum_{s&#39;\in{\mathcal{S}}} \mathcal{P}_{ss&#39;}^a v_\pi(s&#39;)  \right)
+\]</span> Two steps onward for action value function,</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-7.png"> <span class="math display">\[
+q_{\pi}(s,a) = \mathcal{R}_s^a + \gamma \sum_{s&#39;\in{\mathcal{S}}} \mathcal{P}_{ss&#39;}^a \sum_{a&#39;\in{\mathcal{A}}} \pi{(a&#39;|s&#39;)} q_{\pi}(s&#39;,a&#39;)
+\]</span> Using the induced MRP (just follows the transition matrix and reward vector mentioned in the <em>Policy</em> section), the Bellman Equation can be expressed concisely, <span class="math display">\[
+v_\pi = \mathcal{R^\pi}+ \gamma \mathcal{P^{\pi}}v_\pi
+\]</span> which can also be solved directly with inversed matrix <span class="math display">\[
+v_\pi = (1- \gamma \mathcal{P^{\pi}})^{-1}\mathcal{R^\pi}
+\]</span></p>
+<h3 id="example">Example</h3>
+<p>Again, in the student MDP example, which is slightly modified from the student MRP, with <span class="math inline">\(\pi(a|s)=0.5\)</span> everywhere and <span class="math inline">\(\gamma=1\)</span>.</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-8.png"></p>
+<p>For the state value 7.4, it is computed by <span class="math inline">\(0.5*(1-0.2*1.3+0.4*2.7+0.4*7.4)+0.5*10\)</span>, which is a two steps onward computation.</p>
+<h2 id="optimal-value-functions">Optimal Value Functions</h2>
+<p>The <strong>optimal state value function</strong> and <strong>optimal action value function</strong> over all policies, specifies the best possible performance in the MDP <span class="math display">\[
+v_*(s) = \max_{\pi} v_{\pi}(s)\\
+q_*(s,a) = \max_{\pi} q_{\pi}(s,a)
+\]</span> we say that an MDP is “solved” when the optimal value is known.</p>
+<h3 id="optimal-policy">Optimal Policy</h3>
+<p>First define a partial ordering over all policies <span class="math display">\[
+\pi \geq \pi&#39; \ \ \text{if}\ \ v_\pi(s)\geq v_{\pi&#39;}(s), \forall s
+\]</span> <em>(Why is partial ordering? — There may be two policies that for some state <span class="math inline">\(s\)</span>, one value is greater than the other, but for some other state <span class="math inline">\(s′\)</span> isn't.)</em></p>
+<p>then the following three theorems comes for any MDP,</p>
+<ul>
+<li>There exists an optimal policy <span class="math inline">\(\pi^*\)</span> that <span class="math inline">\(\pi^*\geq \pi\)</span>, <span class="math inline">\(\forall\pi\)</span></li>
+<li>All optimal policies achieve the optimal state-value function, $ v_{^<em>}(s) = v_</em>(s) $</li>
+<li>All optimal policies achieve the optimal action-value function, $q_{^<em>}(s,a) = q_</em>(s,a) $</li>
+</ul>
+<p>There is always a deterministic optimal policy for any MDP, and if we know <span class="math inline">\(q_*(s,a)\)</span>, we immediately have the optimal policy <span class="math display">\[
+\pi_*(a|s) =
+\left\{ \begin{align} 
+1 &amp; &amp; &amp;\text{if} \ \ a = \mathop{\arg\max}_{a\in \mathcal{A}} q_*(s,a)
+\\ 0 &amp; &amp;&amp; \text{o.w.}
+\end{align}\right.
+\]</span></p>
+<h3 id="bellman-optimality-equation">Bellman Optimality Equation</h3>
+<p>Again, if some agent follows the <strong>optimal policy</strong> <span class="math inline">\(\pi_*\)</span>, then from the theorem above we know it achieves both the optimal state value function and optimal action value function.</p>
+<p>By decomposing optimal action value function for one state onward,</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-9.png"> <span class="math display">\[
+v_*(s) = \max_{a\in{\mathcal{A}}} q_*(s,a)
+\]</span> By decomposing optimal action value function for one state onward,</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-10.png"> <span class="math display">\[
+q_*(s,a) = \mathcal{R}_s^a + \gamma \sum_{s&#39;\in{\mathcal{S}}} \mathcal{P}_{ss&#39;}^a v_*(s&#39;)
+\]</span> Two steps onward for optimal state value function,</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-11.png"> <span class="math display">\[
+v_*(s) = \max_{a\in{\mathcal{A}}} \left( \mathcal{R}_s^a + \gamma \sum_{s&#39;\in{\mathcal{S}}} \mathcal{P}_{ss&#39;}^a v_*(s&#39;)  \right)
+\]</span> Two steps onward for optimal action value function,</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-12.png"> <span class="math display">\[
+q_*(s,a) = \mathcal{R}_s^a + \gamma \sum_{s&#39;\in{\mathcal{S}}} \mathcal{P}_{ss&#39;}^a \max_{a&#39;\in{\mathcal{A}}} q_*(s&#39;,a&#39;)
+\]</span></p>
+<h3 id="example-1">Example</h3>
+<p>Again, for the student MDP example, the optimal state value function at red state is shown below:</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-13.png"></p>
+<h3 id="solving-the-bellman-optimality-equation">Solving the Bellman Optimality Equation</h3>
+<p>Since the Bellman optimality equation is non-linear (maxmax op in it), there’s no closed form solution (in general). However, many iterative solution methods have been designed, and will be introduced in detail in the following notes:</p>
+<ul>
+<li>Value iteration</li>
+<li>Policy iteration</li>
+<li>Q-learning</li>
+<li>Sarsa</li>
+</ul>
+<h2 id="reference">Reference</h2>
+<p>[1] <a href="http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching_files/MDP.pdf" target="_blank" rel="noopener">David Silver's RL course</a></p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/RL/">#RL</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2018/09/25/RL_DP/">Planning by Dynamic Programming</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2018/09/18/RL_intro/">Introduction to Reinforcement Learning</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/2018/09/23/RL_MDP/';
+        this.page.identifier = 'rl-mdp';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
