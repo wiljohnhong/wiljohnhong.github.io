@@ -44,6 +44,7 @@
 
     
     
+
     
     
     
@@ -105,6 +106,92 @@
 </section>
 <section class="section">
     <div class="container">
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/02/28/PRML2-3-0/" itemprop="url">(PRML Notes) 2.3.0 Gaussian Distribution</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-02-28T12:36:04.000Z" itemprop="datePublished">Feb 28 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            12 minutes read (About 1813 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<h2 id="introduction">Introduction</h2>
+<p>In the case of single variable <span class="math inline">\(x​\)</span>, the Gaussian distribution can be written in the form <span class="math display">\[
+\mathcal{N}(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left\{ -\frac{(x-\mu)^2}{2\sigma^2} \right\}
+\]</span> with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. For a <span class="math inline">\(D\)</span>-dimensional vector <span class="math inline">\(\mathbf{x}\)</span>, the multivariate Gaussian distribution takes the form <span class="math display">\[
+\mathcal{N}(\mathbf{x}| \boldsymbol{\mu},\mathbf{\Sigma}) = \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \exp\left\{ -\frac{1}{2} (\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}- \boldsymbol{\mu}) \right\}
+\]</span></p>
+        <p class="article-more-link">
+            <a href="/2019/02/28/PRML2-3-0/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/02/28/PRML2-2/" itemprop="url">(PRML Notes) 2.2 Multinomial Variables</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-02-28T06:46:04.000Z" itemprop="datePublished">Feb 28 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            4 minutes read (About 573 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<h2 id="multivariate-bernoulli-distribution">Multivariate Bernoulli Distribution</h2>
+<p>For a random multivariate variable <span class="math inline">\(\mathbf{x}\)</span> that, for example, describes the <span class="math inline">\(K=6\)</span> possible outcomes of rolling a damaged dice, each outcome is presented in an one-hot vector like <span class="math inline">\(\mathbf{x}=(0,0,1,0,0,0)^T\)</span>. If we denote the probability of <span class="math inline">\(x_k=1\)</span> by <span class="math inline">\(u_k\)</span>, then the distribution of <span class="math inline">\(\mathbf{x}\)</span> is given by <span class="math display">\[
+p(\mathbf{x}|\boldsymbol{\mu}) = \prod_{k=1}^K \mu_k^{x_k}
+\]</span> where <span class="math inline">\(\boldsymbol{\mu}=(\mu_1, ...,\mu_K)^T​\)</span> satisfying <span class="math inline">\(\sum_k \mu_k =1​\)</span>. It can be easily verified that <span class="math display">\[
+\mathbb{E}[\mathbf{x}|\boldsymbol{\mu}] = \sum_\mathbf{x} p(\mathbf{x}|\boldsymbol{\mu})\mathbf{x} =(\mu_1, ...,\mu_K)^T=\boldsymbol{\mu}
+\]</span></p>
+        <p class="article-more-link">
+            <a href="/2019/02/28/PRML2-2/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
     
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
@@ -457,7 +544,7 @@ p(X) = \sum_Y p(X|Y)p(Y)
 
     
     
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>
     MathJax.Hub.Config({
         "HTML-CSS": {matchFontHeight: false},
@@ -465,6 +552,7 @@ p(X) = \sum_Y p(X|Y)p(Y)
         CommonHTML: {matchFontHeight: false}
     });
 </script>
+
 
     
     

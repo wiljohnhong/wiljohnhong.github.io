@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>(PRML Notes) 2.3.0 Gaussian Distribution - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Introduction In the case of single variable \(x​\), the Gaussian distribution can be written in the form \[ \mathcal{N}(x|\mu,\">
+<meta name="keywords" content="PRML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(PRML Notes) 2.3.0 Gaussian Distribution">
+<meta property="og:url" content="http://wiljohn.top/2019/02/28/PRML2-3-0/index.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Introduction In the case of single variable \(x​\), the Gaussian distribution can be written in the form \[ \mathcal{N}(x|\mu,\">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-03-01%2000-09-19.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-03-01%2000-09-05.png">
+<meta property="og:updated_time" content="2019-02-28T16:30:24.449Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(PRML Notes) 2.3.0 Gaussian Distribution">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Introduction In the case of single variable \(x​\), the Gaussian distribution can be written in the form \[ \mathcal{N}(x|\mu,\">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-03-01%2000-09-19.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            (PRML Notes) 2.3.0 Gaussian Distribution
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-02-28T12:36:04.000Z" itemprop="datePublished">Feb 28 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            12 minutes read (About 1813 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<h2 id="introduction">Introduction</h2>
+<p>In the case of single variable <span class="math inline">\(x​\)</span>, the Gaussian distribution can be written in the form <span class="math display">\[
+\mathcal{N}(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left\{ -\frac{(x-\mu)^2}{2\sigma^2} \right\}
+\]</span> with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. For a <span class="math inline">\(D\)</span>-dimensional vector <span class="math inline">\(\mathbf{x}\)</span>, the multivariate Gaussian distribution takes the form <span class="math display">\[
+\mathcal{N}(\mathbf{x}| \boldsymbol{\mu},\mathbf{\Sigma}) = \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \exp\left\{ -\frac{1}{2} (\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}- \boldsymbol{\mu}) \right\}
+\]</span> <a id="more"></a></p>
+<p>with <span class="math inline">\(D\)</span>-dimensional mean vector <span class="math inline">\(\boldsymbol{\mu}\)</span> and <span class="math inline">\(D\times D\)</span> covariance matrix <span class="math inline">\(\mathbf{\Sigma}\)</span>.</p>
+<p>Gaussian distribution arises in many cases, for example</p>
+<ul>
+<li>Entropy maximization, in section 1.6</li>
+<li>When consider the sum of multiple random variables, e.g. binomial distribution tends to Gaussian as <span class="math inline">\(N\rightarrow\infty\)</span> according to <em>central limit theorem</em></li>
+</ul>
+<h2 id="coordinate-transformation">Coordinate Transformation</h2>
+<blockquote>
+<p>Transform the original coordinate into a new shifted and rotated coordinates, w.r.t. which the joint multivariate Gaussian can be factorized into a product of independent univariate Gaussian.</p>
+</blockquote>
+<p>The functional dependence of the multivariate Gaussian is through the quadratic form <span class="math display">\[
+\Delta^2 = (\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}- \boldsymbol{\mu})
+\]</span> where the quantity <span class="math inline">\(\Delta​\)</span> is called the <strong>Mahalanobis distance</strong> from <span class="math inline">\(\boldsymbol{\mu}​\)</span> to <span class="math inline">\(\mathbf{x}​\)</span>.</p>
+<p>Note that the matrix <span class="math inline">\(\mathbf{\Sigma}​\)</span> can be taken to be symmetric without loss of generality.</p>
+<blockquote>
+<h4 id="why-mathbfsigma-we-discussed-are-always-symmetric">Why <span class="math inline">\(\mathbf{\Sigma}\)</span> we discussed are always symmetric?</h4>
+<p>Any matrix <span class="math inline">\(\mathbf{M}\)</span> can be written as sum of a symmetric matrix <span class="math inline">\(\mathbf{M}_S\)</span> and an anti-symmetric matrix <span class="math inline">\(\mathbf{M}_A\)</span>, where <span class="math inline">\(\mathbf{M}_S= (\mathbf{M} + \mathbf{M}^T)/2\)</span> and <span class="math inline">\(\mathbf{M}_A = (\mathbf{M}-\mathbf{M}^T)/2\)</span>. When substitute <span class="math inline">\(\mathbf{\Sigma}=\mathbf{\Sigma}_A+\mathbf{\Sigma}_S\)</span> into <span class="math inline">\(\Delta^2\)</span>, note that <span class="math inline">\((\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}_A^{-1}(\mathbf{x}- \boldsymbol{\mu})\)</span> is a number, we have <span class="math display">\[
+\begin{align}
+(\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}_A^{-1}(\mathbf{x}- \boldsymbol{\mu}) &amp;= \frac{1}{2}(\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}_A^{-1}(\mathbf{x}- \boldsymbol{\mu}) + \frac{1}{2}(\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}_A^{-1}(\mathbf{x}- \boldsymbol{\mu})
+\\
+&amp;= \frac{1}{2}(\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}_A^{-1}(\mathbf{x}- \boldsymbol{\mu}) + \frac{1}{2}\left[ (\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}_A^{-1}(\mathbf{x}- \boldsymbol{\mu})\right]^T
+\\
+&amp;= \frac{1}{2}(\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}_A^{-1}(\mathbf{x}- \boldsymbol{\mu}) - \frac{1}{2}(\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}_A^{-1}(\mathbf{x}- \boldsymbol{\mu})
+\\
+&amp;= 0
+\end{align}
+\]</span></p>
+<p>The term in involving <span class="math inline">\(\mathbf{\Sigma}_A\)</span> vanishes, only the symmetric part <span class="math inline">\(\mathbf{\Sigma}_S\)</span> remains.</p>
+</blockquote>
+<p>Then by eigendecomposition of the symmetric matrix <span class="math inline">\(\mathbf{\Sigma}\)</span> we have <span class="math display">\[
+\mathbf{\Sigma} = \mathbf{U}\Lambda\mathbf{U}^T = \sum_{i=1}^D\lambda_i\mathbf{u}_i\mathbf{u}_i^T
+\]</span> where <span class="math inline">\(\Lambda=\mathrm{diag}(\lambda_1,...,\lambda_D)\)</span> with <span class="math inline">\(\lambda_i\)</span> the eigenvalue of <span class="math inline">\(\mathbf{\Sigma}\)</span>, and <span class="math inline">\(\mathbf{U}=(\mathbf{u}_1,...,\mathbf{u}_D)\)</span> is an orthogonal matrix with <span class="math inline">\(\mathbf{u}_i\)</span> the eigenvector of <span class="math inline">\(\lambda_i\)</span>. Thus for <span class="math inline">\(\mathbf{\Sigma}^{-1}\)</span> <span class="math display">\[
+\mathbf{\Sigma}^{-1} = \mathbf{U}\Lambda^{-1}\mathbf{U}^T = \sum_{i=1}^D\frac{1}{\lambda_i}\mathbf{u}_i\mathbf{u}_i^T
+\]</span> By substituting it to the expression of <span class="math inline">\(\Delta^2\)</span>, we have <span class="math display">\[
+\Delta^2 = (\mathbf{x}- \boldsymbol{\mu})^T\mathbf{U}\Lambda^{-1}\mathbf{U}^T(\mathbf{x}- \boldsymbol{\mu}) = \sum_{i=1}^{D} \frac{y_i^2}{\lambda_i} =||\Lambda^{-1/2} \mathbf{y}||_2
+\]</span> where <span class="math inline">\(\mathbf{y}=\mathbf{U}^T(\mathbf{x}- \boldsymbol{\mu}) = (y_1,...,y_D)^T\)</span>, each <span class="math inline">\(y_i = \mathbf{u}_i^T (\mathbf{x}- \boldsymbol{\mu})\)</span> represents the projection length of <span class="math inline">\(\mathbf{x}- \boldsymbol{\mu}\)</span> on the <span class="math inline">\(i\)</span>th eigenvector <span class="math inline">\(\mathbf{u}_i​\)</span>.</p>
+<p>Now we have transformed the original <span class="math inline">\(\mathbf{x}\)</span> coordinate to a more concise coordinate system <span class="math inline">\(\mathbf{y}\)</span>. The Gaussian density will be constant on surface where <span class="math inline">\(\Delta^2\)</span> is constant. These surfaces according to different constants represent ellipsoids if all the <span class="math inline">\(\lambda_i\)</span> are positive, centering at <span class="math inline">\(\boldsymbol{\mu}\)</span> and axes orienting along <span class="math inline">\(\mathbf{u}_i\)</span>, with scaling factors in the directions of the axes given by <span class="math inline">\(\lambda_i^{1/2}​\)</span>.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-03-01%2000-09-19.png" alt="Coordinate Transformation."><figcaption>Coordinate Transformation.</figcaption>
+</figure>
+<p>In the new <span class="math inline">\(\mathbf{y}\)</span> coordinate system, the Gaussian takes the form <span class="math display">\[
+\begin{align}
+p(\mathbf{y}) &amp;= p(\mathbf{x}) |\mathbf{J}| &amp;&amp;\scriptstyle{(\text{where }\mathbf{J}=\frac{d\mathbf{x}}{d\mathbf{y}} \text{, and since }\frac{d\mathbf{y}}{d\mathbf{x}}=\mathbf{U}^T \text{, we have }\mathbf{J}=\mathbf{U}^{-T}=\mathbf{U})}
+\\
+&amp;=p(\mathbf{x}) &amp;&amp;\scriptstyle{( |\mathbf{J}|^2=|\mathbf{U}|^2=|\mathbf{U}||\mathbf{U}|^T = |\mathbf{U}\mathbf{U}^T|=|\mathbf{I}| = 1\text{, thus } |\mathbf{J}|=1)}
+\\
+&amp;= \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \exp\left\{ - \sum_{i=1}^{D} \frac{y_i^2}{2\lambda_i} \right\}&amp; &amp;\scriptstyle{(\text{substituting by } \Delta^2 =\sum_{i=1}^{D} y_i^2/\lambda_i )}
+\\
+&amp;= \prod_{i=1}^D\frac{1}{\sqrt{2\pi\lambda_i}} \exp\left\{ -\frac{y_i^2}{2\lambda_i}  \right\}  &amp;&amp; \scriptstyle{(|\mathbf{\Sigma}| = |\mathbf{U}||\Lambda||\mathbf{U}^T| = |\Lambda|=\lambda_1\lambda_2\cdots\lambda_D)}
+\end{align}
+\]</span> so till now, we transform the original multivariate Gaussian into the product of <span class="math inline">\(D\)</span> independent univariate Gaussian.</p>
+<h2 id="mean-and-covariance">Mean and Covariance</h2>
+<p>The mean of Gaussian can be easily derived <span class="math display">\[
+\begin{align}
+\mathbb{E}[\mathbf{x}] &amp;= \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \int\exp\left\{ -\frac{1}{2} (\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}- \boldsymbol{\mu}) \right\} \ \mathbf{x}\ d\mathbf{x}
+\\
+&amp;= \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \int\exp\left\{ -\frac{1}{2} \mathbf{z}^T\mathbf{\Sigma}^{-1}\mathbf{z}\right\} \ (\mathbf{z}+\boldsymbol{\mu})\ d\mathbf{z} &amp;&amp; \scriptstyle{(\text{define } \mathbf{z}=\mathbf{x}- \boldsymbol{\mu})}
+\\
+&amp;= \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \int\exp\left\{ -\frac{1}{2} \mathbf{z}^T\mathbf{\Sigma}^{-1}\mathbf{z}\right\} \ \boldsymbol{\mu}\ d\mathbf{z} &amp;&amp; \scriptstyle{(\text{for any even function }f(x),\ \int xf(x)dx=0)}
+\\
+&amp;= \boldsymbol{\mu} &amp;&amp; \scriptstyle{(\text{using the fact that any distribution is normalized.})}
+\end{align}
+\]</span> To derive <span class="math inline">\(\mathrm{cov}[\mathbf{x}]\)</span>, we need first derive <span class="math inline">\(\mathbb{E}[\mathbf{xx}^T]\)</span>, somewhat tedious <span class="math display">\[
+\begin{aligned}
+    \mathbb{E}[\mathbf{x}\mathbf{x}^T] &amp;= \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \int \exp\left\{ -\frac{1}{2} (\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}- \boldsymbol{\mu}) \right\} \mathbf{x}\mathbf{x}^T \mathrm{d}\mathbf{x}\\ &amp;= \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \int \exp\left\{ -\frac{1}{2} \mathbf{z}^T\mathbf{\Sigma}^{-1}\mathbf{z}\right\} (\mathbf{z}+\boldsymbol{\mu})(\mathbf{z}+\boldsymbol{\mu})^T \mathrm{d}\mathbf{z}\ \ \ \ \scriptstyle{(\text{let }\mathbf{z}=\mathbf{x}-\boldsymbol{\mu})}
+    \\ &amp;= \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \int \exp\left\{ -\frac{1}{2} \mathbf{z}^T\mathbf{\Sigma}^{-1}\mathbf{z}\right\} (\mathbf{z}\mathbf{z}^T + \boldsymbol{\mu}\mathbf{z}^T +\mathbf{z}\boldsymbol{\mu}^T +\boldsymbol{\mu}\boldsymbol{\mu}^T) \mathrm{d}\mathbf{z}\\ &amp;= \boldsymbol{\mu}\boldsymbol{\mu}^T + \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \int \exp\left\{ -\frac{1}{2} \mathbf{z}^T\mathbf{\Sigma}^{-1}\mathbf{z}\right\} \mathbf{z}\mathbf{z}^T  \mathrm{d}\mathbf{z}
+    \\ &amp;\ \ \ \ \scriptstyle{(\text{use the fact that Gaussian is normalized and } \exp\{ -\frac{1}{2} \mathbf{z}^T\mathbf{\Sigma}^{-1}\mathbf{z}\} \text{ is an even function for any } z_i)}
+    \\ &amp;= \boldsymbol{\mu}\boldsymbol{\mu}^T + \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \int \exp\left\{ -\frac{1}{2} \sum_{k=1}^{D} \frac{1}{\lambda_k}\mathbf{z}^T\mathbf{u}_k \mathbf{u}_k^T\mathbf{z}\right\} \mathbf{z}\mathbf{z}^T  \mathrm{d}\mathbf{z} \ \ \ \ \scriptstyle{( \mathbf{\Sigma}^{-1} = \sum_{k=1}^D\frac{1}{\lambda_k}\mathbf{u}_k\mathbf{u}_k^T)}
+    \\ &amp;= \boldsymbol{\mu}\boldsymbol{\mu}^T + \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \int \exp\left\{ - \sum_{k=1}^{D} \frac{y_k^2}{2\lambda_k} \right\} \mathbf{U}\mathbf{y}\mathbf{y}^T\mathbf{U}^T\left||\mathbf{U}|\right|\mathrm{d}\mathbf{y} \\ &amp; \ \ \ \ \scriptstyle{(\text{let }y_k=\mathbf{u}_k^T\mathbf{z}\text{, i.e. }\mathbf{y}=\mathbf{U}^T}\mathbf{z}\text{, where }\mathbf{U}=(\mathbf{u}_1,...,\mathbf{u}_D)\text{, and we have known that } |\mathbf{U}|=|\mathbf{U}^T|=1)
+    \\ &amp;= \boldsymbol{\mu}\boldsymbol{\mu}^T + \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \sum_{i=1}^{D} \sum_{j=1}^{D}\left( \mathbf{u}_i \mathbf{u}_j^T\int \exp\left\{  \sum_{k=1}^{D} \frac{y_k^2}{2\lambda_k} \right\} y_i y_j \mathrm{d}\mathbf{y}\right)
+    \\ &amp;= \boldsymbol{\mu}\boldsymbol{\mu}^T + \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \sum_{i=1}^{D} \left( \mathbf{u}_i \mathbf{u}_i^T\int \exp\left\{ - \sum_{k=1}^{D} \frac{y_k^2}{2\lambda_k} \right\} y_i^2 \mathrm{d}\mathbf{y}\right)
+    \\ &amp; \ \ \ \ \scriptstyle{(\text{note that }\int \exp\left\{ -\frac{y_i^2}{2\lambda_i} \right\} y_i\mathrm{d}y_i = 0, \text{ so when } i\neq j,\ \int \exp\left\{ - \sum_{k=1}^{D} \frac{y_k^2}{2\lambda_k} \right\} y_i y_j \mathrm{d}\mathbf{y}= 0)}
+    \\ &amp;= \boldsymbol{\mu}\boldsymbol{\mu}^T + \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \sum_{i=1}^{D} \left( \mathbf{u}_i \mathbf{u}_i^T\int \exp\left\{ - \frac{y_i^2}{2\lambda_i} \right\} y_i^2\ \mathrm{d}y_i \prod_{k\neq i} \int \exp\left\{ - \frac{y_k^2}{2\lambda_k} \right\} \mathrm{d}y_k \right)
+    \\ &amp;= \boldsymbol{\mu}\boldsymbol{\mu}^T + \sum_{i=1}^{D} \left( \mathbf{u}_i \mathbf{u}_i^T \frac{1}{(2\pi\lambda_i)^{1/2}} \int \exp\left\{ - \frac{y_i^2}{2\lambda_i} \right\} y_i^2\ \mathrm{d}y_i \prod_{k\neq i} \frac{1}{(2\pi\lambda_k)^{1/2}} \int \exp\left\{ - \frac{y_k^2}{2\lambda_k} \right\} \mathrm{d}y_k \right)
+    \\ &amp;\ \ \ \ \scriptstyle{(\text{use the fact that Gaussian is normalized, and for } y_i\sim\mathcal{N}(0, \lambda_i)\text{, we have } \mathbb{E}[y_i^2] = \lambda_i)}
+    \\ &amp;= \boldsymbol{\mu}\boldsymbol{\mu}^T + \sum_{i=1}^{D} \lambda_i \mathbf{u}_i \mathbf{u}_i^T
+    \\ &amp;= \boldsymbol{\mu}\boldsymbol{\mu}^T + \mathbf{\Sigma}\end{aligned}
+\]</span> Then the covariance can be easily obtained by <span class="math display">\[
+\text{cov}[\mathbf{x}] = \mathbb{E}[\mathbf{x}\mathbf{x}^T] - \mathbb{E}[\mathbf{x}]\mathbb{E}[\mathbf{x}^T] = \mathbb{E}[\mathbf{x}\mathbf{x}^T] - \boldsymbol{\mu}\boldsymbol{\mu}^T = \mathbf{\Sigma}
+\]</span></p>
+<h2 id="limitation-of-gaussian">Limitation of Gaussian</h2>
+<p>Although the Gaussian distribution is widely used as a density model, it suffers from some significant limitations</p>
+<ul>
+<li><strong>Hard to compute <span class="math inline">\(\mathbf{\Sigma}^{-1}\)</span></strong>. Possible solution is to restrict <span class="math inline">\(\mathbf{\Sigma}\)</span> to be diagonal (<span class="math inline">\(\mathbf{\Sigma}=\mathrm{diag}(\sigma^2_i)\)</span>) or even isotropic (<span class="math inline">\(\mathbf{\Sigma}=\sigma^2\mathbf{I}\)</span>). Unfortunately, these methods greatly restrict the form of the probability density and limit its ability to capture interesting correlations in the data.</li>
+<li><strong>Intrinsically unimodal</strong>. Thus the Gaussian distribution can be both too flexible, in the sense of having too many parameters so that hard to compute <span class="math inline">\(\mathbf{\Sigma}^{-1}​\)</span>, while also being too limited in the range of distributions that it can adequately represent.</li>
+</ul>
+<p>Fortunately, in later chapters, the introduction of <em>latent</em> variables, also called <em>hidden</em> variables or <em>unobserved</em> variables, allows both of these problems to be addressed.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-03-01%2000-09-05.png" alt="Gaussian with covariance matrix in (a) general form, (b) diagonal form, and (c) isotropic form."><figcaption>Gaussian with covariance matrix in (a) general form, (b) diagonal form, and (c) isotropic form.</figcaption>
+</figure>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/PRML/">#PRML</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/02/28/PRML2-2/">(PRML Notes) 2.2 Multinomial Variables</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/2019/02/28/PRML2-3-0/';
+        this.page.identifier = 'prml2-3-0';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
