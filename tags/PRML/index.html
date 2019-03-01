@@ -110,6 +110,96 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/03/01/PRML2-3-1,2/" itemprop="url">(PRML Notes) 2.3.1-2 Conditional and Marginal Gaussian</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-01T07:29:04.000Z" itemprop="datePublished">Mar 1 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            8 minutes read (About 1145 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>If two sets of variables are jointly Gaussian, then the conditional distribution of one conditioned on the other is again Gaussian, and the marginal of either set is also Gaussian.</p>
+<h2 id="conditional-gaussian">Conditional Gaussian</h2>
+<p>If we partition <span class="math inline">\(\mathbf{x}\)</span> into two disjoint subsets <span class="math inline">\(\mathbf{x}_a\)</span> and <span class="math inline">\(\mathbf{x}_b\)</span>, w.l.o.g. we can take <span class="math inline">\(\mathbf{x}_a\)</span> to be the first <span class="math inline">\(M\)</span> components of <span class="math inline">\(\mathbf{x}\)</span>, then correspondingly we have <span class="math display">\[
+\mathbf{x} = \left(\matrix{\mathbf{x}_a\\\mathbf{x}_b}\right) \ \ \boldsymbol{\mu} = \left(\matrix{\boldsymbol{\mu}_a\\\boldsymbol{\mu}_b}\right) \ \ \mathbf{\Sigma} = \left(\matrix{\mathbf{\Sigma}_{aa}&amp;\mathbf{\Sigma}_{ab}\\\mathbf{\Sigma}_{ba} &amp; \mathbf{\Sigma}_{bb}}\right) \ \ \mathbf{\Lambda} = \left(\matrix{\mathbf{\Lambda}_{aa}&amp;\mathbf{\Lambda}_{ab}\\\mathbf{\Lambda}_{ba} &amp; \mathbf{\Lambda}_{bb}}\right)
+\]</span> where <span class="math inline">\(\mathbf{\Lambda}\equiv \mathbf{\Sigma}^{-1}\)</span> is known as the <strong>precision matrix</strong>. Note that <span class="math inline">\(\mathbf{\Sigma}_{ba} = \mathbf{\Sigma}_{ab}^T\)</span> and <span class="math inline">\(\mathbf{\Lambda}_{ba} = \mathbf{\Lambda}_{ba}^T\)</span> by the fact that the inverse of a symmetric matrix is also symmetric. Also note that in most cases <span class="math inline">\(\mathbf{\Lambda}_{aa} \neq \mathbf{\Sigma}_{aa}\)</span>.</p>
+<p>The conditional distribution can be evaluated from <span class="math inline">\(p(\mathbf{x}_a|\mathbf{x}_b) = p(\mathbf{x}_a, \mathbf{x}_b)/p(\mathbf{x}_b)​\)</span> with <span class="math inline">\(\mathbf{x}_b​\)</span> fixed. It can be easily inferred that <span class="math inline">\(p(\mathbf{x}_a|\mathbf{x}_b)​\)</span> remains to be Gaussian since the quadratic form in the exponent of <span class="math inline">\(p(\mathbf{x}_a, \mathbf{x}_b)​\)</span> remains to be quadratic w.r.t. <span class="math inline">\(\mathbf{x}_a​\)</span> in <span class="math inline">\(p(\mathbf{x}_a|\mathbf{x}_b)​\)</span> $$ <span class="math display">\[\begin{align}
+-\frac{1}{2} (\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}- \boldsymbol{\mu})=&amp;-\frac{1}{2} (\mathbf{x}_a- \boldsymbol{\mu}_a)^T\mathbf{\Lambda}_{aa}(\mathbf{x}_a- \boldsymbol{\mu}_a) -\frac{1}{2} (\mathbf{x}_a- \boldsymbol{\mu}_a)^T\mathbf{\Lambda}_{ab}(\mathbf{x}_b- \boldsymbol{\mu}_b)
+\\ &amp;-\frac{1}{2} (\mathbf{x}_b- \boldsymbol{\mu}_b)^T\mathbf{\Lambda}_{ba}(\mathbf{x}_a- \boldsymbol{\mu}_a) -\frac{1}{2} (\mathbf{x}_b- \boldsymbol{\mu}_b)^T\mathbf{\Lambda}_{bb}(\mathbf{x}_b- \boldsymbol{\mu}_b)
+\\ =&amp; -\frac{1}{2} \mathbf{x}_a^T\mathbf{\Lambda}_{aa}\mathbf{x}_a + \mathbf{x}_a^T[\boldsymbol{\Lambda}_{aa}\boldsymbol{\mu}_a -\boldsymbol{\Lambda}_{ab}(\mathbf{x}_b- \boldsymbol{\mu}_b)] + \text{const}
+
+\end{align}\]</span> <span class="math display">\[
+By comparison to the standard quadratic form
+\]</span> - (- )<sup>T</sup>{-1}(- ) = - <sup>T</sup>{-1} + <sup>T</sup>{-1} +  <span class="math display">\[
+We get
+\]</span>  $$ We can see that <span class="math inline">\(\mathbf{\Sigma}_{a|b}​\)</span> is independent of <span class="math inline">\(\mathbf{x}_b​\)</span>, while <span class="math inline">\(\boldsymbol{\mu}_{a|b}​\)</span> is a linear function of <span class="math inline">\(\mathbf{x}_b​\)</span>, which represents an example of a <strong>linear-Gaussian</strong> model.</p>
+<p>To represent these results in terms of the partitioned covariance matrix, first consider that <span class="math display">\[
+{\left(\matrix{ \mathbf{A}&amp;\mathbf{B}\\\mathbf{C}&amp;\mathbf{D} }\right)^{-1}} = {\left(\matrix{ \mathbf{M}&amp;\mathbf{-MBD^{-1}}\\-\mathbf{D}^{-1}\mathbf{CM}&amp;\mathbf{D}^{-1}+\mathbf{D}^{-1}\mathbf{CMBD}^{-1} }\right)}
+\]</span> where <span class="math inline">\(\mathbf{M} = (\mathbf{A} - \mathbf{BD}^{-1}\mathbf{C})^{-1}\)</span>. Thus from <span class="math display">\[
+{\left(\matrix{ \mathbf{\Sigma}_{aa}&amp;\mathbf{\Sigma}_{ab}\\\mathbf{\Sigma}_{ba}&amp;\mathbf{\Sigma}_{bb} }\right)^{-1}} = \left(\matrix{\mathbf{\Lambda}_{aa}&amp;\mathbf{\Lambda}_{ab}\\\mathbf{\Lambda}_{ba} &amp; \mathbf{\Lambda}_{bb}}\right)
+\]</span> we can derive that <span class="math display">\[
+\begin{align}
+\mathbf{\Lambda}_{aa} &amp;= (\mathbf{\Sigma}_{aa} - \mathbf{\Sigma}_{ab}\mathbf{\Sigma}_{bb}^{-1}\mathbf{\Sigma}_{ba})^{-1}
+\\ \mathbf{\Lambda}_{ab} &amp;= -(\mathbf{\Sigma}_{aa} - \mathbf{\Sigma}_{ab}\mathbf{\Sigma}_{bb}^{-1}\mathbf{\Sigma}_{ba})^{-1}\mathbf{\Sigma}_{ab}\mathbf{\Sigma}_{bb}^{-1}
+\end{align}
+\]</span> Replace them into mean and covariance we have <span class="math display">\[
+\begin{align}
+\mathbf{\Sigma}_{a|b} &amp;= \mathbf{\Sigma}_{aa} - \mathbf{\Sigma}_{ab}\mathbf{\Sigma}_{bb}^{-1}\mathbf{\Sigma}_{ba}
+\\ \boldsymbol{\mu}_{a|b} &amp;= \boldsymbol{\mu}_a +\mathbf{\Sigma}_{ab}\mathbf{\Sigma}_{bb}^{-1}(\mathbf{x}_b- \boldsymbol{\mu}_b)
+\end{align}
+\]</span></p>
+<h2 id="marginal-gaussian">Marginal Gaussian</h2>
+<p>In the textbook, the author uses integration to derive marginal Gaussian distribution. However, with the help of the conditional Gaussian that we have derived before, the derivation can be done in a simpler way by using <span class="math inline">\(p(\mathbf{x}_b)= p(\mathbf{x}_a, \mathbf{x}_b)/p(\mathbf{x}_a|\mathbf{x}_b)​\)</span></p>
+<p>Remember that the quadratic form in the exponent of <span class="math inline">\(p(\mathbf{x}_a, \mathbf{x}_b)​\)</span> takes the form</p>
+<p><span class="math display">\[
+\begin{align}
+-\frac{1}{2} (\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}- \boldsymbol{\mu})=&amp;-\frac{1}{2} (\mathbf{x}_a- \boldsymbol{\mu}_a)^T\mathbf{\Lambda}_{aa}(\mathbf{x}_a- \boldsymbol{\mu}_a) -\frac{1}{2} (\mathbf{x}_a- \boldsymbol{\mu}_a)^T\mathbf{\Lambda}_{ab}(\mathbf{x}_b- \boldsymbol{\mu}_b)
+\\ &amp;-\frac{1}{2} (\mathbf{x}_b- \boldsymbol{\mu}_b)^T\mathbf{\Lambda}_{ba}(\mathbf{x}_a- \boldsymbol{\mu}_a) \color{red}{-\frac{1}{2} (\mathbf{x}_b- \boldsymbol{\mu}_b)^T\mathbf{\Lambda}_{bb}(\mathbf{x}_b- \boldsymbol{\mu}_b)}
+\end{align}
+\]</span> While the the quadratic form in the exponent of <span class="math inline">\(p(\mathbf{x}_a|\mathbf{x}_b)​\)</span> takes the form <span class="math display">\[
+\begin{align}
+&amp;-\frac{1}{2} (\mathbf{x}_a- \boldsymbol{\mu}_a +\mathbf{\Lambda}_{aa}^{-1}\boldsymbol{\Lambda}_{ab}(\mathbf{x}_b- \boldsymbol{\mu}_b) )^T\mathbf{\Lambda}_{aa}(\mathbf{x}_a- \boldsymbol{\mu}_a +\mathbf{\Lambda}_{aa}^{-1}\boldsymbol{\Lambda}_{ab}(\mathbf{x}_b- \boldsymbol{\mu}_b))
+\\
+=&amp;-\frac{1}{2} (\mathbf{x}_a- \boldsymbol{\mu}_a)^T\mathbf{\Lambda}_{aa}(\mathbf{x}_a- \boldsymbol{\mu}_a) -\frac{1}{2} (\mathbf{x}_a- \boldsymbol{\mu}_a)^T\mathbf{\Lambda}_{ab}(\mathbf{x}_b- \boldsymbol{\mu}_b)
+\\ &amp;-\frac{1}{2} (\mathbf{x}_b- \boldsymbol{\mu}_b)^T\mathbf{\Lambda}_{ba}(\mathbf{x}_a- \boldsymbol{\mu}_a) \color{red}{-\frac{1}{2} (\mathbf{x}_b- \boldsymbol{\mu}_b)^T\mathbf{\Lambda}_{ba}\mathbf{\Lambda}_{aa}^{-1}\mathbf{\Lambda}_{ab}(\mathbf{x}_b- \boldsymbol{\mu}_b)}
+\end{align}
+\]</span> We see that the exponents only differ in the last term. So the exponent of <span class="math inline">\(p(\mathbf{x}_b)= p(\mathbf{x}_a, \mathbf{x}_b)/p(\mathbf{x}_a|\mathbf{x}_b)\)</span> remains quadratic and will be <span class="math display">\[
+-\frac{1}{2} (\mathbf{x}_b- \boldsymbol{\mu}_b)^T(\mathbf{\Lambda}_{bb}-\mathbf{\Lambda}_{ba}\mathbf{\Lambda}_{aa}^{-1}\mathbf{\Lambda}_{ab})(\mathbf{x}_b- \boldsymbol{\mu}_b) = -\frac{1}{2} (\mathbf{x}_b- \boldsymbol{\mu}_b)^T\mathbf{\Sigma}_{bb}^{-1}(\mathbf{x}_b- \boldsymbol{\mu}_b)
+\]</span> where we use the fact <span class="math inline">\(\mathbf{\Sigma}_{bb} = (\mathbf{\Lambda}_{bb}-\mathbf{\Lambda}_{ba}\mathbf{\Lambda}_{aa}^{-1}\mathbf{\Lambda}_{ab})^{-1}\)</span>. So the marginal distribution <span class="math inline">\(p(\mathbf{x}_b)​\)</span> is also Gaussian that takes a very simple form where <span class="math display">\[
+\color{blue}{
+\begin{align}
+\mathbb{E}[\mathbf{x}_b] &amp;= \boldsymbol{\mu}_b
+\\ \mathrm{cov}[\mathbf{x}_b] &amp;= \boldsymbol{\Sigma}_{bb}
+\end{align}
+}
+\]</span></p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/02/28/PRML2-3-0/" itemprop="url">(PRML Notes) 2.3.0 Gaussian Distribution</a>
         
     </h1>

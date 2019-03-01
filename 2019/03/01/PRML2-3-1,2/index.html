@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-<title>Wiljohn&#39;s Blog</title>
+<title>(PRML Notes) 2.3.1-2 Conditional and Marginal Gaussian - Wiljohn&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -12,13 +12,18 @@
 
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Wiljohn&#39;s Blog">
-<meta property="og:url" content="http://wiljohn.top/index.html">
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  If two sets of variables are jointly Gaussian, then the conditional distribution of one conditioned on the other is again Gauss">
+<meta name="keywords" content="PRML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(PRML Notes) 2.3.1-2 Conditional and Marginal Gaussian">
+<meta property="og:url" content="http://wiljohn.top/2019/03/01/PRML2-3-1,2/index.html">
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  If two sets of variables are jointly Gaussian, then the conditional distribution of one conditioned on the other is again Gauss">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-03-01T10:31:19.279Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Wiljohn&#39;s Blog">
+<meta name="twitter:title" content="(PRML Notes) 2.3.1-2 Conditional and Marginal Gaussian">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  If two sets of variables are jointly Gaussian, then the conditional distribution of one conditioned on the other is again Gauss">
 
 
 
@@ -99,11 +104,10 @@
 
     <section class="section">
     <div class="container">
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/03/01/PRML2-3-1,2/" itemprop="url">(PRML Notes) 2.3.1-2 Conditional and Marginal Gaussian</a>
+            (PRML Notes) 2.3.1-2 Conditional and Marginal Gaussian
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -183,415 +187,61 @@ We get
     
     </div>
     
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/PRML/">#PRML</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/02/28/PRML2-3-0/">(PRML Notes) 2.3.0 Gaussian Distribution</a>
+            
+        </span>
+    </div>
     
 </article>
 
 
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
 
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/02/28/PRML2-3-0/" itemprop="url">(PRML Notes) 2.3.0 Gaussian Distribution</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-02-28T12:36:04.000Z" itemprop="datePublished">Feb 28 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            12 minutes read (About 1813 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<h2 id="introduction">Introduction</h2>
-<p>In the case of single variable <span class="math inline">\(x​\)</span>, the Gaussian distribution can be written in the form <span class="math display">\[
-\mathcal{N}(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left\{ -\frac{(x-\mu)^2}{2\sigma^2} \right\}
-\]</span> with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. For a <span class="math inline">\(D\)</span>-dimensional vector <span class="math inline">\(\mathbf{x}\)</span>, the multivariate Gaussian distribution takes the form <span class="math display">\[
-\mathcal{N}(\mathbf{x}| \boldsymbol{\mu},\mathbf{\Sigma}) = \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \exp\left\{ -\frac{1}{2} (\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}- \boldsymbol{\mu}) \right\}
-\]</span></p>
-        <p class="article-more-link">
-            <a href="/2019/02/28/PRML2-3-0/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
+</div>
 
 
 
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/2019/03/01/PRML2-3-1,2/';
+        this.page.identifier = 'prml2-3-1';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
 
+<div id="disqus_thread">
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/02/28/PRML2-2/" itemprop="url">(PRML Notes) 2.2 Multinomial Variables</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-02-28T06:46:04.000Z" itemprop="datePublished">Feb 28 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            4 minutes read (About 573 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<h2 id="multivariate-bernoulli-distribution">Multivariate Bernoulli Distribution</h2>
-<p>For a random multivariate variable <span class="math inline">\(\mathbf{x}\)</span> that, for example, describes the <span class="math inline">\(K=6\)</span> possible outcomes of rolling a damaged dice, each outcome is presented in an one-hot vector like <span class="math inline">\(\mathbf{x}=(0,0,1,0,0,0)^T\)</span>. If we denote the probability of <span class="math inline">\(x_k=1\)</span> by <span class="math inline">\(u_k\)</span>, then the distribution of <span class="math inline">\(\mathbf{x}\)</span> is given by <span class="math display">\[
-p(\mathbf{x}|\boldsymbol{\mu}) = \prod_{k=1}^K \mu_k^{x_k}
-\]</span> where <span class="math inline">\(\boldsymbol{\mu}=(\mu_1, ...,\mu_K)^T​\)</span> satisfying <span class="math inline">\(\sum_k \mu_k =1​\)</span>. It can be easily verified that <span class="math display">\[
-\mathbb{E}[\mathbf{x}|\boldsymbol{\mu}] = \sum_\mathbf{x} p(\mathbf{x}|\boldsymbol{\mu})\mathbf{x} =(\mu_1, ...,\mu_K)^T=\boldsymbol{\mu}
-\]</span></p>
-        <p class="article-more-link">
-            <a href="/2019/02/28/PRML2-2/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
 
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/02/27/PRML2-1/" itemprop="url">(PRML Notes) 2.1 Binary Variables</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-02-27T13:04:04.000Z" itemprop="datePublished">Feb 27 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            9 minutes read (About 1345 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<h2 id="bernoulli-distribution">Bernoulli Distribution</h2>
-<p>For a random variable <span class="math inline">\(x\)</span> that, for example, describes the outcome of flipping a damaged coin, with the probability of landing heads <span class="math inline">\(p(x=1|\mu)=\mu\)</span>, and landing tails <span class="math inline">\(p(x=0|\mu)=1-\mu\)</span>. The <strong>Bernoulli distribution</strong> is the probability over such <span class="math inline">\(x\)</span> that can be written in the form</p>
-<p><span class="math display">\[
-\mathrm{Bern}(x|\mu) = \mu^x(1-\mu)^{1-x}
-\]</span></p>
-<p>whose mean and variance are given by <span class="math display">\[
-\begin{aligned}
-\mathbb{E}[x] &amp;= \mu \\
-\mathrm{var}[x] &amp;= \mu(1-\mu)
-\end{aligned}
-\]</span></p>
-        <p class="article-more-link">
-            <a href="/2019/02/27/PRML2-1/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/12/24/PRML1-6/" itemprop="url">(PRML Notes) 1.6 Information Theory</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-12-24T11:53:23.000Z" itemprop="datePublished">Dec 24 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            14 minutes read (About 2052 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>When observing a specific value of <span class="math inline">\(x\)</span>, the amount of information received can be viewed as the "degree of surprise". Higher information is received when a highly improbable value of <span class="math inline">\(x\)</span> has just observed, so the measure of information will depend monotonically on <span class="math inline">\(p(x)\)</span>, we denote it as <span class="math inline">\(h(x)\)</span>.</p>
-        <p class="article-more-link">
-            <a href="/2018/12/24/PRML1-6/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/12/21/ssr/" itemprop="url">ShadowsocksR资源整理</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-12-21T04:41:26.000Z" itemprop="datePublished">Dec 21 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            10 minutes read (About 1539 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>由于一些众所周知的原因，我们并不能自由访问完整的互联网。但是互联网审查粒度过粗，导致许多本不需要审查的内容被拒之墙外，如Google Scholar，Wikipedia等。</p>
-<p>ShadowsocksR是一种基于Socks5代理的加密传输协议，是shadowsocks的加强版本，可以帮助我们突破中国互联网审查(GFW)从而浏览被封锁的内容。ShadowsocksR分为服务器端和客户端，在使用之前，需要先将服务器端部署到服务器上面，然后通过客户端连接并创建本地代理。</p>
-</blockquote>
-<p>下面整理的是近期配置SSR时收集的一些资源。</p>
-        <p class="article-more-link">
-            <a href="/2018/12/21/ssr/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/10/01/RL_prediction/" itemprop="url">Model-Free Prediction</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-10-01T12:10:22.000Z" itemprop="datePublished">Oct 1 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            11 minutes read (About 1699 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>In this and next notes, different from the DP, we do all the things within an <strong>unknown MDP</strong>, just what the <em>model-free</em> means.</p>
-</blockquote>
-<h2 id="monte-carlo-learning">Monte-Carlo Learning</h2>
-<p>The basic idea is very simple, it uses the mean return of episodes as the true value.</p>
-<ul>
-<li>Learn from complete <strong>episodes</strong>, which refers to the procedure from current state to the final state. (The opposite learning method is <strong>bootstrapping</strong>, which means updating the current state value from incomplete episodes.)</li>
-<li>Restrict to the learning method, MC can only be applied to <em>episodic</em> MDPs, whose all episodes must terminates.</li>
-<li>MC is <strong>model-free</strong>, it has no knowledge of MDP transitions or rewards.</li>
-</ul>
-        <p class="article-more-link">
-            <a href="/2018/10/01/RL_prediction/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/09/25/RL_DP/" itemprop="url">Planning by Dynamic Programming</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-09-25T03:33:44.000Z" itemprop="datePublished">Sep 25 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            7 minutes read (About 1102 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p><em>Dynamic programming assumes <strong>full knowledge</strong> of the MDP.</em></p>
-</blockquote>
-<h2 id="dynamic-programming">Dynamic Programming</h2>
-<p><strong>Dynamic</strong>: sequential or temporal component to the problem (like a table storing subproblem solutions)</p>
-<p><strong>Programming</strong>: optimizing a "problem", i.e. a policy</p>
-<p>DP is a very general solution method for problems which have two properties (MDP satisfies both):</p>
-<ul>
-<li>Optimal substructure (see the first theorem for optimal policy in last note)</li>
-<li>Overlapping subproblems (recurring many times, reused by Bellman equation)</li>
-</ul>
-        <p class="article-more-link">
-            <a href="/2018/09/25/RL_DP/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/09/23/RL_MDP/" itemprop="url">Markov Decision Process</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-09-23T07:30:15.000Z" itemprop="datePublished">Sep 23 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            10 minutes read (About 1533 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p><em>Markov decision processes</em> formally describe an <strong>environment</strong> for reinforcement learning, where the environment is <em>fully observable</em>.</p>
-</blockquote>
-<h2 id="markov-process">Markov Process</h2>
-<h3 id="definition">Definition</h3>
-<p>A <em>Markov Process</em> (or <em>Markov Chain</em>) is a memoryless random process (which satisfies Markov Property), denoted by a tuple <span class="math inline">\(⟨\mathcal{S},\mathcal{P}⟩\)</span>, where</p>
-<ul>
-<li><p><span class="math inline">\(\mathcal{S}\)</span> is a (finite) set of states</p></li>
-<li><p><span class="math inline">\(\mathcal{P}\)</span> is a state transition probability matrix, <span class="math inline">\(\mathcal{P}_{ss&#39;} = \mathbb{P}[S_{t+1}=s&#39;|S_t=s]\)</span></p></li>
-</ul>
-        <p class="article-more-link">
-            <a href="/2018/09/23/RL_MDP/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/09/18/RL_intro/" itemprop="url">Introduction to Reinforcement Learning</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-09-17T18:38:10.000Z" itemprop="datePublished">Sep 18 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            6 minutes read (About 944 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>RL is the study of agents and how they learn by trial and error. It formalizes the idea that rewarding or punishing an agent for its behavior makes it more likely to repeat or forego that behavior in the future.</p>
-</blockquote>
-<h2 id="about-reinforcement-learning">About Reinforcement Learning</h2>
-<h3 id="many-faces-of-reinforcement-learning">Many Faces of Reinforcement Learning</h3>
-<p>Reinforcement learning is about a science of decision making, sitting in many different fields of science.</p>
-        <p class="article-more-link">
-            <a href="/2018/09/18/RL_intro/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-    
-        
-<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
-    <div class="pagination-previous is-invisible is-hidden-mobile">
-        <a href="/page/0/">Prev</a>
-    </div>
-    <div class="pagination-next">
-        <a href="/page/2/">Next</a>
-    </div>
-    <ul class="pagination-list is-hidden-mobile">
-        
-        <li><a class="pagination-link is-current" href="/">1</a></li>
-        
-        <li><a class="pagination-link" href="/page/2/">2</a></li>
-        
-    </ul>
-</nav>
-    
     </div>
 </section>
     <footer class="footer">
