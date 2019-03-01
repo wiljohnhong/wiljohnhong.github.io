@@ -20,7 +20,7 @@
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
 <meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  If two sets of variables are jointly Gaussian, then the conditional distribution of one conditioned on the other is again Gauss">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-03-01T10:31:19.279Z">
+<meta property="og:updated_time" content="2019-03-01T10:34:05.027Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 2.3.1-2 Conditional and Marginal Gaussian">
 <meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  If two sets of variables are jointly Gaussian, then the conditional distribution of one conditioned on the other is again Gauss">
@@ -119,7 +119,7 @@
         <span class="column is-narrow">
             
             
-            8 minutes read (About 1145 words)
+            8 minutes read (About 1140 words)
         </span>
         
     </div>
@@ -132,17 +132,26 @@
 <h2 id="conditional-gaussian">Conditional Gaussian</h2>
 <p>If we partition <span class="math inline">\(\mathbf{x}\)</span> into two disjoint subsets <span class="math inline">\(\mathbf{x}_a\)</span> and <span class="math inline">\(\mathbf{x}_b\)</span>, w.l.o.g. we can take <span class="math inline">\(\mathbf{x}_a\)</span> to be the first <span class="math inline">\(M\)</span> components of <span class="math inline">\(\mathbf{x}\)</span>, then correspondingly we have <span class="math display">\[
 \mathbf{x} = \left(\matrix{\mathbf{x}_a\\\mathbf{x}_b}\right) \ \ \boldsymbol{\mu} = \left(\matrix{\boldsymbol{\mu}_a\\\boldsymbol{\mu}_b}\right) \ \ \mathbf{\Sigma} = \left(\matrix{\mathbf{\Sigma}_{aa}&amp;\mathbf{\Sigma}_{ab}\\\mathbf{\Sigma}_{ba} &amp; \mathbf{\Sigma}_{bb}}\right) \ \ \mathbf{\Lambda} = \left(\matrix{\mathbf{\Lambda}_{aa}&amp;\mathbf{\Lambda}_{ab}\\\mathbf{\Lambda}_{ba} &amp; \mathbf{\Lambda}_{bb}}\right)
-\]</span> where <span class="math inline">\(\mathbf{\Lambda}\equiv \mathbf{\Sigma}^{-1}\)</span> is known as the <strong>precision matrix</strong>. Note that <span class="math inline">\(\mathbf{\Sigma}_{ba} = \mathbf{\Sigma}_{ab}^T\)</span> and <span class="math inline">\(\mathbf{\Lambda}_{ba} = \mathbf{\Lambda}_{ba}^T\)</span> by the fact that the inverse of a symmetric matrix is also symmetric. Also note that in most cases <span class="math inline">\(\mathbf{\Lambda}_{aa} \neq \mathbf{\Sigma}_{aa}\)</span>.</p>
-<p>The conditional distribution can be evaluated from <span class="math inline">\(p(\mathbf{x}_a|\mathbf{x}_b) = p(\mathbf{x}_a, \mathbf{x}_b)/p(\mathbf{x}_b)​\)</span> with <span class="math inline">\(\mathbf{x}_b​\)</span> fixed. It can be easily inferred that <span class="math inline">\(p(\mathbf{x}_a|\mathbf{x}_b)​\)</span> remains to be Gaussian since the quadratic form in the exponent of <span class="math inline">\(p(\mathbf{x}_a, \mathbf{x}_b)​\)</span> remains to be quadratic w.r.t. <span class="math inline">\(\mathbf{x}_a​\)</span> in <span class="math inline">\(p(\mathbf{x}_a|\mathbf{x}_b)​\)</span> $$ <span class="math display">\[\begin{align}
+\]</span> <a id="more"></a> where <span class="math inline">\(\mathbf{\Lambda}\equiv \mathbf{\Sigma}^{-1}\)</span> is known as the <strong>precision matrix</strong>. Note that <span class="math inline">\(\mathbf{\Sigma}_{ba} = \mathbf{\Sigma}_{ab}^T\)</span> and <span class="math inline">\(\mathbf{\Lambda}_{ba} = \mathbf{\Lambda}_{ba}^T\)</span> by the fact that the inverse of a symmetric matrix is also symmetric. Also note that in most cases <span class="math inline">\(\mathbf{\Lambda}_{aa} \neq \mathbf{\Sigma}_{aa}\)</span>.</p>
+<p>The conditional distribution can be evaluated from <span class="math inline">\(p(\mathbf{x}_a|\mathbf{x}_b) = p(\mathbf{x}_a, \mathbf{x}_b)/p(\mathbf{x}_b)\)</span> with <span class="math inline">\(\mathbf{x}_b\)</span> fixed. It can be easily inferred that <span class="math inline">\(p(\mathbf{x}_a|\mathbf{x}_b)\)</span> remains to be Gaussian since the quadratic form in the exponent of <span class="math inline">\(p(\mathbf{x}_a, \mathbf{x}_b)\)</span> remains to be quadratic w.r.t. <span class="math inline">\(\mathbf{x}_a\)</span> in <span class="math inline">\(p(\mathbf{x}_a|\mathbf{x}_b)\)</span></p>
+<p><span class="math display">\[
+\begin{align}
 -\frac{1}{2} (\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}- \boldsymbol{\mu})=&amp;-\frac{1}{2} (\mathbf{x}_a- \boldsymbol{\mu}_a)^T\mathbf{\Lambda}_{aa}(\mathbf{x}_a- \boldsymbol{\mu}_a) -\frac{1}{2} (\mathbf{x}_a- \boldsymbol{\mu}_a)^T\mathbf{\Lambda}_{ab}(\mathbf{x}_b- \boldsymbol{\mu}_b)
 \\ &amp;-\frac{1}{2} (\mathbf{x}_b- \boldsymbol{\mu}_b)^T\mathbf{\Lambda}_{ba}(\mathbf{x}_a- \boldsymbol{\mu}_a) -\frac{1}{2} (\mathbf{x}_b- \boldsymbol{\mu}_b)^T\mathbf{\Lambda}_{bb}(\mathbf{x}_b- \boldsymbol{\mu}_b)
 \\ =&amp; -\frac{1}{2} \mathbf{x}_a^T\mathbf{\Lambda}_{aa}\mathbf{x}_a + \mathbf{x}_a^T[\boldsymbol{\Lambda}_{aa}\boldsymbol{\mu}_a -\boldsymbol{\Lambda}_{ab}(\mathbf{x}_b- \boldsymbol{\mu}_b)] + \text{const}
-
-\end{align}\]</span> <span class="math display">\[
-By comparison to the standard quadratic form
-\]</span> - (- )<sup>T</sup>{-1}(- ) = - <sup>T</sup>{-1} + <sup>T</sup>{-1} +  <span class="math display">\[
-We get
-\]</span>  $$ We can see that <span class="math inline">\(\mathbf{\Sigma}_{a|b}​\)</span> is independent of <span class="math inline">\(\mathbf{x}_b​\)</span>, while <span class="math inline">\(\boldsymbol{\mu}_{a|b}​\)</span> is a linear function of <span class="math inline">\(\mathbf{x}_b​\)</span>, which represents an example of a <strong>linear-Gaussian</strong> model.</p>
+\end{align}
+\]</span></p>
+<p>By comparison to the standard quadratic form <span class="math display">\[
+-\frac{1}{2} (\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}- \boldsymbol{\mu}) = -\frac{1}{2} \mathbf{x}^T\mathbf{\Sigma}^{-1}\mathbf{x} + \mathbf{x}^T\mathbf{\Sigma}^{-1}\boldsymbol{\mu} + \text{const}
+\]</span></p>
+<p>We get <span class="math display">\[
+\color{blue}{
+\begin{align}
+\mathbf{\Sigma}_{a|b} &amp;= \mathbf{\Lambda}_{aa}^{-1}
+\\ \boldsymbol{\mu}_{a|b} &amp; \color{}= \mathbf{\Sigma}_{a|b}[\boldsymbol{\Lambda}_{aa}\boldsymbol{\mu}_a -\boldsymbol{\Lambda}_{ab}(\mathbf{x}_b- \boldsymbol{\mu}_b)] = \boldsymbol{\mu}_a -\mathbf{\Lambda}_{aa}^{-1}\boldsymbol{\Lambda}_{ab}(\mathbf{x}_b- \boldsymbol{\mu}_b)
+\end{align}
+}
+\]</span> We can see that <span class="math inline">\(\mathbf{\Sigma}_{a|b}​\)</span> is independent of <span class="math inline">\(\mathbf{x}_b​\)</span>, while <span class="math inline">\(\boldsymbol{\mu}_{a|b}​\)</span> is a linear function of <span class="math inline">\(\mathbf{x}_b​\)</span>, which represents an example of a <strong>linear-Gaussian</strong> model.</p>
 <p>To represent these results in terms of the partitioned covariance matrix, first consider that <span class="math display">\[
 {\left(\matrix{ \mathbf{A}&amp;\mathbf{B}\\\mathbf{C}&amp;\mathbf{D} }\right)^{-1}} = {\left(\matrix{ \mathbf{M}&amp;\mathbf{-MBD^{-1}}\\-\mathbf{D}^{-1}\mathbf{CM}&amp;\mathbf{D}^{-1}+\mathbf{D}^{-1}\mathbf{CMBD}^{-1} }\right)}
 \]</span> where <span class="math inline">\(\mathbf{M} = (\mathbf{A} - \mathbf{BD}^{-1}\mathbf{C})^{-1}\)</span>. Thus from <span class="math display">\[
