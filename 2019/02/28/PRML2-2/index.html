@@ -21,7 +21,7 @@
 <meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Multivariate Bernoulli Distribution For a random multivariate variable \(\mathbf{x}\) that, for example, describes the \(K=6\)">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-02-28%2015-59-42.png">
-<meta property="og:updated_time" content="2019-02-28T08:06:17.823Z">
+<meta property="og:updated_time" content="2019-03-01T12:55:44.355Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 2.2 Multinomial Variables">
 <meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Multivariate Bernoulli Distribution For a random multivariate variable \(\mathbf{x}\) that, for example, describes the \(K=6\)">
@@ -153,9 +153,9 @@ p(\mathcal{D}|\boldsymbol{\mu}) = \prod_{n=1}^N \prod_{k=1}^K \mu_k^{x_{nk}} = \
 \mathrm{Dir}(\boldsymbol{\mu}|\boldsymbol{\alpha}) = \frac{\Gamma(\alpha_0)}{\Gamma(\alpha_1)\cdots\Gamma(\alpha_K)} \prod_{k=1}^K \mu_k^{\alpha_k-1}
 \]</span> where <span class="math inline">\(\boldsymbol{\alpha} = (\alpha_0,...,\alpha_K)^T​\)</span> and <span class="math inline">\(\alpha_0=\sum_k \alpha_k​\)</span>. It is a conjugate prior for the multinomial. Note that the distribution over the space of the <span class="math inline">\(\{\mu_k\}​\)</span> is confined to a <em>simplex</em> of dimensionality <span class="math inline">\(K=1​\)</span> because of the constraint <span class="math inline">\(\sum_k \mu_k = 1​\)</span>.</p>
 <p>Just like that discussed for beta distribution (with the same interpretation), the posterior for <span class="math inline">\(\{\mu_k\}\)</span> takes the form <span class="math display">\[
-p(\boldsymbol{\mu}|\mathcal{D},\boldsymbol{\alpha}) \propto p(\boldsymbol{\mu}|\mathcal{D}) p(\boldsymbol{\mu}|\boldsymbol{\alpha}) \propto\prod_{k=1}^K \mu_k^{\alpha_k+{\color{red}m_k}-1}
+p(\boldsymbol{\mu}|\mathcal{D},\boldsymbol{\alpha}) \propto p(\boldsymbol{\mu}|\mathcal{D}) p(\boldsymbol{\mu}|\boldsymbol{\alpha}) \propto\prod_{k=1}^K \mu_k^{\alpha_k+\color{blue}{m_k}-1}
 \]</span> or we can write it in the normalized form <span class="math display">\[
-\mathrm{Dir}(\boldsymbol{\mu}|\mathcal{D},\boldsymbol{\alpha}) = \frac{\Gamma(\alpha_0+{\color{red} N})}{\Gamma(\alpha_1+{\color{red} m_1})\cdots\Gamma(\alpha_K+{\color{red} m_K})} \prod_{k=1}^K \mu_k^{\alpha_k+{\color{red} m_k}-1}
+\mathrm{Dir}(\boldsymbol{\mu}|\mathcal{D},\boldsymbol{\alpha}) = \frac{\Gamma(\alpha_0+\color{blue}{N})}{\Gamma(\alpha_1+\color{blue}{m_1})\cdots\Gamma(\alpha_K+\color{blue}{m_K})} \prod_{k=1}^K \mu_k^{\alpha_k+\color{blue}{m_k}-1}
 \]</span></p>
 <figure>
 <img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-02-28%2015-59-42.png" alt="Plots of the Dirichlet distribution over three variables, where the two horizontal axes are coordinates in the plane of the simplex and the vertical axis corresponds to the value of the density. Here \alpha_k = 0.1, \forall k on the left plot, \alpha_k = 1, \forall k in the center plot, and \alpha_k = 10, \forall k in the right plot."><figcaption>Plots of the Dirichlet distribution over three variables, where the two horizontal axes are coordinates in the plane of the simplex and the vertical axis corresponds to the value of the density. Here <span class="math inline">\(\alpha_k = 0.1, \forall k\)</span> on the left plot, <span class="math inline">\(\alpha_k = 1, \forall k\)</span> in the center plot, and <span class="math inline">\(\alpha_k = 10, \forall k\)</span> in the right plot.</figcaption>
