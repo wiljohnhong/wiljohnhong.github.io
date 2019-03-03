@@ -20,10 +20,12 @@
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
 <meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Maximum Likelihood for Gaussian Given a dataset \(\mathbf{X} = (\mathbf{x}_1,...,\mathbf{N})^T\) where \(\mathbf{x_n}\) are dra">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-03-02T15:27:20.734Z">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-03-02%2023-30-11.png">
+<meta property="og:updated_time" content="2019-03-02T15:32:33.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 2.3.4-5 Frequentist Estimate for Gaussian">
 <meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Maximum Likelihood for Gaussian Given a dataset \(\mathbf{X} = (\mathbf{x}_1,...,\mathbf{N})^T\) where \(\mathbf{x_n}\) are dra">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-03-02%2023-30-11.png">
 
 
 
@@ -119,7 +121,7 @@
         <span class="column is-narrow">
             
             
-            10 minutes read (About 1569 words)
+            11 minutes read (About 1576 words)
         </span>
         
     </div>
@@ -199,8 +201,9 @@ f(\theta) \equiv \mathbb{E}[z|\theta] = \int zp(z|\theta)\ dz
 <p>First we shall assume that</p>
 <ul>
 <li>The conditional variance of <span class="math inline">\(z\)</span> is finite: <span class="math inline">\(\mathrm{var}[z|\theta]\equiv\mathbb{E}[(z-f)|\theta]&lt;\infty\)</span></li>
-<li>w.l.o.g. <span class="math inline">\(f(\theta)&gt;0​\)</span> for <span class="math inline">\(\theta &gt; \theta^*​\)</span> and <span class="math inline">\(f(\theta)&lt;0​\)</span> for <span class="math inline">\(\theta &lt; \theta^*​\)</span>, as in the following figure</li>
+<li>w.l.o.g. <span class="math inline">\(f(\theta)&gt;0\)</span> for <span class="math inline">\(\theta &gt; \theta^*\)</span> and <span class="math inline">\(f(\theta)&lt;0\)</span> for <span class="math inline">\(\theta &lt; \theta^*\)</span>, as in the following figure</li>
 </ul>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-03-02%2023-30-11.png"></p>
 <p>Then the Robbins-Monro algorithm defines a sequence estimate of <span class="math inline">\(\theta^*\)</span> given by <span class="math display">\[
 \theta^{(N)} = \theta^{(N-1)} - a_{N-1}z(\theta^{(N-1)})
 \]</span> where <span class="math inline">\(z(\theta^{(N)})\)</span> is an observed value of <span class="math inline">\(z\)</span> when <span class="math inline">\(\theta\)</span> takes the value <span class="math inline">\(\theta^{(N)}\)</span>.</p>
@@ -253,7 +256,9 @@ z = \frac{\partial}{\partial\mu_\mathrm{ML}}\left[ -\ln \frac{1}{\sqrt{2\pi}\sig
     
     
     <div class="columns is-mobile is-multiline article-nav">
-        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2019/03/02/PRML2-3-6/">(PRML Notes) 2.3.6 Bayesian Inference for Gaussian</a>
             
         </span>
         <span class="column is-12-mobile is-half-desktop  article-nav-next">

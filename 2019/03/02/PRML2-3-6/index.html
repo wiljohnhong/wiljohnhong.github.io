@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>(PRML Notes) 2.3.6 Bayesian Inference for Gaussian - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Now for univariate Gaussian, we use \(\mathtt{x} = \{x_1,...,x_N\}​\) to denote the \(N​\) observations, and \(\mathbf{X}=\{\ma">
+<meta name="keywords" content="PRML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(PRML Notes) 2.3.6 Bayesian Inference for Gaussian">
+<meta property="og:url" content="http://wiljohn.top/2019/03/02/PRML2-3-6/index.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Now for univariate Gaussian, we use \(\mathtt{x} = \{x_1,...,x_N\}​\) to denote the \(N​\) observations, and \(\mathbf{X}=\{\ma">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-03-03%2017-52-47.png">
+<meta property="og:updated_time" content="2019-03-03T11:25:17.257Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(PRML Notes) 2.3.6 Bayesian Inference for Gaussian">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Now for univariate Gaussian, we use \(\mathtt{x} = \{x_1,...,x_N\}​\) to denote the \(N​\) observations, and \(\mathbf{X}=\{\ma">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-03-03%2017-52-47.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            (PRML Notes) 2.3.6 Bayesian Inference for Gaussian
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-02T08:07:04.000Z" itemprop="datePublished">Mar 2 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            10 minutes read (About 1453 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>Now for univariate Gaussian, we use <span class="math inline">\(\mathtt{x} = \{x_1,...,x_N\}​\)</span> to denote the <span class="math inline">\(N​\)</span> observations, and <span class="math inline">\(\mathbf{X}=\{\mathbf{x}_1,...,\mathbf{x}_N\}​\)</span> for the multivariate Gaussian. For convenience, the likelihood functions of the observed data given mean and variance are written below <span class="math display">\[
+p(\mathtt{x}|\mu,\sigma^2) = \frac{1}{(2\pi\sigma^2)^{N/2}}\exp\left\{ -\sum_{n=1}^N\frac{(x_n-\mu)^2}{2\sigma^2} \right\}
+\]</span></p>
+<p><span class="math display">\[
+p(\mathbf{X}| \boldsymbol{\mu},\mathbf{\Sigma}) = \frac{1}{(2\pi)^{ND/2}} \frac{1}{|\mathbf{\Sigma}|^{N/2}} \exp\left\{ -\frac{1}{2} \sum_{n=1}^{N}(\mathbf{x}_n- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}_n- \boldsymbol{\mu}) \right\}
+\]</span></p>
+<p>In this section a Bayesian treatment that mainly focuses on univariate case by introducing prior will be developed.</p>
+<a id="more"></a>
+<h2 id="infer-mean-with-known-variance">Infer Mean with Known Variance</h2>
+<h3 id="univariate-case">Univariate Case</h3>
+<p>For this case the likelihood function can be viewed as a function of <span class="math inline">\(\mu\)</span>, which takes the form of a quadratic form in <span class="math inline">\(\mu\)</span> <span class="math display">\[
+p(\mathtt{x}|\mu) = \frac{1}{(2\pi\sigma^2)^{N/2}}\exp\left\{ -\sum_{n=1}^N\frac{(x_n-\mu)^2}{2\sigma^2} \right\}
+\]</span> So the conjugate prior we choose should also be a Gaussian <span class="math display">\[
+p(\mu) = \mathcal{N} (\mu|\mu_0,\sigma_0^2)
+\]</span> The posterior therefore becomes <span class="math display">\[
+\begin{align}
+p(\mu|\mathtt{x}) &amp;= p(\mu)p(\mathtt{x}|\mu)
+\\ &amp;\propto \exp \left\{ -\sum_{n=1}^N\frac{(x_n-\mu)^2}{2\sigma^2}-\frac{(\mu-\mu_0)^2}{2\sigma_0^2} \right\}
+\\ &amp;\propto \exp \left\{ -\frac{1}{2\sigma^2}N\mu^2+\frac{1}{\sigma^2}N\mu_\mathrm{ML}\mu -\frac{1}{2\sigma_0^2}\mu^2 +\frac{1}{\sigma_0^2}\mu_0\mu\right\} &amp;&amp; \scriptstyle{(\mu_\mathrm{ML} = \frac{1}{N}\sum_{n=1}^N x_n)}
+\\ &amp;= \exp \left\{ -\frac{1}{2}\left(\frac{N}{\sigma^2}+\frac{1}{\sigma_0^2}\right)\mu^2 +\left(\frac{N\mu_\mathrm{ML}}{\sigma^2} + \frac{\mu_0}{\sigma_0^2}\right)\mu \right\}
+\\ &amp;\propto \exp \left\{ -\frac{1}{2}\left(\frac{N}{\sigma^2}+\frac{1}{\sigma_0^2}\right)\left(\mu - \frac{\frac{N\mu_\mathrm{ML}}{\sigma^2} + \frac{\mu_0}{\sigma_0^2} }{\frac{N}{\sigma^2}+\frac{1}{\sigma_0^2}}\right)^2 \right\}
+\\ &amp;= \exp \left\{ -\frac{1}{2}\left(\frac{N}{\sigma^2}+\frac{1}{\sigma_0^2}\right)\left(\mu - \frac{N\sigma_0^2\mu_\mathrm{ML}+\sigma^2\mu_0}{N\sigma_0^2+\sigma^2} \right)^2 \right\}
+\end{align}
+\]</span> namely, <span class="math inline">\(p(\mu|\mathtt{x}) = \mathcal{N}(\mu|\mu_N,\sigma_N^2)\)</span>, where <span class="math display">\[
+\begin{align}
+\mu_N &amp;=  \frac{N\sigma_0^2}{N\sigma_0^2+\sigma^2}\mu_\mathrm{ML} +\frac{\sigma^2}{N\sigma_0^2+\sigma^2}\mu_0
+\\ \frac{1}{\sigma_N^2} &amp;= \frac{N}{\sigma^2}+\frac{1}{\sigma_0^2}
+\end{align}
+\]</span> Again we can verify the relation between Bayesian view and MLE, that as <span class="math inline">\(N\)</span> goes from <span class="math inline">\(0\)</span> to infinity, <span class="math inline">\(\mu_N\)</span> changes from the prior mean <span class="math inline">\(\mu_0\)</span> to MLE mean <span class="math inline">\(\mu_\mathrm{ML}\)</span>, and the same holds for the precision which goes from <span class="math inline">\(1/\sigma_0^2\)</span> to infinity.</p>
+<h3 id="multivariate-case">Multivariate Case</h3>
+<p>Consider a <span class="math inline">\(D​\)</span>-dimensional Gaussian random variable <span class="math inline">\(\mathbf{x}​\)</span> with distribution <span class="math inline">\(p(\mathbf{x}| \boldsymbol{\mu},\mathbf{\Sigma})​\)</span>, where the covariance is known and we wish to infer the mean <span class="math inline">\(\boldsymbol{\mu}​\)</span> from a set of observations <span class="math inline">\(\mathbf{X}=\{\mathbf{x}_1,...,\mathbf{x}_N\}​\)</span>. Since the likelihood function again takes a quadratic form of <span class="math inline">\(\boldsymbol\mu​\)</span> in exponent, the conjugate prior should also be multivariate Gaussian, and we define it as <span class="math inline">\(p(\boldsymbol\mu) = p(\mathbf{\boldsymbol\mu}| \boldsymbol{\mu}_0,\mathbf{\Sigma}_0)​\)</span>. Then the corresponding posterior takes the form <span class="math display">\[
+\begin{align}
+p(\boldsymbol{\mu}|\mathbf{X}) &amp;= p(\boldsymbol{\mu})p(\mathbf{X}|\boldsymbol{\mu})
+\\ &amp;\propto \exp \left\{  -\frac{1}{2} \sum_{n=1}^{N}(\mathbf{x}_n- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}_n- \boldsymbol{\mu})  -\frac{1}{2} (\boldsymbol{\mu}_0- \boldsymbol{\mu})^T\mathbf{\Sigma}_0^{-1}(\boldsymbol{\mu}_0- \boldsymbol{\mu}) \right\}
+\\ &amp;\propto \exp \left\{ -\frac{1}{2} \boldsymbol{\mu}^T (N\mathbf{\Sigma^{-1}}+\mathbf{\Sigma_0^{-1}}) \boldsymbol{\mu} + \left( N\boldsymbol{\mu}_\mathrm{ML}^T\mathbf{\Sigma}^{-1}+ \boldsymbol{\mu}_0^T\mathbf{\Sigma}_0^{-1}\right) \boldsymbol{\mu} \right\} &amp;&amp; \scriptstyle{(\boldsymbol\mu_\mathrm{ML} = \frac{1}{N}\sum_{n=1}^N \mathbf{x}_n)}
+\end{align}
+\]</span> Then by comparing to the standard form we can get the mean and covariance of <span class="math inline">\(p(\boldsymbol{\mu}|\mathbf{X})\)</span> <span class="math display">\[
+\begin{align}
+\boldsymbol{\mu}_N &amp;=  (N\mathbf{\Sigma}^{-1}+\mathbf{\Sigma}_0^{-1})^{-1} \left( N\mathbf{\Sigma}^{-1}\boldsymbol{\mu}_\mathrm{ML}+ \mathbf{\Sigma}_0^{-1}\boldsymbol{\mu}_0\right)
+\\ \mathbf{\Sigma}_N^{-1} &amp;= N\mathbf{\Sigma}^{-1}+\mathbf{\Sigma}_0^{-1}
+\end{align}
+\]</span></p>
+<h3 id="bayesian-sequential-estimation">Bayesian Sequential Estimation</h3>
+<p>Again like in section 2.1, the posterior can act as a prior, and here comes a univariate Gaussian version of Bayesian sequential update to infer mean when variance is known <span class="math display">\[
+p(\mu|\mathtt{x}) \propto \left[ p(\mu) \prod_{n=1}^{N-1}p(x_n|\mu) \right] p(x_N|\mu)
+\]</span></p>
+<h2 id="infer-precision-with-known-mean">Infer Precision with Known Mean</h2>
+<h3 id="univariate-case-1">Univariate Case</h3>
+<p>In this case, instead of infer variance directly, it is more convenient to infer the precision <span class="math inline">\(\lambda\equiv 1/\sigma^2​\)</span>. Observe that the likelihood w.r.t <span class="math inline">\(\lambda\)</span> now takes the form <span class="math display">\[
+p(\mathtt{x}|\lambda) \propto \lambda^{N/2} \exp\left\{ -\frac{\lambda}{2}\sum_{n=1}^N (x_n-\mu)^2 \right\}
+\]</span> Its conjugate prior is the <strong>Gamma distribution</strong> which is defined by <span class="math display">\[
+\mathrm{Gam}(\lambda|a,b) = \frac{b^a}{\Gamma(a)} \lambda^{a-1}\exp(-b\lambda)
+\]</span> <img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-03-03%2017-52-47.png" alt="Plot of the Gamma distribution with different values of a and b."></p>
+<p>The gamma distribution has a finite integral if <span class="math inline">\(a&gt;0\)</span> and the distribution itself is finite if <span class="math inline">\(a\geq 1\)</span>. Its mean and variance and given by <span class="math display">\[
+\begin{align}
+\mathbb{E}[\lambda] &amp;= \frac{a}{b}
+\\ \mathrm{var}[\lambda] &amp;= \frac{a}{b^2}
+\end{align}
+\]</span></p>
+<blockquote>
+<p>Gamma distribution degenerates to exponential distribution when <span class="math inline">\(a=1​\)</span>. So <em>intuitively</em> to help memorization, we can view the mean and variance of Gamma distribution as a result of superposition of <span class="math inline">\(a​\)</span> exponential distribution with parameter <span class="math inline">\(b​\)</span>.</p>
+</blockquote>
+<p>Consider a prior <span class="math inline">\(p(\lambda)=\mathrm{Gam}(\lambda|a_0,b_0)​\)</span>, the posterior takes the form <span class="math display">\[
+\begin{align}
+p(\lambda|\mathtt{x}) &amp;=p(\lambda)p(\mathtt{x}|\lambda)
+\\ &amp;\propto \lambda^{N/2+a_0-1} \exp\left\{-b_0\lambda -\frac{\lambda}{2}\sum_{n=1}^N (x_n-\mu)^2 \right\}
+\\ &amp;\propto \lambda^{N/2+a_0-1} \exp\left\{-b_0\lambda -\frac{N\sigma_\mathrm{ML}^2}{2}\lambda \right\}  &amp;&amp;\scriptstyle{(\sigma_\mathrm{ML}^2 = \frac{1}{N}\sum_{n=1}^N (x_n-\mu)^2)}
+\end{align}
+\]</span> Hence <span class="math inline">\(p(\lambda|\mathtt{x})\)</span> is a Gamma distribution with <span class="math display">\[
+\begin{align}
+a_N &amp;= a_0+\frac{N}{2}
+\\ b_N &amp;= b_0 +\frac{N}{2}\sigma_\mathrm{ML}^2
+\end{align}
+\]</span> We can interpret <span class="math inline">\(a_0\)</span> in the prior in terms of <span class="math inline">\(2a_0\)</span> "effective" prior observations, which have variance <span class="math inline">\(b_0/a_0\)</span>.</p>
+<p>It is also possible to define a conjugate prior over the variance rather than precision, this conjugate prior is called the <strong>inverse gamma distribution</strong>.</p>
+<h3 id="multivariate-case-1">Multivariate Case</h3>
+<p>For a multivariate Gaussian <span class="math inline">\(p(\mathbf{x}| \boldsymbol{\mu},\mathbf{\Lambda}^{-1})​\)</span>, the conjugate prior for the precision <span class="math inline">\(\Lambda​\)</span>, assuming the mean is known, is the <strong>Wishart distribution</strong> given by <span class="math display">\[
+\mathcal{W}(\mathbf{\Lambda}|\mathbf{W},\nu) = B|\mathbf{\Lambda}|^{(\nu-D-1)/2} \exp \left( -\frac{1}{2}\mathrm{Tr}(\mathbf{W}^{-1}\mathbf{A}) \right)
+\]</span> where <span class="math inline">\(\nu\)</span> is the number of <strong>degrees of freedom</strong> of the distribution, <span class="math inline">\(\mathbf{W}\)</span> is a <span class="math inline">\(D\times D\)</span> scale matrix, <span class="math inline">\(B\)</span> is the normalization constant.</p>
+<p>The conjugate prior for covariance matrix is called the <strong>inverse Wishart distribution</strong>.</p>
+<h2 id="infer-mean-and-precision">Infer Mean and Precision</h2>
+<h3 id="univariate-case-2">Univariate Case</h3>
+<p>For both unknown <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\lambda\)</span>, the likelihood now takes the form <span class="math display">\[
+\begin{align}
+p(\mathtt{x}|\mu, \lambda) &amp;\propto \lambda^{N/2} \exp\left\{ -\frac{\lambda}{2}\sum_{n=1}^N (x_n-\mu)^2 \right\}
+\\ &amp;= \lambda^{N/2} \exp\left\{ -\frac{N}{2}\lambda\mu^2 \right\} \exp\left\{ \lambda\mu\sum_{n=1}^N x_n \right\}\exp\left\{ -\frac{\lambda}{2}\sum_{n=1}^N x_n^2 \right\}
+\end{align}
+\]</span> So the conjugate prior should take the form <span class="math display">\[
+\begin{align}
+p(\mu,\lambda) &amp;\propto \lambda^{\beta/2} \exp\left\{ -\frac{\beta}{2}\lambda\mu^2 \right\} \exp( c\lambda\mu)\exp( -d\lambda)
+\\ &amp; = \lambda^{\beta/2} \exp\left\{ -\frac{\beta}{2}\lambda\mu^2 + c\lambda\mu -d\lambda \right\}
+\\ &amp; = \lambda^{\beta/2} \exp\left\{ -\frac{\beta\lambda}{2}(\mu-\frac{c}{\beta})^2  -(d-\frac{c^2}{2\beta})\lambda \right\}
+\\ &amp; =  \exp\left\{ -\frac{\beta\lambda}{2}(\mu-\frac{c}{\beta})^2 \right\} \lambda^{\beta/2} \exp\left\{ -(d-\frac{c^2}{2\beta})\lambda \right\}
+\\ &amp;\propto \mathcal{N}\left(\mu\middle|\frac{c}{\beta},(\beta\lambda)^{-1}\right) \mathrm{Gam}\left(\lambda\middle|\frac{\beta}{2}+1,d-\frac{c^2}{2\beta}\right)
+\end{align}
+\]</span> This prior is called the <strong>Gaussian-gamma distribution</strong>, and we can regard it as a product of a Gamma <span class="math inline">\(p(\lambda)​\)</span> and a Gaussian <span class="math inline">\(p(\mu|\lambda)​\)</span>. Note that <span class="math inline">\(p(\lambda)​\)</span> and <span class="math inline">\(p(\mu|\lambda)​\)</span> are not independent, since the precision of <span class="math inline">\(p(\mu|\lambda)​\)</span> is a linear function of <span class="math inline">\(\lambda​\)</span>.</p>
+<h3 id="multivariate-case-2">Multivariate Case</h3>
+<p>The prior is known as the <strong>Gaussian-Wishart</strong> distribution <span class="math display">\[
+p(\boldsymbol{\mu}, \mathbf{\Lambda}|\boldsymbol{\mu}_0, \beta,\mathbf{W},\nu) = \boldsymbol{\mu}\mathcal{N}(\boldsymbol{\mu}|\boldsymbol{\mu}_0,(\beta \mathbf{\Lambda})^{-1})\ \mathcal{W}(\mathbf{\Lambda}|\mathbf{W},\nu)
+\]</span></p>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Known</th>
+<th>Infer</th>
+<th>Univariate Prior</th>
+<th>Multivariate Prior</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\sigma^2\)</span></td>
+<td><span class="math inline">\(\mu\)</span></td>
+<td>Gaussian</td>
+<td>Gaussian</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\mu\)</span></td>
+<td><span class="math inline">\(\lambda\)</span></td>
+<td>Gamma</td>
+<td>Wishart</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\mu\)</span></td>
+<td><span class="math inline">\(\sigma^2\)</span></td>
+<td>inverse-Gamma</td>
+<td>inverse-Wishart</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><span class="math inline">\(\mu,\lambda\)</span></td>
+<td>Gaussian-gamma</td>
+<td>Gaussian-Wishart</td>
+</tr>
+</tbody>
+</table>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/PRML/">#PRML</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/03/02/PRML2-3-4~5/">(PRML Notes) 2.3.4-5 Frequentist Estimate for Gaussian</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/2019/03/02/PRML2-3-6/';
+        this.page.identifier = 'prml2-3-6';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
