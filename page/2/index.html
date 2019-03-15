@@ -103,6 +103,51 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/09/25/RL_DP/" itemprop="url">Planning by Dynamic Programming</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-09-25T03:33:44.000Z" itemprop="datePublished">Sep 25 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            7 minutes read (About 1102 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p><em>Dynamic programming assumes <strong>full knowledge</strong> of the MDP.</em></p>
+</blockquote>
+<h2 id="dynamic-programming">Dynamic Programming</h2>
+<p><strong>Dynamic</strong>: sequential or temporal component to the problem (like a table storing subproblem solutions)</p>
+<p><strong>Programming</strong>: optimizing a "problem", i.e. a policy</p>
+<p>DP is a very general solution method for problems which have two properties (MDP satisfies both):</p>
+<ul>
+<li>Optimal substructure (see the first theorem for optimal policy in last note)</li>
+<li>Overlapping subproblems (recurring many times, reused by Bellman equation)</li>
+</ul>
+        <p class="article-more-link">
+            <a href="/2018/09/25/RL_DP/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/09/23/RL_MDP/" itemprop="url">Markov Decision Process</a>
         
     </h1>
@@ -473,60 +518,13 @@ F[y] = \int_{a_1}^{a_2} \sqrt{1+[y&#39;(x)]^2} dx
 
 
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/01/12/hexo-install/" itemprop="url">Hexo配置备忘</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-01-12T01:44:51.000Z" itemprop="datePublished">Jan 12 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            3 minutes read (About 398 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
-<p>Minos is a simple and retro styled Hexo theme, concentrating more on your ideas.</p>
-</blockquote>
-<h3 id="基本流程">基本流程</h3>
-<p>hexo建站基本配置直接参照<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官网步骤</a>，配置主题为<a href="https://github.com/ppoffice/hexo-theme-minos" target="_blank" rel="noopener">Minos</a>。</p>
-<h3 id="公式支持">公式支持</h3>
-<p>网上广为流传的替换hexo默认渲染为<code>hexo-renderer-kramed</code>的方法，仍然会存在<strong>行内公式含两个引号时中间部分被渲染为斜体</strong>的问题。</p>
-<p>最后参照<a href="https://jdhao.github.io/2017/10/06/hexo-markdown-latex-equation/" target="_blank" rel="noopener">Hexo 书写 LaTeX 公式时的一些问题及解决方法</a>，替换默认渲染为<code>hexo-renderer-pandoc</code>。</p>
-<p>-- <em>注意1：事先去<a href="https://github.com/jgm/pandoc/releases" target="_blank" rel="noopener">pandoc官方下载</a>最新版本的pandoc，否则直接使用<code>apt install pandoc</code>可能在run服务时因为版本过低出现<code>pandoc: Unknown extension: smart</code>的问题</em></p>
-<p>-- <em>注意2：替换完成后主题内的依赖关系不会自动更改，需要将<code>themes/minos/scripts/01_check.js</code>中对默认渲染的依赖项<code>'hexo-renderer-marked'</code>手动替换为<code>'hexo-renderer-pandoc'</code></em></p>
-<p>另外默认<code>mathjax</code>的<code>js</code>脚本无法显示出粗体如<code>\mathbf</code>，应将<code>layout/plugins/mathjax.ejs</code>文件中的<code>src</code>路径改为</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML</span><br></pre></td></tr></table></figure>
-<h3 id="图像居中">图像居中</h3>
-<p>为了美观（强迫症），修改<code>themes/source/css/style.scss</code>中<code>display</code>属性为<code>block</code>，添加属性<code>text-align: center</code>。</p>
-
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
     <div class="pagination-previous">
         <a href="/">Prev</a>
     </div>
-    <div class="pagination-next is-invisible is-hidden-mobile">
+    <div class="pagination-next">
         <a href="/page/3/">Next</a>
     </div>
     <ul class="pagination-list is-hidden-mobile">
@@ -534,6 +532,8 @@ F[y] = \int_{a_1}^{a_2} \sqrt{1+[y&#39;(x)]^2} dx
         <li><a class="pagination-link" href="/">1</a></li>
         
         <li><a class="pagination-link is-current" href="/page/2/">2</a></li>
+        
+        <li><a class="pagination-link" href="/page/3/">3</a></li>
         
     </ul>
 </nav>

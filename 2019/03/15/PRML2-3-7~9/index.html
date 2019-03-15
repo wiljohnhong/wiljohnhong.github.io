@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>(PRML Notes) 2.3.7-9 Miscellaneous Gaussian - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Student&apos;s t-distribution Recall that for a univariate Gaussian \(\mathcal{N}(x|\mu,\tau^{-1})\), its conjugate prior when \(\mu">
+<meta name="keywords" content="PRML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(PRML Notes) 2.3.7-9 Miscellaneous Gaussian">
+<meta property="og:url" content="http://wiljohn.top/2019/03/15/PRML2-3-7~9/index.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Student&apos;s t-distribution Recall that for a univariate Gaussian \(\mathcal{N}(x|\mu,\tau^{-1})\), its conjugate prior when \(\mu">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-15/Screenshot%20from%202019-03-15%2018-08-48.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-15/Screenshot%20from%202019-03-15%2018-09-09.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-15/Screenshot%20from%202019-03-15%2022-11-05.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-15/Screenshot%20from%202019-03-15%2022-11-36.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-15/Screenshot%20from%202019-03-15%2022-11-47.png">
+<meta property="og:updated_time" content="2019-03-15T14:46:16.766Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(PRML Notes) 2.3.7-9 Miscellaneous Gaussian">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Student&apos;s t-distribution Recall that for a univariate Gaussian \(\mathcal{N}(x|\mu,\tau^{-1})\), its conjugate prior when \(\mu">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-15/Screenshot%20from%202019-03-15%2018-08-48.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            (PRML Notes) 2.3.7-9 Miscellaneous Gaussian
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-15T08:42:04.000Z" itemprop="datePublished">Mar 15 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            11 minutes read (About 1720 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<h2 id="students-t-distribution">Student's t-distribution</h2>
+<p>Recall that for a univariate Gaussian <span class="math inline">\(\mathcal{N}(x|\mu,\tau^{-1})\)</span>, its conjugate prior when <span class="math inline">\(\mu\)</span> is known and <span class="math inline">\(\tau^{-1}\)</span> is unknown is a Gamma distribution <span class="math inline">\(\mathrm{Gam}(\tau|a,b)\)</span>. <strong>Student's t-distribution</strong> is the result where we integrate out the precision of the posterior</p>
+<a id="more"></a>
+<p><span class="math display">\[
+\begin{align}
+p(x|\mu,a,b) &amp;= \int_0^\infty \mathcal{N}(x|\mu,\tau^{-1})\mathrm{Gam}(\tau|a,b) \ d\tau
+\\ &amp;= \int_0^\infty \left( \frac{\tau}{2\pi} \right)^{1/2} \exp \left\{ \frac{\tau}{2}(x-\mu)^2 \right\} \frac{b^a \tau^{a-1}}{\Gamma(a)} \exp\{ -b\tau \} \ d\tau
+\\ &amp;= \frac{b^a}{\Gamma(a) \sqrt{2\pi} } \int_0^\infty \tau^{a-1/2}  \exp\left\{ -\left[\frac{(x-\mu)^2}{2}+b\right]\tau \right\} \ d\tau
+\\ &amp;= \frac{b^a}{\Gamma(a) \sqrt{2\pi} }\left[\frac{(x-\mu)^2}{2}+b\right]^{-a-1/2} \int_0^\infty z^{a-1/2}  e^{-z} \ dz &amp;\scriptstyle{(\text{Let }z=\left[\frac{(x-\mu)^2}{2}+b\right]\tau)}
+\\ &amp;= \frac{\Gamma(a+1/2)}{\Gamma(a)}\frac{b^a}{\sqrt{2\pi} }\left[\frac{(x-\mu)^2}{2}+b\right]^{-a-1/2}
+\\ &amp;= \frac{\Gamma(a+1/2)}{\Gamma(a)}\left(\frac{1}{2\pi b}\right)^{1/2}\left[1+\frac{(x-\mu)^2}{2b}\right]^{-a-1/2}
+\\ &amp;= \frac{\Gamma(\nu/2+1/2)}{\Gamma(\nu/2)}  \left(\frac{\lambda}{\pi\nu}\right)^{1/2}  \left[1+\frac{\lambda(x-\mu)^2}{\nu}\right]^{-\nu/2-1/2} &amp;\scriptstyle{(\text{Let }\nu=2a,\ \lambda=a/b)}
+\\
+\\ &amp;\equiv \mathrm{St}(x|\mu,\lambda,\nu)
+\end{align}
+\]</span> The parameter <span class="math inline">\(\nu\)</span> is called the <strong>degrees of freedom</strong>. For the particular case of <span class="math inline">\(\nu=1\)</span>, the t-distribution reduces to the Cauchy distribution. And in the limit <span class="math inline">\(\nu \rightarrow \infty\)</span>, recall that we can interpret <span class="math inline">\(a\)</span> in prior in terms of <span class="math inline">\(2a\)</span> "effective" prior observations, so in this case we are quite sure about the precision of Gaussian with infinite observations, the t-distribution will becomes a Gaussian <span class="math inline">\(\mathcal{N}(x|\mu,\lambda^{-1})\)</span>, this can be verified as follow <span class="math display">\[
+\begin{align}
+\lim_{\nu\rightarrow\infty} \mathrm{St}(x|\mu,\lambda,\nu) &amp;\propto \lim_{\nu\rightarrow\infty} \left[1+\frac{\lambda(x-\mu)^2}{\nu}\right]^{-\nu/2-1/2}
+\\ &amp;=  \lim_{\nu\rightarrow\infty} \exp\left\{-\frac{\nu+1}{2} \ln\left[1+\frac{\lambda(x-\mu)^2}{\nu}\right]\right\}
+\\ &amp;=  \lim_{\nu\rightarrow\infty} \exp\left\{-\frac{\nu+1}{2} \left[\frac{\lambda(x-\mu)^2}{\nu} + o(\nu^{-1})\right]\right\}
+\\ &amp;=  \lim_{\nu\rightarrow\infty} \exp\left\{-\frac{\lambda(x-\mu)^2}{2} + o(1)\right\}
+\\ &amp;=  \exp\left\{-\frac{\lambda(x-\mu)^2}{2}\right\}
+\end{align}
+\]</span> The parameter <span class="math inline">\(\lambda\)</span> is thus called the <strong>precision</strong> of the t-distribution, though it is only equal to the inverse of the variance under the case <span class="math inline">\(\nu \rightarrow \infty\)</span>.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-15/Screenshot%20from%202019-03-15%2018-08-48.png" alt="Plot of Student&#39;s t-distribution for \mu = 0 and \lambda = 1 for various values of \nu"><figcaption>Plot of Student's t-distribution for <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\lambda = 1\)</span> for various values of <span class="math inline">\(\nu\)</span></figcaption>
+</figure>
+<h3 id="robustness">Robustness</h3>
+<p>We can see that t-distribution has longer 'tails' than a Gaussian, which gives the t-distribution an important property called <strong>robustness</strong>, meaning that it is much less sensitive than the Gaussian to the presence of a few outliers. This is because the t-distribution can be viewed as a infinite mixture of Gaussian with different variance.</p>
+<blockquote>
+<p>The MLE solution for the t-distribution can be found using EM algorithm.</p>
+</blockquote>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-15/Screenshot%20from%202019-03-15%2018-09-09.png" alt="Illustration of the robustness of Student&#39;s t-distribution compared to a Gaussian. Purple is the histogram distribution of 30 data drawn from a Gaussian and 3 additional drawn for (b). The red curve is MLE for t-distribution and green for Gaussian."><figcaption>Illustration of the robustness of Student's t-distribution compared to a Gaussian. Purple is the histogram distribution of 30 data drawn from a Gaussian and 3 additional drawn for (b). The red curve is MLE for t-distribution and green for Gaussian.</figcaption>
+</figure>
+<p>Robustness is also an important property for regression problems. Comparing to the least squares approach to regression which does not exhibit robustness (since it corresponds to maximum likelihood under a conditional Gaussian distribution as mentioned before), a more heavy-tailed t-distribution can obtain a more robust model.</p>
+<h3 id="multivariate-t-distribution">Multivariate t-distribution</h3>
+<p>(To be continued...)</p>
+<h2 id="periodic-variables">Periodic Variables</h2>
+<blockquote>
+<p>Here the text introduces this variable model in the motivation of removing the "dependence of the origin of the angular coordinate", which is different from my note.</p>
+</blockquote>
+<p>Gaussian are inappropriate as density models for periodic variables such as the wind direction. Handling such variables rely on choosing some direction as origin, and then representing all the variables in the range <span class="math inline">\([0,2\pi)​\)</span>. However, problem comes here, for example, two variables <span class="math inline">\(\theta_0=359^\circ​\)</span> and <span class="math inline">\(\theta_1=361^\circ​\)</span> with origin chosen at <span class="math inline">\(0^\circ​\)</span> will first be changed into <span class="math inline">\(359^\circ​\)</span> and <span class="math inline">\(1^\circ​\)</span> which have mean <span class="math inline">\(180^\circ​\)</span>, while with origin chosen at <span class="math inline">\(2^\circ​\)</span> the two variables will be changed into <span class="math inline">\(357^\circ​\)</span> and <span class="math inline">\(359^\circ​\)</span> where the mean suddenly changes to <span class="math inline">\(358^\circ​\)</span>. This is because under such angular coordinate the resulting representation of angular is not continuous w.r.t the choice of origin.</p>
+<p>This problem can be solved by describing the univariate angles instead by two-dimensional vectors, so that we don't need to transform all the variables into the range <span class="math inline">\([0,2\pi)\)</span>. Concretely, the original set of observations on the Cartesian coordinate <span class="math inline">\(\mathcal{D} =\{\theta_1,...,\theta_N\}\)</span> is now changed into <span class="math inline">\(\mathcal{D}=\{(\cos\theta_1,\sin\theta_1),...,(\cos\theta_N,\sin\theta_N)\}\)</span>, and the sample mean can now be viewed as <span class="math inline">\((\frac{1}{N}\sum_n \cos \theta_n, \frac{1}{N}\sum_n\sin\theta_n)\)</span>, and <span class="math display">\[
+\bar{\theta} = \arctan\left\{ \frac{\sum_n\sin\theta_n}{\sum_n\cos\theta_n} \right\}
+\]</span> which is continuous w.r.t the choice of origin, since now <span class="math inline">\(\theta_n\in \mathbb{R}​\)</span>. Actually this result corresponds to the MLE for <strong>von Mises distribution</strong> over such periodic variable.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-15/Screenshot%20from%202019-03-15%2022-11-05.png" alt="Illustration of the representation of different \theta_n as 2-D vectors"><figcaption>Illustration of the representation of different <span class="math inline">\(\theta_n\)</span> as 2-D vectors</figcaption>
+</figure>
+<h3 id="von-mises-distribution">Von Mises Distribution</h3>
+<p>A periodic distribution (with period <span class="math inline">\(2\pi\)</span> for example) is not necessarily and not possibly be normalized, but must satisfy the three conditions <span class="math display">\[
+\begin{align}
+p(\theta) \  &amp;\geq \ 0
+\\ \int_0^{2\pi} p(\theta)\ d\theta \  &amp;= \ 1
+\\ p(\theta+2\pi) \  &amp;= \ p(\theta)
+\end{align}
+\]</span></p>
+<p>And we can obtain a Gaussian-like distribution that satisfies these properties as follows. Consider a two variable Gaussian <span class="math display">\[
+p_\mathrm{Cart}(x_1,x_2) = \frac{1}{2\pi\sigma^2} \exp\left\{ -\frac{(x_1-\mu_1)^2+(x_2-\mu_2)^2}{2\sigma^2} \right\}
+\]</span></p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-15/Screenshot%20from%202019-03-15%2022-11-36.png" alt="The von Mises distribution can be derived by a two-dimensional Gaussian conditioning on the unit circle."><figcaption>The von Mises distribution can be derived by a two-dimensional Gaussian conditioning on the unit circle.</figcaption>
+</figure>
+<p>When we only consider the value of this distribution along a circle of radius <span class="math inline">\(r=1\)</span>, and transform the from of this distribution from Cartesian coordinate <span class="math inline">\((x_1,x_2)\)</span> to polar coordinate <span class="math inline">\((r,\theta)\)</span>, we have <span class="math display">\[
+\begin{align}
+p(\theta,r=1) &amp;= p_\mathrm{Cart}(\cos\theta,\sin\theta)
+\\ &amp;= \frac{1}{2\pi\sigma^2} \exp\left\{ -\frac{(\cos\theta-r_0\cos\theta_0)^2+(\sin\theta-r_0\sin\theta_0)^2}{2\sigma^2} \right\}
+\\ &amp;\propto \exp\left\{ -\frac{1+r_0^2-2r_0\cos\theta\cos\theta_0 - 2r_0\sin\theta\sin\theta_0}{2\sigma^2} \right\}
+\\ &amp;\propto \exp\left\{ \frac{r_0}{\sigma^2} \cos(\theta-\theta_0) \right\}
+\\ &amp;= \exp\left\{ m \cos(\theta-\theta_0) \right\}
+\end{align}
+\]</span> where we have defined <span class="math inline">\((\mu_1,\mu_2) = (r_0\cos\theta_0,r_0\sin\theta_0)\)</span> and <span class="math inline">\(m=r_0/\sigma^2\)</span>. Finally by normalization we obtain the <strong>von Mises Distribution</strong> over <span class="math inline">\(\theta\)</span> along the unit circle <span class="math display">\[
+p(\theta|\theta_0,m,r=1) = \frac{1}{2\pi I_0(m)} \exp\{ m\cos(\theta-\theta_0) \}
+\]</span> here <span class="math inline">\(m​\)</span> is known as the <strong>concentration parameter</strong>, which is analogous to the precision for Gaussian. For large <span class="math inline">\(m​\)</span>, the distribution becomes approximately Gaussian peaked at <span class="math inline">\(\theta_0​\)</span>. And we have defined <span class="math display">\[
+I_0(m) = \frac{1}{2\pi} \int_0^{2\pi} \exp\{ m\cos\theta\}\ d\theta
+\]</span></p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-15/Screenshot%20from%202019-03-15%2022-11-47.png" alt="The von Mises distribution shown as a Cartesian plot and a polar plot."><figcaption>The von Mises distribution shown as a Cartesian plot and a polar plot.</figcaption>
+</figure>
+<p>It is easy to obtain the MLE for <span class="math inline">\(\theta_0\)</span> and <span class="math inline">\(m\)</span>. Consider first the log likelihood given by <span class="math display">\[
+\ln p(\mathcal{D}|\theta_0,m) = -N\ln(2\pi) - N \ln I_0(m) + m\sum_{n=1}^N \cos(\theta_n-\theta_0)
+\]</span> Setting the derivative w.r.t. <span class="math inline">\(\theta_0\)</span> to zero gives <span class="math display">\[
+\begin{align}
+\sum_{n=1}^N \sin(\theta_n-\theta_0^\mathrm{ML}) &amp;= 0
+\\ \sum_{n=1}^N \sin\theta_n\cos\theta_0^\mathrm{ML} &amp;= \sum_{n=1}^N \cos\theta_n\sin\theta_0^\mathrm{ML}
+\\ \tan\theta_0^\mathrm{ML} &amp;= \frac{\sum_{n=1}^N \sin\theta_n}{\sum_{n=1}^N \cos\theta_n}
+\\ \theta_0^\mathrm{ML} &amp;= \arctan\left\{\frac{\sum_{n=1}^N \sin\theta_n}{\sum_{n=1}^N \cos\theta_n}\right\}
+\end{align}
+\]</span> which coincides with the mean we defined in the previous section. Similarly setting the derivative w.r.t. <span class="math inline">\(m\)</span> to zero gives <span class="math display">\[
+\frac{I_1(m_\mathrm{ML})}{I_0(m_\mathrm{ML})} = \frac{1}{N}\sum_{n=1}^N \cos(\theta_n-\theta_0^\mathrm{ML})
+\]</span> where <span class="math inline">\(I_1(m) = I&#39;_0(m)​\)</span>.</p>
+<blockquote>
+<p>There are some other alternative techniques for the construction of periodic distributions mentioned in text, which are either more complex or suffer from significant limitations.</p>
+</blockquote>
+<h2 id="mixtures-of-gaussians">Mixtures of Gaussians</h2>
+<p>A simple Gaussian distribution is unable to capture multi-modal structure, whereas a linear superposition of multiple Gaussians can approximate any continuous density to arbitrary accuracy, which is called a <strong>mixture of Gaussians</strong> <span class="math display">\[
+p(\mathbf{x}) = \sum_{k=1}^K \pi_k\mathcal{N}(\mathbf{x}|\boldsymbol{\mu}_k, \mathbf{\Sigma}_k)
+\]</span> The parameter <span class="math inline">\(\pi_k​\)</span> is called the <strong>mixing coefficients</strong> and must satisfy <span class="math display">\[
+\sum_{k=1}^K \pi_k \  = \ 1
+\\ 0 \le \pi_k \le 1
+\]</span> to make <span class="math inline">\(p(\mathbf{x})\)</span> become probability. We can view <span class="math inline">\(\pi_k=p(k)\)</span> as the prior of picking the <span class="math inline">\(k\)</span>th component and <span class="math inline">\(\mathcal{N}(\mathbf{x}|\boldsymbol{\mu}_k, \mathbf{\Sigma}_k) = p(\mathbf{x}|k)\)</span> to be the likelihood of <span class="math inline">\(\mathbf{x}\)</span> conditioned on <span class="math inline">\(k\)</span>. The posteriors here play an important role in many problems, and is also known as <strong>responsibilities</strong>, given by <span class="math display">\[
+\begin{align}
+\gamma_k(\mathbf{x}) &amp;\equiv p(k|\mathbf{x})
+\\&amp;= \frac{p(k)p(\mathbf{x}|k)}{\sum_l p(l)p(\mathbf{x}|l)}
+\\&amp;= \frac{\pi_k\mathcal{N}(\mathbf{x}|\boldsymbol{\mu}_k, \mathbf{\Sigma}_k)}{\sum_l \pi_l\mathcal{N}(\mathbf{x}|\boldsymbol{\mu}_l, \mathbf{\Sigma}_l)}
+\end{align}
+\]</span> The MLE for the parameters in mixtures of Gaussian no longer have a closed-form solution since the presence of the summation over <span class="math inline">\(k\)</span> inside the logarithm in the log likelihood <span class="math display">\[
+\ln p(\mathbf{X}|\boldsymbol{\pi},\boldsymbol{\mu},\boldsymbol{\Sigma}) = \sum_{n=1}^N \ln\left\{ \sum_{k=1}^K\pi_k\mathcal{N}(\mathbf{x}|\boldsymbol{\mu}_k, \mathbf{\Sigma}_k) \right\}
+\]</span> A powerful framework for maximizing the likelihood is called <strong>expectation maximization</strong>, which will be discussed later.</p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/PRML/">#PRML</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/03/02/PRML2-3-6/">(PRML Notes) 2.3.6 Bayesian Inference for Gaussian</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/2019/03/15/PRML2-3-7~9/';
+        this.page.identifier = 'prml2-3-7';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
