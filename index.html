@@ -103,7 +103,47 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/03/15/PRML2-3-7~9/" itemprop="url">(PRML Notes) 2.3.7-9 Miscellaneous Gaussian</a>
+            <a href="/2019/03/16/PRML2-4/" itemprop="url">(PRML Notes) 2.4 The Exponential Family</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-16T06:26:04.000Z" itemprop="datePublished">Mar 16 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            12 minutes read (About 1760 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>The exponential family is defined by <span class="math display">\[
+p(\mathbf{x} | \boldsymbol{\eta})=h(\mathbf{x}) g(\boldsymbol{\eta}) \exp \left\{\boldsymbol{\eta}^{\mathrm{T}} \mathbf{u}(\mathbf{x})\right\}
+\]</span> here <span class="math inline">\(\boldsymbol{\eta}\)</span> is called the <strong>natural parameters</strong> of the distribution, <span class="math inline">\(g(\boldsymbol{\eta})\)</span> ensures the normalization. Now we will see that all the distributions we have seen so far are actually members in this family.</p>
+        <p class="article-more-link">
+            <a href="/2019/03/16/PRML2-4/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/03/15/PRML2-3-7~9/" itemprop="url">(PRML Notes) 2.3.7-9 Miscellaneous of Gaussian</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
@@ -469,50 +509,6 @@ p(\mathbf{x}|\boldsymbol{\mu}) = \prod_{k=1}^K \mu_k^{x_k}
 <p>下面整理的是近期配置SSR时收集的一些资源。</p>
         <p class="article-more-link">
             <a href="/2018/12/21/ssr/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/10/01/RL_prediction/" itemprop="url">Model-Free Prediction</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-10-01T12:10:22.000Z" itemprop="datePublished">Oct 1 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            11 minutes read (About 1699 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>In this and next notes, different from the DP, we do all the things within an <strong>unknown MDP</strong>, just what the <em>model-free</em> means.</p>
-</blockquote>
-<h2 id="monte-carlo-learning">Monte-Carlo Learning</h2>
-<p>The basic idea is very simple, it uses the mean return of episodes as the true value.</p>
-<ul>
-<li>Learn from complete <strong>episodes</strong>, which refers to the procedure from current state to the final state. (The opposite learning method is <strong>bootstrapping</strong>, which means updating the current state value from incomplete episodes.)</li>
-<li>Restrict to the learning method, MC can only be applied to <em>episodic</em> MDPs, whose all episodes must terminates.</li>
-<li>MC is <strong>model-free</strong>, it has no knowledge of MDP transitions or rewards.</li>
-</ul>
-        <p class="article-more-link">
-            <a href="/2018/10/01/RL_prediction/#more">Read More</a>
         </p>
     
     </div>
