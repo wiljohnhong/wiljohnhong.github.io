@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>(PRML Notes) 3.1 Linear Basis Function Models - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  A simplest regression model for \(D\)-dimensional input variable \(\mathbf{x}=\left(x_{1}, \dots, x_{D}\right)^{\mathrm{T}}\) i">
+<meta name="keywords" content="PRML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(PRML Notes) 3.1 Linear Basis Function Models">
+<meta property="og:url" content="http://wiljohn.top/2019/03/22/PRML3-1/index.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  A simplest regression model for \(D\)-dimensional input variable \(\mathbf{x}=\left(x_{1}, \dots, x_{D}\right)^{\mathrm{T}}\) i">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2003-10-51.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-22%2023-50-24.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-22%2023-50-36.png">
+<meta property="og:updated_time" content="2019-03-22T19:12:44.123Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(PRML Notes) 3.1 Linear Basis Function Models">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  A simplest regression model for \(D\)-dimensional input variable \(\mathbf{x}=\left(x_{1}, \dots, x_{D}\right)^{\mathrm{T}}\) i">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2003-10-51.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            (PRML Notes) 3.1 Linear Basis Function Models
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-22T06:30:04.000Z" itemprop="datePublished">Mar 22 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            13 minutes read (About 1947 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>A simplest regression model for <span class="math inline">\(D\)</span>-dimensional input variable <span class="math inline">\(\mathbf{x}=\left(x_{1}, \dots, x_{D}\right)^{\mathrm{T}}\)</span> is <span class="math display">\[
+y(\mathbf{x}, \mathbf{w})=w_{0}+w_{1} x_{1}+\ldots+w_{D} x_{D}
+\]</span> The key property of this model is that it is a linear function of parameters <span class="math inline">\(w_{0}, \dots, w_{D}\)</span>. This model can be extended to linear combination of fixed nonlinear functions of <span class="math inline">\(\mathbf{x}\)</span> <span class="math display">\[
+y(\mathbf{x}, \mathbf{w})=w_{0}+\sum_{j=1}^{M-1} w_{j} \phi_{j}(\mathbf{x})
+\]</span> <a id="more"></a></p>
+<p>where <span class="math inline">\(\phi_{j}(\mathbf{x})\)</span> is known as <strong>basis functions</strong>. It is convenient to define an additional dummy <span class="math inline">\(\phi_{0}(\mathbf{x})=1\)</span> for bias term so that <span class="math display">\[
+y(\mathbf{x}, \mathbf{w})=\sum_{j=0}^{M-1} w_{j} \phi_{j}(\mathbf{x})=\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}(\mathbf{x})
+\]</span> There are many choices for basis functions, for example, in previous section we have seen the <strong>polynomial basis function</strong> <span class="math display">\[
+\phi_{j}(x)=x^{j}
+\]</span> Other examples are <strong>Gaussian basis function</strong> <span class="math display">\[
+\phi_{j}(x)=\exp \left\{-\frac{\left(x-\mu_{j}\right)^{2}}{2 s^{2}}\right\}
+\]</span> and the <strong>sigmoidal basis function</strong>, where <span class="math inline">\(\sigma(a)=1/(1+\exp (-a))\)</span> <span class="math display">\[
+\phi_{j}(x)=\sigma\left(\frac{x-\mu_{j}}{s}\right)
+\]</span> Equivalently, a general linear combination of logistic sigmoid functions is equivalent to a general linear combination of <span class="math inline">\(\mathrm{tanh}\)</span> functions since <span class="math display">\[
+\tanh (a)= \frac{e^a-e^{-a}}{e^a+e^{-a}} = \frac{1-e^{-2a}}{1+e^{-2a}} = \frac{2}{1+e^{-2a}}-1=2 \sigma(2a)-1
+\]</span> Another possible choice of basis function is the <strong>Fourier basis</strong>, which leads to an expansion in sinusoidal functions which represents a specific frequency has infinite spacial extent. While the functions localized in both space and frequency are known as <strong>wavelets</strong>.</p>
+<h2 id="maximum-likelihood-and-least-squares">Maximum Likelihood and Least Squares</h2>
+<p>As before the target variable <span class="math inline">\(t\)</span> is assumed to be given by <span class="math display">\[
+t=y(\mathbf{x}, \mathbf{w})+\epsilon
+\]</span> where <span class="math inline">\(\epsilon \sim \mathcal{N}(0,\beta^{-1})\)</span>. Thus we have <span class="math display">\[
+p(t | \mathbf{x}, \mathbf{w}, \beta)=\mathcal{N}(t | y(\mathbf{x}, \mathbf{w}), \beta^{-1})
+\]</span> Recall that if we assume a squared loss, the optimal prediction for <span class="math inline">\(\mathbf{x}\)</span> will be given by the conditional mean of <span class="math inline">\(t\)</span>, so <span class="math display">\[
+\text{optimal prediction for }\mathbf{x} = \mathbb{E}[t | \mathbf{x}]=\int t p(t | \mathbf{x}) \mathrm{d} t=y(\mathbf{x}, \mathbf{w})
+\]</span> Now for a data set <span class="math inline">\(\mathbf{X}=\left\{\mathbf{x}_{1}, \dots, \mathbf{x}_{N}\right\}\)</span> drawn i.i.d., with corresponding targets <span class="math inline">\(\boldsymbol{\mathsf{t}}= (t_{1}, \dots, t_{N})^{\mathrm{T}}\)</span>, and we have the following likelihood <span class="math display">\[
+p(\boldsymbol{\mathsf{t}} | \mathbf{w}, \beta)=\prod_{n=1}^{N} \mathcal{N}\left(t_{n} | \mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right), \beta^{-1}\right)
+\]</span> Note that from now on <span class="math inline">\(\mathbf{x}​\)</span> will be dropped from conditioning variables since in supervised learning we are not seeking to model the distribution of <span class="math inline">\(\mathbf{x}​\)</span>. Taking logarithm we have <span class="math display">\[
+\begin{aligned} \ln p(\boldsymbol{\mathsf{t}} | \mathbf{w}, \beta) &amp;=\sum_{n=1}^{N} \ln \mathcal{N}\left(t_{n} | \mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right), \beta^{-1}\right) \\ &amp;=\frac{N}{2} \ln \beta-\frac{N}{2} \ln (2 \pi)-\beta E_{D}(\mathbf{w}) \end{aligned}
+\]</span> where <span class="math inline">\(E_{D}(\mathbf{w})=\frac{1}{2} \sum_{n=1}^{N}\left\{t_{n}-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right)\right\}^{2} = \frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|_2​\)</span>, here <span class="math inline">\(\mathbf{\Phi}​\)</span> is an <span class="math inline">\(N\times M​\)</span> matrix, called the <strong>design matrix</strong> <span class="math display">\[
+\boldsymbol{\Phi}=\left( \begin{array}{cccc}{\phi_{0}\left(\mathbf{x}_{1}\right)} &amp; {\phi_{1}\left(\mathbf{x}_{1}\right)} &amp; {\cdots} &amp; {\phi_{M-1}\left(\mathbf{x}_{1}\right)} \\ {\phi_{0}\left(\mathbf{x}_{2}\right)} &amp; {\phi_{1}\left(\mathbf{x}_{2}\right)} &amp; {\cdots} &amp; {\phi_{M-1}\left(\mathbf{x}_{2}\right)} \\ {\vdots} &amp; {\vdots} &amp; {\ddots} &amp; {\vdots} \\ {\phi_{0}\left(\mathbf{x}_{N}\right)} &amp; {\phi_{1}\left(\mathbf{x}_{N}\right)} &amp; {\cdots} &amp; {\phi_{M-1}\left(\mathbf{x}_{N}\right)}\end{array}\right)
+\]</span> To find out <span class="math inline">\(\mathbf{w}_{\mathrm{ML}}​\)</span>, set gradient to zero <span class="math display">\[
+\nabla_\mathbf{w} \ln p(\boldsymbol{\mathsf{t}} | \mathbf{w}, \beta) = \nabla_\mathbf{w} \beta E_{D}(\mathbf{w})  = \frac{\beta}{2} \mathbf{\Phi}^\mathrm{T} (\boldsymbol{\mathsf{t}} - \mathbf{\Phi w}) = 0
+\]</span> we have <span class="math display">\[
+\mathbf{w}_{\mathrm{ML}}=\left(\mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi}\right)^{-1} \mathbf{\Phi}^{\mathrm{T}} \boldsymbol{\mathsf{t}}
+\]</span> which are known as the <strong>normal equations</strong> for the least squares problem, and the quantity <span class="math inline">\(\mathbf{\Phi}^{\dagger} \equiv\left(\mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi}\right)^{-1} \mathbf{\Phi}^{\mathrm{T}}\)</span> is known as the <strong>Moore-Penrose pseudo-inverse</strong> of the matrix <span class="math inline">\(\mathbf{\Phi}\)</span>.</p>
+<p>To find out <span class="math inline">\(\beta_{\mathrm{ML}}​\)</span>, set gradient to zero <span class="math display">\[
+\nabla_\mathbf{\beta} \ln p(\boldsymbol{\mathsf{t}} | \mathbf{w}, \beta) = \frac{N}{2\beta} - E_{D}(\mathbf{w}) = 0
+\]</span> we have <span class="math display">\[
+\frac{1}{\beta_{\mathrm{ML}}} = \frac{1}{N}\| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|_2
+\]</span></p>
+<h2 id="geometry-of-least-squares">Geometry of Least Squares</h2>
+<p>Consider <span class="math inline">\(N​\)</span>-dimensional space whose axes are given by <span class="math inline">\(t_n​\)</span>, and <span class="math inline">\(\boldsymbol{\mathsf{t}}=\left(t_{1}, \ldots, t_{N}\right)^{\mathrm{T}}​\)</span> is a vector in this space, then the <span class="math inline">\(M​\)</span> vectors <span class="math inline">\(\boldsymbol{\varphi}_j = (\phi_j(\mathbf{x}_1),...,\phi_j(\mathbf{x}_N))^\mathrm{T},\ j=0,...,M-1​\)</span> will span a subspace <span class="math inline">\(\mathcal{S}=\mathrm{Span} (\boldsymbol{\varphi}_1,...,\boldsymbol{\varphi}_{M-1})​\)</span>. And define <span class="math inline">\(\boldsymbol{\mathsf{y}} = (y\left(\mathbf{x}_{1}, \mathbf{w}\right),...,y\left(\mathbf{x}_{N}, \mathbf{w}\right))^\mathrm{T}​\)</span>, it can lie anywhere in <span class="math inline">\(\mathcal{S}\)</span>.</p>
+<p>Intuitively, since in least square solution <span class="math inline">\(\boldsymbol{\mathsf{y}}​\)</span> is the closest vector to <span class="math inline">\(\boldsymbol{\mathsf{t}}​\)</span> in <span class="math inline">\(\mathcal{S}​\)</span>, so the solution corresponds to the <em>orthogonal projection</em> of <span class="math inline">\(\boldsymbol{\mathsf{t}}​\)</span> onto <span class="math inline">\(\mathcal{S}​\)</span>.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2003-10-51.png" alt="Geometrical interpretation of the least-squares solution"><figcaption>Geometrical interpretation of the least-squares solution</figcaption>
+</figure>
+<h2 id="sequential-learning">Sequential Learning</h2>
+<p>For an error function describe in the sum over data points <span class="math inline">\(E=\sum_{n} E_{n}\)</span>, we an apply an on-line learning (sequential learning) algorithm called <strong>stochastic gradient descent</strong> to update <span class="math inline">\(\mathbf{w}\)</span> <span class="math display">\[
+\mathbf{w}^{(\tau+1)}=\mathbf{w}^{(\tau)}-\eta \nabla E_{n}
+\]</span> where <span class="math inline">\(\tau\)</span> denotes the iteration number, and <span class="math inline">\(\eta\)</span> the learning rate. For example, for the least square error, it can be easily verified that this gives <span class="math display">\[
+\mathbf{w}^{(\tau+1)}=\mathbf{w}^{(\tau)}+\eta\boldsymbol{\phi}(\mathbf{x}_n)\left(t_{n}-\mathbf{w}^{(\tau) \mathrm{T}} \boldsymbol{\phi}(\mathbf{x}_n)\right)
+\]</span> which is known as least-mean-squares or the <strong>LMS algorithm</strong>.</p>
+<h2 id="regularized-least-squares">Regularized Least Squares</h2>
+<p>Recall that the general form of error function with regularization is <span class="math display">\[
+E_{D}(\mathbf{w})+\lambda E_{W}(\mathbf{w})
+\]</span> For sum-of-square error with a quadratic regularizer (known as <strong>weight decay</strong>) takes the form <span class="math display">\[
+\frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|_2 +\frac{\lambda}{2} \|\mathbf{w}\|_2
+\]</span> Now the solution of minimization of <span class="math inline">\(\mathbf{w}\)</span> is <span class="math display">\[
+\mathbf{w}=\left(\lambda \mathbf{I}+\mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi}\right)^{-1} \boldsymbol{\Phi}^{\mathrm{T}} \mathbf{t}
+\]</span> Unlike <span class="math inline">\(\left(\mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi}\right)^{-1}​\)</span>, this time the inverse term always exists, since for any non-zero vector <span class="math inline">\(\mathbf{v}​\)</span>, it is definite <span class="math display">\[
+\mathbf{v}^\mathrm{T}\left(\lambda \mathbf{I}+\mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi}\right)\mathbf{v} = \lambda\mathbf{v}^\mathrm{T}\mathbf{v} + \|\mathbf{\Phi}\mathbf{v}\|_2 &gt; 0
+\]</span> A more general regularizer takes the form <span class="math display">\[
+\frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|_2 +\frac{\lambda}{2} \|\mathbf{w}\|_q
+\]</span> where <span class="math inline">\(\|\mathbf{w}\|_q = \sum_{j=1}^{M}\left|w_{j}\right|^{q}​\)</span>.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-22%2023-50-24.png" alt="Contours of the regularization term"><figcaption>Contours of the regularization term</figcaption>
+</figure>
+<p>The case of <span class="math inline">\(q=1\)</span> is known as <strong>lasso</strong>. It has the property that if <span class="math inline">\(\lambda\)</span> is sufficiently large, some of the <span class="math inline">\(w_j\)</span> becomes zero, so it is often used when we believe some features are irrelevant to the target. To see why, just note that for lasso the minimization problem is the same as <span class="math display">\[
+\min \ \frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|_2
+\\ \mathrm{s.t.} \sum_{j=1}^{M}\left|w_{j}\right| \leqslant \eta
+\]</span> related by using Lagrange multipliers. When <span class="math inline">\(\lambda\)</span> becomes large, it is easy to see that <span class="math inline">\(w_j\)</span> becomes small, then so is the corresponding <span class="math inline">\(\eta\)</span>, and from geometry intuition as the figure below we know some <span class="math inline">\(w_j\)</span> will become <span class="math inline">\(0​\)</span>.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-22%2023-50-36.png" alt="Plot of the contours of the unregularized error function along with the constraint region for the quadratic regularizer q = 2 on the left and lasso on the right. Note that some dimensions of \mathbf{w}^* vanishes only when \eta is small."><figcaption>Plot of the contours of the unregularized error function along with the constraint region for the quadratic regularizer <span class="math inline">\(q = 2\)</span> on the left and lasso on the right. Note that some dimensions of <span class="math inline">\(\mathbf{w}^*\)</span> vanishes only when <span class="math inline">\(\eta\)</span> is small.</figcaption>
+</figure>
+<p><strong>Conclusion</strong>: Regularization allows complex models to be trained on data sets of limited size <em>without severe over-fitting</em>, essentially by limiting the effective model complexity. However, the problem of determining the optimal model complexity is then <em>shifted</em> from one of finding the appropriate number of basis functions to one of determining a suitable value of the regularization coefficient.</p>
+<h2 id="multiple-outputs">Multiple Outputs</h2>
+<p>For multiple targets to predict, we denote the targets to be a vector <span class="math inline">\(\mathbf{t}\)</span>, now we suppose the conditional distribution of the target vector takes the form <span class="math display">\[
+p(\mathbf{t} | \mathbf{x}, \mathbf{W}, \mathbf{\Lambda}^{-1})=\mathcal{N}(\mathbf{t} | \mathbf{W}^{\mathrm{T}} \boldsymbol{\phi}(\mathbf{x}), \mathbf{\Lambda}^{-1})
+\]</span> where <span class="math inline">\(\mathbf{W}​\)</span> is an <span class="math inline">\(M\times K​\)</span> weight matrix. If we have a set of <span class="math inline">\(N​\)</span> observed targets denoted by an <span class="math inline">\(N\times K​\)</span> matrix <span class="math inline">\(\mathbf{T} = (\mathbf{t}_{1}\ \mathbf{t}_{2} \dots \mathbf{t}_{N})^\mathrm{T}​\)</span>, and the corresponding inputs denoted by an <span class="math inline">\(N\times M​\)</span> matrix <span class="math inline">\(\mathbf{X} = (\mathbf{x}_{1}\ \mathbf{x}_{2} \dots \mathbf{x}_{N})^\mathrm{T}​\)</span>, and transform it into the <span class="math inline">\(N\times M​\)</span> design matrix <span class="math inline">\(\mathbf{\Phi}​\)</span>, then the log likelihood function is then given by <span class="math display">\[
+\begin{aligned} &amp;\ln p(\mathbf{T} | \mathbf{X}, \mathbf{W},\mathbf{\Lambda}^{-1})
+\\ =&amp;\sum_{n=1}^{N} \ln \mathcal{N}(\mathbf{t}_n | \mathbf{W}^{\mathrm{T}} \boldsymbol{\phi}(\mathbf{x}_n), \mathbf{\Lambda}^{-1}) \\ =&amp; - \frac{N K}{2} \ln \left(2 \pi\right) + \frac{N }{2} \ln |\mathbf{\Lambda}| -\frac{1}{2} \sum_{n=1}^{N}\left(\mathbf{t}_{n}-\mathbf{W}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right)\right)^{\mathrm{T}} \boldsymbol{\Lambda}\left(\mathbf{t}_{n}-\mathbf{W}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right)\right) \end{aligned}
+\]</span> It can be verified that by setting the gradient w.r.t. <span class="math inline">\(\mathbf{W}\)</span>, we have <span class="math display">\[
+\mathbf{W}_{\mathrm{ML}}=\left(\boldsymbol{\Phi}^{\mathrm{T}} \boldsymbol{\Phi}\right)^{-1} \boldsymbol{\Phi}^{\mathrm{T}} \mathbf{T}
+\]</span> If we examine for each target <span class="math inline">\(t_k\)</span>, we will result in the same form as single target case <span class="math display">\[
+\mathbf{w}_{k}=\left(\mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi}\right)^{-1} \boldsymbol{\Phi}^{\mathrm{T}} \mathbf{t}_{k}
+\]</span></p>
+<blockquote>
+<p><strong>Proof of</strong> <span class="math inline">\(\mathbf{W}_{\mathrm{ML}}=\left(\boldsymbol{\Phi}^{\mathrm{T}} \boldsymbol{\Phi}\right)^{-1} \boldsymbol{\Phi}^{\mathrm{T}} \mathbf{T}\)</span>: <span class="math display">\[
+\begin{aligned}
+&amp;\frac{\partial}{\partial{\mathbf{W}}}\ln p(\mathbf{T} | \mathbf{X}, \mathbf{W},\mathbf{\Lambda}^{-1}) 
+\\ =&amp; - \frac{1}{2} \frac{\partial}{\partial{\mathbf{W}}}\sum_{n=1}^{N}\left(\mathbf{t}_{n}-\mathbf{W}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right)\right)^{\mathrm{T}} \boldsymbol{\Lambda}\left(\mathbf{t}_{n}-\mathbf{W}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right)\right)
+\\ =&amp; - \frac{1}{2} \frac{\partial}{\partial{\mathbf{W}}} \mathrm{Tr}\left( \left(\mathbf{T}- \boldsymbol{\Phi}\mathbf{W}\right) \boldsymbol{\Lambda}\left(\mathbf{T}- \boldsymbol{\Phi}\mathbf{W}\right)^{\mathrm{T}} \right)
+\\ =&amp;  \boldsymbol{\Phi}^\mathrm{T} \left(\mathbf{T}- \boldsymbol{\Phi}\mathbf{W}\right) \boldsymbol{\Lambda}
+\end{aligned}
+\]</span> in the last step we use the formula <span class="math inline">\(\frac{\partial}{\partial \mathbf{X}} \operatorname{Tr}\left(\mathbf{X} \mathbf{B} \mathbf{X}^{T}\right)=\mathbf{X} \mathbf{B}^{T}+\mathbf{X} \mathbf{B}\)</span>. Then just set it to zero we can get the result.</p>
+</blockquote>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/PRML/">#PRML</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/03/17/PRML2-5/">(PRML Notes) 2.5 Nonparametric Methods</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/2019/03/22/PRML3-1/';
+        this.page.identifier = 'prml3-1';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>
