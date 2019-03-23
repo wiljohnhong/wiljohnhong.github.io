@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>(PRML Notes) 3.2 The Bias-Variance Decomposition - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  In the last section we remain a question about how to determine the regularization parameter \(\lambda\), so that the model can">
+<meta name="keywords" content="PRML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(PRML Notes) 3.2 The Bias-Variance Decomposition">
+<meta property="og:url" content="http://wiljohn.top/2019/03/23/PRML3-2/index.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  In the last section we remain a question about how to determine the regularization parameter \(\lambda\), so that the model can">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2017-28-35.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2017-28-49.png">
+<meta property="og:updated_time" content="2019-03-23T09:43:50.796Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(PRML Notes) 3.2 The Bias-Variance Decomposition">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  In the last section we remain a question about how to determine the regularization parameter \(\lambda\), so that the model can">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2017-28-35.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            (PRML Notes) 3.2 The Bias-Variance Decomposition
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-23T07:25:04.000Z" itemprop="datePublished">Mar 23 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            8 minutes read (About 1195 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>In the last section we remain a question about how to determine the regularization parameter <span class="math inline">\(\lambda\)</span>, so that the model can be applied better to new data set. Seeking solution that minimizes both <span class="math inline">\(\mathbf{w}\)</span> and <span class="math inline">\(\lambda\)</span> is not right approach since this leads to unregularized solution <span class="math inline">\(\lambda=0\)</span>.</p>
+<p>This section focuses on the <em>frequentist view</em> of the model complexity issue, known as <strong>bias-variance trade-off</strong>.</p>
+<a id="more"></a>
+<h2 id="recall-of-decision-theory">Recall of Decision Theory</h2>
+<p>Recall that in section 1.5, the optimal prediction of regression problem under a squared loss function is given by the conditional mean, here we denote it by <span class="math inline">\(h(\mathbf{x})​\)</span> <span class="math display">\[
+h(\mathbf{x})=\mathbb{E}[t | \mathbf{x}]=\int t p(t | \mathbf{x}) \mathrm{d} t
+\]</span></p>
+<blockquote>
+<p><strong>Difference between squared loss and sum-of-square error</strong>:</p>
+<p>​ The squared loss arises form decision theory and is used to give prediction, given the distribution of <span class="math inline">\(p(t | \mathbf{x})\)</span>. While the sum-of-square error arises from MLE of model parameters, which is used to determine <span class="math inline">\(p(t | \mathbf{x})\)</span>.</p>
+</blockquote>
+<p>And we saw that the expected squared loss can be written as <span class="math display">\[
+\begin{align}
+\mathbb{E}_{\mathbf{x}, t}[L] &amp;= \int\int\{y(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t
+\\ &amp;= \int\int\{y(\mathbf{x}) - h(\mathbf{x}) + h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t
+\\ &amp;= \int\int\{y(\mathbf{x})-h(\mathbf{x})\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t + \int\int\{h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t + \int\int2\{y(\mathbf{x})-h(\mathbf{x})\}\{h(\mathbf{x})-t\} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t
+\\ &amp;=\int\{y(\mathbf{x})-h(\mathbf{x})\}^{2} p(\mathbf{x}) \mathrm{d} \mathbf{x}+\int\int\{h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t \quad\ \scriptstyle{(\text{The last term vanishes since } \int \{h(\mathbf{x})-t\} p(t|\mathbf{x}) \mathrm{d} t=0 )}
+\end{align}
+\]</span> where the second term arises from the intrinsic noise and is irreducible, and the first term depend on the choice of <span class="math inline">\(f(\mathbf{x})\)</span>. If we have unlimited supply of data and <span class="math inline">\(f(\mathbf{x})​\)</span> is set to enough degrees of freedom, then the first term can be reduced to zero.</p>
+<h2 id="bayesian-vs-frequentist">Bayesian vs Frequentist</h2>
+<p>If <span class="math inline">\(y(\mathbf{x})​\)</span> is modeled via a parametric approach as <span class="math inline">\(y(\mathbf{x}, \mathbf{w})​\)</span>, then from a Bayesian approach the uncertainty is expressed through a posterior distribution over <span class="math inline">\(\mathbf{w}​\)</span>.</p>
+<p>While a frequentist treatment, involves making a point estimate of <span class="math inline">\(\mathbf{w}​\)</span>, based on the given data set <span class="math inline">\(\mathcal{D}​\)</span>. We denote the <span class="math inline">\(y(\mathbf{x})​\)</span> modeled in this way as <span class="math inline">\(y(\mathbf{x}; \mathcal{D})​\)</span>. The performance of a particular learning algorithm is then assessed by taking the average over <span class="math inline">\(y(\mathbf{x}; \mathcal{D})​\)</span> on different data sets.</p>
+<h2 id="frequentist-model-comparison">Frequentist Model Comparison</h2>
+<p>Frequentists further define the expected prediction loss over different data sets as</p>
+<p><span class="math display">\[
+\begin{align}
+\mathbb{E}_\mathcal{D}[\mathbb{E}_{\mathbf{x}, t}[L]] &amp; = \mathbb{E}_\mathcal{D}\left[\int\{y(\mathbf{x}; \mathcal{D})-h(\mathbf{x})\}^{2} p(\mathbf{x}) \mathrm{d} \mathbf{x}+\int\int\{h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t\right]
+\\&amp; = \int\mathbb{E}_\mathcal{D}\left[\{y(\mathbf{x; \mathcal{D}})-h(\mathbf{x})\}^{2}\right] p(\mathbf{x}) \mathrm{d} \mathbf{x}+\int\int\{h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t
+\\&amp; = \int\mathbb{E}_\mathcal{D}\left[\left\{y(\mathbf{x} ; \mathcal{D})-\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]+\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]-h(\mathbf{x})\right\}^{2}\right] p(\mathbf{x}) \mathrm{d} \mathbf{x}+\int\int\{h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t
+\\&amp; = \int\mathbb{E}_\mathcal{D}\left[{\left\{y(\mathbf{x} ; \mathcal{D})-\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]\right\}^{2}+\left\{\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]-h(\mathbf{x})\right\}^{2}} {+2\left\{y(\mathbf{x} ; \mathcal{D})-\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]\right\}\left\{\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]-h(\mathbf{x})\right\}}\right] p(\mathbf{x}) \mathrm{d} \mathbf{x}+\int\int\{h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t
+\\&amp; = \underbrace{\int\mathbb{E}_\mathcal{D}\left[\left\{y(\mathbf{x} ; \mathcal{D})-\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]\right\}^{2}\right]p(\mathbf{x}) \mathrm{d} \mathbf{x}}_\text{variance} + \underbrace{\int\left\{\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]-h(\mathbf{x})\right\}^{2}p(\mathbf{x}) \mathrm{d} \mathbf{x}}_{\text{(bias)}^2}+ \underbrace{\int\int\{h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t}_\text{noise}
+\end{align}
+\]</span></p>
+<p>where the <strong>bias</strong> represents the extent to which the average prediction over all data sets differs from the desired regression function, and the <strong>variance</strong> measures the extent to which the solutions for individual data sets vary around their average, i.e. how sensitive <span class="math inline">\(y(\mathbf{x}; \mathcal{D})\)</span> is to the particular choice of <span class="math inline">\(\mathcal{D}\)</span>. And the <strong>noise</strong> remains the same as before.</p>
+<p>There is a trade-off between bias and variance, with very flexible models having low bias and high variance, and relatively rigid models having high bias and low variance. The optimal model leads to the best balance between bias and variance.</p>
+<p>To take an intuitive understand of this trade-off, we can examine the bias and variance quantitatively by sampling <span class="math display">\[
+\begin{aligned}(\text {bias})^{2} &amp;=\frac{1}{N} \sum_{n=1}^{N}\left\{\overline{y}\left(x_{n}\right)-h\left(x_{n}\right)\right\}^{2} \\ \text { variance } &amp;=\frac{1}{N} \sum_{n=1}^{N} \frac{1}{L} \sum_{l=1}^{L}\left\{y^{(l)}\left(x_{n}\right)-\overline{y}\left(x_{n}\right)\right\}^{2} \end{aligned}
+\]</span> where we have <span class="math inline">\(L\)</span> data sets, each having <span class="math inline">\(N\)</span> data points, and <span class="math inline">\(\overline{y}(x_n)\)</span> and the averaged prediction of <span class="math inline">\(x_n\)</span> on different models given by <span class="math display">\[
+\overline{y}(x_n)=\frac{1}{L} \sum_{l=1}^{L} y^{(l)}(x_n)
+\]</span> The following illustration shows the results of <span class="math inline">\(L=100\)</span> data sets generated from <span class="math inline">\(h(x)=\sin(2\pi x)\)</span>, each data set has <span class="math inline">\(N=25\)</span> data points and modeled with <span class="math inline">\(24​\)</span> Gaussian basis functions.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2017-28-35.png" alt="Left shows 20 fitted curves for 20 i.i.d. drawn \mathcal{D}s, presents the variance, and the right shows the bias, that for more complex model (smaller \lambda, the averaged curve (red line) is closer to h(x) (green line)."><figcaption>Left shows 20 fitted curves for 20 i.i.d. drawn <span class="math inline">\(\mathcal{D}\)</span>s, presents the variance, and the right shows the bias, that for more complex model (smaller <span class="math inline">\(\lambda\)</span>, the averaged curve (red line) is closer to <span class="math inline">\(h(x)\)</span> (green line).</figcaption>
+</figure>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2017-28-49.png" alt="Plot of squared bias and variance, together with their sum."><figcaption>Plot of squared bias and variance, together with their sum.</figcaption>
+</figure>
+<blockquote>
+<p>A last, the author as a Bayesian criticizes that frequentist perspective is of limited practical value since we only have a single data set. (Partitioning it into smaller data sets for validation wastes data).</p>
+</blockquote>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/PRML/">#PRML</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2019/03/23/PRML3-3/">(PRML Notes) 3.3 Bayesian Linear Regression</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/03/22/PRML3-1/">(PRML Notes) 3.1 Linear Basis Function Models</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/2019/03/23/PRML3-2/';
+        this.page.identifier = 'prml3-2';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

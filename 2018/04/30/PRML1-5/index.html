@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/11235035.jpg">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/80196176.jpg">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/76982210.jpg">
-<meta property="og:updated_time" content="2018-12-25T04:44:56.680Z">
+<meta property="og:updated_time" content="2019-03-23T05:02:54.522Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 1.5 Decision Theory">
 <meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Decision theory allows us to make optimal decisions in situations involving uncertainty. Informally, for classification problem">
@@ -123,7 +123,7 @@
         <span class="column is-narrow">
             
             
-            16 minutes read (About 2382 words)
+            16 minutes read (About 2404 words)
         </span>
         
     </div>
@@ -246,16 +246,17 @@ y(\mathbf{x}) = \frac{\int tp(\mathbf{x},t)\ \mathrm{d}t}{p(\mathbf{x})} = \int 
 <p>And for the last term <span class="math display">\[
 \begin{aligned}
 &amp;\int \int [\mathbb{E}[t|\mathbf{x}]-t]^2p(\mathbf{x},t) \ \mathrm{d}\mathbf{x}\ \mathrm{d}t 
-\\ =&amp; \int \int [\mathbb{E}^2[t|\mathbf{x}]-2t\mathbb{E}[t|\mathbf{x}]+t^2]p(t|\mathbf{x})p(\mathbf{x}) \ \mathrm{d}\mathbf{x}\ \mathrm{d}t 
-\\ =&amp; \int  \mathbb{E}^2[t|\mathbf{x}]p(\mathbf{x})\int p(t|\mathbf{x})\ \mathrm{d}t  \ \mathrm{d}\mathbf{x} + \int \mathbb{E}[t|\mathbf{x}]p(\mathbf{x}) \int -2tp(t|\mathbf{x})\ \mathrm{d}t \ \mathrm{d}\mathbf{x} + \int p(\mathbf{x})  \int t^2p(t|\mathbf{x})\ \mathrm{d}t \ \mathrm{d}\mathbf{x}
-\\ =&amp; \int  \mathbb{E}^2[t|\mathbf{x}]p(\mathbf{x})\ \mathrm{d}\mathbf{x} + \int -2\mathbb{E}^2[t|\mathbf{x}]p(\mathbf{x}) \ \mathrm{d}\mathbf{x} + \int \mathbb{E}[t^2|\mathbf{x}]p(\mathbf{x}) \ \mathrm{d}\mathbf{x}
-\\ =&amp;  \int \left[\mathbb{E}[t^2|\mathbf{x}]-\mathbb{E}^2[t|\mathbf{x}]\right]p(\mathbf{x}) \ \mathrm{d}\mathbf{x}
+\\ =&amp;\int p(\mathbf{x})\int [\mathbb{E}[t|\mathbf{x}]-t]^2p(t|\mathbf{x})\ \mathrm{d}t  \ \mathrm{d}\mathbf{x}
+%\\ =&amp; \int \int [\mathbb{E}^2[t|\mathbf{x}]-2t\mathbb{E}[t|\mathbf{x}]+t^2]p(t|\mathbf{x})p(\mathbf{x}) \ \mathrm{d}\mathbf{x}\ \mathrm{d}t 
+%\\ =&amp; \int  \mathbb{E}^2[t|\mathbf{x}]p(\mathbf{x})\int p(t|\mathbf{x})\ \mathrm{d}t  \ \mathrm{d}\mathbf{x} + \int \mathbb{E}[t|\mathbf{x}]p(\mathbf{x}) \int -2tp(t|\mathbf{x})\ \mathrm{d}t \ \mathrm{d}\mathbf{x} + \int p(\mathbf{x})  \int t^2p(t|\mathbf{x})\ \mathrm{d}t \ \mathrm{d}\mathbf{x}
+%\\ =&amp; \int  \mathbb{E}^2[t|\mathbf{x}]p(\mathbf{x})\ \mathrm{d}\mathbf{x} + \int -2\mathbb{E}^2[t|\mathbf{x}]p(\mathbf{x}) \ \mathrm{d}\mathbf{x} + \int \mathbb{E}[t^2|\mathbf{x}]p(\mathbf{x}) \ \mathrm{d}\mathbf{x}
+%\\ =&amp;  \int \left[\mathbb{E}[t^2|\mathbf{x}]-\mathbb{E}^2[t|\mathbf{x}]\right]p(\mathbf{x}) \ \mathrm{d}\mathbf{x}
 \\ =&amp;  \int \mathrm{var}[t|\mathbf{x}]p(\mathbf{x}) \ \mathrm{d}\mathbf{x}
 \end{aligned}
 \]</span></p>
 <p>So finally we have <span class="math display">\[
 \mathbb{E}[L] = \int [y(\mathbf{x})-\mathbb{E}[t|\mathbf{x}]]^2 p(\mathbf{x}) \ \mathrm{d}\mathbf{x} + \int \mathrm{var}[t|\mathbf{x}]p(\mathbf{x}) \ \mathrm{d}\mathbf{x}
-\]</span> The function <span class="math inline">\(y(\mathbf{x})\)</span> we seek to determine only enters in the first term called <strong>bias</strong>, which will vanish if we choose <span class="math inline">\(y(\mathbf{x}) = \mathbb{E}[t|\mathbf{x}]\)</span>, and the second term is called <strong>variance</strong>, which represents the noise during data generation and is irreducible.</p>
+\]</span> The function <span class="math inline">\(y(\mathbf{x})\)</span> we seek to determine only enters in the first term called <strong>bias</strong>, which will vanish if we choose <span class="math inline">\(y(\mathbf{x}) = \mathbb{E}[t|\mathbf{x}]\)</span>, and the second term is called <strong>noise</strong>, which represents the noise during data generation and is irreducible.</p>
 <p>Similarly, there are three approaches to solve a regression problem, respectively by using:</p>
 <ol type="1">
 <li><p><strong>Generative model</strong>: learn a joint distribution <span class="math inline">\(p(\mathbf{x}, t)\)</span> then compute posterior <span class="math inline">\(p(t|\mathbf{x}) = p(\mathbf{x}, t)/\int p(\mathbf{x}, t)\ \mathrm{d}t\)</span>, and finally get <span class="math inline">\(y(\mathbf{x}) = \int t p(t|\mathbf{x})\ \mathrm{d}t\)</span>.</p></li>
