@@ -110,6 +110,46 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/03/24/PRML3-4/" itemprop="url">(PRML Notes) 3.4 Bayesian Model Comparison</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-24T07:54:04.000Z" itemprop="datePublished">Mar 24 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            7 minutes read (About 1087 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>Here we consider the problem of model selection from a Bayesian perspective, which avoid the over-fitting of making point estimates of model parameters by marginalizing over these parameters. Through this way, models can be compared directly on the training data.</p>
+<h2 id="general-procedure-of-bayesian-model-selection">General Procedure of Bayesian Model Selection</h2>
+<p>Suppose we wish to compare <span class="math inline">\(L\)</span> models <span class="math inline">\(\left\{\mathcal{M}_{i}\right\}\)</span>, where <span class="math inline">\(i=1, \dots, L\)</span>, and in each model we defined a prior over model parameters, <span class="math inline">\(p(\mathbf{w} | \mathcal{M}_{i})\)</span>, and for each choice of parameters in each model, the uncertainty over the observed data is described in a likelihood <span class="math inline">\(p(\mathcal{D} | \mathbf{w}, \mathcal{M}_{i})\)</span>.</p>
+        <p class="article-more-link">
+            <a href="/2019/03/24/PRML3-4/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/03/23/PRML3-3/" itemprop="url">(PRML Notes) 3.3 Bayesian Linear Regression</a>
         
     </h1>
@@ -464,49 +504,6 @@ p(\mathbf{X}| \boldsymbol{\mu},\mathbf{\Sigma}) = \frac{1}{(2\pi)^{ND/2}} \frac{
 \]</span></p>
         <p class="article-more-link">
             <a href="/2019/03/01/PRML2-3-1~3/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/02/28/PRML2-3-0/" itemprop="url">(PRML Notes) 2.3.0 Gaussian Distribution</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-02-28T12:36:04.000Z" itemprop="datePublished">Feb 28 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            12 minutes read (About 1813 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<h2 id="introduction">Introduction</h2>
-<p>In the case of single variable <span class="math inline">\(x​\)</span>, the Gaussian distribution can be written in the form <span class="math display">\[
-\mathcal{N}(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left\{ -\frac{(x-\mu)^2}{2\sigma^2} \right\}
-\]</span> with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. For a <span class="math inline">\(D\)</span>-dimensional vector <span class="math inline">\(\mathbf{x}\)</span>, the multivariate Gaussian distribution takes the form <span class="math display">\[
-\mathcal{N}(\mathbf{x}| \boldsymbol{\mu},\mathbf{\Sigma}) = \frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \exp\left\{ -\frac{1}{2} (\mathbf{x}- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}- \boldsymbol{\mu}) \right\}
-\]</span></p>
-        <p class="article-more-link">
-            <a href="/2019/02/28/PRML2-3-0/#more">Read More</a>
         </p>
     
     </div>
