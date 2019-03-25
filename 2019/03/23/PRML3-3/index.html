@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2023-38-38.png">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-24%2000-07-21.png">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-24%2000-07-31.png">
-<meta property="og:updated_time" content="2019-03-23T16:57:37.750Z">
+<meta property="og:updated_time" content="2019-03-24T11:54:50.654Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 3.3 Bayesian Linear Regression">
 <meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a Bayesian view of linear regression, which avoids the over-fitting problem of MLE and also leads to auto">
@@ -154,9 +154,9 @@ p(\mathbf{w})=\mathcal{N}(\mathbf{w} | \mathbf{m}_{0}, \mathbf{S}_{0})
 \\&amp;=\left(\alpha \mathbf{I}+\beta \mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi} \right)^{-1}\beta \mathbf{\Phi}^{\mathrm{T}} \boldsymbol{\mathsf{t}}
 \\&amp;=\left(\frac{\alpha}{\beta} \mathbf{I}+ \mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi} \right)^{-1} \mathbf{\Phi}^{\mathrm{T}} \boldsymbol{\mathsf{t}}
 \end{align}
-\]</span> which is just the same as the result of minimizing the regularized error <span class="math inline">\(\frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|_2 +\frac{\lambda}{2} \|\mathbf{w}\|_2\)</span>, with <span class="math inline">\(\lambda = \alpha/\beta\)</span>. If we generalize the prior to be <span class="math display">\[
+\]</span> which is just the same as the result of minimizing the regularized error <span class="math inline">\(\frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|^2 +\frac{\lambda}{2} \|\mathbf{w}\|^2\)</span>, with <span class="math inline">\(\lambda = \alpha/\beta\)</span>. If we generalize the prior to be <span class="math display">\[
 p(\mathbf{w} | \alpha)=\left[\frac{q}{2}\left(\frac{\alpha}{2}\right)^{1 / q} \frac{1}{\Gamma(1 / q)}\right]^{M} \exp \left(-\frac{\alpha}{2} \sum_{j=1}^{M}\left|w_{j}\right|^{q}\right)
-\]</span> where <span class="math inline">\(q=2\)</span> is just the Gaussian, then under this prior the solution of <span class="math inline">\(\mathbf{w}_{\mathrm{MAP}}\)</span> is just the same as minimizing the generalized regularized error <span class="math inline">\(\frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|_2 +\frac{\lambda}{2} \|\mathbf{w}\|_q\)</span>.</p>
+\]</span> where <span class="math inline">\(q=2\)</span> is just the Gaussian, then under this prior the solution of <span class="math inline">\(\mathbf{w}_{\mathrm{MAP}}\)</span> is just the same as minimizing the generalized regularized error <span class="math inline">\(\frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|^2 +\frac{\lambda}{2} \|\mathbf{w}\|^q\)</span>.</p>
 <p>Furthermore, like before, it can be shown that if data points arrive sequentially, then the posterior distribution can be updated sequentially as a new prior for subsequent data point.</p>
 <h2 id="predictive-distribution">Predictive Distribution</h2>
 <p>To make prediction of <span class="math inline">\(t​\)</span> for new <span class="math inline">\(\mathbf{x}​\)</span>, we use the <strong>predictive distribution</strong> defined by <span class="math display">\[

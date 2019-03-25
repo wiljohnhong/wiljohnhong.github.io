@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2003-10-51.png">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-22%2023-50-24.png">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-22%2023-50-36.png">
-<meta property="og:updated_time" content="2019-03-22T19:12:44.123Z">
+<meta property="og:updated_time" content="2019-03-24T11:53:55.401Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 3.1 Linear Basis Function Models">
 <meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  A simplest regression model for \(D\)-dimensional input variable \(\mathbf{x}=\left(x_{1}, \dots, x_{D}\right)^{\mathrm{T}}\) i">
@@ -159,7 +159,7 @@ p(t | \mathbf{x}, \mathbf{w}, \beta)=\mathcal{N}(t | y(\mathbf{x}, \mathbf{w}), 
 p(\boldsymbol{\mathsf{t}} | \mathbf{w}, \beta)=\prod_{n=1}^{N} \mathcal{N}\left(t_{n} | \mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right), \beta^{-1}\right)
 \]</span> Note that from now on <span class="math inline">\(\mathbf{x}​\)</span> will be dropped from conditioning variables since in supervised learning we are not seeking to model the distribution of <span class="math inline">\(\mathbf{x}​\)</span>. Taking logarithm we have <span class="math display">\[
 \begin{aligned} \ln p(\boldsymbol{\mathsf{t}} | \mathbf{w}, \beta) &amp;=\sum_{n=1}^{N} \ln \mathcal{N}\left(t_{n} | \mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right), \beta^{-1}\right) \\ &amp;=\frac{N}{2} \ln \beta-\frac{N}{2} \ln (2 \pi)-\beta E_{D}(\mathbf{w}) \end{aligned}
-\]</span> where <span class="math inline">\(E_{D}(\mathbf{w})=\frac{1}{2} \sum_{n=1}^{N}\left\{t_{n}-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right)\right\}^{2} = \frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|_2​\)</span>, here <span class="math inline">\(\mathbf{\Phi}​\)</span> is an <span class="math inline">\(N\times M​\)</span> matrix, called the <strong>design matrix</strong> <span class="math display">\[
+\]</span> where <span class="math inline">\(E_{D}(\mathbf{w})=\frac{1}{2} \sum_{n=1}^{N}\left\{t_{n}-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right)\right\}^{2} = \frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|^2​\)</span>, here <span class="math inline">\(\mathbf{\Phi}​\)</span> is an <span class="math inline">\(N\times M​\)</span> matrix, called the <strong>design matrix</strong> <span class="math display">\[
 \boldsymbol{\Phi}=\left( \begin{array}{cccc}{\phi_{0}\left(\mathbf{x}_{1}\right)} &amp; {\phi_{1}\left(\mathbf{x}_{1}\right)} &amp; {\cdots} &amp; {\phi_{M-1}\left(\mathbf{x}_{1}\right)} \\ {\phi_{0}\left(\mathbf{x}_{2}\right)} &amp; {\phi_{1}\left(\mathbf{x}_{2}\right)} &amp; {\cdots} &amp; {\phi_{M-1}\left(\mathbf{x}_{2}\right)} \\ {\vdots} &amp; {\vdots} &amp; {\ddots} &amp; {\vdots} \\ {\phi_{0}\left(\mathbf{x}_{N}\right)} &amp; {\phi_{1}\left(\mathbf{x}_{N}\right)} &amp; {\cdots} &amp; {\phi_{M-1}\left(\mathbf{x}_{N}\right)}\end{array}\right)
 \]</span> To find out <span class="math inline">\(\mathbf{w}_{\mathrm{ML}}​\)</span>, set gradient to zero <span class="math display">\[
 \nabla_\mathbf{w} \ln p(\boldsymbol{\mathsf{t}} | \mathbf{w}, \beta) = \nabla_\mathbf{w} \beta E_{D}(\mathbf{w})  = \frac{\beta}{2} \mathbf{\Phi}^\mathrm{T} (\boldsymbol{\mathsf{t}} - \mathbf{\Phi w}) = 0
@@ -169,7 +169,7 @@ p(\boldsymbol{\mathsf{t}} | \mathbf{w}, \beta)=\prod_{n=1}^{N} \mathcal{N}\left(
 <p>To find out <span class="math inline">\(\beta_{\mathrm{ML}}​\)</span>, set gradient to zero <span class="math display">\[
 \nabla_\mathbf{\beta} \ln p(\boldsymbol{\mathsf{t}} | \mathbf{w}, \beta) = \frac{N}{2\beta} - E_{D}(\mathbf{w}) = 0
 \]</span> we have <span class="math display">\[
-\frac{1}{\beta_{\mathrm{ML}}} = \frac{1}{N}\| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|_2
+\frac{1}{\beta_{\mathrm{ML}}} = \frac{1}{N}\| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|^2
 \]</span></p>
 <h2 id="geometry-of-least-squares">Geometry of Least Squares</h2>
 <p>Consider <span class="math inline">\(N​\)</span>-dimensional space whose axes are given by <span class="math inline">\(t_n​\)</span>, and <span class="math inline">\(\boldsymbol{\mathsf{t}}=\left(t_{1}, \ldots, t_{N}\right)^{\mathrm{T}}​\)</span> is a vector in this space, then the <span class="math inline">\(M​\)</span> vectors <span class="math inline">\(\boldsymbol{\varphi}_j = (\phi_j(\mathbf{x}_1),...,\phi_j(\mathbf{x}_N))^\mathrm{T},\ j=0,...,M-1​\)</span> will span a subspace <span class="math inline">\(\mathcal{S}=\mathrm{Span} (\boldsymbol{\varphi}_1,...,\boldsymbol{\varphi}_{M-1})​\)</span>. And define <span class="math inline">\(\boldsymbol{\mathsf{y}} = (y\left(\mathbf{x}_{1}, \mathbf{w}\right),...,y\left(\mathbf{x}_{N}, \mathbf{w}\right))^\mathrm{T}​\)</span>, it can lie anywhere in <span class="math inline">\(\mathcal{S}\)</span>.</p>
@@ -187,19 +187,19 @@ p(\boldsymbol{\mathsf{t}} | \mathbf{w}, \beta)=\prod_{n=1}^{N} \mathcal{N}\left(
 <p>Recall that the general form of error function with regularization is <span class="math display">\[
 E_{D}(\mathbf{w})+\lambda E_{W}(\mathbf{w})
 \]</span> For sum-of-square error with a quadratic regularizer (known as <strong>weight decay</strong>) takes the form <span class="math display">\[
-\frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|_2 +\frac{\lambda}{2} \|\mathbf{w}\|_2
+\frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|^2 +\frac{\lambda}{2} \|\mathbf{w}\|^2
 \]</span> Now the solution of minimization of <span class="math inline">\(\mathbf{w}\)</span> is <span class="math display">\[
 \mathbf{w}=\left(\lambda \mathbf{I}+\mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi}\right)^{-1} \boldsymbol{\Phi}^{\mathrm{T}} \mathbf{t}
 \]</span> Unlike <span class="math inline">\(\left(\mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi}\right)^{-1}​\)</span>, this time the inverse term always exists, since for any non-zero vector <span class="math inline">\(\mathbf{v}​\)</span>, it is definite <span class="math display">\[
-\mathbf{v}^\mathrm{T}\left(\lambda \mathbf{I}+\mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi}\right)\mathbf{v} = \lambda\mathbf{v}^\mathrm{T}\mathbf{v} + \|\mathbf{\Phi}\mathbf{v}\|_2 &gt; 0
+\mathbf{v}^\mathrm{T}\left(\lambda \mathbf{I}+\mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi}\right)\mathbf{v} = \lambda\mathbf{v}^\mathrm{T}\mathbf{v} + \|\mathbf{\Phi}\mathbf{v}\|^2 &gt; 0
 \]</span> A more general regularizer takes the form <span class="math display">\[
-\frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|_2 +\frac{\lambda}{2} \|\mathbf{w}\|_q
-\]</span> where <span class="math inline">\(\|\mathbf{w}\|_q = \sum_{j=1}^{M}\left|w_{j}\right|^{q}​\)</span>.</p>
+\frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|^2 +\frac{\lambda}{2} \|\mathbf{w}\|^q
+\]</span> where <span class="math inline">\(\|\mathbf{w}\|^q = \sum_{j=1}^{M}\left|w_{j}\right|^{q}​\)</span>.</p>
 <figure>
 <img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-22%2023-50-24.png" alt="Contours of the regularization term"><figcaption>Contours of the regularization term</figcaption>
 </figure>
 <p>The case of <span class="math inline">\(q=1\)</span> is known as <strong>lasso</strong>. It has the property that if <span class="math inline">\(\lambda\)</span> is sufficiently large, some of the <span class="math inline">\(w_j\)</span> becomes zero, so it is often used when we believe some features are irrelevant to the target. To see why, just note that for lasso the minimization problem is the same as <span class="math display">\[
-\min \ \frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|_2
+\min \ \frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|^2
 \\ \mathrm{s.t.} \sum_{j=1}^{M}\left|w_{j}\right| \leqslant \eta
 \]</span> related by using Lagrange multipliers. When <span class="math inline">\(\lambda\)</span> becomes large, it is easy to see that <span class="math inline">\(w_j\)</span> becomes small, then so is the corresponding <span class="math inline">\(\eta\)</span>, and from geometry intuition as the figure below we know some <span class="math inline">\(w_j\)</span> will become <span class="math inline">\(0​\)</span>.</p>
 <figure>
