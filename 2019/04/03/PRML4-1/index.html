@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-06%2000-10-15.png">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-06%2013-12-26.png">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-06%2023-45-58.png">
-<meta property="og:updated_time" content="2019-04-06T15:55:44.440Z">
+<meta property="og:updated_time" content="2019-04-06T16:09:31.268Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 4.1 Discriminant Functions">
 <meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This chapter focuses on solving classification problems, where the input space divided by decision boundaries that can be expre">
@@ -127,7 +127,7 @@
         <span class="column is-narrow">
             
             
-            28 minutes read (About 4260 words)
+            28 minutes read (About 4272 words)
         </span>
         
     </div>
@@ -152,7 +152,7 @@
 <p>The simplest form of linear discriminant function is <span class="math display">\[
 y(\mathbf{x})=\mathbf{w}^{\mathrm{T}} \mathbf{x}+w_{0}
 \]</span> where if <span class="math inline">\(y(\mathbf{x})\geq 0\)</span> we assign <span class="math inline">\(\mathbf{x}\)</span> to <span class="math inline">\(\mathcal{C}_1\)</span> and to <span class="math inline">\(\mathcal{C}_2\)</span> otherwise. So the decision boundary is given by <span class="math inline">\(\mathbf{w}^{\mathrm{T}} \mathbf{x}+w_{0}=0\)</span>.</p>
-<p>We can see that <span class="math inline">\(\mathbf{w}\)</span> determines the orientation of the decision boundary since for any different two points <span class="math inline">\(\mathbf{x}_{\mathrm{A}}\)</span> and $ _{}$ on the boundary, we have <span class="math inline">\(\mathbf{w}^{\mathrm{T}}\left(\mathbf{x}_{\mathrm{A}}-\mathbf{x}_{\mathrm{B}}\right)=0\)</span>. Using this fact, we can derive the normal distance from the origin to the decision boundary <span class="math display">\[
+<p>We can see that <span class="math inline">\(\mathbf{w}​\)</span> determines the orientation of the decision boundary since for any different two points <span class="math inline">\(\mathbf{x}_{\mathrm{A}}​\)</span> and <span class="math inline">\(\mathbf{x}_{\mathrm{B}}​\)</span> on the boundary, we have <span class="math inline">\(\mathbf{w}^{\mathrm{T}}\left(\mathbf{x}_{\mathrm{A}}-\mathbf{x}_{\mathrm{B}}\right)=0​\)</span>. Using this fact, we can derive the normal distance from the origin to the decision boundary <span class="math display">\[
 \mathrm{d} = \frac{\mathbf{w}^{\mathrm{T}} \mathbf{x}}{\|\mathbf{w}\|}=-\frac{w_{0}}{\|\mathbf{w}\|}
 \]</span> Also note that <span class="math inline">\(y(\mathbf{x})\)</span> gives a <em>signed</em> measure of the perpendicular distance <span class="math inline">\(r\)</span> of the point <span class="math inline">\(\mathbf{x}\)</span> to the decision boundary, since <span class="math display">\[
 \begin{align}
@@ -168,7 +168,7 @@ y(\mathbf{x})=\mathbf{w}^{\mathrm{T}} \mathbf{x}+w_{0}
 \end{align}
 \]</span> where <span class="math inline">\(\mathbf{x}_\perp\)</span> is the orthogonal projection of <span class="math inline">\(\mathbf{x}\)</span> onto the decision surface.</p>
 <figure>
-<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-04%2011-57-59.png" alt="The signed orthogonal distance of a general point \mathbf{x} from the decision surface is given by r &amp;= y( \mathbf{x}) / \|\mathbf{w}\|"><figcaption>The signed orthogonal distance of a general point <span class="math inline">\(\mathbf{x}\)</span> from the decision surface is given by <span class="math inline">\(r &amp;= y( \mathbf{x}) / \|\mathbf{w}\|\)</span></figcaption>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-04%2011-57-59.png" alt="The signed orthogonal distance of a general point \mathbf{x} from the decision surface is given by r = y( \mathbf{x}) / \|\mathbf{w}\|"><figcaption>The signed orthogonal distance of a general point <span class="math inline">\(\mathbf{x}\)</span> from the decision surface is given by <span class="math inline">\(r = y( \mathbf{x}) / \|\mathbf{w}\|\)</span></figcaption>
 </figure>
 <h3 id="multiple-classes">Multiple Classes</h3>
 <p>Building a <span class="math inline">\(K\)</span>-class discriminant by combining a number of two-class discriminant leads to serious difficulties. Concretely, if we</p>
@@ -186,7 +186,7 @@ y_{k}(\mathbf{x})=\mathbf{w}_{k}^{\mathrm{T}} \mathbf{x}+w_{k 0}
 <p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-04%2011-58-47.png"></p>
 <p>Note that the decision regions of such a discriminant are always singly connected and convex.</p>
 <blockquote>
-<p><strong>Proof:</strong> For any two points <span class="math inline">\(\mathbf{x}_{\mathrm{A}}\)</span> and $ _{}$ inside the region <span class="math inline">\(\mathcal{R}_k\)</span>, and any point <span class="math inline">\(\widehat{\mathbf{x}}=\lambda \mathbf{x}_{\mathrm{A}}+(1-\lambda) \mathbf{x}_{\mathrm{B}},\ \forall\lambda\in[0,1]\)</span> that lies between the line connecting them, from the linearity we have <span class="math display">\[
+<p><strong>Proof:</strong> For any two points <span class="math inline">\(\mathbf{x}_{\mathrm{A}}\)</span> and <span class="math inline">\(\mathbf{x}_{\mathrm{B}}\)</span> inside the region <span class="math inline">\(\mathcal{R}_k\)</span>, and any point <span class="math inline">\(\widehat{\mathbf{x}}=\lambda \mathbf{x}_{\mathrm{A}}+(1-\lambda) \mathbf{x}_{\mathrm{B}},\ \forall\lambda\in[0,1]\)</span> that lies between the line connecting them, from the linearity we have <span class="math display">\[
 y_{k}(\widehat{\mathbf{x}})=\lambda y_{k}\left(\mathbf{x}_{\mathrm{A}}\right)+(1-\lambda) y_{k}\left(\mathbf{x}_{\mathrm{B}}\right)
 \]</span> since <span class="math inline">\(y_{k}\left(\mathbf{x}_{\mathrm{A}}\right)&gt;y_{j}\left(\mathbf{x}_{\mathrm{A}}\right), \forall j \neq k\)</span>, and the same for <span class="math inline">\(\mathbf{x}_{\mathrm{B}}\)</span>, we have <span class="math inline">\(y_{k}(\widehat{\mathbf{x}}) &gt; y_{j}(\widehat{\mathbf{x}}),\ \forall j\neq k\)</span>, so <span class="math inline">\(\widehat{\mathbf{x}}\)</span> also lies in <span class="math inline">\(\mathcal{R}_k\)</span>.</p>
 </blockquote>
@@ -207,7 +207,7 @@ E_{D}(\widetilde{\mathbf{W}})=\frac{1}{2} \operatorname{Tr}\left\{(\widetilde{\m
 \mathbf{y}(\mathbf{x})=\widetilde{\mathbf{W}}^{\mathrm{T}} \widetilde{\mathbf{x}}=\mathbf{T}^{\mathrm{T}}\left(\widetilde{\mathbf{X}}^{\dagger}\right)^{\mathrm{T}} \widetilde{\mathbf{x}}
 \]</span></p>
 <h3 id="problems-of-least-squares">Problems of Least Squares</h3>
-<p>It can be proved that if every target vector satisfies some linear constraint <span class="math inline">\(\mathbf{a}^{\mathrm{T}} \mathbf{t}_{n}+b=0\)</span>, then the prediction will also satisfies <span class="math inline">\(\mathbf{a}^{\mathrm{T}} \mathbf{y}(\mathbf{x})+b=0\)</span>. So under a <span class="math inline">\(1\)</span>-of-<span class="math inline">\(K\)</span> coding scheme, where the constraint is given by <span class="math inline">\(\mathbf{a}= [1,...,1]^\mathrm{T}\)</span> and <span class="math inline">\({b} = -1\)</span>, the elements in the predicted target $ ()$ will be ensured to sum to <span class="math inline">\(1\)</span>.</p>
+<p>It can be proved that if every target vector satisfies some linear constraint <span class="math inline">\(\mathbf{a}^{\mathrm{T}} \mathbf{t}_{n}+b=0​\)</span>, then the prediction will also satisfies <span class="math inline">\(\mathbf{a}^{\mathrm{T}} \mathbf{y}(\mathbf{x})+b=0​\)</span>. So under a <span class="math inline">\(1​\)</span>-of-<span class="math inline">\(K​\)</span> coding scheme, where the constraint is given by <span class="math inline">\(\mathbf{a}= [1,...,1]^\mathrm{T}​\)</span> and <span class="math inline">\({b} = -1​\)</span>, the elements in the predicted target <span class="math inline">\(\mathbf{y}(\mathbf{x})​\)</span> will be ensured to sum to <span class="math inline">\(1​\)</span>.</p>
 <figure>
 <img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-05%2023-55-31.png" alt="Highly sensitive to outliers (purple), unlike logistic regression (green)"><figcaption>Highly sensitive to outliers (purple), unlike logistic regression (green)</figcaption>
 </figure>
@@ -231,7 +231,7 @@ y=\mathbf{w}^{\mathrm{T}} \mathbf{x}
 \\ \text{s.t. }\mathbf{w}^{\mathrm{T}}\mathbf{w}=1
 \]</span> by solving this we get</p>
 <p><span class="math display">\[
-{\color{red}\mathbf{w} \propto\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)}
+\color{red}{\mathbf{w} \propto\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)}
 \]</span></p>
 <p>However, this simplest measure has some problem for class distribution with strongly nondiagonal covariance, we can see that there will be considerable class overlap in the projected space.</p>
 <figure>
@@ -255,7 +255,7 @@ J(\mathbf{w})&amp;=\frac{\left(m_{2}-m_{1}\right)^{2}}{s_{1}^{2}+s_{2}^{2}}
 \begin{align}
 \mathbf{w} &amp;\propto \mathbf{S}_{\mathrm{W}}^{-1}\mathbf{S}_\mathrm{B} \mathbf{w} 
 \\&amp;=\mathbf{S}_{\mathrm{W}}^{-1} \left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)^{\mathrm{T}}\mathbf{w}
-\\&amp;\propto {\color{red}\mathbf{S}_{\mathrm{W}}^{-1} (\mathbf{m}_{2}-\mathbf{m}_{1})}
+\\&amp;\propto \color{red}{\mathbf{S}_{\mathrm{W}}^{-1} (\mathbf{m}_{2}-\mathbf{m}_{1})}
 \end{align}
 \]</span></p>
 <p>Note that Fisher LDA degrades to simplest form as we discussed before when <span class="math inline">\(\mathbf{S}_{\mathrm{W}}\propto \mathbf{I}\)</span>.</p>
@@ -364,7 +364,7 @@ f(a)=\left\{\begin{array}{ll}{+1,} &amp; {a \geq 0} \\ {-1,} &amp; {a&lt;0}\end{
 <p>We can determine <span class="math inline">\(\mathbf{w}\)</span> by simply minimizing the total misclassification patterns. However, this approach corresponds to a piecewise constant error function w.r.t. <span class="math inline">\(\mathbf{w}​\)</span>, gradient based optimization methods cannot be applied.</p>
 <p>An alternative error function is known as <strong>perceptron criterion</strong>, which takes the form <span class="math display">\[
 E_{\mathrm{P}}(\mathbf{w})=-\sum_{n \in \mathcal{M}} \mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}_{n}\left(\mathbf{x}\right) t_{n}
-\]</span> where <span class="math inline">\(\mathcal{M}\)</span> denotes the set of all misclassified patterns. It is motivated by the fact that all correctly classified patterns satisfy <span class="math inline">\(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right) t_{n}&gt;0\)</span>, so the larger the value of $^{} (_{n}) $ is, the more confident the classification is. Then an SGD method can be applied <span class="math display">\[
+\]</span> where <span class="math inline">\(\mathcal{M}\)</span> denotes the set of all misclassified patterns. It is motivated by the fact that all correctly classified patterns satisfy <span class="math inline">\(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right) t_{n}&gt;0\)</span>, so the larger the value of <span class="math inline">\(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right)\)</span> is, the more confident the classification is. Then an SGD method can be applied <span class="math display">\[
 \mathbf{w}^{(\tau+1)}=\mathbf{w}^{(\tau)}-\eta \nabla E_{\mathrm{P}}(\mathbf{w})=\mathbf{w}^{(\tau)}+\eta \boldsymbol{\phi}\left(\mathbf{x}_{n}\right) t_{n}
 \]</span> where <span class="math inline">\(\eta​\)</span> is the learning rate.</p>
 <p>There is a simple interpretation of perceptron algorithm that when <span class="math inline">\(\boldsymbol{\phi}\left(\mathbf{x}_{n}\right)\)</span> is misclassified, the current estimate of <span class="math inline">\(\mathbf{w}\)</span> will move in the direction of <span class="math inline">\(\boldsymbol{\phi}\left(\mathbf{x}_{n}\right)​\)</span>.</p>
