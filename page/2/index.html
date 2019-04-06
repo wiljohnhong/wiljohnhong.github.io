@@ -103,6 +103,50 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/03/02/PRML2-3-4~5/" itemprop="url">(PRML Notes) 2.3.4-5 Frequentist Estimate for Gaussian</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-02T06:20:04.000Z" itemprop="datePublished">Mar 2 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            11 minutes read (About 1576 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<h2 id="maximum-likelihood-for-gaussian">Maximum Likelihood for Gaussian</h2>
+<p>Given a dataset <span class="math inline">\(\mathbf{X} = (\mathbf{x}_1,...,\mathbf{N})^T\)</span> where <span class="math inline">\(\mathbf{x_n}\)</span> are drawn independently from a multivariate Gaussian. To derive MLE, the log likelihood of the dataset is given by <span class="math display">\[
+\begin{align}
+\ln p(\mathbf{X}|\boldsymbol{\mu},\mathbf{\Sigma}) &amp;= \ln \prod_{n=1}^{N}\frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \exp\left\{ -\frac{1}{2} (\mathbf{x}_n- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}_n- \boldsymbol{\mu}) \right\}
+\\ &amp;= -\frac{ND}{2}\ln (2\pi) - \frac{N}{2}\ln|\mathbf{\Sigma}|  - \frac{1}{2}\sum_{n=1}^N (\mathbf{x}_n- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}_n- \boldsymbol{\mu})
+\end{align}
+\]</span></p>
+        <p class="article-more-link">
+            <a href="/2019/03/02/PRML2-3-4~5/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/03/01/PRML2-3-1~3/" itemprop="url">(PRML Notes) 2.3.1-3 Conditional and Marginal Gaussian</a>
         
     </h1>
@@ -475,46 +519,6 @@ p(\mathbf{x}|\boldsymbol{\mu}) = \prod_{k=1}^K \mu_k^{x_k}
 </ul>
         <p class="article-more-link">
             <a href="/2018/09/23/RL_MDP/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/09/18/RL_intro/" itemprop="url">Introduction to Reinforcement Learning</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-09-17T18:38:10.000Z" itemprop="datePublished">Sep 18 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            6 minutes read (About 944 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>RL is the study of agents and how they learn by trial and error. It formalizes the idea that rewarding or punishing an agent for its behavior makes it more likely to repeat or forego that behavior in the future.</p>
-</blockquote>
-<h2 id="about-reinforcement-learning">About Reinforcement Learning</h2>
-<h3 id="many-faces-of-reinforcement-learning">Many Faces of Reinforcement Learning</h3>
-<p>Reinforcement learning is about a science of decision making, sitting in many different fields of science.</p>
-        <p class="article-more-link">
-            <a href="/2018/09/18/RL_intro/#more">Read More</a>
         </p>
     
     </div>

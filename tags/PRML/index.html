@@ -110,6 +110,45 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/04/03/PRML4-1/" itemprop="url">(PRML Notes) 4.1 Discriminant Functions</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-04-03T15:05:04.000Z" itemprop="datePublished">Apr 3 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            28 minutes read (About 4260 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>This chapter focuses on solving classification problems, where the input space divided by <strong>decision boundaries</strong> that can be expressed by linear functions of input vector.</p>
+<p><strong>About the labels</strong>: For probabilistic models, in the case of two-class problem, we usually use single target variable <span class="math inline">\(t\in\{0,1\}\)</span> to present the probability of taking one class label, thus <span class="math inline">\(1-t\)</span> for the other, and for <span class="math inline">\(K&gt;2\)</span> classes, we use a <span class="math inline">\(1\)</span>-of-<span class="math inline">\(K\)</span> coding <span class="math inline">\(\mathbf{t}=(0,1,0,0,0)^{\mathrm{T}}\)</span> to present the probability of taking every class label. For non-probabilistic models, alternative choice of target variable representation sometimes will also be convenient.</p>
+        <p class="article-more-link">
+            <a href="/2019/04/03/PRML4-1/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/03/25/PRML3-5/" itemprop="url">(PRML Notes) 3.5 The Evidence Approximation</a>
         
     </h1>
@@ -472,50 +511,6 @@ p(\mathbf{X}| \boldsymbol{\mu},\mathbf{\Sigma}) = \frac{1}{(2\pi)^{ND/2}} \frac{
 
 
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/02/PRML2-3-4~5/" itemprop="url">(PRML Notes) 2.3.4-5 Frequentist Estimate for Gaussian</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-02T06:20:04.000Z" itemprop="datePublished">Mar 2 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            11 minutes read (About 1576 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<h2 id="maximum-likelihood-for-gaussian">Maximum Likelihood for Gaussian</h2>
-<p>Given a dataset <span class="math inline">\(\mathbf{X} = (\mathbf{x}_1,...,\mathbf{N})^T\)</span> where <span class="math inline">\(\mathbf{x_n}\)</span> are drawn independently from a multivariate Gaussian. To derive MLE, the log likelihood of the dataset is given by <span class="math display">\[
-\begin{align}
-\ln p(\mathbf{X}|\boldsymbol{\mu},\mathbf{\Sigma}) &amp;= \ln \prod_{n=1}^{N}\frac{1}{(2\pi)^{D/2}} \frac{1}{|\mathbf{\Sigma}|^{1/2}} \exp\left\{ -\frac{1}{2} (\mathbf{x}_n- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}_n- \boldsymbol{\mu}) \right\}
-\\ &amp;= -\frac{ND}{2}\ln (2\pi) - \frac{N}{2}\ln|\mathbf{\Sigma}|  - \frac{1}{2}\sum_{n=1}^N (\mathbf{x}_n- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}_n- \boldsymbol{\mu})
-\end{align}
-\]</span></p>
-        <p class="article-more-link">
-            <a href="/2019/03/02/PRML2-3-4~5/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
     
         
 <nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
@@ -530,6 +525,8 @@ p(\mathbf{X}| \boldsymbol{\mu},\mathbf{\Sigma}) = \frac{1}{(2\pi)^{ND/2}} \frac{
         <li><a class="pagination-link is-current" href="/tags/PRML/">1</a></li>
         
         <li><a class="pagination-link" href="/tags/PRML/page/2/">2</a></li>
+        
+        <li><a class="pagination-link" href="/tags/PRML/page/3/">3</a></li>
         
     </ul>
 </nav>
