@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-06%2000-10-15.png">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-06%2013-12-26.png">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-06%2023-45-58.png">
-<meta property="og:updated_time" content="2019-04-06T16:09:31.268Z">
+<meta property="og:updated_time" content="2019-04-06T16:34:42.781Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 4.1 Discriminant Functions">
 <meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This chapter focuses on solving classification problems, where the input space divided by decision boundaries that can be expre">
@@ -127,7 +127,7 @@
         <span class="column is-narrow">
             
             
-            28 minutes read (About 4272 words)
+            29 minutes read (About 4294 words)
         </span>
         
     </div>
@@ -364,12 +364,12 @@ f(a)=\left\{\begin{array}{ll}{+1,} &amp; {a \geq 0} \\ {-1,} &amp; {a&lt;0}\end{
 <p>We can determine <span class="math inline">\(\mathbf{w}\)</span> by simply minimizing the total misclassification patterns. However, this approach corresponds to a piecewise constant error function w.r.t. <span class="math inline">\(\mathbf{w}​\)</span>, gradient based optimization methods cannot be applied.</p>
 <p>An alternative error function is known as <strong>perceptron criterion</strong>, which takes the form <span class="math display">\[
 E_{\mathrm{P}}(\mathbf{w})=-\sum_{n \in \mathcal{M}} \mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}_{n}\left(\mathbf{x}\right) t_{n}
-\]</span> where <span class="math inline">\(\mathcal{M}\)</span> denotes the set of all misclassified patterns. It is motivated by the fact that all correctly classified patterns satisfy <span class="math inline">\(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right) t_{n}&gt;0\)</span>, so the larger the value of <span class="math inline">\(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right)\)</span> is, the more confident the classification is. Then an SGD method can be applied <span class="math display">\[
+\]</span> where <span class="math inline">\(\mathcal{M}\)</span> denotes the set of all misclassified patterns. It is motivated by the fact that all correctly classified patterns satisfy <span class="math inline">\(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right) t_{n}&gt;0\)</span>, so the larger the value of <span class="math inline">\(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right)\)</span> is, the more confident the classification is. Then an SGD method can be applied after observing one single point <span class="math display">\[
 \mathbf{w}^{(\tau+1)}=\mathbf{w}^{(\tau)}-\eta \nabla E_{\mathrm{P}}(\mathbf{w})=\mathbf{w}^{(\tau)}+\eta \boldsymbol{\phi}\left(\mathbf{x}_{n}\right) t_{n}
 \]</span> where <span class="math inline">\(\eta​\)</span> is the learning rate.</p>
 <p>There is a simple interpretation of perceptron algorithm that when <span class="math inline">\(\boldsymbol{\phi}\left(\mathbf{x}_{n}\right)\)</span> is misclassified, the current estimate of <span class="math inline">\(\mathbf{w}\)</span> will move in the direction of <span class="math inline">\(\boldsymbol{\phi}\left(\mathbf{x}_{n}\right)​\)</span>.</p>
 <figure>
-<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-06%2023-45-58.png" alt="An illustration of the interpretation, where \eta=1, each row corresponds to one update step."><figcaption>An illustration of the interpretation, where <span class="math inline">\(\eta=1\)</span>, each row corresponds to one update step.</figcaption>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-06%2023-45-58.png" alt="An illustration of the interpretation, where \eta=1, each row corresponds to one update step. The arrow points towards the decision region of the red class. After two steps the algorithm converges."><figcaption>An illustration of the interpretation, where <span class="math inline">\(\eta=1\)</span>, each row corresponds to one update step. The arrow points towards the decision region of the red class. After two steps the algorithm converges.</figcaption>
 </figure>
 <p>Though it can be proved that if the training data set is linearly separable, then the perceptron learning algorithm is guaranteed to find an exact solution in a finite number of steps, this simple algorithm has many limitations as follows:</p>
 <ul>
@@ -389,7 +389,9 @@ E_{\mathrm{P}}(\mathbf{w})=-\sum_{n \in \mathcal{M}} \mathbf{w}^{\mathrm{T}} \bo
     
     
     <div class="columns is-mobile is-multiline article-nav">
-        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2019/04/07/PRML4-2/">(PRML Notes) 4.2 Probabilistic Generative Model</a>
             
         </span>
         <span class="column is-12-mobile is-half-desktop  article-nav-next">

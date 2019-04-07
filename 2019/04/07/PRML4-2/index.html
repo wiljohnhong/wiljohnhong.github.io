@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>(PRML Notes) 4.2 Probabilistic Generative Model - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a probabilistic view of classification and show how models with linear decision boundaries arise from gen">
+<meta name="keywords" content="PRML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(PRML Notes) 4.2 Probabilistic Generative Model">
+<meta property="og:url" content="http://wiljohn.top/2019/04/07/PRML4-2/index.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a probabilistic view of classification and show how models with linear decision boundaries arise from gen">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-04-07T10:44:13.490Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(PRML Notes) 4.2 Probabilistic Generative Model">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a probabilistic view of classification and show how models with linear decision boundaries arise from gen">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            (PRML Notes) 4.2 Probabilistic Generative Model
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-04-07T03:37:04.000Z" itemprop="datePublished">Apr 7 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            16 minutes read (About 2371 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>This section turns to a probabilistic view of classification and show how models with linear decision boundaries arise from generative approach with simple assumptions about the distribution of the data.</p>
+<a id="more"></a>
+<p>For the case of two class, we would like to transform the posterior to take the form <span class="math display">\[
+\begin{aligned} p\left(\mathcal{C}_{1} | \mathbf{x}\right) &amp;=\frac{p\left(\mathbf{x} | \mathcal{C}_{1}\right) p\left(\mathcal{C}_{1}\right)}{p\left(\mathbf{x} | \mathcal{C}_{1}\right) p\left(\mathcal{C}_{1}\right)+p\left(\mathbf{x} | \mathcal{C}_{2}\right) p\left(\mathcal{C}_{2}\right)} \\ &amp;=\frac{1}{1+\exp (-a)}=\sigma(a) \end{aligned}
+\]</span> where we have defined <span class="math display">\[
+a\equiv \ln \frac{p\left(\mathbf{x} | \mathcal{C}_{1}\right) p\left(\mathcal{C}_{1}\right)}{p\left(\mathbf{x} | \mathcal{C}_{2}\right) p\left(\mathcal{C}_{2}\right)}
+\]</span> Here <span class="math inline">\(\sigma(a)=1/(1+\exp (-a))\)</span> is the <strong>logistic sigmoid</strong> function, which means S-shaped. It maps the whole real axis into a finite interval, and satisfy the simple property <span class="math inline">\(\sigma(-a)=1-\sigma(a)\)</span>. Its inverse <span class="math inline">\(a=\ln \left(\frac{\sigma}{1-\sigma}\right)\)</span> is known as the logit function.</p>
+<blockquote>
+<p>At this time simply rewritten the posterior probabilities seems meaningless, but if <span class="math inline">\(\mathbf{a}(\mathbf{x})\)</span> takes a simple functional form, e.g. linear in <span class="math inline">\(\mathbf{x}\)</span>, the resulting decision boundary will become simple as linear.</p>
+</blockquote>
+<p>For <span class="math inline">\(K&gt;2​\)</span> classes, we can change the representation to take the form of <strong>softmax function</strong> <span class="math display">\[
+\begin{aligned} p\left(\mathcal{C}_{k} | \mathbf{x}\right) &amp;=\frac{p\left(\mathbf{x} | \mathcal{C}_{k}\right) p\left(\mathcal{C}_{k}\right)}{\sum_{j} p\left(\mathbf{x} | \mathcal{C}_{j}\right) p\left(\mathcal{C}_{j}\right)} \\ &amp;=\frac{\exp \left(a_{k}\right)}{\sum_{j} \exp \left(a_{j}\right)} \end{aligned}
+\]</span> where we can define <span class="math inline">\(a_{k}=C\ln \big(p\left(\mathbf{x} | \mathcal{C}_{k}\right) p\left(\mathcal{C}_{k}\right)\big)\)</span>, (<span class="math inline">\(C\)</span> can be any constant, since canceled in fraction). The term "softmax" means it is a smoothed version of the "max" function, because if <span class="math inline">\(a_{k} \gg a_{j},\ \forall k\neq j\)</span>, we have <span class="math inline">\(p\left(\mathcal{C}_{k} | \mathbf{x}\right) \simeq 1\)</span>, and <span class="math inline">\(p\left(\mathcal{C}_{j} | \mathbf{x}\right) \simeq 0\)</span>.</p>
+<h2 id="continuous-inputs">Continuous Inputs</h2>
+<h3 id="formulation">Formulation</h3>
+<p>Now we assume the likelihood <span class="math inline">\(p(\mathbf{x}|\mathcal{C}_{k})\)</span> of continuous input <span class="math inline">\(\mathbf{x}\)</span> is Gaussian, and all classes share the same covariance matrix, so we have <span class="math display">\[
+p\left(\mathbf{x} | \mathcal{C}_{k}\right)=\frac{1}{(2 \pi)^{D / 2}} \frac{1}{|\mathbf{\Sigma}|^{1 / 2}} \exp \left\{-\frac{1}{2}\left(\mathbf{x}-\boldsymbol{\mu}_{k}\right)^{\mathrm{T}} \boldsymbol{\Sigma}^{-1}\left(\mathbf{x}-\boldsymbol{\mu}_{k}\right)\right\}
+\]</span> For <span class="math inline">\(K=2\)</span> classes, to represent the posterior in the form of sigmoid function, first find out the expression of <span class="math inline">\(a\)</span> <span class="math display">\[
+\begin{align}
+a&amp;= \ln \frac{p\left(\mathbf{x} | \mathcal{C}_{1}\right) p\left(\mathcal{C}_{1}\right)}{p\left(\mathbf{x} | \mathcal{C}_{2}\right) p\left(\mathcal{C}_{2}\right)}
+\\ &amp;= \ln \frac{p\left(\mathbf{x} | \mathcal{C}_{1}\right) }{p\left(\mathbf{x} | \mathcal{C}_{2}\right) } + \ln \frac{ p\left(\mathcal{C}_{1}\right)}{p\left(\mathcal{C}_{2}\right)}
+\\ &amp;= -\frac{1}{2} \left(\mathbf{x}-\boldsymbol{\mu}_{1}\right)^{\mathrm{T}} \boldsymbol{\Sigma}^{-1}\left(\mathbf{x}-\boldsymbol{\mu}_{1}\right) - \frac{1}{2}\left(\mathbf{x}-\boldsymbol{\mu}_{2}\right)^{\mathrm{T}} \boldsymbol{\Sigma}^{-1}\left(\mathbf{x}-\boldsymbol{\mu}_{2}\right) + \ln \frac{ p\left(\mathcal{C}_{1}\right)}{p\left(\mathcal{C}_{2}\right)}
+\\ &amp;= \mathbf{x}^\mathrm{T}\boldsymbol{\Sigma}^{-1}\left(\boldsymbol{\mu}_{1}-\boldsymbol{\mu}_{2}\right) -\frac{1}{2} \boldsymbol{\mu}_{1}^{\mathrm{T}} \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}_{1}+\frac{1}{2} \boldsymbol{\mu}_{2}^{\mathrm{T}} \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}_{2} + \ln \frac{ p\left(\mathcal{C}_{1}\right)}{p\left(\mathcal{C}_{2}\right)}
+\end{align}
+\]</span> So the posterior takes the form that linear in <span class="math inline">\(\mathbf{x}\)</span>, resulting in a linear decision boundary <span class="math display">\[
+p\left(\mathcal{C}_{1} | \mathbf{x}\right)=\sigma\left(\mathbf{w}^{\mathrm{T}} \mathbf{x}+w_{0}\right)
+\]</span> where <span class="math display">\[
+\begin{aligned} \mathbf{w} &amp;=\mathbf{\Sigma}^{-1}\left(\boldsymbol{\mu}_{1}-\boldsymbol{\mu}_{2}\right) \\ w_{0} &amp;=-\frac{1}{2} \boldsymbol{\mu}_{1}^{\mathrm{T}} \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}_{1}+\frac{1}{2} \boldsymbol{\mu}_{2}^{\mathrm{T}} \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}_{2}+\ln \frac{p\left(\mathcal{C}_{2}\right)}{p\left(\mathcal{C}_{2}\right)} \end{aligned}
+\]</span> For <span class="math inline">\(K&gt;2\)</span> classes, we can change the posterior to the form of softmax function <span class="math display">\[
+\begin{aligned} p\left(\mathcal{C}_{k} | \mathbf{x}\right) &amp;= \frac{p\left(\mathbf{x} | \mathcal{C}_{k}\right) p\left(\mathcal{C}_{k}\right)}{\sum_{j} p\left(\mathbf{x} | \mathcal{C}_{j}\right) p\left(\mathcal{C}_{j}\right)}
+\\&amp;=\frac{\exp \left\{-\frac{1}{2}\left(\mathbf{x}-\boldsymbol{\mu}_{k}\right)^{\mathrm{T}} \boldsymbol{\Sigma}^{-1}\left(\mathbf{x}-\boldsymbol{\mu}_{k}\right)\right\} p\left(\mathcal{C}_{k}\right)}{\sum_{j} \exp \left\{-\frac{1}{2}\left(\mathbf{x}-\boldsymbol{\mu}_{j}\right)^{\mathrm{T}} \boldsymbol{\Sigma}^{-1}\left(\mathbf{x}-\boldsymbol{\mu}_{j}\right)\right\} p\left(\mathcal{C}_{j}\right)}
+\\&amp;=\frac{\exp \left\{\mathbf{x}^\mathrm{T}\mathbf{\Sigma}^{-1}\boldsymbol{\mu}_k -\frac{1}{2} \boldsymbol{\mu}_{k}^{\mathrm{T}} \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}_{k}\right\} p\left(\mathcal{C}_{k}\right)}
+{\sum_{j} \exp \left\{\mathbf{x}^\mathrm{T}\mathbf{\Sigma}^{-1}\boldsymbol{\mu}_j -\frac{1}{2} \boldsymbol{\mu}_{j}^{\mathrm{T}} \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}_{j}\right\} p\left(\mathcal{C}_{j}\right)} 
+\\ &amp;=\frac{\exp \left(a_{k}\right)}{\sum_{j} \exp \left(a_{j}\right)} \end{aligned}
+\]</span> note that we have defined <span class="math display">\[
+a_{k}=\mathbf{w}_{k}^{\mathrm{T}} \mathbf{x}+w_{k 0}
+\]</span> where <span class="math display">\[
+\begin{aligned} \mathbf{w}_{k} &amp;=\boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}_{k} \\ w_{k 0} &amp;=-\frac{1}{2} \boldsymbol{\mu}_{k}^{\mathrm{T}} \boldsymbol{\Sigma}^{-1} \boldsymbol{\mu}_{k}+\ln p\left(\mathcal{C}_{k}\right) \end{aligned}
+\]</span> So again we have a generalized linear model.</p>
+<p>Note that if we allow <span class="math inline">\(p\left(\mathbf{x} | \mathcal{C}_{k}\right)\)</span> to have its own covariance matrix <span class="math inline">\(\boldsymbol{\Sigma}_{k}\)</span>, then the resulting decision boundary will be quadratic.</p>
+<h3 id="maximum-likelihood-solution">Maximum Likelihood Solution</h3>
+<p>Consider for the case <span class="math inline">\(K=2\)</span> classes, with a data set <span class="math inline">\(\left\{\mathbf{x}_{n}, t_{n}\right\}\)</span>, where <span class="math inline">\(n=1, \dots, N\)</span>, and we use <span class="math inline">\(t_n=1\)</span> to denote class <span class="math inline">\(\mathcal{C}_1\)</span> and <span class="math inline">\(t_n=0\)</span> to denote class <span class="math inline">\(\mathcal{C}_2\)</span>. And we also denote the prior <span class="math inline">\(p\left(\mathcal{C}_{1}\right)=\pi\)</span> and so that <span class="math inline">\(p\left(\mathcal{C}_{2}\right)=1-\pi\)</span>.</p>
+<p>For a data point from class <span class="math inline">\(\mathcal{C}_1\)</span> or <span class="math inline">\(\mathcal{C}_2\)</span> we have <span class="math display">\[
+p\left(\mathbf{x}_{n}, \mathcal{C}_{1}\right)=p\left(\mathcal{C}_{1}\right) p\left(\mathbf{x}_{n} | \mathcal{C}_{1}\right)=\pi \mathcal{N}\left(\mathbf{x}_{n} | \boldsymbol{\mu}_{1}, \mathbf{\Sigma}\right)
+\\
+p\left(\mathbf{x}_{n}, \mathcal{C}_{2}\right)=p\left(\mathcal{C}_{2}\right) p\left(\mathbf{x}_{n} | \mathcal{C}_{2}\right)=(1-\pi) \mathcal{N}\left(\mathbf{x}_{n} | \boldsymbol{\mu}_{2}, \mathbf{\Sigma}\right)
+\]</span> So the likelihood function of this dataset is given by <span class="math display">\[
+\begin{align}
+p\left(\boldsymbol{\mathsf{t}},\mathbf{X} \right) &amp;= 
+\prod_{n=1}^N p\left(t_n,\mathbf{x}_n \right)
+\\ &amp;= \prod_{n=1}^N \big[
+p\left(t_n,\mathbf{x}_n,\mathcal{C}_1 \right) + p\left(t_n,\mathbf{x}_n,\mathcal{C}_2 \right)
+\big]
+\\ &amp;= \prod_{n=1}^N \big[
+p(\mathcal{C}_1)p(t_n|\mathcal{C}_1)p(\mathbf{x}_n|\mathcal{C}_1) + p(\mathcal{C}_2)p(t_n|\mathcal{C}_2)p(\mathbf{x}_n|\mathcal{C}_2)
+\big]
+\\ &amp;= \prod_{n=1}^N \big[
+\pi t_n \mathcal{N}\left(\mathbf{x}_{n} | \boldsymbol{\mu}_{1}, \boldsymbol{\Sigma}\right) + (1-\pi)(1-t_n) \mathcal{N}\left(\mathbf{x}_{n} | \boldsymbol{\mu}_{2}, \boldsymbol{\Sigma}\right)
+\big]
+\\&amp;=\prod_{n=1}^{N}\left[\pi \mathcal{N}\left(\mathbf{x}_{n} | \boldsymbol{\mu}_{1}, \boldsymbol{\Sigma}\right)\right]^{t_{n}}\left[(1-\pi) \mathcal{N}\left(\mathbf{x}_{n} | \boldsymbol{\mu}_{2}, \boldsymbol{\Sigma}\right)\right]^{1-t_{n}}
+\end{align}
+\]</span> First to find the MLE of <span class="math inline">\(\pi\)</span>, note that the terms in <span class="math inline">\(\ln p\left(\boldsymbol{\mathsf{t}},\mathbf{X} \right)\)</span> that depend on <span class="math inline">\(\pi\)</span> are <span class="math display">\[
+\sum_{n=1}^{N}\left\{t_{n} \ln \pi+\left(1-t_{n}\right) \ln (1-\pi)\right\}
+\]</span> Set the derivative of it w.r.t. <span class="math inline">\(\pi​\)</span> we get <span class="math display">\[
+\begin{align}
+\sum_{n=1}^N \left\{ \frac{t_n}{\pi}  - \frac{1-t_n}{1-\pi} \right\} &amp;= 0
+\\ \sum_{n=1}^N \frac{t_n}{\pi} &amp;= \sum_{n=1}^N\frac{1-t_n}{1-\pi}
+\\ \frac{N_1}{\pi} &amp;= \frac{N_2}{1-\pi}
+\\ N_1-N_1\pi &amp;= N_2\pi
+\\ \pi &amp;= \frac{N_1}{N}
+\end{align}
+\]</span> So the prior of each class is given by the fraction of the training set points assigned to that class.</p>
+<p>Next consider the MLE of <span class="math inline">\(\boldsymbol{\mu}_{1}​\)</span>, note that the terms in <span class="math inline">\(\ln p\left(\boldsymbol{\mathsf{t}},\mathbf{X} \right)​\)</span> that depend on <span class="math inline">\(\boldsymbol{\mu}_{1}​\)</span> are <span class="math display">\[
+\sum_{n=1}^{N} t_{n} \ln \mathcal{N}\left(\mathbf{x}_{n} | \boldsymbol{\mu}_{1}, \boldsymbol{\Sigma}\right)=-\frac{1}{2} \sum_{n=1}^{N} t_{n}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{1}\right)^{\mathrm{T}} \boldsymbol{\Sigma}^{-1}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{1}\right)+\mathrm{const}
+\]</span> Set the derivative of it w.r.t. <span class="math inline">\(\boldsymbol{\mu}_{1}​\)</span> we get <span class="math display">\[
+\begin{align}
+\sum_{n=1}^{N} t_{n}\boldsymbol{\Sigma}^{-1}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{1}\right) &amp;= 0
+\\ \sum_{n=1}^{N} t_{n}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{1}\right) &amp;= 0
+\\ \sum_{n=1}^{N} t_{n}\mathbf{x}_{n} &amp;= \sum_{n=1}^{N} t_{n}\boldsymbol{\mu}_{1}
+\\ \sum_{n=1}^{N} t_{n}\mathbf{x}_{n} &amp;= N_1\boldsymbol{\mu}_{1}
+\\ \boldsymbol{\mu}_{1} &amp;= \frac{1}{N_1}\sum_{n=1}^{N} t_{n}\mathbf{x}_{n}
+\end{align}
+\]</span> which is the mean of data points in class <span class="math inline">\(\mathcal{C}_1\)</span>. Similarly the MLE of <span class="math inline">\(\boldsymbol{\mu}_{2}\)</span> is given by the mean of data points in class <span class="math inline">\(\mathcal{C}_2\)</span>. <span class="math display">\[
+\boldsymbol{\mu}_{2}=\frac{1}{N_{2}} \sum_{n=1}^{N}\left(1-t_{n}\right) \mathbf{x}_{n}
+\]</span> Finally, consider the MLE of <span class="math inline">\(\mathbf{\Sigma}\)</span>, note that the terms in <span class="math inline">\(\ln p\left(\boldsymbol{\mathsf{t}},\mathbf{X} \right)\)</span> that depend on <span class="math inline">\(\boldsymbol{\mu}_{1}\)</span> are <span class="math display">\[
+\begin{align}
+&amp; -\frac{1}{2} \sum_{n=1}^{N} t_{n} \ln |\mathbf{\Sigma}|-\frac{1}{2} \sum_{n=1}^{N} t_{n}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{1}\right)^{\mathrm{T}} \boldsymbol{\Sigma}^{-1}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{1}\right) {-\frac{1}{2} \sum_{n=1}^{N}\left(1-t_{n}\right) \ln |\boldsymbol{\Sigma}|-\frac{1}{2} \sum_{n=1}^{N}\left(1-t_{n}\right)\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{2}\right)^{\mathrm{T}} \boldsymbol{\Sigma}^{-1}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{2}\right)} 
+\\ =&amp; -\frac{N}{2} \ln |\boldsymbol{\Sigma}|
+-\frac{1}{2} \sum_{n \in \mathcal{C}_{1}}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{1}\right)^{\mathrm{T}} 
+\boldsymbol{\Sigma}^{-1}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{1}\right)
+-\frac{1}{2} \sum_{n \in \mathcal{C}_{2}}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{2}\right)^{\mathrm{T}} 
+\boldsymbol{\Sigma}^{-1}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{2}\right)
+\\ =&amp; -\frac{N}{2} \ln |\boldsymbol{\Sigma}|
+-\frac{1}{2}  \operatorname{Tr}\left\{\sum_{n \in \mathcal{C}_{1}}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{1}\right)^{\mathrm{T}} 
+\boldsymbol{\Sigma}^{-1}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{1}\right)\right\}
+-\frac{1}{2} \operatorname{Tr}\left\{\sum_{n \in \mathcal{C}_{2}}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{2}\right)^{\mathrm{T}} 
+\boldsymbol{\Sigma}^{-1}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{2}\right)\right\}
+\\ =&amp; -\frac{N}{2} \ln |\boldsymbol{\Sigma}|
+-\frac{1}{2}  \operatorname{Tr}\left\{\sum_{n \in \mathcal{C}_{1}}
+\boldsymbol{\Sigma}^{-1}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{1}\right)\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{1}\right)^{\mathrm{T}} \right\}
+-\frac{1}{2} \operatorname{Tr}\left\{\sum_{n \in \mathcal{C}_{2}}
+\boldsymbol{\Sigma}^{-1}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{2}\right)\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{2}\right)^{\mathrm{T}} \right\}
+\\ =&amp; -\frac{N}{2} \ln |\boldsymbol{\Sigma}|
+-\frac{1}{2}  \operatorname{Tr}\left\{
+N_1\boldsymbol{\Sigma}^{-1}\mathbf{S}_1 \right\}
+-\frac{1}{2} \operatorname{Tr}\left\{N_2\boldsymbol{\Sigma}^{-1}\mathbf{S}_2 \right\}
+\\ =&amp;-\frac{N}{2} \ln |\boldsymbol{\Sigma}|-\frac{N}{2} \operatorname{Tr}\left\{\boldsymbol{\Sigma}^{-1} \mathbf{S}\right\}
+\end{align}
+\]</span> where we have defined <span class="math display">\[
+\begin{aligned} \mathbf{S} &amp;=\frac{N_{1}}{N} \mathbf{S}_{1}+\frac{N_{2}}{N} \mathbf{S}_{2} \\ \mathbf{S}_{1} &amp;=\frac{1}{N_{1}} \sum_{n \in \mathcal{C}_{1}}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{1}\right)\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{1}\right)^{\mathrm{T}} \\ \mathbf{S}_{2} &amp;=\frac{1}{N_{2}} \sum_{n \in \mathcal{C}_{2}}\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{2}\right)\left(\mathbf{x}_{n}-\boldsymbol{\mu}_{2}\right)^{\mathrm{T}} \end{aligned}
+\]</span> Similar result can be easily extended to the <span class="math inline">\(K&gt;2\)</span> classes problem.</p>
+<h2 id="discrete-inputs">Discrete Inputs</h2>
+<p>For simplicity, we look at <span class="math inline">\(D\)</span>-dimensional binary input values <span class="math inline">\(x_{i} \in\{0,1\}\)</span>. A general distribution of <span class="math inline">\(p(\mathbf{x}|\mathcal{C}_k)\)</span> requires a table of <span class="math inline">\(2^D-1\)</span> independent variables to represent, which is tedious. A common approach is to use Naive Bayes, where features are treated independent conditioned on <span class="math inline">\(\mathcal{C}_k\)</span>, so that <span class="math display">\[
+p\left(\mathbf{x} | \mathcal{C}_{k}\right)=p\left(x_1 | \mathcal{C}_{k}\right)\cdots p\left(x_D | \mathcal{C}_{k}\right) = \prod_{i=1}^{D} \mu_{k i}^{x_{i}}\left(1-\mu_{k i}\right)^{1-x_{i}}
+\]</span> where <span class="math inline">\(\mu_{ki} = p(x_i=1|\mathcal{C}_k)\)</span> is parameter to be determined. With this approach, the discriminant function is again linear in <span class="math inline">\(\mathbf{x}\)</span> since in softmax function we can take <span class="math display">\[
+a_k = \ln \big(p\left(\mathbf{x} | \mathcal{C}_{k}\right) p\left(\mathcal{C}_{k}\right)\big)=\sum_{i=1}^{D}\left\{x_{i} \ln \mu_{k i}+\left(1-x_{i}\right) \ln \left(1-\mu_{k i}\right)\right\}+\ln p\left(\mathcal{C}_{k}\right)
+\]</span></p>
+<h2 id="exponential-family">Exponential Family</h2>
+<p>Actually there is a more general result that can be obtained by assuming that the class-conditional densities <span class="math inline">\(p(x|\mathcal{C}_k)\)</span> are members of the exponential family of distributions with the restriction that <span class="math inline">\(\mathbf{u}(\mathbf{x})=\mathbf{x}\)</span>, so the densities take the form <span class="math display">\[
+p\left(\mathbf{x} | \boldsymbol{\lambda}_{k}\right)=h(\mathbf{x}) g\left(\boldsymbol{\lambda}_{k}\right) \exp \left\{\boldsymbol{\lambda}_{k}^{\mathrm{T}} \mathbf{x}\right\}
+\]</span> For <span class="math inline">\(K=2\)</span> classes problem, change the posterior into the sigmoid function we have <span class="math display">\[
+a= \ln \frac{p\left(\mathbf{x} | \mathcal{C}_{1}\right) p\left(\mathcal{C}_{1}\right)}{p\left(\mathbf{x} | \mathcal{C}_{2}\right) p\left(\mathcal{C}_{2}\right)}=\left(\boldsymbol{\lambda}_{1}-\boldsymbol{\lambda}_{2}\right)^{\mathrm{T}} \mathbf{x}+\ln g\left(\boldsymbol{\lambda}_{1}\right)-\ln g\left(\boldsymbol{\lambda}_{2}\right)+\ln p\left(\mathcal{C}_{1}\right)-\ln p\left(\mathcal{C}_{2}\right)
+\]</span> For <span class="math inline">\(K&gt;2\)</span> classes problem, change the posterior into the softmax function we can take <span class="math display">\[
+a_k = \ln \big(p\left(\mathbf{x} | \mathcal{C}_{k}\right) p\left(\mathcal{C}_{k}\right)\big)=\boldsymbol{\lambda}_{k}^{\mathrm{T}} \mathbf{x}+\ln g\left(\boldsymbol{\lambda}_{k}\right)+\ln p\left(\mathcal{C}_{k}\right)
+\]</span> which are all linear in <span class="math inline">\(\mathbf{x}\)</span>.</p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/PRML/">#PRML</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/04/03/PRML4-1/">(PRML Notes) 4.1 Discriminant Functions</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/2019/04/07/PRML4-2/';
+        this.page.identifier = 'prml4-2';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

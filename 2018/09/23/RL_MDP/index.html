@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-11.png">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-12.png">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl2-13.png">
-<meta property="og:updated_time" content="2019-02-01T15:17:33.009Z">
+<meta property="og:updated_time" content="2019-04-07T10:48:32.559Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Markov Decision Process">
 <meta name="twitter:description" content="Markov decision processes formally describe an environment for reinforcement learning, where the environment is fully observable.  Markov Process Definition A Markov Process (or Markov Chain) is a me">
@@ -133,7 +133,7 @@
         <span class="column is-narrow">
             
             
-            10 minutes read (About 1533 words)
+            10 minutes read (About 1534 words)
         </span>
         
     </div>
@@ -260,8 +260,8 @@ q_*(s,a) = \max_{\pi} q_{\pi}(s,a)
 <p>then the following three theorems comes for any MDP,</p>
 <ul>
 <li>There exists an optimal policy <span class="math inline">\(\pi^*\)</span> that <span class="math inline">\(\pi^*\geq \pi\)</span>, <span class="math inline">\(\forall\pi\)</span></li>
-<li>All optimal policies achieve the optimal state-value function, $ v_{^<em>}(s) = v_</em>(s) $</li>
-<li>All optimal policies achieve the optimal action-value function, $q_{^<em>}(s,a) = q_</em>(s,a) $</li>
+<li>All optimal policies achieve the optimal state-value function, <span class="math inline">\(v_{\pi^*}(s) = v_*(s)​\)</span></li>
+<li>All optimal policies achieve the optimal action-value function, <span class="math inline">\(q_{\pi^*}(s,a) = q_*(s,a)\)</span></li>
 </ul>
 <p>There is always a deterministic optimal policy for any MDP, and if we know <span class="math inline">\(q_*(s,a)\)</span>, we immediately have the optimal policy <span class="math display">\[
 \pi_*(a|s) =

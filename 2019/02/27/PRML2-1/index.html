@@ -22,7 +22,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-02-27%2021-48-21.png">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-02-27%2021-48-47.png">
-<meta property="og:updated_time" content="2019-02-27T17:17:53.336Z">
+<meta property="og:updated_time" content="2019-04-07T10:47:21.661Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 2.1 Binary Variables">
 <meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Bernoulli Distribution For a random variable \(x\) that, for example, describes the outcome of flipping a damaged coin, with th">
@@ -205,7 +205,7 @@ p(x=1|\mathcal{D}) = \int_0^1p(x=1|\mu)p(\mu|\mathcal{D})d\mu = \int_0^1 \mu p(\
 \mathrm{var}_\mathbf{\theta}[\mathbf{\theta}] = \mathbb{E}_\mathcal{D}[\mathrm{var}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]] + \mathrm{var}_\mathcal{D}[\mathbb{E}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]]
 \]</span> Since the second term, the posterior mean of <span class="math inline">\(\mathbf{\theta}​\)</span> is positive, which means <em>on average</em> (not for a particular <span class="math inline">\(\mathcal{D} ​\)</span>), the posterior variance of <span class="math inline">\(\mathbf{\theta}​\)</span> is smaller than the prior variance.</p>
 <blockquote>
-<p>This equation only shows <span class="math inline">\(\mathbb{E}_\mathcal{D}[\mathrm{var}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]] &lt; \mathrm{var}_\mathbf{\theta}[\mathbf{\theta}]\)</span>, but does not show <span class="math inline">\(\mathrm{var}_\mathcal{D}[\mathbb{E}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]]\)</span> will increase as more and more data is observed. Intuitively, the posterior mean of <span class="math inline">\(\mathbf{\theta}\)</span>s on different datasets gradually move to the different true values where the observed <span class="math inline">\(\mathcal{D}\)</span>s generated from, resulting in larger variance over $ $.</p>
+<p>This equation only shows <span class="math inline">\(\mathbb{E}_\mathcal{D}[\mathrm{var}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]] &lt; \mathrm{var}_\mathbf{\theta}[\mathbf{\theta}]\)</span>, but does not show <span class="math inline">\(\mathrm{var}_\mathcal{D}[\mathbb{E}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]]\)</span> will increase as more and more data is observed. Intuitively, the posterior mean of <span class="math inline">\(\mathbf{\theta}\)</span>s on different datasets gradually move to the different true values where the observed <span class="math inline">\(\mathcal{D}\)</span>s generated from, resulting in larger variance over <span class="math inline">\(\mathcal{D}\)</span>.</p>
 </blockquote>
 <blockquote>
 <h4 id="proof-of-the-above-equation">Proof of the above equation</h4>

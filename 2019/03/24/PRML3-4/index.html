@@ -22,7 +22,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-24%2018-33-22.png">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-24%2018-33-16.png">
-<meta property="og:updated_time" content="2019-03-24T10:35:40.327Z">
+<meta property="og:updated_time" content="2019-04-07T10:45:17.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 3.4 Bayesian Model Comparison">
 <meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Here we consider the problem of model selection from a Bayesian perspective, which avoid the over-fitting of making point estim">
@@ -122,7 +122,7 @@
         <span class="column is-narrow">
             
             
-            7 minutes read (About 1087 words)
+            7 minutes read (About 1085 words)
         </span>
         
     </div>
@@ -160,7 +160,7 @@ p(\mathcal{D}|\mathcal{M}_{k})=\int p(\mathcal{D} | \mathbf{w},\mathcal{M}_{k}) 
 <p>In Bayesian point of view, a good model should have a proper range of parameters that can fit the data well.</p>
 </blockquote>
 <h2 id="interpretation-from-external-view">Interpretation from External View</h2>
-<p>This time from another point of view, consider running three models <span class="math inline">\(\mathcal{M}_{1}, \mathcal{M}_{2}​\)</span> and $ _{3}​$ generatively to produce example data sets, and then looking at the distribution of data sets that result.</p>
+<p>This time from another point of view, consider running three models <span class="math inline">\(\mathcal{M}_{1}, \mathcal{M}_{2}\)</span> and <span class="math inline">\(\mathcal{M}_{3}\)</span> generatively to produce example data sets, and then looking at the distribution of data sets that result.</p>
 <p>A simple model like <span class="math inline">\(\mathcal{M}_{1}​\)</span> has little variability so will generate data very similar to each other. And for complex model like <span class="math inline">\(\mathcal{M}_{3}​\)</span>, it can generate a variety of different data sets.</p>
 <p>Because the distributions <span class="math inline">\(p(\mathcal{D} | \mathcal{M}_{i})\)</span> are normalized, so for a particular data set <span class="math inline">\(\mathcal{D}_0\)</span>, maybe <span class="math inline">\(\mathcal{M}_{1}\)</span> can not fit it well, while <span class="math inline">\(\mathcal{M}_{3}\)</span> spreads its predictive probability over too broad a range so assigns <span class="math inline">\(\mathcal{D}_0\)</span> with a relatively small probability, then only the model <span class="math inline">\(\mathcal{M}_{2}​\)</span> of intermediate complexity has the highest value of evidence.</p>
 <figure>

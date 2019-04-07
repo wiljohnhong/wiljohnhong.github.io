@@ -103,6 +103,50 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/03/02/PRML2-3-6/" itemprop="url">(PRML Notes) 2.3.6 Bayesian Inference for Gaussian</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-02T08:07:04.000Z" itemprop="datePublished">Mar 2 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            10 minutes read (About 1453 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>Now for univariate Gaussian, we use <span class="math inline">\(\mathtt{x} = \{x_1,...,x_N\}​\)</span> to denote the <span class="math inline">\(N​\)</span> observations, and <span class="math inline">\(\mathbf{X}=\{\mathbf{x}_1,...,\mathbf{x}_N\}​\)</span> for the multivariate Gaussian. For convenience, the likelihood functions of the observed data given mean and variance are written below <span class="math display">\[
+p(\mathtt{x}|\mu,\sigma^2) = \frac{1}{(2\pi\sigma^2)^{N/2}}\exp\left\{ -\sum_{n=1}^N\frac{(x_n-\mu)^2}{2\sigma^2} \right\}
+\]</span></p>
+<p><span class="math display">\[
+p(\mathbf{X}| \boldsymbol{\mu},\mathbf{\Sigma}) = \frac{1}{(2\pi)^{ND/2}} \frac{1}{|\mathbf{\Sigma}|^{N/2}} \exp\left\{ -\frac{1}{2} \sum_{n=1}^{N}(\mathbf{x}_n- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}_n- \boldsymbol{\mu}) \right\}
+\]</span></p>
+<p>In this section a Bayesian treatment that mainly focuses on univariate case by introducing prior will be developed.</p>
+        <p class="article-more-link">
+            <a href="/2019/03/02/PRML2-3-6/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/03/02/PRML2-3-4~5/" itemprop="url">(PRML Notes) 2.3.4-5 Frequentist Estimate for Gaussian</a>
         
     </h1>
@@ -475,50 +519,6 @@ p(\mathbf{x}|\boldsymbol{\mu}) = \prod_{k=1}^K \mu_k^{x_k}
 </ul>
         <p class="article-more-link">
             <a href="/2018/09/25/RL_DP/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/09/23/RL_MDP/" itemprop="url">Markov Decision Process</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-09-23T07:30:15.000Z" itemprop="datePublished">Sep 23 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            10 minutes read (About 1533 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p><em>Markov decision processes</em> formally describe an <strong>environment</strong> for reinforcement learning, where the environment is <em>fully observable</em>.</p>
-</blockquote>
-<h2 id="markov-process">Markov Process</h2>
-<h3 id="definition">Definition</h3>
-<p>A <em>Markov Process</em> (or <em>Markov Chain</em>) is a memoryless random process (which satisfies Markov Property), denoted by a tuple <span class="math inline">\(⟨\mathcal{S},\mathcal{P}⟩\)</span>, where</p>
-<ul>
-<li><p><span class="math inline">\(\mathcal{S}\)</span> is a (finite) set of states</p></li>
-<li><p><span class="math inline">\(\mathcal{P}\)</span> is a state transition probability matrix, <span class="math inline">\(\mathcal{P}_{ss&#39;} = \mathbb{P}[S_{t+1}=s&#39;|S_t=s]\)</span></p></li>
-</ul>
-        <p class="article-more-link">
-            <a href="/2018/09/23/RL_MDP/#more">Read More</a>
         </p>
     
     </div>

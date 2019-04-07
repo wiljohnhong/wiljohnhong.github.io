@@ -110,6 +110,44 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/04/07/PRML4-2/" itemprop="url">(PRML Notes) 4.2 Probabilistic Generative Model</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-04-07T03:37:04.000Z" itemprop="datePublished">Apr 7 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            16 minutes read (About 2371 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>This section turns to a probabilistic view of classification and show how models with linear decision boundaries arise from generative approach with simple assumptions about the distribution of the data.</p>
+        <p class="article-more-link">
+            <a href="/2019/04/07/PRML4-2/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/04/03/PRML4-1/" itemprop="url">(PRML Notes) 4.1 Discriminant Functions</a>
         
     </h1>
@@ -122,7 +160,7 @@
         <span class="column is-narrow">
             
             
-            28 minutes read (About 4272 words)
+            29 minutes read (About 4294 words)
         </span>
         
     </div>
@@ -204,7 +242,7 @@ p(\alpha, \beta | \boldsymbol{\mathsf{t}}) \propto p(\boldsymbol{\mathsf{t}} | \
         <span class="column is-narrow">
             
             
-            7 minutes read (About 1087 words)
+            7 minutes read (About 1085 words)
         </span>
         
     </div>
@@ -456,50 +494,6 @@ p(\mathbf{x} | \boldsymbol{\eta})=h(\mathbf{x}) g(\boldsymbol{\eta}) \exp \left\
 <p>Recall that for a univariate Gaussian <span class="math inline">\(\mathcal{N}(x|\mu,\tau^{-1})\)</span>, its conjugate prior when <span class="math inline">\(\mu\)</span> is known and <span class="math inline">\(\tau^{-1}\)</span> is unknown is a Gamma distribution <span class="math inline">\(\mathrm{Gam}(\tau|a,b)\)</span>. <strong>Student's t-distribution</strong> is the result where we integrate out the precision of the posterior</p>
         <p class="article-more-link">
             <a href="/2019/03/15/PRML2-3-7~9/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/02/PRML2-3-6/" itemprop="url">(PRML Notes) 2.3.6 Bayesian Inference for Gaussian</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-02T08:07:04.000Z" itemprop="datePublished">Mar 2 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            10 minutes read (About 1453 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>Now for univariate Gaussian, we use <span class="math inline">\(\mathtt{x} = \{x_1,...,x_N\}​\)</span> to denote the <span class="math inline">\(N​\)</span> observations, and <span class="math inline">\(\mathbf{X}=\{\mathbf{x}_1,...,\mathbf{x}_N\}​\)</span> for the multivariate Gaussian. For convenience, the likelihood functions of the observed data given mean and variance are written below <span class="math display">\[
-p(\mathtt{x}|\mu,\sigma^2) = \frac{1}{(2\pi\sigma^2)^{N/2}}\exp\left\{ -\sum_{n=1}^N\frac{(x_n-\mu)^2}{2\sigma^2} \right\}
-\]</span></p>
-<p><span class="math display">\[
-p(\mathbf{X}| \boldsymbol{\mu},\mathbf{\Sigma}) = \frac{1}{(2\pi)^{ND/2}} \frac{1}{|\mathbf{\Sigma}|^{N/2}} \exp\left\{ -\frac{1}{2} \sum_{n=1}^{N}(\mathbf{x}_n- \boldsymbol{\mu})^T\mathbf{\Sigma}^{-1}(\mathbf{x}_n- \boldsymbol{\mu}) \right\}
-\]</span></p>
-<p>In this section a Bayesian treatment that mainly focuses on univariate case by introducing prior will be developed.</p>
-        <p class="article-more-link">
-            <a href="/2019/03/02/PRML2-3-6/#more">Read More</a>
         </p>
     
     </div>
