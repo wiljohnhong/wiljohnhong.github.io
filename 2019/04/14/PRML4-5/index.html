@@ -20,7 +20,7 @@
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
 <meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a Bayesian treatment of logistic regression, as mentioned in the last section, we should apply the Laplac">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-04-14T12:31:25.664Z">
+<meta property="og:updated_time" content="2019-04-14T12:36:34.951Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 4.5 Bayesian Logistic Regression">
 <meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a Bayesian treatment of logistic regression, as mentioned in the last section, we should apply the Laplac">
@@ -119,7 +119,7 @@
         <span class="column is-narrow">
             
             
-            7 minutes read (About 1081 words)
+            7 minutes read (About 1093 words)
         </span>
         
     </div>
@@ -131,18 +131,18 @@
 <p>This section turns to a Bayesian treatment of logistic regression, as mentioned in the last section, we should apply the Laplace approximation.</p>
 <h2 id="laplace-approximation">Laplace Approximation</h2>
 <p>First we introduce a prior <span class="math inline">\(p(\mathbf{w})=\mathcal{N}\left(\mathbf{w} | \mathbf{m}_{0}, \mathbf{S}_{0}\right)\)</span>, where <span class="math inline">\(\mathbf{m}_{0}\)</span> and <span class="math inline">\(\mathbf{S}_{0}\)</span> are fixed hyperparameters. And recall that the likelihood of logistic regression is given by <span class="math display">\[
-p(\mathbf{t} | \mathbf{w}) = \prod_{n=1}^{N} y_{n}^{t_{n}}\left\{1-y_{n}\right\}^{1-t_{n}}
+p(\boldsymbol{\mathsf{t}} | \mathbf{w}) = \prod_{n=1}^{N} y_{n}^{t_{n}}\left\{1-y_{n}\right\}^{1-t_{n}}
 \]</span> <a id="more"></a></p>
-<p>where <span class="math inline">\(y_{n}=\sigma\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}_{n}\right)\)</span>. The posterior is given by <span class="math inline">\(p(\mathbf{w} | \mathbf{t}) \propto p(\mathbf{w}) p(\mathbf{t} | \mathbf{w})\)</span>, and take log of both sides we have <span class="math display">\[
-\begin{aligned} \ln p(\mathbf{w} | \mathbf{t})=&amp;-\frac{1}{2}\left(\mathbf{w}-\mathbf{m}_{0}\right)^{\mathrm{T}} \mathbf{S}_{0}^{-1}\left(\mathbf{w}-\mathbf{m}_{0}\right) \\ &amp;+\sum_{n=1}^{N}\left\{t_{n} \ln y_{n}+\left(1-t_{n}\right) \ln \left(1-y_{n}\right)\right\}+\text { const } \end{aligned}
+<p>where <span class="math inline">\(y_{n}=\sigma\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}_{n}\right)\)</span>. The posterior is given by <span class="math inline">\(p(\mathbf{w} | \boldsymbol{\mathsf{t}}) \propto p(\mathbf{w}) p(\boldsymbol{\mathsf{t}} | \mathbf{w})\)</span>, and take log of both sides we have <span class="math display">\[
+\begin{aligned} \ln p(\mathbf{w} | \boldsymbol{\mathsf{t}})=&amp;-\frac{1}{2}\left(\mathbf{w}-\mathbf{m}_{0}\right)^{\mathrm{T}} \mathbf{S}_{0}^{-1}\left(\mathbf{w}-\mathbf{m}_{0}\right) \\ &amp;+\sum_{n=1}^{N}\left\{t_{n} \ln y_{n}+\left(1-t_{n}\right) \ln \left(1-y_{n}\right)\right\}+\text { const } \end{aligned}
 \]</span> Use the previous results in 4.3.3, we can find the Hessian matrix <span class="math display">\[
-\mathbf{S}_{N}^{-1}=-\nabla^2_\mathbf{w} \ln p(\mathbf{w} | \mathbf{t})=\mathbf{S}_{0}^{-1}+ \boldsymbol{\Phi}^\mathrm{T} \mathbf{R}\boldsymbol{\Phi}
+\mathbf{S}_{N}^{-1}=-\nabla^2_\mathbf{w} \ln p(\mathbf{w} | \boldsymbol{\mathsf{t}})=\mathbf{S}_{0}^{-1}+ \boldsymbol{\Phi}^\mathrm{T} \mathbf{R}\boldsymbol{\Phi}
 \]</span> Then the Laplace approximation to the posterior is given by <span class="math display">\[
 q(\mathbf{w})=\mathcal{N}\left(\mathbf{w} | \mathbf{w}_{\mathrm{MAP}}, \mathbf{S}_{N}\right)
 \]</span></p>
 <h2 id="predictive-distribution">Predictive Distribution</h2>
 <p>The remained task is now to marginalizing w.r.t. <span class="math inline">\(\mathbf{w}​\)</span> to make predictions for a new point <span class="math inline">\(\boldsymbol{\phi}​\)</span>. In the two classes case we have <span class="math display">\[
-p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \mathbf{t}\right)=\int p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \mathbf{w}\right) p(\mathbf{w} | \mathbf{t}) \mathrm{d} \mathbf{w} \simeq \int \sigma\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}
+p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \boldsymbol{\mathsf{t}}\right)=\int p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \mathbf{w}\right) p(\mathbf{w} | \boldsymbol{\mathsf{t}}) \mathrm{d} \mathbf{w} \simeq \int \sigma\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}
 \]</span> Now to evaluate this expression, we will introduce the Dirac delta function <span class="math inline">\(\delta\)</span></p>
 <p><span class="math display">\[
 \sigma\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right)=\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) \sigma(a) \mathrm{d} a
@@ -152,13 +152,17 @@ p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \mathbf{t}\right)=\int p\left(\mathc
 </blockquote>
 <p>From this we obtain <span class="math display">\[
 \begin{align}
-p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \mathbf{t}\right)&amp;\simeq \int \sigma\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}
+p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \boldsymbol{\mathsf{t}}\right)&amp;\simeq \int \sigma\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}
 \\ &amp;= \int\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right)  q(\mathbf{w}) \mathrm{d} \mathbf{w} \ \sigma(a)\mathrm{d} a 
 \\ &amp;\equiv \int p(a)\sigma(a)\mathrm{d} a
 \end{align}
-\]</span> where we have defined <span class="math display">\[
+\]</span></p>
+<p>where we have defined</p>
+<p><span class="math display">\[
 p(a)=\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}
-\]</span> <span class="math inline">\(p(a)\)</span> can be easily evaluated by noting that it is a Gaussian, since the delta function imposes a linear constraint on <span class="math inline">\(\mathbf{w}\)</span>, i.e. <span class="math inline">\(a=\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\)</span>. So we can evaluate the form <span class="math inline">\(p(a)\)</span> by computing the mean <span class="math display">\[
+\]</span></p>
+<p><span class="math inline">\(p(a)\)</span> can be easily evaluated by noting that it is a Gaussian, since the delta function imposes a linear constraint on <span class="math inline">\(\mathbf{w}\)</span>, i.e. <span class="math inline">\(a=\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\)</span>. So we can evaluate the form <span class="math inline">\(p(a)\)</span> by computing the mean</p>
+<p><span class="math display">\[
 \begin{align}
 \mu_{a}&amp;=\int p(a) a \mathrm{d} a
 \\ &amp;=\int \int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}\ a \mathrm{d} a
@@ -166,7 +170,9 @@ p(a)=\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\math
 \\ &amp;=\int \mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\ q(\mathbf{w})  \mathrm{d} \mathbf{w}
 \\&amp;=\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}} \boldsymbol{\phi}
 \end{align}
-\]</span> and the variance $$ <span class="math display">\[\begin{align} 
+\]</span></p>
+<p>and the variance</p>
+<p>$$ <span class="math display">\[\begin{align} 
 \sigma_{a}^{2} &amp;=\int p(a)\left\{a^{2}-\mathbb{E}[a]^{2}\right\} \mathrm{d} a 
 \\ &amp;= \int\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}\left\{a^{2}-\left(\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}} \boldsymbol{\phi}\right)^{2}\right\} \mathrm{d} a 
 \\ &amp;= \int\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) \left\{a^{2}-\left(\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}} \boldsymbol{\phi}\right)^{2}\right\} \mathrm{d} a \ q(\mathbf{w}) \mathrm{d} \mathbf{w}
@@ -174,21 +180,25 @@ p(a)=\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\math
 \\ &amp;=\boldsymbol{\phi}^{\mathrm{T}}\int \left\{ \mathbf{w}\mathbf{w}^{\mathrm{T}}   -\mathbf{w}_{\mathrm{MAP}}\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}}\right\} q(\mathbf{w}) \mathrm{d} \mathbf{w}\ \boldsymbol{\phi}
 
 \\&amp;=\boldsymbol{\phi}^{\mathrm{T}} \mathbf{S}_{N} \boldsymbol{\phi}
-\end{align}\]</span> <span class="math display">\[
-So the predictive distribution becomes
-\]</span> p(<em>{1} | ,) (a) p(a)  a=(a) (a | </em>{a}, _{a}^{2})  a <span class="math display">\[
-Note that we still cannot analytically evaluate the integral over $a$, but we can obtain a good approximation by making use of the close similarity between the inverse probit function and sigmoid function, where we have introduced in 4.3.5 that
-\]</span> (a) (a) $$ where <span class="math inline">\(\lambda^2 = \pi/8\)</span>. The reason to use inverse probit is that its convolution with a Gaussian can be expressed analytically in terms of another inverse probit function. (proof omitted.)</p>
+\end{align}\]</span> $$</p>
+<p>So the predictive distribution becomes</p>
+<p><span class="math display">\[
+p\left(\mathcal{C}_{1} | \boldsymbol{\phi},\boldsymbol{\mathsf{t}}\right) \simeq\int \sigma(a) p(a) \mathrm{d} a=\int \sigma(a) \mathcal{N}\left(a | \mu_{a}, \sigma_{a}^{2}\right) \mathrm{d} a
+\]</span></p>
+<p>Note that we still cannot analytically evaluate the integral over <span class="math inline">\(a\)</span>, but we can obtain a good approximation by making use of the close similarity between the inverse probit function and sigmoid function, where we have introduced in 4.3.5 that</p>
+<p><span class="math display">\[
+\sigma(a) \simeq \Phi (\lambda a)
+\]</span> where <span class="math inline">\(\lambda^2 = \pi/8\)</span>. The reason to use inverse probit is that its convolution with a Gaussian can be expressed analytically in terms of another inverse probit function. (proof omitted.)</p>
 <p>Now by a series of approximation we can obtain $$ <span class="math display">\[\begin{align}
-p\left(\mathcal{C}_{1} | \boldsymbol{\phi},\mathbf{t}\right) &amp;\simeq\int \sigma(a) p(a) \mathrm{d} a 
+p\left(\mathcal{C}_{1} | \boldsymbol{\phi},\boldsymbol{\mathsf{t}}\right) &amp;\simeq\int \sigma(a) p(a) \mathrm{d} a 
 \\ &amp;\simeq\int \Phi(\lambda a) \mathcal{N}\left(a | \mu_{a}, \sigma_{a}^{2}\right) \mathrm{d} a 
 \\ &amp; = \Phi\left(\frac{\mu_a}{\left(\lambda^{-2}+\sigma_a^{2}\right)^{1 / 2}}\right) &amp;&amp; \scriptstyle{\text{(proof omitted.) }}
 \\ &amp;\simeq \sigma\left(\kappa\left(\sigma_a^{2}\right) \mu_a\right)
 
 
-\end{align}\]</span> $$ where we have defined <span class="math inline">\(\kappa\left(\sigma_a^{2}\right)=\left(1+\pi \sigma_a^{2} / 8\right)^{-1 / 2}\)</span>.</p>
+\end{align}\]</span> $$ where we have defined <span class="math inline">\(\kappa\left(\sigma_a^{2}\right)=\left(1+\pi \sigma_a^{2} / 8\right)^{-1 / 2}​\)</span>.</p>
 <h3 id="some-analysis">Some Analysis</h3>
-<p>Note that the decision boundary defined via this Bayesian treatment, i.e. <span class="math inline">\(p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \mathbf{t}\right)=0.5\)</span>, is the same as that obtained by using the MAP value for <span class="math inline">\(\mathbf{w}\)</span>. Thus if the decision criterion is based on minimizing misclassification rate, then the marginalization over <span class="math inline">\(\mathbf{w}\)</span> has no effect.</p>
+<p>Note that the decision boundary defined via this Bayesian treatment, i.e. <span class="math inline">\(p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \boldsymbol{\mathsf{t}}\right)=0.5\)</span>, is the same as that obtained by using the MAP value for <span class="math inline">\(\mathbf{w}\)</span>. Thus if the decision criterion is based on minimizing misclassification rate, then the marginalization over <span class="math inline">\(\mathbf{w}\)</span> has no effect.</p>
 <p>However, for more complex decision criteria this marginalization will play an important role.</p>
 <blockquote>
 <p>Intuitively, under a Bayesian treatment the slope around the origin will not be very large, the approximated predictive distribution as sigmoid will be more smooth, so for more complex decision criteria, we can witness the boundary move more far away from the origin than that obtained by MAP.</p>
