@@ -20,7 +20,7 @@
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
 <meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a Bayesian treatment of logistic regression, as mentioned in the last section, we should apply the Laplac">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-04-14T12:36:34.951Z">
+<meta property="og:updated_time" content="2019-04-14T12:39:41.761Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(PRML Notes) 4.5 Bayesian Logistic Regression">
 <meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a Bayesian treatment of logistic regression, as mentioned in the last section, we should apply the Laplac">
@@ -172,15 +172,16 @@ p(a)=\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\math
 \end{align}
 \]</span></p>
 <p>and the variance</p>
-<p>$$ <span class="math display">\[\begin{align} 
+<p><span class="math display">\[
+\begin{align} 
 \sigma_{a}^{2} &amp;=\int p(a)\left\{a^{2}-\mathbb{E}[a]^{2}\right\} \mathrm{d} a 
 \\ &amp;= \int\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}\left\{a^{2}-\left(\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}} \boldsymbol{\phi}\right)^{2}\right\} \mathrm{d} a 
 \\ &amp;= \int\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) \left\{a^{2}-\left(\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}} \boldsymbol{\phi}\right)^{2}\right\} \mathrm{d} a \ q(\mathbf{w}) \mathrm{d} \mathbf{w}
 \\ &amp;=\int \left\{\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right)^{2}-\left(\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}} \boldsymbol{\phi}\right)^{2}\right\} q(\mathbf{w}) \mathrm{d} \mathbf{w}
 \\ &amp;=\boldsymbol{\phi}^{\mathrm{T}}\int \left\{ \mathbf{w}\mathbf{w}^{\mathrm{T}}   -\mathbf{w}_{\mathrm{MAP}}\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}}\right\} q(\mathbf{w}) \mathrm{d} \mathbf{w}\ \boldsymbol{\phi}
-
 \\&amp;=\boldsymbol{\phi}^{\mathrm{T}} \mathbf{S}_{N} \boldsymbol{\phi}
-\end{align}\]</span> $$</p>
+\end{align}
+\]</span></p>
 <p>So the predictive distribution becomes</p>
 <p><span class="math display">\[
 p\left(\mathcal{C}_{1} | \boldsymbol{\phi},\boldsymbol{\mathsf{t}}\right) \simeq\int \sigma(a) p(a) \mathrm{d} a=\int \sigma(a) \mathcal{N}\left(a | \mu_{a}, \sigma_{a}^{2}\right) \mathrm{d} a
@@ -189,14 +190,14 @@ p\left(\mathcal{C}_{1} | \boldsymbol{\phi},\boldsymbol{\mathsf{t}}\right) \simeq
 <p><span class="math display">\[
 \sigma(a) \simeq \Phi (\lambda a)
 \]</span> where <span class="math inline">\(\lambda^2 = \pi/8\)</span>. The reason to use inverse probit is that its convolution with a Gaussian can be expressed analytically in terms of another inverse probit function. (proof omitted.)</p>
-<p>Now by a series of approximation we can obtain $$ <span class="math display">\[\begin{align}
+<p>Now by a series of approximation we can obtain <span class="math display">\[
+\begin{align}
 p\left(\mathcal{C}_{1} | \boldsymbol{\phi},\boldsymbol{\mathsf{t}}\right) &amp;\simeq\int \sigma(a) p(a) \mathrm{d} a 
 \\ &amp;\simeq\int \Phi(\lambda a) \mathcal{N}\left(a | \mu_{a}, \sigma_{a}^{2}\right) \mathrm{d} a 
 \\ &amp; = \Phi\left(\frac{\mu_a}{\left(\lambda^{-2}+\sigma_a^{2}\right)^{1 / 2}}\right) &amp;&amp; \scriptstyle{\text{(proof omitted.) }}
 \\ &amp;\simeq \sigma\left(\kappa\left(\sigma_a^{2}\right) \mu_a\right)
-
-
-\end{align}\]</span> $$ where we have defined <span class="math inline">\(\kappa\left(\sigma_a^{2}\right)=\left(1+\pi \sigma_a^{2} / 8\right)^{-1 / 2}​\)</span>.</p>
+\end{align}
+\]</span> where we have defined <span class="math inline">\(\kappa\left(\sigma_a^{2}\right)=\left(1+\pi \sigma_a^{2} / 8\right)^{-1 / 2}​\)</span>.</p>
 <h3 id="some-analysis">Some Analysis</h3>
 <p>Note that the decision boundary defined via this Bayesian treatment, i.e. <span class="math inline">\(p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \boldsymbol{\mathsf{t}}\right)=0.5\)</span>, is the same as that obtained by using the MAP value for <span class="math inline">\(\mathbf{w}\)</span>. Thus if the decision criterion is based on minimizing misclassification rate, then the marginalization over <span class="math inline">\(\mathbf{w}\)</span> has no effect.</p>
 <p>However, for more complex decision criteria this marginalization will play an important role.</p>
