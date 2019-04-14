@@ -103,6 +103,86 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/03/17/PRML2-5/" itemprop="url">(PRML Notes) 2.5 Nonparametric Methods</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-17T06:02:04.000Z" itemprop="datePublished">Mar 17 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            9 minutes read (About 1286 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>Limitation of previous parametric approach to density modeling is that the chosen density might be a poor model of the distribution that generates data. This section will focus mainly on simple frequentist nonparametric methods.</p>
+<h2 id="histogram-methods">Histogram Methods</h2>
+<p>Standard histogram methods simply partition <span class="math inline">\(x\)</span> into distinct bins of width <span class="math inline">\(\Delta_i\)</span>, and count the number of <span class="math inline">\(n_i\)</span> of observations of <span class="math inline">\(x\)</span> falling in bin <span class="math inline">\(i\)</span>. Then the probability density in each bin is given by</p>
+        <p class="article-more-link">
+            <a href="/2019/03/17/PRML2-5/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/03/16/PRML2-4/" itemprop="url">(PRML Notes) 2.4 The Exponential Family</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-16T06:26:04.000Z" itemprop="datePublished">Mar 16 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            12 minutes read (About 1760 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>The exponential family is defined by <span class="math display">\[
+p(\mathbf{x} | \boldsymbol{\eta})=h(\mathbf{x}) g(\boldsymbol{\eta}) \exp \left\{\boldsymbol{\eta}^{\mathrm{T}} \mathbf{u}(\mathbf{x})\right\}
+\]</span> here <span class="math inline">\(\boldsymbol{\eta}\)</span> is called the <strong>natural parameters</strong> of the distribution, <span class="math inline">\(g(\boldsymbol{\eta})\)</span> ensures the normalization. Now we will see that all the distributions we have seen so far are actually members in this family.</p>
+        <p class="article-more-link">
+            <a href="/2019/03/16/PRML2-4/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/03/15/PRML2-3-7~9/" itemprop="url">(PRML Notes) 2.3.7-9 Miscellaneous of Gaussian</a>
         
     </h1>
@@ -430,89 +510,6 @@ p(\mathbf{x}|\boldsymbol{\mu}) = \prod_{k=1}^K \mu_k^{x_k}
 <p>When observing a specific value of <span class="math inline">\(x\)</span>, the amount of information received can be viewed as the "degree of surprise". Higher information is received when a highly improbable value of <span class="math inline">\(x\)</span> has just observed, so the measure of information will depend monotonically on <span class="math inline">\(p(x)\)</span>, we denote it as <span class="math inline">\(h(x)\)</span>.</p>
         <p class="article-more-link">
             <a href="/2018/12/24/PRML1-6/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/12/21/ssr/" itemprop="url">ShadowsocksR资源整理</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-12-21T04:41:26.000Z" itemprop="datePublished">Dec 21 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            10 minutes read (About 1539 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>由于一些众所周知的原因，我们并不能自由访问完整的互联网。但是互联网审查粒度过粗，导致许多本不需要审查的内容被拒之墙外，如Google Scholar，Wikipedia等。</p>
-<p>ShadowsocksR是一种基于Socks5代理的加密传输协议，是shadowsocks的加强版本，可以帮助我们突破中国互联网审查(GFW)从而浏览被封锁的内容。ShadowsocksR分为服务器端和客户端，在使用之前，需要先将服务器端部署到服务器上面，然后通过客户端连接并创建本地代理。</p>
-</blockquote>
-<p>下面整理的是近期配置SSR时收集的一些资源。</p>
-        <p class="article-more-link">
-            <a href="/2018/12/21/ssr/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/10/01/RL_prediction/" itemprop="url">Model-Free Prediction</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-10-01T12:10:22.000Z" itemprop="datePublished">Oct 1 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            11 minutes read (About 1699 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>In this and next notes, different from the DP, we do all the things within an <strong>unknown MDP</strong>, just what the <em>model-free</em> means.</p>
-</blockquote>
-<h2 id="monte-carlo-learning">Monte-Carlo Learning</h2>
-<p>The basic idea is very simple, it uses the mean return of episodes as the true value.</p>
-<ul>
-<li>Learn from complete <strong>episodes</strong>, which refers to the procedure from current state to the final state. (The opposite learning method is <strong>bootstrapping</strong>, which means updating the current state value from incomplete episodes.)</li>
-<li>Restrict to the learning method, MC can only be applied to <em>episodic</em> MDPs, whose all episodes must terminates.</li>
-<li>MC is <strong>model-free</strong>, it has no knowledge of MDP transitions or rewards.</li>
-</ul>
-        <p class="article-more-link">
-            <a href="/2018/10/01/RL_prediction/#more">Read More</a>
         </p>
     
     </div>

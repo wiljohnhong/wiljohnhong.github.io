@@ -103,6 +103,89 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2018/12/21/ssr/" itemprop="url">ShadowsocksR资源整理</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-12-21T04:41:26.000Z" itemprop="datePublished">Dec 21 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            10 minutes read (About 1539 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>由于一些众所周知的原因，我们并不能自由访问完整的互联网。但是互联网审查粒度过粗，导致许多本不需要审查的内容被拒之墙外，如Google Scholar，Wikipedia等。</p>
+<p>ShadowsocksR是一种基于Socks5代理的加密传输协议，是shadowsocks的加强版本，可以帮助我们突破中国互联网审查(GFW)从而浏览被封锁的内容。ShadowsocksR分为服务器端和客户端，在使用之前，需要先将服务器端部署到服务器上面，然后通过客户端连接并创建本地代理。</p>
+</blockquote>
+<p>下面整理的是近期配置SSR时收集的一些资源。</p>
+        <p class="article-more-link">
+            <a href="/2018/12/21/ssr/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/10/01/RL_prediction/" itemprop="url">Model-Free Prediction</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-10-01T12:10:22.000Z" itemprop="datePublished">Oct 1 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            11 minutes read (About 1699 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>In this and next notes, different from the DP, we do all the things within an <strong>unknown MDP</strong>, just what the <em>model-free</em> means.</p>
+</blockquote>
+<h2 id="monte-carlo-learning">Monte-Carlo Learning</h2>
+<p>The basic idea is very simple, it uses the mean return of episodes as the true value.</p>
+<ul>
+<li>Learn from complete <strong>episodes</strong>, which refers to the procedure from current state to the final state. (The opposite learning method is <strong>bootstrapping</strong>, which means updating the current state value from incomplete episodes.)</li>
+<li>Restrict to the learning method, MC can only be applied to <em>episodic</em> MDPs, whose all episodes must terminates.</li>
+<li>MC is <strong>model-free</strong>, it has no knowledge of MDP transitions or rewards.</li>
+</ul>
+        <p class="article-more-link">
+            <a href="/2018/10/01/RL_prediction/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2018/09/25/RL_DP/" itemprop="url">Planning by Dynamic Programming</a>
         
     </h1>
@@ -422,91 +505,6 @@ p(X) = \sum_Y p(X|Y)p(Y)
 </ul>
         <p class="article-more-link">
             <a href="/2018/04/22/PRML1-1/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/04/21/KKT/" itemprop="url">Lagrange Multiplier and KKT Conditions</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-21T03:11:11.000Z" itemprop="datePublished">Apr 21 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            10 minutes read (About 1479 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>In mathematical optimization, the method of Lagrange multipliers is a strategy for finding the local maximum and minimum of a function subject to equality constraints, while KKT conditions solve the problems with inequality constraints.</p>
-</blockquote>
-<h2 id="naive-approach">Naive Approach</h2>
-<p>Consider the problem of finding the maximum of a function <span class="math inline">\(f(x_1, x_2)\)</span> subject to a constraint relating <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>, which we write in the form <span class="math display">\[
-g(x_1, x_2) = 0
-\]</span> One approach would be to solve the above equation to express <span class="math inline">\(x_2\)</span> as a function of <span class="math inline">\(x_1\)</span> in the form of <span class="math inline">\(x_2 = h(x_1)\)</span>, then apply differentiation to <span class="math inline">\(f(x_1, h(x_1))\)</span> w.r.t. <span class="math inline">\(x_1\)</span> in the usual way. However, there are at least two drawbacks of this simple approach:</p>
-        <p class="article-more-link">
-            <a href="/2018/04/21/KKT/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2018/04/18/variations/" itemprop="url">Calculus of Variations</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2018-04-18T03:11:11.000Z" itemprop="datePublished">Apr 18 2018</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            6 minutes read (About 909 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p><em>Calculus of variations</em> is a field of mathematical analysis that uses variations, which are small changes in functions and functionals, to find maximum and minimum of functionals.</p>
-</blockquote>
-<h2 id="introduction">Introduction</h2>
-<p><strong>Functional</strong> is the function's function, in other words, functional takes a function as input and outputs a real number, or more mathematically, it refers to a mapping from a space <span class="math inline">\(X\)</span> (commonly <span class="math inline">\(X\)</span> is a space of functions) into the real numbers.</p>
-<p>In the <strong>calculus of variations</strong>, we seek a functional <span class="math inline">\(f(x)\)</span> that maximizes (or minimizes) a functional <span class="math inline">\(F[f]\)</span>. For example, as we all know, the shortest curve between two fixed points is the straight line, and this can be proved using calculus of variations.</p>
-<h2 id="example-1-shortest-curve">Example 1: Shortest Curve</h2>
-<p>To find out the shortest curve <span class="math inline">\(y(x)\)</span> between two fixed points <span class="math inline">\((a_1, b_1)\)</span> and <span class="math inline">\((a_2, b_2)\)</span>, we first express the length of the curve in the form of integration <span class="math display">\[
-F[y] = \int_{a_1}^{a_2} \sqrt{1+[y&#39;(x)]^2} dx
-\]</span></p>
-        <p class="article-more-link">
-            <a href="/2018/04/18/variations/#more">Read More</a>
         </p>
     
     </div>

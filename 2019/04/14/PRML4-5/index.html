@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+<title>(PRML Notes) 4.5 Bayesian Logistic Regression - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a Bayesian treatment of logistic regression, as mentioned in the last section, we should apply the Laplac">
+<meta name="keywords" content="PRML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(PRML Notes) 4.5 Bayesian Logistic Regression">
+<meta property="og:url" content="http://wiljohn.top/2019/04/14/PRML4-5/index.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a Bayesian treatment of logistic regression, as mentioned in the last section, we should apply the Laplac">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-04-14T12:31:25.664Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(PRML Notes) 4.5 Bayesian Logistic Regression">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a Bayesian treatment of logistic regression, as mentioned in the last section, we should apply the Laplac">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            (PRML Notes) 4.5 Bayesian Logistic Regression
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-04-14T10:52:04.000Z" itemprop="datePublished">Apr 14 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            7 minutes read (About 1081 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>This section turns to a Bayesian treatment of logistic regression, as mentioned in the last section, we should apply the Laplace approximation.</p>
+<h2 id="laplace-approximation">Laplace Approximation</h2>
+<p>First we introduce a prior <span class="math inline">\(p(\mathbf{w})=\mathcal{N}\left(\mathbf{w} | \mathbf{m}_{0}, \mathbf{S}_{0}\right)\)</span>, where <span class="math inline">\(\mathbf{m}_{0}\)</span> and <span class="math inline">\(\mathbf{S}_{0}\)</span> are fixed hyperparameters. And recall that the likelihood of logistic regression is given by <span class="math display">\[
+p(\mathbf{t} | \mathbf{w}) = \prod_{n=1}^{N} y_{n}^{t_{n}}\left\{1-y_{n}\right\}^{1-t_{n}}
+\]</span> <a id="more"></a></p>
+<p>where <span class="math inline">\(y_{n}=\sigma\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}_{n}\right)\)</span>. The posterior is given by <span class="math inline">\(p(\mathbf{w} | \mathbf{t}) \propto p(\mathbf{w}) p(\mathbf{t} | \mathbf{w})\)</span>, and take log of both sides we have <span class="math display">\[
+\begin{aligned} \ln p(\mathbf{w} | \mathbf{t})=&amp;-\frac{1}{2}\left(\mathbf{w}-\mathbf{m}_{0}\right)^{\mathrm{T}} \mathbf{S}_{0}^{-1}\left(\mathbf{w}-\mathbf{m}_{0}\right) \\ &amp;+\sum_{n=1}^{N}\left\{t_{n} \ln y_{n}+\left(1-t_{n}\right) \ln \left(1-y_{n}\right)\right\}+\text { const } \end{aligned}
+\]</span> Use the previous results in 4.3.3, we can find the Hessian matrix <span class="math display">\[
+\mathbf{S}_{N}^{-1}=-\nabla^2_\mathbf{w} \ln p(\mathbf{w} | \mathbf{t})=\mathbf{S}_{0}^{-1}+ \boldsymbol{\Phi}^\mathrm{T} \mathbf{R}\boldsymbol{\Phi}
+\]</span> Then the Laplace approximation to the posterior is given by <span class="math display">\[
+q(\mathbf{w})=\mathcal{N}\left(\mathbf{w} | \mathbf{w}_{\mathrm{MAP}}, \mathbf{S}_{N}\right)
+\]</span></p>
+<h2 id="predictive-distribution">Predictive Distribution</h2>
+<p>The remained task is now to marginalizing w.r.t. <span class="math inline">\(\mathbf{w}​\)</span> to make predictions for a new point <span class="math inline">\(\boldsymbol{\phi}​\)</span>. In the two classes case we have <span class="math display">\[
+p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \mathbf{t}\right)=\int p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \mathbf{w}\right) p(\mathbf{w} | \mathbf{t}) \mathrm{d} \mathbf{w} \simeq \int \sigma\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}
+\]</span> Now to evaluate this expression, we will introduce the Dirac delta function <span class="math inline">\(\delta\)</span></p>
+<p><span class="math display">\[
+\sigma\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right)=\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) \sigma(a) \mathrm{d} a
+\]</span></p>
+<blockquote>
+<p>To my intuitive understanding, the Dirac delta function is used as a variable changing method for high dimension integral. In this case, <span class="math inline">\(a=\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}​\)</span>.</p>
+</blockquote>
+<p>From this we obtain <span class="math display">\[
+\begin{align}
+p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \mathbf{t}\right)&amp;\simeq \int \sigma\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}
+\\ &amp;= \int\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right)  q(\mathbf{w}) \mathrm{d} \mathbf{w} \ \sigma(a)\mathrm{d} a 
+\\ &amp;\equiv \int p(a)\sigma(a)\mathrm{d} a
+\end{align}
+\]</span> where we have defined <span class="math display">\[
+p(a)=\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}
+\]</span> <span class="math inline">\(p(a)\)</span> can be easily evaluated by noting that it is a Gaussian, since the delta function imposes a linear constraint on <span class="math inline">\(\mathbf{w}\)</span>, i.e. <span class="math inline">\(a=\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\)</span>. So we can evaluate the form <span class="math inline">\(p(a)\)</span> by computing the mean <span class="math display">\[
+\begin{align}
+\mu_{a}&amp;=\int p(a) a \mathrm{d} a
+\\ &amp;=\int \int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}\ a \mathrm{d} a
+\\ &amp;=\int \int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right)a \mathrm{d} a \  q(\mathbf{w}) \mathrm{d} \mathbf{w}
+\\ &amp;=\int \mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\ q(\mathbf{w})  \mathrm{d} \mathbf{w}
+\\&amp;=\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}} \boldsymbol{\phi}
+\end{align}
+\]</span> and the variance $$ <span class="math display">\[\begin{align} 
+\sigma_{a}^{2} &amp;=\int p(a)\left\{a^{2}-\mathbb{E}[a]^{2}\right\} \mathrm{d} a 
+\\ &amp;= \int\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}\left\{a^{2}-\left(\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}} \boldsymbol{\phi}\right)^{2}\right\} \mathrm{d} a 
+\\ &amp;= \int\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) \left\{a^{2}-\left(\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}} \boldsymbol{\phi}\right)^{2}\right\} \mathrm{d} a \ q(\mathbf{w}) \mathrm{d} \mathbf{w}
+\\ &amp;=\int \left\{\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right)^{2}-\left(\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}} \boldsymbol{\phi}\right)^{2}\right\} q(\mathbf{w}) \mathrm{d} \mathbf{w}
+\\ &amp;=\boldsymbol{\phi}^{\mathrm{T}}\int \left\{ \mathbf{w}\mathbf{w}^{\mathrm{T}}   -\mathbf{w}_{\mathrm{MAP}}\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}}\right\} q(\mathbf{w}) \mathrm{d} \mathbf{w}\ \boldsymbol{\phi}
+
+\\&amp;=\boldsymbol{\phi}^{\mathrm{T}} \mathbf{S}_{N} \boldsymbol{\phi}
+\end{align}\]</span> <span class="math display">\[
+So the predictive distribution becomes
+\]</span> p(<em>{1} | ,) (a) p(a)  a=(a) (a | </em>{a}, _{a}^{2})  a <span class="math display">\[
+Note that we still cannot analytically evaluate the integral over $a$, but we can obtain a good approximation by making use of the close similarity between the inverse probit function and sigmoid function, where we have introduced in 4.3.5 that
+\]</span> (a) (a) $$ where <span class="math inline">\(\lambda^2 = \pi/8\)</span>. The reason to use inverse probit is that its convolution with a Gaussian can be expressed analytically in terms of another inverse probit function. (proof omitted.)</p>
+<p>Now by a series of approximation we can obtain $$ <span class="math display">\[\begin{align}
+p\left(\mathcal{C}_{1} | \boldsymbol{\phi},\mathbf{t}\right) &amp;\simeq\int \sigma(a) p(a) \mathrm{d} a 
+\\ &amp;\simeq\int \Phi(\lambda a) \mathcal{N}\left(a | \mu_{a}, \sigma_{a}^{2}\right) \mathrm{d} a 
+\\ &amp; = \Phi\left(\frac{\mu_a}{\left(\lambda^{-2}+\sigma_a^{2}\right)^{1 / 2}}\right) &amp;&amp; \scriptstyle{\text{(proof omitted.) }}
+\\ &amp;\simeq \sigma\left(\kappa\left(\sigma_a^{2}\right) \mu_a\right)
+
+
+\end{align}\]</span> $$ where we have defined <span class="math inline">\(\kappa\left(\sigma_a^{2}\right)=\left(1+\pi \sigma_a^{2} / 8\right)^{-1 / 2}\)</span>.</p>
+<h3 id="some-analysis">Some Analysis</h3>
+<p>Note that the decision boundary defined via this Bayesian treatment, i.e. <span class="math inline">\(p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \mathbf{t}\right)=0.5\)</span>, is the same as that obtained by using the MAP value for <span class="math inline">\(\mathbf{w}\)</span>. Thus if the decision criterion is based on minimizing misclassification rate, then the marginalization over <span class="math inline">\(\mathbf{w}\)</span> has no effect.</p>
+<p>However, for more complex decision criteria this marginalization will play an important role.</p>
+<blockquote>
+<p>Intuitively, under a Bayesian treatment the slope around the origin will not be very large, the approximated predictive distribution as sigmoid will be more smooth, so for more complex decision criteria, we can witness the boundary move more far away from the origin than that obtained by MAP.</p>
+</blockquote>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/PRML/">#PRML</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2019/04/14/PRML4-4/">(PRML Notes) 4.4 The Laplace Approximation</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/2019/04/14/PRML4-5/';
+        this.page.identifier = 'prml4-5';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2019 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+    
+</body>
+</html>

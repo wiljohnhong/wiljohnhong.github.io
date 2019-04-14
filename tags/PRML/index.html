@@ -110,6 +110,86 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/04/14/PRML4-5/" itemprop="url">(PRML Notes) 4.5 Bayesian Logistic Regression</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-04-14T10:52:04.000Z" itemprop="datePublished">Apr 14 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            7 minutes read (About 1081 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>This section turns to a Bayesian treatment of logistic regression, as mentioned in the last section, we should apply the Laplace approximation.</p>
+<h2 id="laplace-approximation">Laplace Approximation</h2>
+<p>First we introduce a prior <span class="math inline">\(p(\mathbf{w})=\mathcal{N}\left(\mathbf{w} | \mathbf{m}_{0}, \mathbf{S}_{0}\right)\)</span>, where <span class="math inline">\(\mathbf{m}_{0}\)</span> and <span class="math inline">\(\mathbf{S}_{0}\)</span> are fixed hyperparameters. And recall that the likelihood of logistic regression is given by <span class="math display">\[
+p(\mathbf{t} | \mathbf{w}) = \prod_{n=1}^{N} y_{n}^{t_{n}}\left\{1-y_{n}\right\}^{1-t_{n}}
+\]</span></p>
+        <p class="article-more-link">
+            <a href="/2019/04/14/PRML4-5/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2019/04/14/PRML4-4/" itemprop="url">(PRML Notes) 4.4 The Laplace Approximation</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-04-14T09:08:04.000Z" itemprop="datePublished">Apr 14 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            8 minutes read (About 1149 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>For a Bayesian treatment of logistic regression, it is more complex than that of linear regression discuss before, since we cannot integrate analytically over <span class="math inline">\(\mathbf{w}\)</span> due to the posterior is no longer Gaussian. Instead, we should introduce some form of approximation.</p>
+        <p class="article-more-link">
+            <a href="/2019/04/14/PRML4-4/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/04/11/PRML4-3/" itemprop="url">(PRML Notes) 4.3 Probabilistic Discriminative Models</a>
         
     </h1>
@@ -417,86 +497,6 @@ y(\mathbf{x}, \mathbf{w})=w_{0}+\sum_{j=1}^{M-1} w_{j} \phi_{j}(\mathbf{x})
 \]</span></p>
         <p class="article-more-link">
             <a href="/2019/03/22/PRML3-1/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/17/PRML2-5/" itemprop="url">(PRML Notes) 2.5 Nonparametric Methods</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-17T06:02:04.000Z" itemprop="datePublished">Mar 17 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            9 minutes read (About 1286 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>Limitation of previous parametric approach to density modeling is that the chosen density might be a poor model of the distribution that generates data. This section will focus mainly on simple frequentist nonparametric methods.</p>
-<h2 id="histogram-methods">Histogram Methods</h2>
-<p>Standard histogram methods simply partition <span class="math inline">\(x\)</span> into distinct bins of width <span class="math inline">\(\Delta_i\)</span>, and count the number of <span class="math inline">\(n_i\)</span> of observations of <span class="math inline">\(x\)</span> falling in bin <span class="math inline">\(i\)</span>. Then the probability density in each bin is given by</p>
-        <p class="article-more-link">
-            <a href="/2019/03/17/PRML2-5/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/16/PRML2-4/" itemprop="url">(PRML Notes) 2.4 The Exponential Family</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-16T06:26:04.000Z" itemprop="datePublished">Mar 16 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            12 minutes read (About 1760 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>The exponential family is defined by <span class="math display">\[
-p(\mathbf{x} | \boldsymbol{\eta})=h(\mathbf{x}) g(\boldsymbol{\eta}) \exp \left\{\boldsymbol{\eta}^{\mathrm{T}} \mathbf{u}(\mathbf{x})\right\}
-\]</span> here <span class="math inline">\(\boldsymbol{\eta}\)</span> is called the <strong>natural parameters</strong> of the distribution, <span class="math inline">\(g(\boldsymbol{\eta})\)</span> ensures the normalization. Now we will see that all the distributions we have seen so far are actually members in this family.</p>
-        <p class="article-more-link">
-            <a href="/2019/03/16/PRML2-4/#more">Read More</a>
         </p>
     
     </div>
