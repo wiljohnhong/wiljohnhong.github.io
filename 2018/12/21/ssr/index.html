@@ -12,8 +12,10 @@
 
 
 
+
+
     <meta name="description" content="由于一些众所周知的原因，我们并不能自由访问完整的互联网。但是互联网审查粒度过粗，导致许多本不需要审查的内容被拒之墙外，如Google Scholar，Wikipedia等。 ShadowsocksR是一种基于Socks5代理的加密传输协议，是shadowsocks的加强版本，可以帮助我们突破中国互联网审查(GFW)从而浏览被封锁的内容。ShadowsocksR分为服务器端和客户端，在使用之前，需">
-<meta name="keywords" content="memo,ssr">
+<meta name="keywords" content="ssr,memo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ShadowsocksR资源整理">
 <meta property="og:url" content="http://wiljohn.top/2018/12/21/ssr/index.html">
@@ -138,11 +140,11 @@
 <ul>
 <li>更换内核以便安装锐速：</li>
 </ul>
-<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum update</span><br><span class="line">rpm -ivh http://www.aloneray.com/wp-content/uploads/2017/03/kernel-firmware-2.6.32-504.3.3.el6.noarch.rpm</span><br><span class="line">rpm -ivh http://www.aloneray.com/wp-content/uploads/2017/03/kernel-2.6.32-504.3.3.el6.x86_64.rpm --force</span><br><span class="line">rpm -qa | grep kernel <span class="hljs-comment"># 确认内核是否更换成功,当看到有kernel-2.6.32-504.3.3.el6.x86_64就说明更换成功了</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum update</span><br><span class="line">rpm -ivh http://www.aloneray.com/wp-content/uploads/2017/03/kernel-firmware-2.6.32-504.3.3.el6.noarch.rpm</span><br><span class="line">rpm -ivh http://www.aloneray.com/wp-content/uploads/2017/03/kernel-2.6.32-504.3.3.el6.x86_64.rpm --force</span><br><span class="line">rpm -qa | grep kernel <span class="comment"># 确认内核是否更换成功,当看到有kernel-2.6.32-504.3.3.el6.x86_64就说明更换成功了</span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
 <ul>
 <li>安装SSR客户端，以及个人推荐使用的设置：</li>
 </ul>
-<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</span><br><span class="line">chmod +x shadowsocksR.sh</span><br><span class="line">./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</span><br><span class="line"><span class="hljs-comment"># port: 80</span></span><br><span class="line"><span class="hljs-comment"># protocol: auth_chain_a</span></span><br><span class="line"><span class="hljs-comment"># encrpt: none</span></span><br><span class="line"><span class="hljs-comment"># obfs: plain/simple_http</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># ================= 常用指令 =================</span></span><br><span class="line"><span class="hljs-comment"># 启动：/etc/init.d/shadowsocks start</span></span><br><span class="line"><span class="hljs-comment"># 停止：/etc/init.d/shadowsocks stop</span></span><br><span class="line"><span class="hljs-comment"># 重启：/etc/init.d/shadowsocks restart</span></span><br><span class="line"><span class="hljs-comment"># 状态：/etc/init.d/shadowsocks status</span></span><br><span class="line"><span class="hljs-comment"># 卸载：./shadowsocksR.sh uninstall</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># 配置文件路径： /etc/shadowsocks.json</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocksR.sh</span><br><span class="line">chmod +x shadowsocksR.sh</span><br><span class="line">./shadowsocksR.sh 2&gt;&amp;1 | tee shadowsocksR.log</span><br><span class="line"><span class="comment"># port: 80</span></span><br><span class="line"><span class="comment"># protocol: auth_chain_a</span></span><br><span class="line"><span class="comment"># encrpt: none</span></span><br><span class="line"><span class="comment"># obfs: plain/simple_http</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ================= 常用指令 =================</span></span><br><span class="line"><span class="comment"># 启动：/etc/init.d/shadowsocks start</span></span><br><span class="line"><span class="comment"># 停止：/etc/init.d/shadowsocks stop</span></span><br><span class="line"><span class="comment"># 重启：/etc/init.d/shadowsocks restart</span></span><br><span class="line"><span class="comment"># 状态：/etc/init.d/shadowsocks status</span></span><br><span class="line"><span class="comment"># 卸载：./shadowsocksR.sh uninstall</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置文件路径： /etc/shadowsocks.json</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>首先18年3月有<a href="https://twitter.com/vela1680/status/969967719016624129" target="_blank" rel="noopener">推文</a>指出<strong>SSR的tls凭据复用已经成为安全问题</strong>，即发布于17年8月后长期未更新的<a href="https://github.com/shadowsocksrr/shadowsocks-rss/blob/master/ssr.md" target="_blank" rel="noopener">ShadowsocksR 协议插件文档</a>中强烈推荐使用的混淆方法<code>tls1.2_ticket_auth</code>已不再能使用。亲测使用后48小时内被封。</p>
 <p>端口理论上应当使用<code>80/443</code>分别对应需要伪装成的<code>http/https</code>流量。若使用<code>simple_http</code>混淆则应使用<code>80</code>端口。</p>
@@ -152,7 +154,7 @@
 <ul>
 <li>安装锐速加速，实测东京节点锐速效果要优于BBR，这也是不使用Vultr上自带BBR的Debian 9等系统的原因：</li>
 </ul>
-<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh &amp;&amp; bash serverspeeder-all.sh</span><br><span class="line">service iptables stop <span class="hljs-comment"># 关闭防火墙</span></span><br><span class="line">chkconfig iptables off</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># ================= 常用指令 =================</span></span><br><span class="line"><span class="hljs-comment"># 重启：/serverspeeder/bin/serverSpeeder.sh restart</span></span><br><span class="line"><span class="hljs-comment"># 启动：/serverspeeder/bin/serverSpeeder.sh start</span></span><br><span class="line"><span class="hljs-comment"># 停止：/serverspeeder/bin/serverSpeeder.sh stop</span></span><br><span class="line"><span class="hljs-comment"># 状态：/serverspeeder/bin/serverSpeeder.sh status</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/91yun/serverspeeder/master/serverspeeder-all.sh &amp;&amp; bash serverspeeder-all.sh</span><br><span class="line">service iptables stop <span class="comment"># 关闭防火墙</span></span><br><span class="line">chkconfig iptables off</span><br><span class="line"></span><br><span class="line"><span class="comment"># ================= 常用指令 =================</span></span><br><span class="line"><span class="comment"># 重启：/serverspeeder/bin/serverSpeeder.sh restart</span></span><br><span class="line"><span class="comment"># 启动：/serverspeeder/bin/serverSpeeder.sh start</span></span><br><span class="line"><span class="comment"># 停止：/serverspeeder/bin/serverSpeeder.sh stop</span></span><br><span class="line"><span class="comment"># 状态：/serverspeeder/bin/serverSpeeder.sh status</span></span><br></pre></td></tr></table></figure>
 <h3 id="客户端安装">客户端安装</h3>
 <table>
 <colgroup>
@@ -182,23 +184,23 @@
 </table>
 <p>针对普通用户的使用教程详见<a href="https://lolico.moe/tutorial/shadowsocksr.html" target="_blank" rel="noopener">[ShadowsocksR] 大概是萌新也看得懂的SSR功能详细介绍&amp;使用教程</a>，十分详尽。</p>
 <p>Linux下参考<a href="https://www.djangoz.com/2017/08/16/linux_setup_ssr/" target="_blank" rel="noopener">在Linux的环境安装shadowsocksR客户端</a>：</p>
-<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment"># 安装</span></span><br><span class="line">wget https://onlyless.github.io/ssr</span><br><span class="line">sudo mv ssr /usr/<span class="hljs-built_in">local</span>/bin</span><br><span class="line">sudo chmod 766 /usr/<span class="hljs-built_in">local</span>/bin/ssr</span><br><span class="line">ssr install</span><br><span class="line"><span class="hljs-comment"># 配置与启动</span></span><br><span class="line">ssr config</span><br><span class="line">ssr start</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">wget https://onlyless.github.io/ssr</span><br><span class="line">sudo mv ssr /usr/<span class="built_in">local</span>/bin</span><br><span class="line">sudo chmod 766 /usr/<span class="built_in">local</span>/bin/ssr</span><br><span class="line">ssr install</span><br><span class="line"><span class="comment"># 配置与启动</span></span><br><span class="line">ssr config</span><br><span class="line">ssr start</span><br></pre></td></tr></table></figure>
 <p>为了方便使用还需要设置开机自动启动ssr。不过ubuntu 18.04不能像ubuntu 14一样通过编辑<code>rc.local</code>来设置开机启动脚本，通过下列简单设置后，可以使<code>rc.local</code>重新发挥作用。参考<a href="https://www.jianshu.com/p/79d24b4af4e5" target="_blank" rel="noopener">ubuntu-18.04 设置开机启动脚本</a>进行设置：</p>
 <ol type="1">
 <li>建立<code>rc-local.service</code>文件，<code>sudo vim /etc/systemd/system/rc-local.service</code>，复制进以下内容：</li>
 </ol>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=/etc/rc.local Compatibility</span><br><span class="line">ConditionPathExists=/etc/rc.local</span><br><span class="line"> </span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">ExecStart=/etc/rc.local start</span><br><span class="line">TimeoutSec=0</span><br><span class="line">StandardOutput=tty</span><br><span class="line">RemainAfterExit=yes</span><br><span class="line">SysVStartPriority=99</span><br><span class="line"> </span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=/etc/rc.local Compatibility</span><br><span class="line">ConditionPathExists=/etc/rc.local</span><br><span class="line"> </span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">ExecStart=/etc/rc.local start</span><br><span class="line">TimeoutSec=0</span><br><span class="line">StandardOutput=tty</span><br><span class="line">RemainAfterExit=yes</span><br><span class="line">SysVStartPriority=99</span><br><span class="line"> </span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 <ol start="2" type="1">
 <li>创建文件<code>rc.local</code>，<code>sudo vim /etc/rc.local</code>，将下列内容复制进去：</li>
 </ol>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh -e</span><br><span class="line">#</span><br><span class="line"># rc.local</span><br><span class="line">#</span><br><span class="line"># This script is executed at the end of each multiuser runlevel.</span><br><span class="line"># Make sure that the script will &quot;exit 0&quot; on success or any other</span><br><span class="line"># value on error.</span><br><span class="line">#</span><br><span class="line"># In order to enable or disable this script just change the execution</span><br><span class="line"># bits.</span><br><span class="line">#</span><br><span class="line"># By default this script does nothing.</span><br><span class="line">sudo ssr start</span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh -e</span><br><span class="line">#</span><br><span class="line"># rc.local</span><br><span class="line">#</span><br><span class="line"># This script is executed at the end of each multiuser runlevel.</span><br><span class="line"># Make sure that the script will &quot;exit 0&quot; on success or any other</span><br><span class="line"># value on error.</span><br><span class="line">#</span><br><span class="line"># In order to enable or disable this script just change the execution</span><br><span class="line"># bits.</span><br><span class="line">#</span><br><span class="line"># By default this script does nothing.</span><br><span class="line">sudo ssr start</span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
 <ol start="3" type="1">
 <li>给<code>rc.local</code>加上权限，启用服务，检查状态</li>
 </ol>
-<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x /etc/rc.local</span><br><span class="line">sudo systemctl <span class="hljs-built_in">enable</span> rc-local</span><br><span class="line">sudo systemctl start rc-local.service</span><br><span class="line">sudo systemctl status rc-local.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x /etc/rc.local</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> rc-local</span><br><span class="line">sudo systemctl start rc-local.service</span><br><span class="line">sudo systemctl status rc-local.service</span><br></pre></td></tr></table></figure>
 <h3 id="genpac的使用">GenPac的使用</h3>
 <p>使用系统的自动代理功能，实现墙内外流量分流，科学上网。<a href="https://github.com/JinnLynn/genpac" target="_blank" rel="noopener">GenPac</a>是基于gfwlist的多种代理软件配置文件生成工具。安装后根据<a href="https://github.com/gfwlist/gfwlist" target="_blank" rel="noopener">gfwlist</a>生成代理规则<code>.pac</code>文件，最后设置系统根据该<code>.pac</code>自动代理即可。Linux下的一般安装步骤：</p>
-<figure class="highlight bash hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install -U genpac</span><br><span class="line">genpac --proxy=<span class="hljs-string">"SOCKS5 127.0.0.1:1080"</span> --gfwlist-proxy=<span class="hljs-string">"SOCKS5 127.0.0.1:1080"</span> -o autoproxy.pac --gfwlist-url=<span class="hljs-string">"https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"</span> <span class="hljs-comment"># 生成代理规则文件</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install -U genpac</span><br><span class="line">genpac --proxy=<span class="string">"SOCKS5 127.0.0.1:1080"</span> --gfwlist-proxy=<span class="string">"SOCKS5 127.0.0.1:1080"</span> -o autoproxy.pac --gfwlist-url=<span class="string">"https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"</span> <span class="comment"># 生成代理规则文件</span></span><br></pre></td></tr></table></figure>
 <p>其他平台可直接根据<code>gfwlist.txt</code>使用在客户端中使用pac模式。</p>
 <h3 id="其他资源链接汇总">其他资源链接汇总</h3>
 <p>参照<a href="https://github.com/Tsuk1ko/SS-and-SSR-Collection" target="_blank" rel="noopener">SS-and-SSR-Collection</a>，这里备份用再写一遍。</p>
@@ -311,9 +313,9 @@
     
     <div class="columns is-variable is-1 is-multiline is-mobile">
     
-        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/memo/">#memo</a></span>
-    
         <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/ssr/">#ssr</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/memo/">#memo</a></span>
     
     </div>
     
@@ -346,26 +348,6 @@
 <div class="comments">
     <h3 class="title is-4">Comments</h3>
     
-<script>
-    var disqus_config = function () {
-        this.page.url = 'http://wiljohn.top/2018/12/21/ssr/';
-        this.page.identifier = 'ssr';
-        
-        this.language = 'en';
-        
-    };
-    (function() {
-        var d = document, s = d.createElement('script');  
-        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-
-<div id="disqus_thread">
-    
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
 </div>
 
     </div>
@@ -431,9 +413,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>
     MathJax.Hub.Config({
-        "HTML-CSS": {matchFontHeight: false},
-        SVG: {matchFontHeight: false},
-        CommonHTML: {matchFontHeight: false}
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
     });
 </script>
 
@@ -468,6 +462,11 @@
             color: #9a9a9a;
             background: none;
             border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
         }
 
         .hljs > .clipboard-btn {
@@ -509,6 +508,9 @@
             return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
           }
         });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
       })
     </script>
 

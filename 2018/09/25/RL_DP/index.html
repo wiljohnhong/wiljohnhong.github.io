@@ -12,6 +12,8 @@
 
 
 
+
+
     <meta name="description" content="Dynamic programming assumes full knowledge of the MDP.  Dynamic Programming Dynamic: sequential or temporal component to the problem (like a table storing subproblem solutions) Programming: optimizin">
 <meta name="keywords" content="RL">
 <meta property="og:type" content="article">
@@ -304,26 +306,6 @@ v_*(s) = \max_{a\in{\mathcal{A}}} \left( \mathcal{R}_s^a + \gamma \sum_{s&#39;\i
 <div class="comments">
     <h3 class="title is-4">Comments</h3>
     
-<script>
-    var disqus_config = function () {
-        this.page.url = 'http://wiljohn.top/2018/09/25/RL_DP/';
-        this.page.identifier = 'rl-dp';
-        
-        this.language = 'en';
-        
-    };
-    (function() {
-        var d = document, s = d.createElement('script');  
-        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-
-<div id="disqus_thread">
-    
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
 </div>
 
     </div>
@@ -389,9 +371,21 @@ v_*(s) = \max_{a\in{\mathcal{A}}} \left( \mathcal{R}_s^a + \gamma \sum_{s&#39;\i
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>
     MathJax.Hub.Config({
-        "HTML-CSS": {matchFontHeight: false},
-        SVG: {matchFontHeight: false},
-        CommonHTML: {matchFontHeight: false}
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
     });
 </script>
 
@@ -426,6 +420,11 @@ v_*(s) = \max_{a\in{\mathcal{A}}} \left( \mathcal{R}_s^a + \gamma \sum_{s&#39;\i
             color: #9a9a9a;
             background: none;
             border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
         }
 
         .hljs > .clipboard-btn {
@@ -467,6 +466,9 @@ v_*(s) = \max_{a\in{\mathcal{A}}} \left( \mathcal{R}_s^a + \gamma \sum_{s&#39;\i
             return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
           }
         });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
       })
     </script>
 

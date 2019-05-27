@@ -12,6 +12,8 @@
 
 
 
+
+
     <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Introduction In the case of single variable \(x​\), the Gaussian distribution can be written in the form \[ \mathcal{N}(x|\mu,\">
 <meta name="keywords" content="PRML">
 <meta property="og:type" content="article">
@@ -266,26 +268,6 @@ p(\mathbf{y}) &amp;= p(\mathbf{x}) |\mathbf{J}| &amp;&amp;\scriptstyle{(\text{wh
 <div class="comments">
     <h3 class="title is-4">Comments</h3>
     
-<script>
-    var disqus_config = function () {
-        this.page.url = 'http://wiljohn.top/2019/02/28/PRML2-3-0/';
-        this.page.identifier = 'prml2-3-0';
-        
-        this.language = 'en';
-        
-    };
-    (function() {
-        var d = document, s = d.createElement('script');  
-        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-
-<div id="disqus_thread">
-    
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
 </div>
 
     </div>
@@ -351,9 +333,21 @@ p(\mathbf{y}) &amp;= p(\mathbf{x}) |\mathbf{J}| &amp;&amp;\scriptstyle{(\text{wh
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>
     MathJax.Hub.Config({
-        "HTML-CSS": {matchFontHeight: false},
-        SVG: {matchFontHeight: false},
-        CommonHTML: {matchFontHeight: false}
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
     });
 </script>
 
@@ -388,6 +382,11 @@ p(\mathbf{y}) &amp;= p(\mathbf{x}) |\mathbf{J}| &amp;&amp;\scriptstyle{(\text{wh
             color: #9a9a9a;
             background: none;
             border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
         }
 
         .hljs > .clipboard-btn {
@@ -429,6 +428,9 @@ p(\mathbf{y}) &amp;= p(\mathbf{x}) |\mathbf{J}| &amp;&amp;\scriptstyle{(\text{wh
             return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
           }
         });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
       })
     </script>
 
