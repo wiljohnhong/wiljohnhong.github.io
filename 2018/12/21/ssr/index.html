@@ -348,23 +348,26 @@
 <div class="comments">
     <h3 class="title is-4">Comments</h3>
     
-<div id="lv-container" data-id="city" data-uid="MTAyMC80NDQ0Ny8yMDk3OQ">
-    <script type="text/javascript">
-        (function(d, s) {
-            var j, e = d.getElementsByTagName(s)[0];
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/2018/12/21/ssr/';
+        this.page.identifier = 'ssr';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
 
-            if (typeof LivereTower === 'function') { return; }
-
-            j = d.createElement(s);
-            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-            j.async = true;
-
-            e.parentNode.insertBefore(j, e);
-        })(document, 'script');
-    </script>
-    <noscript> Please activate JavaScript for write a comment in LiveRe</noscript>
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-
 </div>
 
     </div>
