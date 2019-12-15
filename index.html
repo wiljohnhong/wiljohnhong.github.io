@@ -105,6 +105,66 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
+            <a href="/2019/12/16/git/" itemprop="url">Git Cheatsheet</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-12-15T17:20:26.000Z" itemprop="datePublished">Dec 16 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            a minute read (About 112 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>Git is a distributed version control system. Git is free software distributed under the GPL. Git has a mutable index called stage. Git tracks changes of files.</p>
+</blockquote>
+<h3 id="basic-local-operations">Basic Local Operations</h3>
+<p>Create a repository:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+<p>Add a file to <strong>stage</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;file&gt;</span><br></pre></td></tr></table></figure>
+<p>Remove a file in <strong>stage</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm &lt;file&gt;</span><br></pre></td></tr></table></figure>
+<p>Commit the change to repository:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &lt;message&gt;</span><br></pre></td></tr></table></figure>
+<p>Check status:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+<p>Show the difference between stage and working directory:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
+<p>Show the commit history:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+<p>Rollback to previous version:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard &lt;commit_id&gt;</span><br></pre></td></tr></table></figure>
+<p>Show the command history (helpful for undoing rollback):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br></pre></td></tr></table></figure>
+<p>Discard changes in <strong>working directory</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- &lt;file&gt;</span><br></pre></td></tr></table></figure>
+<p>Discard changes in <strong>stage</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD &lt;file&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="reference">Reference</h3>
+<p>[1] <a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener">Git教程</a></p>
+
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
             <a href="/2019/04/14/PRML4-5/" itemprop="url">(PRML Notes) 4.5 Bayesian Logistic Regression</a>
         
     </h1>
@@ -450,48 +510,6 @@ p(\alpha, \beta | \boldsymbol{\mathsf{t}}) \propto p(\boldsymbol{\mathsf{t}} | \
 <p>This section focuses on the <em>frequentist view</em> of the model complexity issue, known as <strong>bias-variance trade-off</strong>.</p>
         <p class="article-more-link">
             <a href="/2019/03/23/PRML3-2/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/22/PRML3-1/" itemprop="url">(PRML Notes) 3.1 Linear Basis Function Models</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-22T06:30:04.000Z" itemprop="datePublished">Mar 22 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            13 minutes read (About 1947 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>A simplest regression model for <span class="math inline">\(D\)</span>-dimensional input variable <span class="math inline">\(\mathbf{x}=\left(x_{1}, \dots, x_{D}\right)^{\mathrm{T}}\)</span> is <span class="math display">\[
-y(\mathbf{x}, \mathbf{w})=w_{0}+w_{1} x_{1}+\ldots+w_{D} x_{D}
-\]</span> The key property of this model is that it is a linear function of parameters <span class="math inline">\(w_{0}, \dots, w_{D}\)</span>. This model can be extended to linear combination of fixed nonlinear functions of <span class="math inline">\(\mathbf{x}\)</span> <span class="math display">\[
-y(\mathbf{x}, \mathbf{w})=w_{0}+\sum_{j=1}^{M-1} w_{j} \phi_{j}(\mathbf{x})
-\]</span></p>
-        <p class="article-more-link">
-            <a href="/2019/03/22/PRML3-1/#more">Read More</a>
         </p>
     
     </div>
