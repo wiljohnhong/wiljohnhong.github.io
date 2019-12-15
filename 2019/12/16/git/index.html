@@ -14,18 +14,18 @@
 
 
 
-    <meta name="description" content="Git is a distributed version control system. Git is free software distributed under the GPL.  Basic Local Operations Create a repository:  Add a file to stage:">
+    <meta name="description" content="Git is a distributed version control system. Git is free software distributed under the GPL.">
 <meta name="keywords" content="git,memo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git Cheatsheet">
 <meta property="og:url" content="http://wiljohn.top/2019/12/16/git/index.html">
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
-<meta property="og:description" content="Git is a distributed version control system. Git is free software distributed under the GPL.  Basic Local Operations Create a repository:  Add a file to stage:">
+<meta property="og:description" content="Git is a distributed version control system. Git is free software distributed under the GPL.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-15T17:47:21.551Z">
+<meta property="og:updated_time" content="2019-12-15T17:52:15.930Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git Cheatsheet">
-<meta name="twitter:description" content="Git is a distributed version control system. Git is free software distributed under the GPL.  Basic Local Operations Create a repository:  Add a file to stage:">
+<meta name="twitter:description" content="Git is a distributed version control system. Git is free software distributed under the GPL.">
 
 
 
@@ -131,30 +131,30 @@
 <p>Git is a distributed version control system.</p>
 <p>Git is free software distributed under the GPL.</p>
 </blockquote>
-<h3 id="basic-local-operations">Basic Local Operations</h3>
-<p>Create a repository:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
-<p>Add a file to <strong>stage</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;file&gt;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
+<p>Basic Local Operations</p>
+<p>Create a repository:</p>
+<p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></p>
+<p>Add a file to <strong>stage</strong>:</p>
+<p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add &lt;file&gt;</span><br></pre></td></tr></table></figure></p>
 <p>Remove a file in <strong>stage</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm &lt;file&gt;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm &lt;file&gt;</span><br></pre></td></tr></table></figure></p>
 <p>Commit the change to repository:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &lt;message&gt;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &lt;message&gt;</span><br></pre></td></tr></table></figure></p>
 <p>Check status:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status</span><br></pre></td></tr></table></figure></p>
 <p>Show the difference between stage and working directory:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure></p>
 <p>Show the commit history:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure></p>
 <p>Rollback to previous version:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard &lt;commit_id&gt;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard &lt;commit_id&gt;</span><br></pre></td></tr></table></figure></p>
 <p>Show the command history (helpful for undoing rollback):</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reflog</span><br></pre></td></tr></table></figure></p>
 <p>Discard changes in <strong>working directory</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- &lt;file&gt;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -- &lt;file&gt;</span><br></pre></td></tr></table></figure></p>
 <p>Discard changes in <strong>stage</strong>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD &lt;file&gt;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD &lt;file&gt;</span><br></pre></td></tr></table></figure></p>
 <h3 id="reference">Reference</h3>
 <p>[1] <a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener">Git教程</a></p>
 
