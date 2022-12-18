@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>Tag: ssr - Wiljohn&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -41,7 +41,7 @@
 
 <link rel="stylesheet" href="/css/style.css">
 
-<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
     
@@ -57,7 +57,7 @@
 </head>
 <body>
     
-<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
     <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item navbar-logo" href="/">
@@ -112,31 +112,32 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2018/12/21/ssr/" itemprop="url">ShadowsocksR资源整理</a>
+            <a href="/2018/03/21/ssr/" itemprop="url">ShadowsocksR资源整理</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2018-12-21T04:41:26.000Z" itemprop="datePublished">Dec 21 2018</time>
+            <time datetime="2018-03-21T04:41:26.000Z" itemprop="datePublished">Mar 21 2018</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            10 minutes read (About 1539 words)
+            10 minutes read (About 1549 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <blockquote>
+        <p><img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/20-02-06/ssr.png"></p>
+<blockquote>
 <p>由于一些众所周知的原因，我们并不能自由访问完整的互联网。但是互联网审查粒度过粗，导致许多本不需要审查的内容被拒之墙外，如Google Scholar，Wikipedia等。</p>
 <p>ShadowsocksR是一种基于Socks5代理的加密传输协议，是shadowsocks的加强版本，可以帮助我们突破中国互联网审查(GFW)从而浏览被封锁的内容。ShadowsocksR分为服务器端和客户端，在使用之前，需要先将服务器端部署到服务器上面，然后通过客户端连接并创建本地代理。</p>
 </blockquote>
 <p>下面整理的是近期配置SSR时收集的一些资源。</p>
         <p class="article-more-link">
-            <a href="/2018/12/21/ssr/#more">Read More</a>
+            <a href="/2018/03/21/ssr/#more">Read More</a>
         </p>
     
     </div>
@@ -155,7 +156,7 @@
     <div class="container">
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
-                &copy; 2019 wiljohn&nbsp;
+                &copy; 2022 wiljohn&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>
@@ -346,7 +347,24 @@
         window.INSIGHT_CONFIG = INSIGHT_CONFIG;
     })(window);
 </script>
-<script src="/js/insight.js"></script>
+<script src="/js/insight.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
     
 </body>
 </html>

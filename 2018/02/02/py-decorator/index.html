@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>Python 装饰器 - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="装饰器（decorator）是Python的一种高级语法，是用于修改其它函数功能的函数。装饰器代码本身比较复杂，但是使用起来方便简洁，大大提高可读性。  最简单的装饰器例子：记录运行时间 假设我们需要log某个函数的运行时间，最直接的做法便是在函数开头和结束处分别插入记录时间的代码片段，并在最后打印时长： 0">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 装饰器">
+<meta property="og:url" content="http://wiljohn.top/2018/02/02/py-decorator/index.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="装饰器（decorator）是Python的一种高级语法，是用于修改其它函数功能的函数。装饰器代码本身比较复杂，但是使用起来方便简洁，大大提高可读性。  最简单的装饰器例子：记录运行时间 假设我们需要log某个函数的运行时间，最直接的做法便是在函数开头和结束处分别插入记录时间的代码片段，并在最后打印时长： 0">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/20-02-06/image.png">
+<meta property="og:updated_time" content="2022-12-18T05:27:57.231Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 装饰器">
+<meta name="twitter:description" content="装饰器（decorator）是Python的一种高级语法，是用于修改其它函数功能的函数。装饰器代码本身比较复杂，但是使用起来方便简洁，大大提高可读性。  最简单的装饰器例子：记录运行时间 假设我们需要log某个函数的运行时间，最直接的做法便是在函数开头和结束处分别插入记录时间的代码片段，并在最后打印时长： 0">
+<meta name="twitter:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/20-02-06/image.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Python 装饰器
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-02-02T14:32:11.000Z" itemprop="datePublished">Feb 2 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            9 minutes read (About 1301 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/20-02-06/image.png"></p>
+<blockquote>
+<p>装饰器（decorator）是Python的一种高级语法，是用于修改其它函数功能的函数。装饰器代码本身比较复杂，但是使用起来方便简洁，大大提高可读性。</p>
+</blockquote>
+<h3 id="最简单的装饰器例子记录运行时间">最简单的装饰器例子：记录运行时间</h3>
+<p>假设我们需要log某个函数的运行时间，最直接的做法便是在函数开头和结束处分别插入记录时间的代码片段，并在最后打印时长：</p>
+<p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">task</span><span class="hljs-params">(task_num)</span>:</span></span><br><span class="line">    <span class="hljs-comment"># begin_time = time.time()</span></span><br><span class="line">    print(<span class="hljs-string">'doing task %d...'</span> % task_num)</span><br><span class="line">    <span class="hljs-comment"># end_time = time.time()</span></span><br><span class="line">    <span class="hljs-comment"># print('this task ends in %f seconds.\n' % (end_time - begin_time))</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>这样的做法使函数定义中混入了用于logging的代码，降低了可读性，同时也无法在其他也需要log运行时间的函数中复用这段代码。</p>
+<p>而装饰器则可以在不改变原函数本身功能的基础上增加新的功能，同时也能做到快速复用。装饰器的定义实际上就是一个closure，接收原函数作为参数，返回wrap后的函数。我们可以将以上记录运行时长的功能写进装饰器<code>runtime_logging</code>中：</p>
+<p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">runtime_logging</span><span class="hljs-params">(func)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wrapped</span><span class="hljs-params">(*args, **kwargs)</span>:</span></span><br><span class="line">        begin_time = time.time()</span><br><span class="line">        func(*args, **kwargs)</span><br><span class="line">        end_time = time.time()</span><br><span class="line">        print(<span class="hljs-string">'this task ends in %f seconds.\n'</span> % (end_time - begin_time))</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">return</span> wrapped</span><br></pre></td></tr></table></figure></p>
+<p>注意<code>wrapper</code>函数使用了万能的<code>*args, **kwargs</code>作为参数以适应各种含不同参数的函数。使用装饰器时只需要简单地在原来函数定义的基础上增加一行<code>@</code>语句：</p>
+<p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@runtime_logging</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">task</span><span class="hljs-params">(task_num)</span>:</span></span><br><span class="line">    print(<span class="hljs-string">'doing task %d...'</span> % task_num)</span><br></pre></td></tr></table></figure></p>
+<p>这一行<code>@</code>语句的作用相当于：</p>
+<p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">task = runtime_logging(task)</span><br></pre></td></tr></table></figure></p>
+<p>这时候再执行<code>task</code>函数时的效果为：</p>
+<p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>):</span><br><span class="line">    task(i)</span><br><span class="line"></span><br><span class="line"><span class="hljs-string">""" Output:</span></span><br><span class="line"><span class="hljs-string">doing task 0...</span></span><br><span class="line"><span class="hljs-string">this task ends in 0.000019 seconds.</span></span><br><span class="line"><span class="hljs-string"></span></span><br><span class="line"><span class="hljs-string">doing task 1...</span></span><br><span class="line"><span class="hljs-string">this task ends in 0.000003 seconds.</span></span><br><span class="line"><span class="hljs-string"></span></span><br><span class="line"><span class="hljs-string">doing task 2...</span></span><br><span class="line"><span class="hljs-string">this task ends in 0.000002 seconds.</span></span><br><span class="line"><span class="hljs-string"></span></span><br><span class="line"><span class="hljs-string">"""</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="使函数被装饰前后的名字保持一致">使函数被装饰前后的名字保持一致</h3>
+<p>在Python中，函数也是一个对象，在经过装饰器装饰后，函数功能虽然未发生改变，但函数的一些内置成员变量却会悄悄发生改变。例如在装饰前后，函数名称会发生变化：</p>
+<p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">task</span><span class="hljs-params">(task_num)</span>:</span></span><br><span class="line">    print(<span class="hljs-string">'doing task %d...'</span> % task_num)</span><br><span class="line"></span><br><span class="line">print(task.__name__)</span><br><span class="line"><span class="hljs-comment"># Output: task</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">@runtime_logging</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">task</span><span class="hljs-params">(task_num)</span>:</span></span><br><span class="line">    print(<span class="hljs-string">'doing task %d...'</span> % task_num)</span><br><span class="line"></span><br><span class="line">print(task.__name__)</span><br><span class="line"><span class="hljs-comment"># Output: wrapped</span></span><br></pre></td></tr></table></figure></p>
+<p>我们如果需要直接把名字改回去，需要编写<code>wrapped.__name__ = func.__name__</code>这样的代码。而Python发开者早就想到了这一点，可以通过使用内置的<code>functools.wraps</code>达到同样的效果。</p>
+<p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">runtime_logging</span><span class="hljs-params">(func)</span>:</span></span><br><span class="line"><span class="hljs-meta">    @functools.wraps(func)</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wrapped</span><span class="hljs-params">(*args, **kwargs)</span>:</span></span><br><span class="line">        <span class="hljs-comment"># the same code as before ...</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">return</span> wrapped</span><br></pre></td></tr></table></figure></p>
+<h3 id="含参的装饰器">含参的装饰器</h3>
+<p>如果我们想进一步地扩展装饰器的功能，例如在log的时候根据需要决定是否将日志输出到文件中。这时我们可以在原有装饰器的基础上再包裹上一层含参的函数，这层函数会根据参数来提供不同功能的装饰器：</p>
+<p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> time</span><br><span class="line"><span class="hljs-keyword">import</span> functools</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">log</span><span class="hljs-params">(logfile=None)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">runtime_logging</span><span class="hljs-params">(func)</span>:</span></span><br><span class="line">        </span><br><span class="line"><span class="hljs-meta">        @functools.wraps(func)</span></span><br><span class="line">        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wrapped</span><span class="hljs-params">(*args, **kwargs)</span>:</span></span><br><span class="line">            func(*args, **kwargs)</span><br><span class="line">            message = <span class="hljs-string">'function %s done.'</span> % func.__name__</span><br><span class="line">            </span><br><span class="line">            <span class="hljs-keyword">if</span> logfile:</span><br><span class="line">                <span class="hljs-keyword">with</span> open(logfile, <span class="hljs-string">'w'</span>) <span class="hljs-keyword">as</span> f:</span><br><span class="line">                    f.write(message)</span><br><span class="line">            <span class="hljs-keyword">else</span>:</span><br><span class="line">                print(message)</span><br><span class="line">                </span><br><span class="line">        <span class="hljs-keyword">return</span> wrapped</span><br><span class="line">    <span class="hljs-keyword">return</span> runtime_logging</span><br></pre></td></tr></table></figure></p>
+<p>运行效果：</p>
+<p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@log(None)</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">task</span><span class="hljs-params">(task_num)</span>:</span></span><br><span class="line">    print(<span class="hljs-string">'doing task %d...'</span> % task_num)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">task(<span class="hljs-number">1</span>)</span><br><span class="line"><span class="hljs-string">"""Output:</span></span><br><span class="line"><span class="hljs-string">doing task 1...</span></span><br><span class="line"><span class="hljs-string">function task done.</span></span><br><span class="line"><span class="hljs-string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">@log('log.txt')</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">task</span><span class="hljs-params">(task_num)</span>:</span></span><br><span class="line">    print(<span class="hljs-string">'doing task %d...'</span> % task_num)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">task(<span class="hljs-number">2</span>)</span><br><span class="line"><span class="hljs-string">"""Output:</span></span><br><span class="line"><span class="hljs-string">In shell) doing task 2...</span></span><br><span class="line"><span class="hljs-string">In 'log.txt') function task done.</span></span><br><span class="line"><span class="hljs-string">"""</span></span><br></pre></td></tr></table></figure></p>
+<p>这里的<code>@log('log.txt')</code>装饰<code>task</code>函数实际上就相当于：</p>
+<p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">task = log(<span class="hljs-string">'log.txt'</span>)(task)</span><br></pre></td></tr></table></figure></p>
+<h3 id="将装饰器用于装饰类">将装饰器用于装饰类</h3>
+<p>在上面的例子中，装饰器都是起到加工函数的效果。而实际上装饰器还可以被拓展用来加工类，其关键就在于用一个变量记录下被装饰的类的信息。例如我们要为一个<code>Task</code>类引入一个新的计数功能，记录打印信息的次数：</p>
+<p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">decorator</span><span class="hljs-params">(cls)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Wrapped</span><span class="hljs-params">(object)</span>:</span></span><br><span class="line">        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, info)</span>:</span></span><br><span class="line">            self.executed_times = <span class="hljs-number">0</span></span><br><span class="line">            self.wrapped = cls(info)</span><br><span class="line"></span><br><span class="line">        <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">display_info</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">            self.executed_times += <span class="hljs-number">1</span></span><br><span class="line">            self.wrapped.display_info()</span><br><span class="line">            print(<span class="hljs-string">'total executed times:'</span>, self.executed_times)</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">return</span> Wrapped</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">@decorator</span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Task</span><span class="hljs-params">(object)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, info)</span>:</span></span><br><span class="line">        self.info = info</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">display_info</span><span class="hljs-params">(self)</span>:</span></span><br><span class="line">        print(<span class="hljs-string">'Info:'</span>, self.info)</span><br></pre></td></tr></table></figure></p>
+<p>执行效果如下：</p>
+<p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">t = Task(<span class="hljs-string">'just for test!'</span>)</span><br><span class="line"><span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> range(<span class="hljs-number">3</span>):</span><br><span class="line">    t.display_info()</span><br><span class="line"></span><br><span class="line"><span class="hljs-string">"""Output:</span></span><br><span class="line"><span class="hljs-string">Info: just for test!</span></span><br><span class="line"><span class="hljs-string">total executed times: 1</span></span><br><span class="line"><span class="hljs-string">Info: just for test!</span></span><br><span class="line"><span class="hljs-string">total executed times: 2</span></span><br><span class="line"><span class="hljs-string">Info: just for test!</span></span><br><span class="line"><span class="hljs-string">total executed times: 3</span></span><br><span class="line"><span class="hljs-string">"""</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="将装饰器写成类的形式">将装饰器写成类的形式</h3>
+<p>在Python中函数实际上就是一个带<code>__call__</code>方法的类，将装饰器写成类的形式可以大大减少装饰器中函数的嵌套层数，同时可以使用继承进一步方便地扩展装饰器的功能。</p>
+<p><figure class="highlight python hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">log</span><span class="hljs-params">(object)</span>:</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, func)</span>:</span></span><br><span class="line">        self.func = func</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__call__</span><span class="hljs-params">(self, *args, **kwargs)</span>:</span></span><br><span class="line">        result = self.func(*args, **kwargs)</span><br><span class="line">        print(<span class="hljs-string">'function %s done.'</span> % self.func.__name__)</span><br><span class="line">        <span class="hljs-keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"><span class="hljs-meta">@log</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">task</span><span class="hljs-params">(task_num)</span>:</span></span><br><span class="line">    print(<span class="hljs-string">'doing task %d...'</span> % task_num)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">task(<span class="hljs-number">2</span>)</span><br><span class="line"><span class="hljs-string">"""Output:</span></span><br><span class="line"><span class="hljs-string">doing task 2...</span></span><br><span class="line"><span class="hljs-string">function task done.</span></span><br><span class="line"><span class="hljs-string">"""</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="参考资料">参考资料</h3>
+<p>[1] <a href="http://book.pythontips.com/en/latest/decorators.html" target="_blank" rel="noopener">Intermediate Python: 7. Decorators</a></p>
+<p>[2] <a href="https://www.cnblogs.com/vamei/archive/2013/02/16/2820212.html" target="_blank" rel="noopener">Python深入05 装饰器</a></p>
+<p>[3] <a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017451662295584" target="_blank" rel="noopener">廖雪峰Python教程：装饰器</a></p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/python/">#python</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2018/03/21/ssr/">ShadowsocksR资源整理</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2018/01/12/hexo-install/">Hexo配置备忘</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/2018/02/02/py-decorator/';
+        this.page.identifier = 'python-decorator';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+    
+</body>
+</html>

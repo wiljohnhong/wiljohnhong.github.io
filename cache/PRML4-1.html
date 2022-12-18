@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>(PRML Notes) 4.1 Discriminant Functions - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This chapter focuses on solving classification problems, where the input space divided by decision boundaries that can be expre">
+<meta name="keywords" content="PRML">
+<meta property="og:type" content="website">
+<meta property="og:title" content="(PRML Notes) 4.1 Discriminant Functions">
+<meta property="og:url" content="http://wiljohn.top/cache/PRML4-1.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This chapter focuses on solving classification problems, where the input space divided by decision boundaries that can be expre">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-04%2011-57-59.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-04%2011-58-13.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-04%2011-58-47.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-05%2023-55-31.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-06%2000-10-15.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-06%2013-12-26.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-06%2023-45-58.png">
+<meta property="og:updated_time" content="2020-10-24T15:22:50.872Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(PRML Notes) 4.1 Discriminant Functions">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This chapter focuses on solving classification problems, where the input space divided by decision boundaries that can be expre">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-04%2011-57-59.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            (PRML Notes) 4.1 Discriminant Functions
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-04-03T15:05:04.000Z" itemprop="datePublished">Apr 3 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            29 minutes read (About 4294 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>This chapter focuses on solving classification problems, where the input space divided by <strong>decision boundaries</strong> that can be expressed by linear functions of input vector.</p>
+<p><strong>About the labels</strong>: For probabilistic models, in the case of two-class problem, we usually use single target variable <span class="math inline">\(t\in\{0,1\}\)</span> to present the probability of taking one class label, thus <span class="math inline">\(1-t\)</span> for the other, and for <span class="math inline">\(K&gt;2\)</span> classes, we use a <span class="math inline">\(1\)</span>-of-<span class="math inline">\(K\)</span> coding <span class="math inline">\(\mathbf{t}=(0,1,0,0,0)^{\mathrm{T}}\)</span> to present the probability of taking every class label. For non-probabilistic models, alternative choice of target variable representation sometimes will also be convenient.</p>
+<a id="more"></a>
+<p><strong>How to model</strong>: Recall that by decision theory, we can use</p>
+<ul>
+<li>a <strong>discriminant function</strong> <span class="math inline">\(f(\mathbf{x})​\)</span> that directly assigns input <span class="math inline">\(\mathbf x​\)</span> to a specific class</li>
+<li>or use a <strong>generative function</strong> to model the conditional distribution <span class="math inline">\(p\left(\mathcal{C}_{k} | \mathbf{x}\right)​\)</span></li>
+<li>or use a <strong>generative model</strong> to model both <span class="math inline">\(p\left(\mathcal{C}_{k}\right)​\)</span> and <span class="math inline">\(p\left( \mathbf{x}|\mathcal{C}_{k} \right)​\)</span> then get <span class="math inline">\(p\left(\mathcal{C}_{k} | \mathbf{x}\right)=p\left(\mathbf{x} | \mathcal{C}_{k}\right) p\left(\mathcal{C}_{k}\right)/p(\mathbf{x})​\)</span></li>
+</ul>
+<p><strong>How can linearity works in classification</strong>: Note that for classification problems, we need to predict class labels that interpreted as <span class="math inline">\(p\left(\mathcal{C}_{k} | \mathbf{x}\right)\in[0,1]​\)</span>, no longer to predict the <span class="math inline">\(y​\)</span> using <span class="math inline">\(y(\mathbf{x})=\mathbf{w}^{\mathrm{T}} \mathbf{x}+w_{0}\in\mathbb{R}​\)</span> as for regression. So to use the simple analytical and computational properties of linear models, we will consider a generalization that transforms the linear function of <span class="math inline">\(\mathbf{w}​\)</span> using a nonlinear <strong>activation function</strong> <span class="math inline">\(f​\)</span> so that <span class="math inline">\(y(\mathbf{x})=f\left(\mathbf{w}^{\mathrm{T}} \mathbf{x}+w_{0}\right)​\)</span>. Even if <span class="math inline">\(f​\)</span> is nonlinear, the decision boundary <span class="math inline">\(\mathbf{w}^{\mathrm{T}} \mathbf{x}+w_{0} = \text{constant}​\)</span> will be linear anyway.</p>
+<p>In this section, attention is restricted to linear discriminant functions.</p>
+<h2 id="unambiguous-discriminant">Unambiguous Discriminant</h2>
+<h3 id="two-classes">Two Classes</h3>
+<p>The simplest form of linear discriminant function is <span class="math display">\[
+y(\mathbf{x})=\mathbf{w}^{\mathrm{T}} \mathbf{x}+w_{0}
+\]</span> where if <span class="math inline">\(y(\mathbf{x})\geq 0\)</span> we assign <span class="math inline">\(\mathbf{x}\)</span> to <span class="math inline">\(\mathcal{C}_1\)</span> and to <span class="math inline">\(\mathcal{C}_2\)</span> otherwise. So the decision boundary is given by <span class="math inline">\(\mathbf{w}^{\mathrm{T}} \mathbf{x}+w_{0}=0\)</span>.</p>
+<p>We can see that <span class="math inline">\(\mathbf{w}​\)</span> determines the orientation of the decision boundary since for any different two points <span class="math inline">\(\mathbf{x}_{\mathrm{A}}​\)</span> and <span class="math inline">\(\mathbf{x}_{\mathrm{B}}​\)</span> on the boundary, we have <span class="math inline">\(\mathbf{w}^{\mathrm{T}}\left(\mathbf{x}_{\mathrm{A}}-\mathbf{x}_{\mathrm{B}}\right)=0​\)</span>. Using this fact, we can derive the normal distance from the origin to the decision boundary <span class="math display">\[
+\mathrm{d} = \frac{\mathbf{w}^{\mathrm{T}} \mathbf{x}}{\|\mathbf{w}\|}=-\frac{w_{0}}{\|\mathbf{w}\|}
+\]</span> Also note that <span class="math inline">\(y(\mathbf{x})\)</span> gives a <em>signed</em> measure of the perpendicular distance <span class="math inline">\(r\)</span> of the point <span class="math inline">\(\mathbf{x}\)</span> to the decision boundary, since <span class="math display">\[
+\begin{align}
+&amp;&amp;\mathbf{x}&amp;=\mathbf{x}_{\perp}+r \frac{\mathbf{w}}{\|\mathbf{w}\|}
+\\
+\Rightarrow &amp;&amp; \mathbf{w}^\mathrm{T} \mathbf{x}&amp;=\mathbf{w}^\mathrm{T}\mathbf{x}_{\perp}+r \frac{\mathbf{w}^\mathrm{T}\mathbf{w}}{\|\mathbf{w}\|}
+\\
+\Rightarrow&amp;&amp; \mathbf{w}^\mathrm{T} \mathbf{x} + w_0&amp;=\mathbf{w}^\mathrm{T}\mathbf{x}_{\perp}+w_0+r \frac{\|\mathbf{w}\|^2}{\|\mathbf{w}\|}
+\\
+\Rightarrow&amp;&amp; y( \mathbf{x}) &amp;= r \|\mathbf{w}\|
+\\
+\Rightarrow&amp;&amp; r &amp;=  \frac{y( \mathbf{x})}{\|\mathbf{w}\|}
+\end{align}
+\]</span> where <span class="math inline">\(\mathbf{x}_\perp\)</span> is the orthogonal projection of <span class="math inline">\(\mathbf{x}\)</span> onto the decision surface.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-04%2011-57-59.png" alt="The signed orthogonal distance of a general point \mathbf{x} from the decision surface is given by r = y( \mathbf{x}) / \|\mathbf{w}\|"><figcaption>The signed orthogonal distance of a general point <span class="math inline">\(\mathbf{x}\)</span> from the decision surface is given by <span class="math inline">\(r = y( \mathbf{x}) / \|\mathbf{w}\|\)</span></figcaption>
+</figure>
+<h3 id="multiple-classes">Multiple Classes</h3>
+<p>Building a <span class="math inline">\(K\)</span>-class discriminant by combining a number of two-class discriminant leads to serious difficulties. Concretely, if we</p>
+<ul>
+<li>build a <em>one-versus-the-rest</em> classifier by introducing <span class="math inline">\(K-1\)</span> functions,</li>
+<li>or build a <em>one-versus-one</em> classifier by introducing <span class="math inline">\(K(K-1)/2\)</span> functions,</li>
+</ul>
+<p>will result in ambiguous regions.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-04%2011-58-13.png" alt="Left shows one-versus-the-rest and right one-versus-one"><figcaption>Left shows one-versus-the-rest and right one-versus-one</figcaption>
+</figure>
+<p>These difficulties can be avoided by introducing a single <span class="math inline">\(K\)</span>-class discriminant (<em>one-versus-all</em>) comprising <span class="math inline">\(K\)</span> linear functions of the form <span class="math display">\[
+y_{k}(\mathbf{x})=\mathbf{w}_{k}^{\mathrm{T}} \mathbf{x}+w_{k 0}
+\]</span> and then assign a point <span class="math inline">\(\mathbf{x}\)</span> to class <span class="math inline">\(\mathcal{C}_k\)</span> if <span class="math inline">\(y_{k}(\mathbf{x})&gt;y_{j}(\mathbf{x}),\ \forall j \neq k​\)</span>.</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-04%2011-58-47.png"></p>
+<p>Note that the decision regions of such a discriminant are always singly connected and convex.</p>
+<blockquote>
+<p><strong>Proof:</strong> For any two points <span class="math inline">\(\mathbf{x}_{\mathrm{A}}\)</span> and <span class="math inline">\(\mathbf{x}_{\mathrm{B}}\)</span> inside the region <span class="math inline">\(\mathcal{R}_k\)</span>, and any point <span class="math inline">\(\widehat{\mathbf{x}}=\lambda \mathbf{x}_{\mathrm{A}}+(1-\lambda) \mathbf{x}_{\mathrm{B}},\ \forall\lambda\in[0,1]\)</span> that lies between the line connecting them, from the linearity we have <span class="math display">\[
+y_{k}(\widehat{\mathbf{x}})=\lambda y_{k}\left(\mathbf{x}_{\mathrm{A}}\right)+(1-\lambda) y_{k}\left(\mathbf{x}_{\mathrm{B}}\right)
+\]</span> since <span class="math inline">\(y_{k}\left(\mathbf{x}_{\mathrm{A}}\right)&gt;y_{j}\left(\mathbf{x}_{\mathrm{A}}\right), \forall j \neq k\)</span>, and the same for <span class="math inline">\(\mathbf{x}_{\mathrm{B}}\)</span>, we have <span class="math inline">\(y_{k}(\widehat{\mathbf{x}}) &gt; y_{j}(\widehat{\mathbf{x}}),\ \forall j\neq k\)</span>, so <span class="math inline">\(\widehat{\mathbf{x}}\)</span> also lies in <span class="math inline">\(\mathcal{R}_k\)</span>.</p>
+</blockquote>
+<p>Next, three approaches to learning the parameters of linear discriminant functions will be introduced, and first is a probabilistic model.</p>
+<h2 id="probabilistic-model-least-squares-for-classification">Probabilistic Model: Least Squares for Classification</h2>
+<p>Recall that the sum-of-squares error function approximates the conditional expectation <span class="math inline">\(\mathbb{E}[\mathbf{t} | \mathbf{x}]​\)</span> and leads to a simple closed-form solution which is tempting to apply it to classification problems, however, for the binary coding scheme, <span class="math inline">\(\mathbb{E}[\mathbf{t} | \mathbf{x}] = [p\left(\mathcal{C}_{1} | \mathbf{x}\right),...,p\left(\mathcal{C}_{K} | \mathbf{x}\right)]^\mathrm{T}​\)</span> is typically approximated poorly by linear model.</p>
+<h3 id="problem-formulation-and-solution">Problem Formulation and Solution</h3>
+<p>As we discussed before, we model each class with <span class="math display">\[
+y_{k}(\mathbf{x})=\mathbf{w}_{k}^{\mathrm{T}} \mathbf{x}+w_{k 0}
+\]</span> We can group the <span class="math inline">\(K\)</span> classes results and get <span class="math display">\[
+\mathbf{y}(\mathbf{x})=\widetilde{\mathbf{W}}^{\mathrm{T}} \widetilde{\mathbf{x}}
+\]</span> where <span class="math inline">\(\widetilde{\mathbf{W}}​\)</span> is a <span class="math inline">\((D+1)\times K​\)</span> matrix, whose column is given by <span class="math inline">\(\widetilde{\mathbf{w}}_{k}=\left(w_{k 0}, \mathbf{w}_{k}^{\mathrm{T}}\right)^{\mathrm{T}}​\)</span>, and <span class="math inline">\(\widetilde{\mathbf{x}}=\left(1, \mathbf{x}^{\mathrm{T}}\right)^{\mathrm{T}}​\)</span> is the augmented input vector.</p>
+<p>If we have a training set <span class="math inline">\(\widetilde{\mathbf{X}} =[\widetilde{\mathbf{x}}_1,...,\widetilde{\mathbf{x}}_N]^\mathrm{T}\)</span>, whose target values are <span class="math inline">\(\mathbf{T} = [\mathbf{t}_{1},...,\mathbf{t}_{N}]^{\mathrm{T}}\)</span>, then the sum-of-squares error function can then be written as <span class="math display">\[
+E_{D}(\widetilde{\mathbf{W}})=\frac{1}{2} \operatorname{Tr}\left\{(\widetilde{\mathbf{X}} \widetilde{\mathbf{W}}-\mathbf{T})^{\mathrm{T}}(\widetilde{\mathbf{X}} \widetilde{\mathbf{W}}-\mathbf{T})\right\}
+\]</span> Again by setting the derivative w.r.t. <span class="math inline">\(\widetilde{\mathbf{W}}​\)</span> to zero we have <span class="math display">\[
+\widetilde{\mathbf{W}}=\left(\widetilde{\mathbf{X}}^{\mathrm{T}} \widetilde{\mathbf{X}}\right)^{-1} \widetilde{\mathbf{X}}^{\mathrm{T}} \mathbf{T}=\widetilde{\mathbf{X}}^{\dagger} \mathbf{T}
+\]</span> So the predicted target of new observation will be given by <span class="math display">\[
+\mathbf{y}(\mathbf{x})=\widetilde{\mathbf{W}}^{\mathrm{T}} \widetilde{\mathbf{x}}=\mathbf{T}^{\mathrm{T}}\left(\widetilde{\mathbf{X}}^{\dagger}\right)^{\mathrm{T}} \widetilde{\mathbf{x}}
+\]</span></p>
+<h3 id="problems-of-least-squares">Problems of Least Squares</h3>
+<p>It can be proved that if every target vector satisfies some linear constraint <span class="math inline">\(\mathbf{a}^{\mathrm{T}} \mathbf{t}_{n}+b=0​\)</span>, then the prediction will also satisfies <span class="math inline">\(\mathbf{a}^{\mathrm{T}} \mathbf{y}(\mathbf{x})+b=0​\)</span>. So under a <span class="math inline">\(1​\)</span>-of-<span class="math inline">\(K​\)</span> coding scheme, where the constraint is given by <span class="math inline">\(\mathbf{a}= [1,...,1]^\mathrm{T}​\)</span> and <span class="math inline">\({b} = -1​\)</span>, the elements in the predicted target <span class="math inline">\(\mathbf{y}(\mathbf{x})​\)</span> will be ensured to sum to <span class="math inline">\(1​\)</span>.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-05%2023-55-31.png" alt="Highly sensitive to outliers (purple), unlike logistic regression (green)"><figcaption>Highly sensitive to outliers (purple), unlike logistic regression (green)</figcaption>
+</figure>
+<p>Although we have this nice property, there is a severe problem that <span class="math inline">\(\mathbf{y}(\mathbf{x})​\)</span> is still not constrained to lie within the interval <span class="math inline">\((0,1)​\)</span>. Indeed, the least-squares solution <strong>lack of robustness</strong> to outliers, since the error function will penalizes predictions that are "too correct" in that they lie a long way on the correct side of the decision boundary. And there may be more severe problem if we need to predict three classes where one locates between the other two, where the middle class will be predicted with a small region.</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-06%2000-10-15.png"></p>
+<p>Recall that least squares correspond to MLE under conditional Gaussian assumption, whereas binary vectors clearly more like a conditional Bernoulli distribution (modeled in logistic regression), so it is not surprised that least squares fail.</p>
+<blockquote>
+<p><strong>Conclusion</strong>: although both least squares (MLE of conditional Gaussian) and the logistic regression (MLE of conditional Bernoulli) approximate the conditional mean, they differ in the assumption of underlying distribution, which result in really different performance.</p>
+</blockquote>
+<p>Next comes two non-probabilistic models.</p>
+<h2 id="nonprobabilistic-model-fishers-linear-discriminant">Nonprobabilistic Model: Fisher's Linear Discriminant</h2>
+<h3 id="two-classes-1">Two Classes</h3>
+<p>We can view the linear discriminant as a projection function, that projects the input vector <span class="math inline">\(\mathbf{x}​\)</span> down to one dimension <span class="math display">\[
+y=\mathbf{w}^{\mathrm{T}} \mathbf{x}
+\]</span> Then to do classification for two-class problem with <span class="math inline">\(N_1\)</span> points of class <span class="math inline">\(\mathcal{C}_1\)</span> and <span class="math inline">\(N_2\)</span> points of class <span class="math inline">\(\mathcal{C}_2\)</span>, we need to select a projection that maximizes the class separation, and the simplest measure is the separation of the projected class means <span class="math display">\[
+\text{class separation}\equiv m_{2}-m_{1}=\mathbf{w}^{\mathrm{T}}\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)
+\]</span> where we defined <span class="math display">\[
+\mathbf{m}_{k}=\frac{1}{N_{k}} \sum_{n \in \mathcal{C}_{k}} \mathbf{x}_{k}, \quad m_{k}=\mathbf{w}^{\mathrm{T}} \mathbf{m}_{k}, \quad k=1,2
+\]</span> and constrain <span class="math inline">\(\mathbf{w}\)</span> to unit length since we we only care about the direction of projection, we get the following optimization problem <span class="math display">\[
+\max_\mathbf{w}\ \mathbf{w}^{\mathrm{T}}\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)
+\\ \text{s.t. }\mathbf{w}^{\mathrm{T}}\mathbf{w}=1
+\]</span> by solving this we get</p>
+<p><span class="math display">\[
+\color{red}{\mathbf{w} \propto\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)}
+\]</span></p>
+<p>However, this simplest measure has some problem for class distribution with strongly nondiagonal covariance, we can see that there will be considerable class overlap in the projected space.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-06%2013-12-26.png" alt="Simplest measure with large overlap (left), compared with Fisher LDA (right)"><figcaption>Simplest measure with large overlap (left), compared with Fisher LDA (right)</figcaption>
+</figure>
+<p>The idea proposed by Fisher is to maximize a function that will give a large separation between the projected class means while <em>also giving a small variance within each class</em>, thereby minimizing the class overlap. Hence what we want to maximize now is <span class="math display">\[
+J(\mathbf{w})=\frac{\left(m_{2}-m_{1}\right)^{2}}{s_{1}^{2}+s_{2}^{2}} \equiv  \frac{\text{between-class variance}}{\text{within-class variance}}
+\]</span> where <span class="math display">\[
+s_{k}^{2}=\sum_{n \in \mathcal{C}_{k}}\left(y_{n}-m_{k}\right)^{2},\quad k=1,2
+\]</span> To make the dependence on <span class="math inline">\(\mathbf{w}\)</span> explicit we can rewrite <span class="math display">\[
+\begin{align}
+J(\mathbf{w})&amp;=\frac{\left(m_{2}-m_{1}\right)^{2}}{s_{1}^{2}+s_{2}^{2}}
+\\ &amp;= 
+\frac{\mathbf{w}^{\mathrm{T}}\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)^{\mathrm{T}}\mathbf{w}}{\sum_{n \in \mathcal{C}_{1}}\left(\mathbf{w}^{\mathrm{T}} \mathbf{x}_n-\mathbf{w}^{\mathrm{T}} \mathbf{m}_{1}\right)^2 + \sum_{n \in \mathcal{C}_{2}}\left(\mathbf{w}^{\mathrm{T}} \mathbf{x}_n-\mathbf{w}^{\mathrm{T}} \mathbf{m}_{2}\right)^2}
+\\ &amp;= 
+\frac{\mathbf{w}^{\mathrm{T}}\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)^{\mathrm{T}}\mathbf{w}}{\mathbf{w}^\mathrm{T}\left[\sum_{n \in \mathcal{C}_{1}}\left(\mathbf{x}_{n}-\mathbf{m}_{1}\right)\left(\mathbf{x}_{n}-\mathbf{m}_{1}\right)^{\mathrm{T}}+\sum_{n \in \mathcal{C}_{2}}\left(\mathbf{x}_{n}-\mathbf{m}_{2}\right)\left(\mathbf{x}_{n}-\mathbf{m}_{2}\right)^{\mathrm{T}}\right]\mathbf{w}  }
+\\ &amp;\equiv \frac{\mathbf{w}^{\mathrm{T}} \mathbf{S}_{\mathrm{B}} \mathbf{w}}{\mathbf{w}^{\mathrm{T}} \mathbf{S}_{\mathrm{W}} \mathbf{w}}
+\end{align}
+\]</span> By differentiating <span class="math inline">\(J(\mathbf{w})\)</span> w.r.t. <span class="math inline">\(\mathbf{w}\)</span> we have <span class="math inline">\(\left(\mathbf{w}^{\mathrm{T}} \mathbf{S}_{\mathrm{B}} \mathbf{w}\right) \mathbf{S}_{\mathrm{W}} \mathbf{w}=\left(\mathbf{w}^{\mathrm{T}} \mathbf{S}_{\mathrm{W}} \mathbf{w}\right) \mathbf{S}_\mathrm{B} \mathbf{w}\)</span>, Thus</p>
+<p><span class="math display">\[
+\begin{align}
+\mathbf{w} &amp;\propto \mathbf{S}_{\mathrm{W}}^{-1}\mathbf{S}_\mathrm{B} \mathbf{w} 
+\\&amp;=\mathbf{S}_{\mathrm{W}}^{-1} \left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)^{\mathrm{T}}\mathbf{w}
+\\&amp;\propto \color{red}{\mathbf{S}_{\mathrm{W}}^{-1} (\mathbf{m}_{2}-\mathbf{m}_{1})}
+\end{align}
+\]</span></p>
+<p>Note that Fisher LDA degrades to simplest form as we discussed before when <span class="math inline">\(\mathbf{S}_{\mathrm{W}}\propto \mathbf{I}\)</span>.</p>
+<p>Now that we have developed a way to determine the direction of <span class="math inline">\(\mathbf{w}\)</span>, what remained is to choose a threshold <span class="math inline">\(y_0\)</span> to classify a new point as belonging to <span class="math inline">\(\mathcal{C}_1\)</span> if <span class="math inline">\(y(\mathbf{x}) \geqslant y_{0}\)</span> and vice versa. We can do this, for example, by modeling the class-conditional densities <span class="math inline">\(p\left(y | \mathcal{C}_{k}\right)\)</span> using Gaussian distributions and then use decision theory to find out the optimal threshold.</p>
+<h3 id="relation-to-least-squares">Relation to Least Squares</h3>
+<p>In this section we show that for the two-class problem, the Fisher criterion can be obtained as a special case of least squares.</p>
+<p>First modify the targets for class <span class="math inline">\(\mathcal{C}_1\)</span> to be <span class="math inline">\(N/N_1\)</span> and for <span class="math inline">\(\mathcal{C}_2\)</span> to be <span class="math inline">\(-N/N_2\)</span>, where <span class="math inline">\(N_k\)</span> is the number of patterns in class <span class="math inline">\(\mathcal{C}_k​\)</span>, so that we have <span class="math display">\[
+\sum_{n=1}^{N} t_{n}=N_{1} \frac{N}{N_{1}}-N_{2} \frac{N}{N_{2}}=0
+\]</span> Rewrite the sum-of-error function to make <span class="math inline">\(w_0\)</span> explicit <span class="math display">\[
+E=\frac{1}{2} \sum_{n=1}^{N}\left(\mathbf{w}^{\mathrm{T}} \mathbf{x}_{n}+w_{0}-t_{n}\right)^{2}
+\]</span> then set derivative of <span class="math inline">\(E\)</span> w.r.t. <span class="math inline">\(w_0\)</span> and <span class="math inline">\(\mathbf{w}\)</span> to zero <span class="math display">\[
+\begin{align} \sum_{n=1}^{N}\left(\mathbf{w}^{\mathrm{T}} \mathbf{x}_{n}+w_{0}-t_{n}\right) &amp;=0 \tag{1} 
+\\ \sum_{n=1}^{N}\mathbf{x}_{n}\left(\mathbf{w}^{\mathrm{T}} \mathbf{x}_{n}+w_{0}-t_{n}\right)  &amp;=0 \tag{2}\end{align}
+\]</span> From equation <span class="math inline">\((1)​\)</span> we get <span class="math display">\[
+w_{0}= -\frac{1}{N}\sum_{n=1}^{N}\left(\mathbf{w}^{\mathrm{T}} \mathbf{x}_{n}\right) = -\mathbf{w}^{\mathrm{T}} \mathbf{m}
+\]</span> where as before we defined <span class="math display">\[
+\mathbf{m}=\frac{1}{N} \sum_{n=1}^{N} \mathbf{x}_{n}=\frac{1}{N}\left(N_{1} \mathbf{m}_{1}+N_{2} \mathbf{m}_{2}\right),\text{ where } \mathbf{m}_{k}=\frac{1}{N_{k}} \sum_{n \in \mathcal{C}_{k}} \mathbf{x}_{k}, \ k=1,2
+\]</span> Substitute it into equation <span class="math inline">\((2)​\)</span> we get <span class="math display">\[
+\begin{align}
+\\ \sum_{n=1}^{N}\left(\mathbf{w}^{\mathrm{T}} \mathbf{x}_{n}+w_{0}-t_{n}\right) \mathbf{x}_{n} &amp;=0
+\\  \sum_{n=1}^{N}\left(\mathbf{w}^{\mathrm{T}} \mathbf{x}_{n}-\mathbf{w}^{\mathrm{T}} \mathbf{m}-t_{n}\right) \mathbf{x}_{n} &amp;=0
+\\ \sum_{n=1}^{N} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}\mathbf{w}-\sum_{n=1}^{N} \mathbf{x}_{n} \mathbf{m}^{\mathrm{T}}\mathbf{w}  &amp;=\sum_{n=1}^{N} t_n \mathbf{x}_{n}
+\\ \sum_{n\in\mathcal{C}_1} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}\mathbf{w} + \sum_{n\in\mathcal{C}_2} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}\mathbf{w}-\sum_{n\in\mathcal{C}_1} \mathbf{x}_{n} \mathbf{m}^{\mathrm{T}}\mathbf{w}-\sum_{n\in\mathcal{C}_2} \mathbf{x}_{n} \mathbf{m}^{\mathrm{T}}\mathbf{w}  &amp;=\frac{N}{N_1}\sum_{n\in\mathcal{C}_1} \mathbf{x}_{n} - \frac{N}{N_2}\sum_{n\in\mathcal{C}_2}\mathbf{x}_{n}
+\\ \sum_{n\in\mathcal{C}_1} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}\mathbf{w} + \sum_{n\in\mathcal{C}_2} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}\mathbf{w}-N_1\mathbf{m}_1 \mathbf{m}^{\mathrm{T}}\mathbf{w}-N_2\mathbf{m}_2 \mathbf{m}^{\mathrm{T}}\mathbf{w}  &amp;= N(\mathbf{m}_{1} -\mathbf{m}_{2})
+\\ \sum_{n\in\mathcal{C}_1} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}\mathbf{w} + \sum_{n\in\mathcal{C}_2} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}\mathbf{w}-\frac{N_1}{N}\mathbf{m}_1\left(N_{1} \mathbf{m}_{1}+N_{2} \mathbf{m}_{2}\right)^{\mathrm{T}}\mathbf{w}- \frac{N_2}{N}\mathbf{m}_2\left(N_{1} \mathbf{m}_{1}+N_{2} \mathbf{m}_{2}\right)^{\mathrm{T}}\mathbf{w}  &amp;= N(\mathbf{m}_{1} -\mathbf{m}_{2})
+\\ \left(\sum_{n\in\mathcal{C}_1} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}
++ \sum_{n\in\mathcal{C}_2} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}
+-\frac{N_1^2}{N}\mathbf{m}_1\mathbf{m}_{1}^{\mathrm{T}}
+-\frac{N_1 N_2}{N}\mathbf{m}_1\mathbf{m}_{2}^{\mathrm{T}}
+-\frac{N_1 N_2}{N}\mathbf{m}_2\mathbf{m}_{1}^{\mathrm{T}}
+-\frac{N_2^2}{N}\mathbf{m}_2\mathbf{m}_{2}^{\mathrm{T}}\right)\mathbf{w}
+&amp;= N(\mathbf{m}_{1} -\mathbf{m}_{2})
+\\ \left(\sum_{n\in\mathcal{C}_1} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}
++ \sum_{n\in\mathcal{C}_2} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}
+-\frac{(N-N_2)N_1}{N}\mathbf{m}_1\mathbf{m}_{1}^{\mathrm{T}}
+-\frac{N_1 N_2}{N}\mathbf{m}_1\mathbf{m}_{2}^{\mathrm{T}}
+-\frac{N_1 N_2}{N}\mathbf{m}_2\mathbf{m}_{1}^{\mathrm{T}}
+-\frac{(N-N_1)N_2}{N}\mathbf{m}_2\mathbf{m}_{2}^{\mathrm{T}}\right)\mathbf{w}
+&amp;= N(\mathbf{m}_{1} -\mathbf{m}_{2})
+\\ \left(\sum_{n\in\mathcal{C}_1} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}
++ \sum_{n\in\mathcal{C}_2} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}
+-N_1\mathbf{m}_1\mathbf{m}_{1}^{\mathrm{T}}
++\frac{N_1N_2}{N}\mathbf{m}_1\mathbf{m}_{1}^{\mathrm{T}}
+-\frac{N_1 N_2}{N}\mathbf{m}_1\mathbf{m}_{2}^{\mathrm{T}}
+-\frac{N_1 N_2}{N}\mathbf{m}_2\mathbf{m}_{1}^{\mathrm{T}}
+-N_2\mathbf{m}_2\mathbf{m}_{2}^{\mathrm{T}}
++\frac{N_1N_2}{N}\mathbf{m}_2\mathbf{m}_{2}^{\mathrm{T}}\right)\mathbf{w}
+&amp;= N(\mathbf{m}_{1} -\mathbf{m}_{2})
+\\ \left(\sum_{n\in\mathcal{C}_1} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}
++ \sum_{n\in\mathcal{C}_2} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}
+-N_1\mathbf{m}_1\mathbf{m}_{1}^{\mathrm{T}}
+-N_2\mathbf{m}_2\mathbf{m}_{2}^{\mathrm{T}}
++\frac{N_1N_2}{N}\left(\mathbf{m}_1\mathbf{m}_{1}^{\mathrm{T}}
+-\mathbf{m}_1\mathbf{m}_{2}^{\mathrm{T}}
+-\mathbf{m}_2\mathbf{m}_{1}^{\mathrm{T}}
++\mathbf{m}_2\mathbf{m}_{2}^{\mathrm{T}}\right)
+\right)\mathbf{w}
+&amp;= N(\mathbf{m}_{1} -\mathbf{m}_{2})
+\\ \left(\sum_{n\in\mathcal{C}_1} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}
++ \sum_{n\in\mathcal{C}_2} \mathbf{x}_{n} \mathbf{x}_{n}^{\mathrm{T}}
+-\sum_{n\in\mathcal{C}_1}\mathbf{m}_1\mathbf{m}_{1}^{\mathrm{T}}
+-\sum_{n\in\mathcal{C}_2}\mathbf{m}_2\mathbf{m}_{2}^{\mathrm{T}}
++\frac{N_1N_2}{N}\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)^{\mathrm{T}}
+\right)\mathbf{w}
+&amp;= N(\mathbf{m}_{1} -\mathbf{m}_{2})
+\\ \left(\sum_{n \in \mathcal{C}_{1}}\left(\mathbf{x}_{n}-\mathbf{m}_{1}\right)\left(\mathbf{x}_{n}-\mathbf{m}_{1}\right)^{\mathrm{T}}+\sum_{n \in \mathcal{C}_{2}}\left(\mathbf{x}_{n}-\mathbf{m}_{2}\right)\left(\mathbf{x}_{n}-\mathbf{m}_{2}\right)^{\mathrm{T}}
++\frac{N_1N_2}{N}\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)^{\mathrm{T}}
+\right)\mathbf{w}
+&amp;= N(\mathbf{m}_{1} -\mathbf{m}_{2})
+\\ \left(\mathbf{S}_{\mathrm{W}}+\frac{N_{1} N_{2}}{N} \mathbf{S}_{\mathrm{B}}\right) \mathbf{w}&amp;=N\left(\mathbf{m}_{1}-\mathbf{m}_{2}\right)
+\end{align}
+\]</span> And recall that <span class="math inline">\(\mathbf{S}_{\mathrm{B}}\mathbf{w}\)</span> is always in the direction of <span class="math inline">\(\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)\)</span>, thus we again have <span class="math display">\[
+\mathbf{w} \propto \mathbf{S}_{\mathrm{W}}^{-1}\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)
+\]</span> Note that from this approach we additionally found an expression for the bias value <span class="math inline">\(w_{0}=-\mathbf{w}^{\mathrm{T}} \mathbf{m}\)</span>.</p>
+<h3 id="multiple-classes-1">Multiple Classes</h3>
+<p>To generalize Fisher LDA to <span class="math inline">\(K&gt;2\)</span> classes, we use weight matrix to introduce multiple 'features' <span class="math display">\[
+\mathbf{y}=\mathbf{W}^{\mathrm{T}} \mathbf{x}
+\]</span> The generalization of the within-class covariance matrix is easy to achieve <span class="math display">\[
+\mathbf{S}_{\mathrm{W}}=\sum_{k=1}^{K} \mathbf{S}_{k} = \sum_{k=1}^{K}\sum_{n \in \mathcal{C}_{k}}\left(\mathbf{x}_{n}-\mathbf{m}_{k}\right)\left(\mathbf{x}_{n}-\mathbf{m}_{k}\right)^{\mathrm{T}}, \text{ where } \mathbf{m}_{k}=\frac{1}{N_{k}} \sum_{n \in \mathcal{C}_{k}} \mathbf{x}_{n}
+\]</span> However, it's hard to generalize the between-class covariance matrix from <span class="math inline">\(\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)\left(\mathbf{m}_{2}-\mathbf{m}_{1}\right)^{\mathrm{T}}​\)</span>. Instead we can consider first the total matrix <span class="math display">\[
+\mathbf{S}_{\mathrm{T}}=\sum_{n=1}^{N}\left(\mathbf{x}_{n}-\mathbf{m}\right)\left(\mathbf{x}_{n}-\mathbf{m}\right)^{\mathrm{T}},\text{ where } \mathbf{m}=\frac{1}{N} \sum_{n=1}^{N} \mathbf{x}_{n}=\frac{1}{N} \sum_{k=1}^{K} N_{k} \mathbf{m}_{k}
+\]</span> and then take <span class="math inline">\(\mathbf{S}_\mathrm{B}\)</span> as the form <span class="math display">\[
+\begin{align}
+\mathbf{S}_{\mathrm{B}} &amp;=\mathbf{S}_{\mathrm{T}} - \mathbf{S}_{\mathrm{W}}
+\\ &amp;= \sum_{k=1}^{K} \sum_{n \in \mathcal{C}_k}\left(\mathbf{x}_{n}-\mathbf{m}\right)\left(\mathbf{x}_{n}-\mathbf{m}\right)^{\mathrm{T}}  - \sum_{k=1}^{K}\sum_{n \in \mathcal{C}_{k}}\left(\mathbf{x}_{n}-\mathbf{m}_{k}\right)\left(\mathbf{x}_{n}-\mathbf{m}_{k}\right)^{\mathrm{T}} 
+\\ &amp;= \sum_{k=1}^{K} \sum_{n \in \mathcal{C}_k} \left( \mathbf{x}_{n}\mathbf{x}_{n}^\mathrm{T} - \mathbf{m}\mathbf{x}_{n}^\mathrm{T} - \mathbf{x}_{n}\mathbf{m}^\mathrm{T} + \mathbf{m}\mathbf{m}^\mathrm{T} 
+- \mathbf{x}_{n}\mathbf{x}_{n}^\mathrm{T} + \mathbf{m}_k\mathbf{x}_{n}^\mathrm{T} + \mathbf{x}_{n}\mathbf{m}_k^\mathrm{T} - \mathbf{m}_k\mathbf{m}_k^\mathrm{T} \right)
+\\ &amp;= \sum_{k=1}^{K} \sum_{n \in \mathcal{C}_k} \left(  - \mathbf{m}\mathbf{x}_{n}^\mathrm{T} - \mathbf{x}_{n}\mathbf{m}^\mathrm{T} + \mathbf{m}\mathbf{m}^\mathrm{T} 
+ + \mathbf{m}_k\mathbf{x}_{n}^\mathrm{T} + \mathbf{x}_{n}\mathbf{m}_k^\mathrm{T} - \mathbf{m}_k\mathbf{m}_k^\mathrm{T} \right)
+\\ &amp;= \sum_{k=1}^{K} N_k \left(  - \mathbf{m}\mathbf{m}_k^\mathrm{T} - \mathbf{m}_k\mathbf{m}^\mathrm{T} + \mathbf{m}\mathbf{m}^\mathrm{T} 
+ + \mathbf{m}_k\mathbf{m}_k^\mathrm{T} \right)
+\\ &amp;= \sum_{k=1}^{K} N_{k}\left(\mathbf{m}_{k}-\mathbf{m}\right)\left(\mathbf{m}_{k}-\mathbf{m}\right)^{\mathrm{T}}
+\end{align}
+\]</span> We can similarly define them in the projected <span class="math inline">\(\mathbf{y}\)</span>-space as <span class="math display">\[
+\mathbf{s}_{W}= \mathbf{W}^{T} \mathbf{S}_{W} \mathbf{W}
+\\ \mathbf{s}_{B}= \mathbf{W}^{T} \mathbf{S}_{B} \mathbf{W}
+\]</span> Again we wish to construct a scalar that is large when the between-class covariance is large and when the within-class covariance is small, one possible choice is <span class="math display">\[
+J(\mathbf{W})=\operatorname{Tr}\left\{\mathbf{s}_{\mathrm{W}}^{-1} \mathbf{s}_{\mathrm{B}}\right\}
+\]</span> It can be shown that the weight values are determined by those eigenvectors of <span class="math inline">\(\mathbf{S}_{\mathrm{W}}^{-1} \mathbf{S}_{\mathrm{B}}\)</span>, but we are unable to find more than <span class="math inline">\((K − 1)\)</span> linear ‘features’ by this means since from the definition of <span class="math inline">\(\mathbf{S}_\mathrm{B}\)</span> we see that the rank of <span class="math inline">\(\mathbf{S}_{\mathrm{B}}\)</span> is no longer than <span class="math inline">\((K-1)​\)</span>.</p>
+<h2 id="nonprobabilistic-model-the-perceptron-algorithm">Nonprobabilistic Model: The Perceptron Algorithm</h2>
+<p>The perceptron algorithm occupies an important place in the history of pattern recognition, which takes the form <span class="math display">\[
+y(\mathbf{x})=f\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}(\mathbf{x})\right)
+\]</span> where <span class="math inline">\(f\)</span> is a nonlinear activation function given by a step function of the form <span class="math display">\[
+f(a)=\left\{\begin{array}{ll}{+1,} &amp; {a \geq 0} \\ {-1,} &amp; {a&lt;0}\end{array}\right.
+\]</span> So to match the choice of activation function, we use target values <span class="math inline">\(t=+1\)</span> for <span class="math inline">\(\mathcal{C}_1\)</span> and <span class="math inline">\(t=-1\)</span> for <span class="math inline">\(\mathcal{C}_2\)</span>, which will also help in the later expression of error function.</p>
+<p>We can determine <span class="math inline">\(\mathbf{w}\)</span> by simply minimizing the total misclassification patterns. However, this approach corresponds to a piecewise constant error function w.r.t. <span class="math inline">\(\mathbf{w}​\)</span>, gradient based optimization methods cannot be applied.</p>
+<p>An alternative error function is known as <strong>perceptron criterion</strong>, which takes the form <span class="math display">\[
+E_{\mathrm{P}}(\mathbf{w})=-\sum_{n \in \mathcal{M}} \mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}_{n}\left(\mathbf{x}\right) t_{n}
+\]</span> where <span class="math inline">\(\mathcal{M}\)</span> denotes the set of all misclassified patterns. It is motivated by the fact that all correctly classified patterns satisfy <span class="math inline">\(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right) t_{n}&gt;0\)</span>, so the larger the value of <span class="math inline">\(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right)\)</span> is, the more confident the classification is. Then an SGD method can be applied after observing one single point <span class="math display">\[
+\mathbf{w}^{(\tau+1)}=\mathbf{w}^{(\tau)}-\eta \nabla E_{\mathrm{P}}(\mathbf{w})=\mathbf{w}^{(\tau)}+\eta \boldsymbol{\phi}\left(\mathbf{x}_{n}\right) t_{n}
+\]</span> where <span class="math inline">\(\eta​\)</span> is the learning rate.</p>
+<p>There is a simple interpretation of perceptron algorithm that when <span class="math inline">\(\boldsymbol{\phi}\left(\mathbf{x}_{n}\right)\)</span> is misclassified, the current estimate of <span class="math inline">\(\mathbf{w}\)</span> will move in the direction of <span class="math inline">\(\boldsymbol{\phi}\left(\mathbf{x}_{n}\right)​\)</span>.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-04-04/Screenshot%20from%202019-04-06%2023-45-58.png" alt="An illustration of the interpretation, where \eta=1, each row corresponds to one update step. The arrow points towards the decision region of the red class. After two steps the algorithm converges."><figcaption>An illustration of the interpretation, where <span class="math inline">\(\eta=1\)</span>, each row corresponds to one update step. The arrow points towards the decision region of the red class. After two steps the algorithm converges.</figcaption>
+</figure>
+<p>Though it can be proved that if the training data set is linearly separable, then the perceptron learning algorithm is guaranteed to find an exact solution in a finite number of steps, this simple algorithm has many limitations as follows:</p>
+<ul>
+<li>If linear separable, there are many possible solutions depending on different initialization, If not, this algorithm never converge</li>
+<li>Does not provide probabilistic outputs</li>
+<li>Cannot generalize to <span class="math inline">\(K&gt;2\)</span> classes</li>
+</ul>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/">#</a></span>
+    
+    </div>
+    
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/cache/PRML4-1.html';
+        this.page.identifier = 'prml4-1';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+    
+</body>
+</html>

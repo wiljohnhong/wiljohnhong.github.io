@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>(PRML Notes) 3.3 Bayesian Linear Regression - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a Bayesian view of linear regression, which avoids the over-fitting problem of MLE and also leads to auto">
+<meta name="keywords" content="PRML">
+<meta property="og:type" content="website">
+<meta property="og:title" content="(PRML Notes) 3.3 Bayesian Linear Regression">
+<meta property="og:url" content="http://wiljohn.top/cache/PRML3-3.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a Bayesian view of linear regression, which avoids the over-fitting problem of MLE and also leads to auto">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2023-38-30.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2023-38-38.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-24%2000-07-21.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-24%2000-07-31.png">
+<meta property="og:updated_time" content="2020-10-24T15:22:50.871Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(PRML Notes) 3.3 Bayesian Linear Regression">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a Bayesian view of linear regression, which avoids the over-fitting problem of MLE and also leads to auto">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2023-38-30.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            (PRML Notes) 3.3 Bayesian Linear Regression
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-23T10:54:04.000Z" itemprop="datePublished">Mar 23 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            10 minutes read (About 1494 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>This section turns to a <em>Bayesian view</em> of linear regression, which avoids the over-fitting problem of MLE and also leads to automatic methods of determining the model complexity using a single training data set alone.</p>
+<a id="more"></a>
+<h2 id="parameter-distribution">Parameter Distribution</h2>
+<p>For the moment we assume the precision <span class="math inline">\(\beta\)</span> in data distribution <span class="math inline">\(p(\boldsymbol{\mathsf{t}}|\mathbf{w}, \beta) = \mathcal{N}\left(\boldsymbol{\mathsf{t}}| \boldsymbol{\Phi}\mathbf{w}, \beta^{-1}\mathbf{I}\right)\)</span> is a known constant. Then from a Bayesian view a corresponding conjugate prior takes the form <span class="math display">\[
+p(\mathbf{w})=\mathcal{N}(\mathbf{w} | \mathbf{m}_{0}, \mathbf{S}_{0})
+\]</span> The posterior <span class="math inline">\(p(\mathbf{w} | \boldsymbol{\mathsf{t}})=\mathcal{N}(\mathbf{w} | \mathbf{m}_{N}, \mathbf{S}_{N})​\)</span> can be directly got by using the results in section 2.3.3 where <span class="math display">\[
+\begin{aligned} \mathbf{m}_{N} &amp;=\mathbf{S}_{N}\left(\mathbf{S}_{0}^{-1} \mathbf{m}_{0}+\beta \mathbf{\Phi}^{\mathrm{T}} \boldsymbol{\mathsf{t}}\right) \\ \mathbf{S}_{N}^{-1} &amp;=\mathbf{S}_{0}^{-1}+\beta \mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi} \end{aligned}
+\]</span> Note that for a Gaussian, its mode coincides with its mean, so <span class="math inline">\(\mathbf{w}_{\mathrm{MAP}}=\mathbf{m}_{N}\)</span>.</p>
+<p>If the prior is noninformative, namely <span class="math inline">\(\mathbf{S}_{0}=\alpha^{-1} \mathbf{I}​\)</span> with <span class="math inline">\(\alpha \rightarrow 0​\)</span>, we can see that <span class="math display">\[
+\begin{align}
+\mathbf{m}_{N} &amp;=\left(\mathbf{S}_{0}^{-1}+\beta \mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi} \right)^{-1}\left(\mathbf{S}_{0}^{-1} \mathbf{m}_{0}+\beta \mathbf{\Phi}^{\mathrm{T}} \boldsymbol{\mathsf{t}}\right) 
+\\&amp;=\left(\beta \mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi} \right)^{-1}\beta \mathbf{\Phi}^{\mathrm{T}} \boldsymbol{\mathsf{t}}
+\\&amp;=\left(\mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi} \right)^{-1}\mathbf{\Phi}^{\mathrm{T}} \boldsymbol{\mathsf{t}}
+\end{align}
+\]</span> which reduces to the MLE solution <span class="math inline">\(\mathbf{w}_\mathrm{ML}​\)</span> without regularization.</p>
+<p>Later in this chapter, the prior is simplified to be <span class="math inline">\(p(\mathbf{w} | \alpha)=\mathcal{N}(\mathbf{w} | \mathbf{0}, \alpha^{-1} \mathbf{I})​\)</span>, and we can see that now <span class="math display">\[
+\begin{align}
+\mathbf{m}_{N} &amp;=\left(\mathbf{S}_{0}^{-1}+\beta \mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi} \right)^{-1}\left(\mathbf{S}_{0}^{-1} \mathbf{m}_{0}+\beta \mathbf{\Phi}^{\mathrm{T}} \boldsymbol{\mathsf{t}}\right) 
+\\&amp;=\left(\alpha \mathbf{I}+\beta \mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi} \right)^{-1}\beta \mathbf{\Phi}^{\mathrm{T}} \boldsymbol{\mathsf{t}}
+\\&amp;=\left(\frac{\alpha}{\beta} \mathbf{I}+ \mathbf{\Phi}^{\mathrm{T}} \mathbf{\Phi} \right)^{-1} \mathbf{\Phi}^{\mathrm{T}} \boldsymbol{\mathsf{t}}
+\end{align}
+\]</span> which is just the same as the result of minimizing the regularized error <span class="math inline">\(\frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|^2 +\frac{\lambda}{2} \|\mathbf{w}\|^2\)</span>, with <span class="math inline">\(\lambda = \alpha/\beta\)</span>. If we generalize the prior to be <span class="math display">\[
+p(\mathbf{w} | \alpha)=\left[\frac{q}{2}\left(\frac{\alpha}{2}\right)^{1 / q} \frac{1}{\Gamma(1 / q)}\right]^{M} \exp \left(-\frac{\alpha}{2} \sum_{j=1}^{M}\left|w_{j}\right|^{q}\right)
+\]</span> where <span class="math inline">\(q=2\)</span> is just the Gaussian, then under this prior the solution of <span class="math inline">\(\mathbf{w}_{\mathrm{MAP}}\)</span> is just the same as minimizing the generalized regularized error <span class="math inline">\(\frac{1}{2} \| \boldsymbol{\mathsf{t}} - \mathbf{\Phi w} \|^2 +\frac{\lambda}{2} \|\mathbf{w}\|^q\)</span>.</p>
+<p>Furthermore, like before, it can be shown that if data points arrive sequentially, then the posterior distribution can be updated sequentially as a new prior for subsequent data point.</p>
+<h2 id="predictive-distribution">Predictive Distribution</h2>
+<p>To make prediction of <span class="math inline">\(t​\)</span> for new <span class="math inline">\(\mathbf{x}​\)</span>, we use the <strong>predictive distribution</strong> defined by <span class="math display">\[
+p(t | \boldsymbol{\mathsf{t}}, \alpha, \beta)=\int p(t | \mathbf{w}, \beta) p(\mathbf{w} | \boldsymbol{\mathsf{t}}, \alpha, \beta) \mathrm{d} \mathbf{w}
+\]</span> where the posterior <span class="math inline">\(p(\mathbf{w} | \boldsymbol{\mathsf{t}}, \alpha, \beta)=\mathcal{N}(\mathbf{w} | \mathbf{m}_{N}, \mathbf{S}_{N})​\)</span> is defined as before, also the likelihood <span class="math inline">\(p(t | \mathbf{w}, \beta) = \mathcal{N} (t|\mathbf{w}^\mathrm{T}\phi(\mathbf{x}), \beta^{-1})​\)</span>. Again using the results in section 2.3.3, we get <span class="math display">\[
+p(t | \mathbf{x}, \boldsymbol{\mathsf{t}}, \alpha, \beta)=\mathcal{N}(t | \mathbf{m}_{N}^{\mathrm{T}} \boldsymbol{\phi}(\mathbf{x}), \sigma_{N}^{2}(\mathbf{x}))
+\]</span> where the variance is given by <span class="math inline">\(\sigma_{N}^{2}(\mathbf{x})=\frac{1}{\beta}+\phi(\mathbf{x})^{\mathrm{T}} \mathbf{S}_{N} \phi(\mathbf{x})​\)</span>. In the variance, the first term represents the noise on data, and the second term reflects the uncertainty w.r.t. <span class="math inline">\(\mathbf{w}\)</span>. These two terms are addictive since the likelihood of new data and posterior after observing old data are independent Gaussian.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2023-38-30.png" alt="Illustration of predictive distribution after observing more and more data, modeled with Gaussian basis."><figcaption>Illustration of predictive distribution after observing more and more data, modeled with Gaussian basis.</figcaption>
+</figure>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2023-38-38.png" alt="Sampled curves from posterior after observing more and more data."><figcaption>Sampled curves from posterior after observing more and more data.</figcaption>
+</figure>
+<p>We see that the predictive uncertainty depends on <span class="math inline">\(x\)</span> and is smallest in the neighborhood of the data points, since we use a localized basis function. Also note that the level of uncertainty decreases as more data points are observed.</p>
+<p>Note that since <span class="math inline">\(\sigma_{N}^{2}(\mathbf{x})=\frac{1}{\beta}+\phi(\mathbf{x})^{\mathrm{T}} \mathbf{S}_{N} \phi(\mathbf{x})\)</span>, if we use a localized basis like Gaussian, then in regions away from basis centers, <span class="math inline">\(\phi(\mathbf{x})\)</span> will go to zero, resulting in very confident predictions when do extrapolation.</p>
+<h2 id="equivalent-kernel">Equivalent Kernel</h2>
+<p>Recall that the posterior <span class="math inline">\(p(\mathbf{w} | \boldsymbol{\mathsf{t}})=\mathcal{N}(\mathbf{w} | \mathbf{m}_{N}, \mathbf{S}_{N})\)</span>. And for the simplified prior <span class="math inline">\(p(\mathbf{w} | \alpha)=\mathcal{N}(\mathbf{w} | \mathbf{0}, \alpha^{-1} \mathbf{I})\)</span>, the posterior mean (mode) <span class="math inline">\(\mathbf{m}_N = \mathbf{w}_\mathrm{MAP}= \beta \mathbf{S}_{N} \mathbf{\Phi}^{\mathrm{T}} \boldsymbol{\mathsf{t}}\)</span>. So we can rewrite the predicted target of <span class="math inline">\(\mathbf{x}\)</span> as <span class="math display">\[
+t = \mathbf{w}_\mathrm{MAP}^{\mathrm{T}} \boldsymbol{\phi}(\mathbf{x})=\beta \boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}} \mathbf{S}_{N} \mathbf{\Phi}^{\mathrm{T}} \boldsymbol{\mathsf{t}}=\sum_{n=1}^{N} \beta \boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}} \mathbf{S}_{N} \boldsymbol{\phi}\left(\mathbf{x}_{n}\right) t_{n} \equiv \sum_{n=1}^{N} k\left(\mathbf{x}, \mathbf{x}_{n}\right) t_{n}
+\]</span> where <span class="math inline">\(k\left(\mathbf{x}, \mathbf{x}^{\prime}\right)=\beta\boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}} \mathbf{S}_{N} \boldsymbol{\phi}\left(\mathbf{x}&#39;\right)​\)</span> is known as <strong>smoother matrix</strong> or <strong>equivalent kernel</strong>. Regression functions like this that make predictions by taking linear combinations of the training set target values are known as <strong>linear smoothers</strong>.</p>
+<p>Note that the equivalent kernels have localization property that the prediction of target on <span class="math inline">\(x\)</span> is formed by a weighted combination of the target values in which data points close to <span class="math inline">\(x\)</span> are given higher weight than points further removed from <span class="math inline">\(x\)</span>. This property not only holds for localized basis function like Gaussian, but also for the nonlocal polynomial and sigmoidal basis functions.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-24%2000-07-21.png" alt="Equivalent kernel k(x,x&#39;) for Gaussian basis functions, shown as a 2D plot of x versus x&#39;, with 3 slices for different x on the left."><figcaption>Equivalent kernel <span class="math inline">\(k(x,x&#39;)\)</span> for Gaussian basis functions, shown as a 2D plot of <span class="math inline">\(x\)</span> versus <span class="math inline">\(x&#39;\)</span>, with 3 slices for different <span class="math inline">\(x\)</span> on the left.</figcaption>
+</figure>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-24%2000-07-31.png" alt="Plot of k(0,x&#39;), left corresponds to the polynomial basis functions, and right to sigmoidal basis functions."><figcaption>Plot of <span class="math inline">\(k(0,x&#39;)\)</span>, left corresponds to the polynomial basis functions, and right to sigmoidal basis functions.</figcaption>
+</figure>
+<blockquote>
+<p>Intuitively, <span class="math inline">\(k\left(\mathbf{x}, \mathbf{x}^{\prime}\right)\)</span> represents how much a point <span class="math inline">\(\mathbf{x}^{\prime}\)</span> on the training set should respond to <span class="math inline">\(\mathbf{x}\)</span>.</p>
+</blockquote>
+<p>Further insight can be obtained by considering the covariance <span class="math display">\[
+\begin{aligned} \operatorname{cov}\left[y(\mathbf{x}), y\left(\mathbf{x}^{\prime}\right)\right] &amp;=\operatorname{cov}\left[\boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}} \mathbf{w}, \mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\left(\mathbf{x}^{\prime}\right)\right]  = \boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}}\operatorname{cov}\left[ \mathbf{w}, \mathbf{w}^{\mathrm{T}} \right]\boldsymbol{\phi}\left(\mathbf{x}^{\prime}\right)\\ &amp;=\boldsymbol{\phi}(\mathbf{x})^{\mathrm{T}} \mathbf{S}_{N} \boldsymbol{\phi}\left(\mathbf{x}^{\prime}\right)=\beta^{-1} k\left(\mathbf{x}, \mathbf{x}^{\prime}\right) \end{aligned}
+\]</span> We see that the predictive mean at nearby points will be highly correlated.</p>
+<p>Equivalent kernels can be used as an alternative approach to regression, that instead of introducing a set of basis functions, we can instead define a localized kernel directly to make predictions for new input vectors. This leads to a framework for regression call <strong>Gaussian processes</strong>.</p>
+<p>There is a pleasing result that for all <span class="math inline">\(\mathbf{x}\)</span> <span class="math display">\[
+\sum_{n=1}^{N} k\left(\mathbf{x}, \mathbf{x}_{n}\right)=1
+\]</span> which can be intuitively proved that if the training data can be fitted exactly, then the summation is equivalent to the predicted target on <span class="math inline">\(\mathbf{x}\)</span>, i.e. <span class="math inline">\(\sum_{n=1}^{N} k\left(\mathbf{x}, \mathbf{x}_{n}\right)t_n\)</span>, where <span class="math inline">\(t_n =1,\ \forall n\)</span>. Since the model is well fitted, so all predictions will be one.</p>
+<blockquote>
+<p>Note that the kernel function can be negative as well as positive.</p>
+</blockquote>
+<p>Note that equivalent kernel satisfies an general property for kernel functions that it can be expressed in the form of inner product <span class="math display">\[
+k(\mathbf{x}, \mathbf{z})=\boldsymbol{\psi}(\mathbf{x})^{\mathrm{T}} \boldsymbol{\psi}(\mathbf{z})
+\]</span> where <span class="math inline">\(\boldsymbol{\psi}(\mathbf{x})=\beta^{1 / 2} \mathbf{S}_{N}^{1 / 2} \boldsymbol{\phi}(\mathbf{x})\)</span>.</p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/">#</a></span>
+    
+    </div>
+    
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/cache/PRML3-3.html';
+        this.page.identifier = 'prml3-3';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+    
+</body>
+</html>

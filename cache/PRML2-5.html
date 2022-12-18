@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>(PRML Notes) 2.5 Nonparametric Methods - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Limitation of previous parametric approach to density modeling is that the chosen density might be a poor model of the distribu">
+<meta name="keywords" content="PRML">
+<meta property="og:type" content="website">
+<meta property="og:title" content="(PRML Notes) 2.5 Nonparametric Methods">
+<meta property="og:url" content="http://wiljohn.top/cache/PRML2-5.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Limitation of previous parametric approach to density modeling is that the chosen density might be a poor model of the distribu">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-17/Screenshot%20from%202019-03-17%2014-10-02.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-17/Screenshot%20from%202019-03-17%2014-10-13.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-17/Screenshot%20from%202019-03-17%2014-10-24.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-17/Screenshot%20from%202019-03-17%2014-10-35.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-17/Screenshot%20from%202019-03-17%2014-10-47.png">
+<meta property="og:updated_time" content="2020-10-24T15:22:50.869Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(PRML Notes) 2.5 Nonparametric Methods">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Limitation of previous parametric approach to density modeling is that the chosen density might be a poor model of the distribu">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-17/Screenshot%20from%202019-03-17%2014-10-02.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            (PRML Notes) 2.5 Nonparametric Methods
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-17T06:02:04.000Z" itemprop="datePublished">Mar 17 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            9 minutes read (About 1286 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>Limitation of previous parametric approach to density modeling is that the chosen density might be a poor model of the distribution that generates data. This section will focus mainly on simple frequentist nonparametric methods.</p>
+<h2 id="histogram-methods">Histogram Methods</h2>
+<p>Standard histogram methods simply partition <span class="math inline">\(x\)</span> into distinct bins of width <span class="math inline">\(\Delta_i\)</span>, and count the number of <span class="math inline">\(n_i\)</span> of observations of <span class="math inline">\(x\)</span> falling in bin <span class="math inline">\(i\)</span>. Then the probability density in each bin is given by</p>
+<a id="more"></a>
+<p><span class="math display">\[
+p_{i}=\frac{n_{i}}{N \Delta_{i}}
+\]</span> it can be easily verified that <span class="math inline">\(\int p(x) \mathrm{d} x=1\)</span>.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-17/Screenshot%20from%202019-03-17%2014-10-02.png" alt="Illustration of the histogram approach to density estimation, where 50 data points are generated from the green curve distribution"><figcaption>Illustration of the histogram approach to density estimation, where 50 data points are generated from the green curve distribution</figcaption>
+</figure>
+<p>We see that <span class="math inline">\(\Delta​\)</span> acts as a smoothing parameter that for small <span class="math inline">\(\Delta​\)</span> (top figure), a lot of structure is not present in the underlying distribution, and for large <span class="math inline">\(\Delta​\)</span> (bottom figure), it is too smooth to capture the binomial property.</p>
+<p>Two advantages of this simple methods:</p>
+<ul>
+<li>Once the histogram has been computed, the data set itself can be discarded, also can be easily applied if the data points are arriving sequentially</li>
+<li>Can be useful for obtaining a quick visualization of data in low dimensions</li>
+</ul>
+<p>Two problems:</p>
+<ul>
+<li>The estimated density has <em>discontinuities</em> that are due to the bin edges</li>
+<li>Curse of dimensionality, few data in each bin in high dimensional space</li>
+</ul>
+<p>Despite the simplicity of this histogram approach, we can gain two insights from it:</p>
+<ul>
+<li>How should we define the concept of locality, since we consider the data points that lie within some local neighborhood. Can we apply other distance measures?</li>
+<li>Model complexity matters, like <span class="math inline">\(\Delta\)</span> here.</li>
+</ul>
+<h2 id="general-local-density-estimate">General Local Density Estimate</h2>
+<p>Consider <span class="math inline">\(N​\)</span> observations drawn <span class="math inline">\(p(\mathbf{x})​\)</span> in <span class="math inline">\(D​\)</span>-dimensional space and some small region <span class="math inline">\(\mathcal{R}​\)</span> containing <span class="math inline">\(\mathbf{x}​\)</span>. The probability mass associated with this region is given by <span class="math display">\[
+P=\int_{\mathcal{R}} p(\mathbf{x}) \mathrm{d} \mathbf{x} \simeq p(\mathbf{x}) V
+\]</span> where <span class="math inline">\(V\)</span> is the volume of <span class="math inline">\(\mathcal{R}\)</span>, and we suppose <span class="math inline">\(\mathcal{R}\)</span> is sufficiently small that <span class="math inline">\(p(\mathbf{x})\)</span> is roughly constant over <span class="math inline">\(\mathcal{R}\)</span>. The total number of <span class="math inline">\(K\)</span> points lie inside <span class="math inline">\(\mathcal{R}\)</span> are distributed as follows <span class="math display">\[
+\operatorname{Bin}(K | N, P)=\frac{N !}{K !(N-K) !} P^{K}(1-P)^{1-K}
+\]</span> And we know that for large <span class="math inline">\(N\)</span>, <span class="math inline">\(K \simeq N P\)</span>. Combine them we get <span class="math display">\[
+p(\mathbf{x})=\frac{K}{N V}
+\]</span> Note that the validity of this equation depends on two contradictory assumptions:</p>
+<ul>
+<li><span class="math inline">\(\mathcal{R}​\)</span> be sufficiently small, so that the density is approximately constant over the region</li>
+<li><span class="math inline">\(\mathcal{R}\)</span> be sufficiently large, so that the number <span class="math inline">\(K​\)</span> of points is sufficient for the binomial distribution to be sharply peaked.</li>
+</ul>
+<p>The result can be exploited in two different ways:</p>
+<ul>
+<li>Fix <span class="math inline">\(V\)</span>, determine <span class="math inline">\(K\)</span>: the kernel approach</li>
+<li>Fix <span class="math inline">\(K\)</span>, determine <span class="math inline">\(V\)</span>: the K-nearest-neighbor</li>
+</ul>
+<h2 id="kernel-density-estimators">Kernel Density Estimators</h2>
+<p>Represent a unit cube centerd on the origin, which is an example of a <strong>kernel function</strong>, and in this context is also called a Parzen window <span class="math display">\[
+k(\mathbf{u})=\left\{\begin{array}{ll}{1,} &amp; {\left|u_{i}\right| \leqslant 1 / 2, \quad i=1, \ldots, D} \\ {0,} &amp; {\text { otherwise }}\end{array}\right.
+\]</span> now we can use <span class="math inline">\(k\left(\left(\mathbf{x}-\mathbf{x}_{n}\right) / h\right)\)</span> to represent if the data point <span class="math inline">\(\mathbf{X}_{n}\)</span> lies inside a cube of side <span class="math inline">\(h\)</span> centered on <span class="math inline">\(\mathbf x\)</span>. Therefore the total number of data points lying inside this cube will be <span class="math display">\[
+K=\sum_{n=1}^{N} k\left(\frac{\mathbf{x}-\mathbf{x}_{n}}{h}\right)
+\]</span> Recall the result of general density estimate, where we have <span class="math inline">\(p(\mathbf{x})=K/NV​\)</span>, and here <span class="math inline">\(V=h^{D}​\)</span>, so by substituting we have <span class="math display">\[
+p(\mathbf{x})=\frac{1}{N} \sum_{n=1}^{N} \frac{1}{h^{D}} k\left(\frac{\mathbf{x}-\mathbf{x}_{n}}{h}\right)
+\]</span> This approach again suffers from the discontinuity as histogram approach, so if we choose a smoother kernel function we can obtain a smoother density model. First of all, we can reinterpret the above equation, not as a single cube centered on <span class="math inline">\(\mathbf x\)</span>, but as the sum of <span class="math inline">\(N\)</span> cubes centered on <span class="math inline">\(\mathbf x_n\)</span>. Under this view, and if we replace the cube density function instead by a Gaussian, we have <span class="math display">\[
+p(\mathbf{x})=\frac{1}{N} \sum_{n=1}^{N} \frac{1}{\left(2 \pi h^{2}\right)^{1 / 2}} \exp \left\{-\frac{\left\|\mathbf{x}-\mathbf{x}_{n}\right\|^{2}}{2 h^{2}}\right\}
+\]</span> where now <span class="math inline">\(h\)</span> represents the standard deviation of the Gaussian components. Again we see that <span class="math inline">\(h​\)</span> plays the role of a smoothing parameter.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-17/Screenshot%20from%202019-03-17%2014-10-13.png" alt="Illustration of the kernel density model applied to the same data set as before"><figcaption>Illustration of the kernel density model applied to the same data set as before</figcaption>
+</figure>
+<p>In general, any other kernel function can be chosen if s.t. <span class="math display">\[
+\begin{aligned} k(\mathbf{u}) &amp; \geqslant 0 \\ \int k(\mathbf{u}) \mathrm{d} \mathbf{u} &amp;=1 \end{aligned}
+\]</span> Such approach has great merit that there is no computation involved in the ‘training’ phase, but great weaknesses because the computational cost of evaluating the density grows linearly with the size of the data set.</p>
+<h2 id="nearest-neighbor-methods">Nearest-Neighbor Methods</h2>
+<p>In kernel density estimators, the optimal choice for <span class="math inline">\(h\)</span> may depend on location within the data space, since a large value of <span class="math inline">\(h\)</span> may lead to over-smoothing so should be used in sparse area, and a small <span class="math inline">\(h\)</span> may lead to noisy estimates so should be used in dense area. However actually <span class="math inline">\(h\)</span> is fixed for all kernels. KNN addresses this problem.</p>
+<p>The key idea of KNN is to allow the radius of the sphere to grow until it contains precisely <span class="math inline">\(K\)</span> data points, so the '<span class="math inline">\(h\)</span>' now is large in sparse area and small in dense area. Note that the model produced by KNN is not a true density model because the integral over all space diverges.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-17/Screenshot%20from%202019-03-17%2014-10-24.png" alt="Illustration of K-nearest-neighbor density estimation using the same data set, and see that it&#39;s not a true density since it goes to infinity at x_n"><figcaption>Illustration of K-nearest-neighbor density estimation using the same data set, and see that it's not a true density since it goes to infinity at <span class="math inline">\(x_n\)</span></figcaption>
+</figure>
+<p>KNN can be extended to classification problems if we apply it to each class separately and then make use of Bayes’ theorem. Suppose a data set with <span class="math inline">\(N_k\)</span> points in each class <span class="math inline">\(\mathcal{C}_k\)</span> and <span class="math inline">\(\sum_{k} N_{k}=N\)</span>. Then we draw a sphere centered on <span class="math inline">\(\mathbf x\)</span> containing precisely <span class="math inline">\(K\)</span> points irrespective of their class, and suppose this sphere has volume <span class="math inline">\(V\)</span> with <span class="math inline">\(K_k\)</span> points for each <span class="math inline">\(\mathcal{C}_k\)</span>. Then we have <span class="math display">\[
+\begin{align}
+p(\mathbf{x} | \mathcal{C}_{k}) &amp;=\frac{K_{k}}{N_{k} V}
+\\ p(\mathbf{x})&amp;=\frac{K}{N V}
+\\ p\left(\mathcal{C}_{k}\right) &amp;=\frac{N_{k}}{N}
+\end{align}
+\]</span> So we have <span class="math display">\[
+p\left(\mathcal{C}_{k} | \mathbf{x}\right)=\frac{p(\mathbf{x} | \mathcal{C}_{k}) p\left(\mathcal{C}_{k}\right)}{p(\mathbf{x})}=\frac{K_{k}}{K}
+\]</span></p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-17/Screenshot%20from%202019-03-17%2014-10-35.png" alt="(a) Classify a point according to 3-NN (b) Decision boundary of 1-NN"><figcaption>(a) Classify a point according to 3-NN (b) Decision boundary of 1-NN</figcaption>
+</figure>
+<p>If we wish to minimize the probability of misclassification, we should assign <span class="math inline">\(\mathbf x\)</span> to the class with largest <span class="math inline">\(K_k/K\)</span>.</p>
+<p>Again, we see that <span class="math inline">\(K\)</span> control the degree of smoothing.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-17/Screenshot%20from%202019-03-17%2014-10-47.png" alt="Plot of the result of KNN of 200 data points from the oil data"><figcaption>Plot of the result of KNN of 200 data points from the oil data</figcaption>
+</figure>
+<p>Note that KNN can be solved by constructing tree-based search structures to allow (approximate) near neighbors to be found efficiently without doing an exhaustive search of the data set.</p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/">#</a></span>
+    
+    </div>
+    
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/cache/PRML2-5.html';
+        this.page.identifier = 'prml2-5';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+    
+</body>
+</html>

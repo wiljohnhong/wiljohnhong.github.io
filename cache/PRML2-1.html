@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>(PRML Notes) 2.1 Binary Variables - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Bernoulli Distribution For a random variable \(x\) that, for example, describes the outcome of flipping a damaged coin, with th">
+<meta name="keywords" content="PRML">
+<meta property="og:type" content="website">
+<meta property="og:title" content="(PRML Notes) 2.1 Binary Variables">
+<meta property="og:url" content="http://wiljohn.top/cache/PRML2-1.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Bernoulli Distribution For a random variable \(x\) that, for example, describes the outcome of flipping a damaged coin, with th">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-02-27%2021-48-21.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-02-27%2021-48-47.png">
+<meta property="og:updated_time" content="2020-10-24T15:22:50.870Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(PRML Notes) 2.1 Binary Variables">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Bernoulli Distribution For a random variable \(x\) that, for example, describes the outcome of flipping a damaged coin, with th">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-02-27%2021-48-21.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            (PRML Notes) 2.1 Binary Variables
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-02-27T13:04:04.000Z" itemprop="datePublished">Feb 27 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            9 minutes read (About 1345 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<h2 id="bernoulli-distribution">Bernoulli Distribution</h2>
+<p>For a random variable <span class="math inline">\(x\)</span> that, for example, describes the outcome of flipping a damaged coin, with the probability of landing heads <span class="math inline">\(p(x=1|\mu)=\mu\)</span>, and landing tails <span class="math inline">\(p(x=0|\mu)=1-\mu\)</span>. The <strong>Bernoulli distribution</strong> is the probability over such <span class="math inline">\(x\)</span> that can be written in the form</p>
+<p><span class="math display">\[
+\mathrm{Bern}(x|\mu) = \mu^x(1-\mu)^{1-x}
+\]</span></p>
+<p>whose mean and variance are given by <span class="math display">\[
+\begin{aligned}
+\mathbb{E}[x] &amp;= \mu \\
+\mathrm{var}[x] &amp;= \mu(1-\mu)
+\end{aligned}
+\]</span></p>
+<a id="more"></a>
+<h3 id="maximum-likelihood-estimation">Maximum Likelihood Estimation</h3>
+<p>Given a data set <span class="math inline">\(\mathcal{D} = \{x_1,...,x_N \}\)</span> of observed values of <span class="math inline">\(x\)</span>, estimating the value of <span class="math inline">\(\mu\)</span> using MLE is to maximize such log likelihood <span class="math display">\[
+\ln p(\mathcal{D}|\mu) = \sum_{n=1}^N\ln p(x_n|\mu) = \sum_{n=1}^N \{x_n\ln \mu + (1-x_n)\ln(1-\mu)\}
+\]</span> Note that the log likelihood function depends on these observations only through their sum <span class="math inline">\(\sum_n x_n\)</span>, which provides an example of a <strong>sufficient statistic</strong> for the data under this distribution. By setting the derivative w.r.t. <span class="math inline">\(\mu\)</span> equal to zero, we obtain <span class="math display">\[
+\mu_{\mathrm{ML}} = \frac{1}{N}\sum_{n=1}^N x_n
+\]</span> which is also known as the <strong>sample mean</strong>, meaning that <span class="math inline">\(\mu_{\mathrm{ML}}\)</span> is given by the fraction of observations of landing heads.</p>
+<h3 id="over-fitting-problem">Over-fitting Problem</h3>
+<p>MLE usually over-fits on small data set, e.g. <span class="math inline">\(N=3\)</span> and all results are landing heads, then all the future predictions will give heads, which is unreasonable under common sense. More sensible conclusions can be arrived through the introduction of a prior distribution (e.g. beta distribution) over <span class="math inline">\(\mu​\)</span>.</p>
+<h2 id="binomial-distribution">Binomial Distribution</h2>
+<p>If we consider the variable <span class="math inline">\(m=x_1+x_2+\cdots+x_N\)</span>, which denotes the number of observations of <span class="math inline">\(x=1\)</span> (landing heads) over a data set with size <span class="math inline">\(N\)</span>, then the distribution over <span class="math inline">\(m\)</span> can be written as <span class="math display">\[
+\mathrm{Bin}(m|N,\mu) = \binom{N}{m}\mu^m(1-\mu)^{N-m}
+\]</span> This is called the <strong>Binomial Distribution</strong>, and its mean and variance can be easily given using the sum rule of independent variables <span class="math display">\[
+\begin{aligned}
+\mathbb{E}[m] &amp;= \sum_{n=1}^N \mathbb{E}[x_n] = N\mu\\
+\mathrm{var}[m] &amp;= \sum_{n=1}^N \mathrm{var}[x_n] = N\mu(1-\mu)
+\end{aligned}
+\]</span></p>
+<h2 id="beta-distribution">Beta Distribution</h2>
+<p>The beta distribution is a <strong>conjugate prior</strong> to binomial distribution, which means that having the same functional form as the binomial distribution so that resulting in a concise posterior. The beta distribution is given by <span class="math display">\[
+\mathrm{Beta}(\mu | a,b) = \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \mu^{a-1} (1-\mu)^{b-1}
+\]</span> where <span class="math inline">\(\Gamma(x) = \int_0^\infty u^{x-1} e^{-u}du\)</span> is called gamma function, and the coefficient ensure the distribution is normalized <span class="math display">\[
+\int_0^1 \mu^{a-1} (1-\mu)^{b-1}d\mu = \frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}
+\]</span> Its mean and variance are given by <span class="math display">\[
+\begin{aligned}
+\mathbb{E}[\mu] &amp;= \frac{a}{a+b}\\
+\mathrm{var}[\mu] &amp;= \frac{ab}{(a+b)^2(a+b+1)}
+\end{aligned}
+\]</span></p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-02-27%2021-48-21.png" alt="Plots of beta distribution with different hyperparameters."><figcaption>Plots of beta distribution with different hyperparameters.</figcaption>
+</figure>
+<h3 id="effective-number-of-observations">Effective Number of Observations</h3>
+<p>If we use <span class="math inline">\(l=N-m\)</span> to denote the number of observations of <span class="math inline">\(x=0\)</span> (landing tails), then the posterior distribution of <span class="math inline">\(\mu\)</span> can be obtained by <span class="math display">\[
+p(\mu|m,l,a,b) \propto p(\mu|a,b)p(m,l|\mu,a,b) \propto \mu^{m+a-1}\mu^{l+b-1}
+\]</span> By comparing this to the form of binomial distribution, we can interpret the <strong>effective number of observations</strong> of <span class="math inline">\(x=1\)</span> and <span class="math inline">\(x=0\)</span> in posterior to be <span class="math inline">\(m+a-1\)</span> and <span class="math inline">\(l+b-1\)</span>. Actually, the beta distribution as a prior provides a probability distribution over <span class="math inline">\(\mu\)</span> that having "virtually" observed <span class="math inline">\(a-1\)</span> occurrence of <span class="math inline">\(x=1\)</span> and <span class="math inline">\(b-1\)</span> occurrence of <span class="math inline">\(x=0\)</span>.</p>
+<p><em>Tips: <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> need not be integers.</em></p>
+<h3 id="sequential-update">Sequential Update</h3>
+<p>The posterior can act as a prior, when taking observations one at a time and updating the current posterior by multiplying the likelihood for the new observation and then normalize it.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-02-27%2021-48-47.png" alt="Sequential update example for prior with a=b=2, after observing one x=1 data."><figcaption>Sequential update example for prior with <span class="math inline">\(a=b=2\)</span>, after observing one <span class="math inline">\(x=1\)</span> data.</figcaption>
+</figure>
+<p>The sequential update can be used for</p>
+<ul>
+<li>Real-time learning, where predictions must be made before seeing all data.</li>
+<li>Large data sets, because whole data set is not required to be loaded into memory.</li>
+</ul>
+<h3 id="relation-to-mle">Relation to MLE</h3>
+<p>The posterior prediction of the next one trial can be written as <span class="math display">\[
+p(x=1|\mathcal{D}) = \int_0^1p(x=1|\mu)p(\mu|\mathcal{D})d\mu = \int_0^1 \mu p(\mu|\mathcal{D})d\mu  = \mathbb{E}[\mu|\mathcal{D}] = \frac{m+a}{m+a+l+b}
+\]</span> In the limit of <span class="math inline">\(m,l \rightarrow \infty\)</span>, the result reduce to the maximum likelihood result <span class="math inline">\(m/(m+l)\)</span>.</p>
+<p>Actually for a finite dataset, the posterior mean for <span class="math inline">\(\mu\)</span> can be written in the form <span class="math display">\[
+\frac{m+a}{m+a+l+b} = \lambda\frac{a}{a+b} + (1-\lambda)\frac{m}{m+l}
+\]</span> with <span class="math inline">\(\lambda\in(0,1)\)</span>.</p>
+<blockquote>
+<p>It can be calculated directly that <span class="math inline">\(\lambda = \frac{a+b}{m+a+l+b} \in (0,1)\)</span>.</p>
+</blockquote>
+<h3 id="variance-of-posterior">Variance of Posterior</h3>
+<p>For the beta distribution, we see that variance of <span class="math inline">\(\mu​\)</span> goes to zero for <span class="math inline">\(a\rightarrow \infty​\)</span> and <span class="math inline">\(b\rightarrow \infty​\)</span>, In fact, it is a general property for Bayesian learning that the uncertainty represented by the posterior will steadily decrease as more and more data is observed.</p>
+<p>If we take a frequentist view of Bayesian learning, and consider a general Bayesian inference problem for a parameter <span class="math inline">\(\mathbf{\theta}\)</span> where we have observed a dataset <span class="math inline">\(\mathcal{D}\)</span>, described by the joint distribution <span class="math inline">\(p(\mathbf{\theta}, \mathcal{D})\)</span>. <em>(Tips: the following "prior" refers to the real prior distribution of <span class="math inline">\(\theta\)</span>, rather than one assumed subjectively by Bayesian.)</em> We can show that <span class="math display">\[
+\mathrm{var}_\mathbf{\theta}[\mathbf{\theta}] = \mathbb{E}_\mathcal{D}[\mathrm{var}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]] + \mathrm{var}_\mathcal{D}[\mathbb{E}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]]
+\]</span> Since the second term, the posterior mean of <span class="math inline">\(\mathbf{\theta}​\)</span> is positive, which means <em>on average</em> (not for a particular <span class="math inline">\(\mathcal{D} ​\)</span>), the posterior variance of <span class="math inline">\(\mathbf{\theta}​\)</span> is smaller than the prior variance.</p>
+<blockquote>
+<p>This equation only shows <span class="math inline">\(\mathbb{E}_\mathcal{D}[\mathrm{var}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]] &lt; \mathrm{var}_\mathbf{\theta}[\mathbf{\theta}]\)</span>, but does not show <span class="math inline">\(\mathrm{var}_\mathcal{D}[\mathbb{E}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]]\)</span> will increase as more and more data is observed. Intuitively, the posterior mean of <span class="math inline">\(\mathbf{\theta}\)</span>s on different datasets gradually move to the different true values where the observed <span class="math inline">\(\mathcal{D}\)</span>s generated from, resulting in larger variance over <span class="math inline">\(\mathcal{D}\)</span>.</p>
+</blockquote>
+<blockquote>
+<h4 id="proof-of-the-above-equation">Proof of the above equation</h4>
+<p>First we show that the posterior mean of <span class="math inline">\(\mathbf{\theta}\)</span> (<span class="math inline">\(\mathbf{\theta}^2\)</span>), averaged over the distribution generating the data, is equal to the prior mean of <span class="math inline">\(\mathbf{\theta}\)</span> (<span class="math inline">\(\mathbf{\theta}^2\)</span>) <span class="math display">\[
+\begin{align}
+\mathbb{E}_{\mathcal{D}} [ \mathbb{E}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]] &amp;= \int p(\mathcal{D}) \int \mathbf{\theta}p(\mathbf{\theta}|\mathcal{D})\ d\mathbf{\theta}\ d\mathcal{D} \\ 
+&amp;= \int \int \mathbf{\theta}p(\mathbf{\theta},\mathcal{D})\ d\mathcal{D}\ d\mathbf{\theta} \\
+&amp;= \int \mathbf{\theta}p(\mathbf{\theta})\ d\mathbf{\theta} \\
+&amp;= \mathbb{E}_\mathbf{\theta}[\mathbf{\theta}]\\\\
+\mathbb{E}_{\mathcal{D}} [ \mathbb{E}_\mathbf{\theta}[\mathbf{\theta}^2|\mathcal{D}]] &amp;=\mathbb{E}_\mathbf{\theta}[\mathbf{\theta}^2] , 
+\end{align}
+\]</span> then we have <span class="math display">\[
+\begin{align}
+\mathrm{var}_\mathbf{\theta}[\mathbf{\theta}] &amp;= \mathbb{E}_\mathbf{\theta}[\mathbf{\theta}^2] 
+- [\mathbb{E}_\mathbf{\theta}[\mathbf{\theta}]]^2 \\
+&amp;= \mathbb{E}_{\mathcal{D}} [ \mathbb{E}_\mathbf{\theta}[\mathbf{\theta}^2|\mathcal{D}]] 
+- [\mathbb{E}_{\mathcal{D}}[\mathbb{E}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]]]^2 \\ 
+&amp;= \mathbb{E}_{\mathcal{D}} [ \mathbb{E}_\mathbf{\theta}[\mathbf{\theta}^2|\mathcal{D}]] 
+- \mathbb{E}_{\mathcal{D}}[[\mathbb{E}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]]^2] 
++ \mathbb{E}_{\mathcal{D}}[[\mathbb{E}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]]^2] 
+- [\mathbb{E}_{\mathcal{D}}[\mathbb{E}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]]]^2 \\ 
+&amp;= \mathbb{E}_\mathcal{D}[\mathrm{var}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]] + \mathrm{var}_\mathcal{D}[\mathbb{E}_\mathbf{\theta}[\mathbf{\theta}|\mathcal{D}]]
+\end{align}
+\]</span></p>
+</blockquote>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/">#</a></span>
+    
+    </div>
+    
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/cache/PRML2-1.html';
+        this.page.identifier = 'prml2-1';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+    
+</body>
+</html>

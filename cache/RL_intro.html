@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>Introduction to Reinforcement Learning - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="RL is the study of agents and how they learn by trial and error. It formalizes the idea that rewarding or punishing an agent for its behavior makes it more likely to repeat or forego that behavior in">
+<meta name="keywords" content="RL">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Introduction to Reinforcement Learning">
+<meta property="og:url" content="http://wiljohn.top/cache/RL_intro.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="RL is the study of agents and how they learn by trial and error. It formalizes the idea that rewarding or punishing an agent for its behavior makes it more likely to repeat or forego that behavior in">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-1.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-2.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-3.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-4.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-5.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-6.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-7.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-8.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-9.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-10.png">
+<meta property="og:updated_time" content="2020-10-24T15:22:50.864Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Introduction to Reinforcement Learning">
+<meta name="twitter:description" content="RL is the study of agents and how they learn by trial and error. It formalizes the idea that rewarding or punishing an agent for its behavior makes it more likely to repeat or forego that behavior in">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-1.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Introduction to Reinforcement Learning
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-09-17T18:38:10.000Z" itemprop="datePublished">Sep 18 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            6 minutes read (About 944 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>RL is the study of agents and how they learn by trial and error. It formalizes the idea that rewarding or punishing an agent for its behavior makes it more likely to repeat or forego that behavior in the future.</p>
+</blockquote>
+<h2 id="about-reinforcement-learning">About Reinforcement Learning</h2>
+<h3 id="many-faces-of-reinforcement-learning">Many Faces of Reinforcement Learning</h3>
+<p>Reinforcement learning is about a science of decision making, sitting in many different fields of science.</p>
+<a id="more"></a>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-1.png"></p>
+<h3 id="branches-of-machine-learning">Branches of Machine Learning</h3>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-2.png"></p>
+<p>What makes RL <strong>different</strong> from other ML paradigms?</p>
+<ul>
+<li>No supervisor, only a reward signal</li>
+<li>Feedback is delayed, not instantaneous</li>
+<li>Time really matters (sequential, non i.i.d data)</li>
+<li>Agent’s actions affect subsequent data it receives</li>
+</ul>
+<h2 id="the-reinforcement-learning-problem">The Reinforcement Learning Problem</h2>
+<h3 id="reward">Reward</h3>
+<p><strong>Reward Hypothesis</strong>: All goals can be described by the maximization of expected reward.</p>
+<p>A reward <span class="math inline">\(R_t\)</span> is a scalar feedback signal, indicating how well agent is doing at step <span class="math inline">\(t\)</span>. RL is based on the hypothesis showed above, aiming to <em>taking actions to maximize the cumulative reward</em>.</p>
+<ul>
+<li>Actions may have long term consequences</li>
+<li>Reward may delay</li>
+<li>Not greedy: better to sacrifice immediate reward to gain more long-term reward</li>
+</ul>
+<h3 id="agent-and-environment">Agent and Environment</h3>
+<p>Here the brain stands for the <em>agent</em>, the earth stands for the <em>environment</em>, showing the interaction:</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-3.png"></p>
+<h3 id="state">State</h3>
+<p>The <strong>history</strong> is the sequence of observations, actions, rewards <span class="math display">\[
+H_t = O_1, R_1, A_1, ..., A_{t-1}, O_t, R_t
+\]</span> The <strong>state</strong> is the information to determine what happens next. Formally, state is a function of the history <span class="math display">\[
+S_t = f(H_t)
+\]</span></p>
+<ul>
+<li>The <strong>environment state</strong> <span class="math inline">\(S_t^e\)</span> is the environment’s private representation, not usually visible to the agent, and even visible it may contain irrelevant information.</li>
+<li>The <strong>agent state</strong> <span class="math inline">\(S_t^a\)</span> is the agent’s internal representation, used by RL algorithms, and can be any function of history <span class="math inline">\(S_t^a = f(H_t)\)</span>.</li>
+</ul>
+<p>Another independent state definition is <strong>information state</strong> (a.k.a. <strong>Markov state</strong>), which contains all useful information from the history. A state is Markov if and only if <span class="math display">\[
+\mathbb{P}[S_{t+1}|S_t] = \mathbb{P}[S_{t+1}|S_1,...,S_t]
+\]</span> <em>Both the environment state <span class="math inline">\(S_t^e\)</span> and <span class="math inline">\(H_t\)</span> are Markov, but not always the agent state <span class="math inline">\(S_t^a\)</span>, which we need to design properly.</em></p>
+<h3 id="observability">Observability</h3>
+<ul>
+<li><strong>Fully observability</strong>: agent directly observes environment state, where <span class="math inline">\(O_t=S_t^a=S_t^e\)</span>. Formally, this is a <strong>Markov decision process</strong> (MDP).</li>
+<li><strong>Partially observability</strong>: agent indirectly observes environment, now <span class="math inline">\(S_t^a\neq{S_t^e}\)</span>. Formally, this is a <strong>partially observable Markov decision process</strong> (POMDP).</li>
+</ul>
+<p>When partially observable, agent must construct its own state representation <span class="math inline">\(S_t^a\)</span>, e.g.</p>
+<ul>
+<li>From complete history: <span class="math inline">\(S_t^a=H_t\)</span></li>
+<li>From <strong>beliefs</strong> of environment state: <span class="math inline">\(S_t^a = (\mathbb{P[S_t^e=s^1]},..,\mathbb{P[S_t^e=s^n]})\)</span></li>
+<li>From RNN: <span class="math inline">\(S_{t}^{a} = \sigma(S_{t-1}^aW_s+O_tW_o)\)</span></li>
+</ul>
+<h2 id="inside-rl-agent">Inside RL Agent</h2>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-4.png" alt="a maze example"><figcaption>a maze example</figcaption>
+</figure>
+<p>An RL agent may include:</p>
+<h3 id="policy-agents-behavior">Policy: Agent’s Behavior</h3>
+<p>It is a map from state to action, e.g.</p>
+<ul>
+<li>Deterministic policy: <span class="math inline">\(a=\pi(s)\)</span></li>
+<li>Stochastic policy: <span class="math inline">\(\pi(a|s)=\mathbb{P}[A_t=a|S_t=s]​\)</span></li>
+</ul>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-5.png" alt="Arrows represents \pi(s) at each state."><figcaption>Arrows represents <span class="math inline">\(\pi(s)\)</span> at each state.</figcaption>
+</figure>
+<h3 id="value-function-prediction-of-future-reward">Value Function: Prediction of Future Reward</h3>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-6.png" alt="Numbers represents value v_{\pi}(s) at each state."><figcaption>Numbers represents value <span class="math inline">\(v_{\pi}(s)\)</span> at each state.</figcaption>
+</figure>
+<p>Used to select between actions, e.g.</p>
+<p><span class="math display">\[
+v_{\pi}(s) = \mathbb{E}_{\pi}[R_{t+1}+\gamma{R}_{t+2}+\gamma^2{R}_{t+3}+...|S_t=s]
+\]</span></p>
+<h3 id="model-representation-of-environment">Model: Representation of Environment</h3>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-7.png" alt="Grid layout represents transition model and numbers represent immediate reward from each state."><figcaption>Grid layout represents transition model and numbers represent immediate reward from each state.</figcaption>
+</figure>
+<p><strong>Transitions</strong>: <span class="math inline">\(\mathcal{P}\)</span> predicts the next state e.g.</p>
+<p><span class="math display">\[
+\mathcal{P}_{s\rightarrow{s&#39;}}^a = \mathbb{P}[S_{t+1}=s&#39;|A_t=a,S_t=s]
+\]</span></p>
+<p><strong>Rewards</strong>: <span class="math inline">\(\mathcal{R}\)</span> predicts the next (immediate) reward, e.g.</p>
+<p><span class="math display">\[
+\mathcal{R}_s^a = \mathbb{E}[R_{t+1}|A_t=a,S_t=s]
+\]</span></p>
+<h3 id="categorizing-rl-agents">Categorizing RL agents</h3>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-8.png"></p>
+<h2 id="problems-within-rl">Problems within RL</h2>
+<h3 id="learning-rl-and-planning">Learning (RL) and Planning</h3>
+<p>They are the two fundamental problems in sequential decision making.</p>
+<ul>
+<li><p>For learning, the environment is initially <strong>unknown</strong>, then the agent interacts with the environment and improves its policy. (e.g. new-born baby)</p></li>
+<li><p>For planning, a model of the environment is <strong>known</strong>, the agent performs computations with its model and improves its policy. (e.g. Go)</p></li>
+</ul>
+<h3 id="exploration-and-exploitation">Exploration and Exploitation</h3>
+<ul>
+<li>Exploration finds more information about the environment. (e.g. try a new restaurant, possibly delicious or awful…)</li>
+<li>Exploitation exploits known information to maximize reward. (e.g. stay at home, just sleep~)</li>
+</ul>
+<h3 id="prediction-and-control">Prediction and Control</h3>
+<ul>
+<li>Prediction: given <strong>one policy</strong>, evaluate the future.</li>
+<li>Control: find the best policy to optimize the future, which need to evaluate <strong>all policies</strong>.</li>
+</ul>
+<p>Again here’s a grid world example, each step with reward -1, and if arrives at point A (B), you are immediately teleported to A’ (B’), with reward 10 (5).</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-9.png" alt="Prediction example: (b) shows the value function in each grid for the uniform random policy (randomly select a direction)."><figcaption>Prediction example: (b) shows the value function in each grid for the uniform random policy (randomly select a direction).</figcaption>
+</figure>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl1-10.png" alt="Control example: (b) shows the optimal value function in each grid over all possible policies."><figcaption>Control example: (b) shows the optimal value function in each grid over all possible policies.</figcaption>
+</figure>
+<h2 id="reference">Reference</h2>
+<p>[1] <a href="http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching_files/intro_RL.pdf" target="_blank" rel="noopener">David Silver's RL course</a></p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/">#</a></span>
+    
+    </div>
+    
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/cache/RL_intro.html';
+        this.page.identifier = 'rl-intro';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+    
+</body>
+</html>

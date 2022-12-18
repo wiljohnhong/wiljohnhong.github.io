@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>(PRML Notes) 2.4 The Exponential Family - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  The exponential family is defined by \[ p(\mathbf{x} | \boldsymbol{\eta})=h(\mathbf{x}) g(\boldsymbol{\eta}) \exp \left\{\bolds">
+<meta name="keywords" content="PRML">
+<meta property="og:type" content="website">
+<meta property="og:title" content="(PRML Notes) 2.4 The Exponential Family">
+<meta property="og:url" content="http://wiljohn.top/cache/PRML2-4.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  The exponential family is defined by \[ p(\mathbf{x} | \boldsymbol{\eta})=h(\mathbf{x}) g(\boldsymbol{\eta}) \exp \left\{\bolds">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-10-24T15:22:50.867Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(PRML Notes) 2.4 The Exponential Family">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  The exponential family is defined by \[ p(\mathbf{x} | \boldsymbol{\eta})=h(\mathbf{x}) g(\boldsymbol{\eta}) \exp \left\{\bolds">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            (PRML Notes) 2.4 The Exponential Family
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2019-03-16T06:26:04.000Z" itemprop="datePublished">Mar 16 2019</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            12 minutes read (About 1760 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+</blockquote>
+<p>The exponential family is defined by <span class="math display">\[
+p(\mathbf{x} | \boldsymbol{\eta})=h(\mathbf{x}) g(\boldsymbol{\eta}) \exp \left\{\boldsymbol{\eta}^{\mathrm{T}} \mathbf{u}(\mathbf{x})\right\}
+\]</span> here <span class="math inline">\(\boldsymbol{\eta}\)</span> is called the <strong>natural parameters</strong> of the distribution, <span class="math inline">\(g(\boldsymbol{\eta})\)</span> ensures the normalization. Now we will see that all the distributions we have seen so far are actually members in this family.</p>
+<a id="more"></a>
+<h3 id="bernoulli-distribution">Bernoulli Distribution</h3>
+<p><span class="math display">\[
+\begin{aligned} 
+\operatorname{Bern}(x | \mu) &amp;= \exp \{x \ln \mu+(1-x) \ln (1-\mu)\} 
+\\ &amp;=(1-\mu) \exp \left\{\ln \left(\frac{\mu}{1-\mu}\right) x\right\} 
+\end{aligned}
+\]</span></p>
+<p>and we define <span class="math display">\[
+\eta=\ln \left(\frac{\mu}{1-\mu}\right)
+\]</span> then we have <span class="math display">\[
+\mu = \sigma(\eta)=\frac{1}{1+\exp (-\eta)}
+\]</span> where <span class="math inline">\(\sigma\)</span> is called the <strong>logistic sigmoid</strong> function (we can regard it as allowing to define "probability in <span class="math inline">\(\mathbb{R}\)</span>" and then transforming into a proper range <span class="math inline">\([0,1]\)</span>). With the property that <span class="math inline">\(1-\sigma(\eta)=\sigma(-\eta)\)</span>, now we can represent the Bernoulli distribution in the form <span class="math display">\[
+p(x | \eta)=\sigma(-\eta) \exp (\eta x)
+\]</span> by compariing we see that Bernoulli distribution takes the form of exponential family where <span class="math display">\[
+\begin{array}{l}{u(x)=x} \\ {h(x)=1} \\ {g(\eta)=\sigma(-\eta)}\end{array}
+\]</span></p>
+<h3 id="multinomial-distribution">Multinomial Distribution</h3>
+<p><span class="math display">\[
+\mathrm{Multi}(\mathbf{x} | \boldsymbol{\mu})=\prod_{k=1}^{M} \mu_{k}^{x_{k}}=\exp \left\{\sum_{k=1}^{M} x_{k} \ln \mu_{k}\right\} = \exp \left(\boldsymbol{\eta}^{\mathrm{T}} \mathbf{x}\right)
+\]</span></p>
+<p>where <span class="math inline">\(\mathbf{x}=\left(x_{1}, \dots, x_{N}\right)^{\mathrm{T}}\)</span>, and we have defined <span class="math inline">\(\boldsymbol{\eta}=\left(\eta_{1}, \ldots, \eta_{M}\right)^{\mathrm{T}}\)</span> in which <span class="math inline">\(\eta_{k}=\ln \mu_{k}\)</span>. By comparing we see that multinomial distribution takes the form of exponential family where <span class="math display">\[
+\begin{aligned} \mathbf{u}(\mathbf{x}) &amp;=\mathbf{x} \\ h(\mathbf{x}) &amp;=1 \\ g(\boldsymbol{\eta}) &amp;=1 \end{aligned}
+\]</span> Note that in this form <span class="math inline">\(\eta_k\)</span> are not independent due to the constraint <span class="math inline">\(\sum_{k=1}^{M} \mu_{k}=1\)</span>. To make it keep the form with Bernoulli distribution, we can rewrite the distribution with this constraint removed by <span class="math display">\[
+\begin{array}{l}{\mathrm{Multi}(\mathbf{x} | \boldsymbol{\mu}) \\ = \exp \left\{\sum_{k=1}^{M} x_{k} \ln \mu_{k}\right\}} \\ {=\exp \left\{\sum_{k=1}^{M-1} x_{k} \ln \mu_{k}+\left(1-\sum_{k=1}^{M-1} x_{k}\right) \ln \left(1-\sum_{k=1}^{M-1} \mu_{k}\right)\right\}} \\ {=\exp \left\{\sum_{k=1}^{M-1} x_{k} \ln \left(\frac{\mu_{k}}{1-\sum_{j=1}^{M-1} \mu_{j}}\right)+\ln \left(1-\sum_{k=1}^{M-1} \mu_{k}\right)\right\}}\end{array}
+\]</span> now we define <span class="math display">\[
+\eta_{k}=\ln \left(\frac{\mu_{k}}{1-\sum_{j} \mu_{j}}\right)
+\]</span> and taking exponent of each side and summing both sides we have <span class="math display">\[
+\sum_k\exp(\eta_{k})=\frac{\sum_j\mu_{j}}{1-\sum_{j} \mu_{j}} \ \Rightarrow \ \sum_j\mu_{j} = \frac{\sum_k\exp(\eta_{k})}{1+\sum_k\exp(\eta_{k})}
+\]</span> then we get <span class="math display">\[
+\mu_k = \exp(\eta_k)(1-\sum_{j} \mu_{j})=\frac{\exp \left(\eta_{k}\right)}{1+\sum_{j} \exp \left(\eta_{j}\right)}
+\]</span> This function is called the <strong>softmax</strong> function (a multivariate version of sigmoid function). Now we can represent the multinomial distribution in the form <span class="math display">\[
+p(\mathbf{x} | \boldsymbol{\eta})= \left(1-\sum_{k=1}^{M-1} \mu_{k}\right)\exp \left(\boldsymbol{\eta}^{\mathrm{T}} \mathbf{x}\right) = \left(1+\sum_{k=1}^{M-1} \exp \left(\eta_{k}\right)\right)^{-1} \exp \left(\boldsymbol{\eta}^{\mathrm{T}} \mathbf{x}\right)
+\]</span> by comparing <span class="math display">\[
+\begin{array}{l}{\mathbf{u}(\mathbf{x})=\mathbf{x}} \\ {h(\mathbf{x})=1} \\ {g(\boldsymbol{\eta})=\left(1+\sum_{k=1}^{M-1} \exp \left(\eta_{k}\right)\right)^{-1}}\end{array}
+\]</span></p>
+<h3 id="gaussian-distribution">Gaussian Distribution</h3>
+<p><span class="math display">\[
+\begin{aligned} p(x | \mu, \sigma^{2}) &amp;=\frac{1}{\left(2 \pi \sigma^{2}\right)^{1 / 2}} \exp \left\{-\frac{1}{2 \sigma^{2}}(x-\mu)^{2}\right\} \\ &amp;=\frac{1}{\left(2 \pi \sigma^{2}\right)^{1 / 2}} \exp \left\{-\frac{1}{2 \sigma^{2}} x^{2}+\frac{\mu}{\sigma^{2}} x-\frac{1}{2 \sigma^{2}} \mu^{2}\right\} \end{aligned}
+\]</span></p>
+<p>by comparing we have <span class="math display">\[
+\begin{aligned} \boldsymbol{\eta} &amp;=\left( \begin{array}{c}{\mu / \sigma^{2}} \\ {-1 / 2 \sigma^{2}}\end{array}\right) \\ \mathbf{u}(x) &amp;=\left( \begin{array}{c}{x} \\ {x^2}\end{array}\right) \\ h(x) &amp;=(2 \pi)^{-1 / 2} \\ g(\boldsymbol{\eta}) &amp;=\left(-2 \eta_{2}\right)^{1 / 2} \exp \left(\frac{\eta_{1}^{2}}{4 \eta_{2}}\right) \end{aligned}
+\]</span></p>
+<blockquote>
+<p>Note that we write <span class="math inline">\(\mathbf{u}(x)\)</span> in the form of combination of different orders, which helps infer different order moments.</p>
+</blockquote>
+<h2 id="maximum-likelihood-and-sufficient-statistics">Maximum Likelihood and Sufficient Statistics</h2>
+<p>From the fact that exponential family is normalized we have <span class="math display">\[
+g(\boldsymbol{\eta}) \int h(\boldsymbol{x}) \exp \left\{\boldsymbol{\eta}^{T} \boldsymbol{u}(\boldsymbol{x})\right\} \mathrm{d} \boldsymbol{x}=1
+\]</span> then by taking the gradient of both sides w.r.t. <span class="math inline">\(\boldsymbol{\eta}\)</span> we have <span class="math display">\[
+\begin{align}
+&amp;\nabla g(\boldsymbol{\eta}) \int h(\mathbf{x}) \exp \left\{\boldsymbol{\eta}^{\mathrm{T}} \mathbf{u}(\mathbf{x})\right\} \mathrm{d} \mathbf{x} + g(\boldsymbol{\eta}) \int h(\mathbf{x}) \exp \left\{\boldsymbol{\eta}^{\mathrm{T}} \mathbf{u}(\mathbf{x})\right\} \mathbf{u}(\mathbf{x}) \mathrm{d} \mathbf{x}=0
+\\ \Rightarrow&amp; -\frac{1}{g(\boldsymbol{\eta})} \nabla g(\boldsymbol{\eta})=g(\boldsymbol{\eta}) \int h(\mathbf{x}) \exp \left\{\boldsymbol{\eta}^{\mathrm{T}} \mathbf{u}(\mathbf{x})\right\} \mathbf{u}(\mathbf{x}) \mathrm{d} \mathbf{x}=\mathbb{E}[\mathbf{u}(\mathbf{x})]
+\\ \Rightarrow&amp; -\nabla \ln g(\boldsymbol{\eta})=\mathbb{E}[\mathbf{u}(\mathbf{x})]
+\end{align}
+\]</span> Similarly we can find higher order moments by simply taking higher order differentiation.</p>
+<p>Now consider finding the MLE under a set of i.i.d. data denoted by <span class="math inline">\(\mathbf{X}=\left\{\mathbf{x}_{1}, \dots, \mathbf{x}_{n}\right\}\)</span>, then the log likelihood is <span class="math display">\[
+p(\mathbf{X} | \boldsymbol{\eta})=\left(\prod_{n=1}^{N} h\left(\mathbf{x}_{n}\right)\right) g(\boldsymbol{\eta})^{N} \exp \left\{\boldsymbol{\eta}^{\mathrm{T}} \sum_{n=1}^{N} \mathbf{u}\left(\mathbf{x}_{n}\right)\right\}
+\]</span> setting the gradient of <span class="math inline">\(\ln p(\mathbf{X} | \boldsymbol{\eta})\)</span> w.r.t. <span class="math inline">\(\boldsymbol{\eta}\)</span> to zero we get <span class="math display">\[
+-\nabla \ln g\left(\boldsymbol{\eta}_{\mathrm{ML}}\right)=\frac{1}{N} \sum_{n=1}^{N} \mathbf{u}\left(\mathbf{x}_{n}\right)
+\]</span> under the limit <span class="math inline">\(N \rightarrow \infty​\)</span>, we have <span class="math inline">\(\mathbb{E}[\mathbf{u}(\mathbf{x})] = \frac{1}{N} \sum_{n=1}^{N} \mathbf{u}\left(\mathbf{x}_{n}\right)​\)</span>, so in this limit <span class="math inline">\(\boldsymbol{\eta}_{\mathrm{ML}}​\)</span> will be equal to the true value <span class="math inline">\(\boldsymbol{\eta}​\)</span>.</p>
+<p>Note that the solution of MLE depends on data only through <span class="math inline">\(\sum_{n} \mathbf{u}\left(\mathbf{x}_{n}\right)\)</span>, which is called the <strong>sufficient statistic</strong>. For example, to find out <span class="math inline">\(\boldsymbol{\eta}_{\mathrm{ML}}\)</span> for Gaussian, we only need to keep the sum of <span class="math inline">\(\left\{x_{n}\right\}\)</span> and <span class="math inline">\(\left\{x_{n}^2\right\}\)</span>.</p>
+<h2 id="conjugate-priors">Conjugate Priors</h2>
+<p>For exponential family, a conjugate prior can be written in the form <span class="math display">\[
+p(\boldsymbol{\eta} | \boldsymbol\chi, \nu)=f(\boldsymbol{\chi},\nu) g(\boldsymbol{\eta})^{\nu} \exp \left\{\nu \boldsymbol{\eta}^{\mathrm{T}} \boldsymbol{\chi}\right\}
+\]</span> and we see that the resulting posterior takes the same form as the prior <span class="math display">\[
+p(\boldsymbol{\eta} | \mathbf{X}, \boldsymbol\chi, \nu) \propto g(\boldsymbol{\eta})^{\nu+N} \exp \left\{\boldsymbol{\eta}^{\mathrm{T}}\left(\sum_{n=1}^{N} \mathbf{u}\left(\mathbf{x}_{n}\right)+\nu \boldsymbol{\chi}\right)\right\}
+\]</span> Note that from this form we can generally interpret the parameter <span class="math inline">\(\nu\)</span> as an effective number of pseudo-observations in the prior, and each of which contribute a value for the sufficient statistic <span class="math inline">\(\mathbf{u}(\mathbf{x})\)</span> given by <span class="math inline">\(\boldsymbol\chi\)</span>.</p>
+<h2 id="noninformative-priors">Noninformative Priors</h2>
+<p><strong>Noninformative Priors</strong> are intended to have little influence on the posterior distribution as possible, "letting the data speak for themselves".</p>
+<p>We would like to choose a uniform distribution as a prior over a finite parameter space. However, there are two problems arise:</p>
+<ul>
+<li><strong>Improper prior</strong> over infinite parameter space. However, this doesn't matter too much, since an improper prior can also result in a proper posterior. For example, for an improper prior <span class="math inline">\(p(\mu)=1, -\infty&lt;\mu&lt;\infty\)</span> and likelihood <span class="math inline">\(p(x) = \mathcal{N}(\mu,1)\)</span>, the posterior is proper</li>
+</ul>
+<p><span class="math display">\[
+\begin{aligned} p(\mu | x) &amp;=\frac{p(x | \mu) p(\mu)}{\int_{-\infty}^{\infty} p(x | \mu) p(\mu) d \mu} \\ &amp;=\frac{1}{\sqrt{2 \pi}} \exp \left\{-\frac{1}{2}(\mu-x)^{2}\right\} \end{aligned}
+\]</span></p>
+<ul>
+<li>The uniform distribution is not invariant under reparameterization. For example, for the same <span class="math inline">\(p(\mu)\)</span> as before, after transformation <span class="math inline">\(\mu=\eta^2\)</span>, we have <span class="math inline">\(p_\eta(\eta)=2\eta p_\mu(\mu) =2\eta\)</span>, no longer uniform, so can we still say that it's noninformative?</li>
+</ul>
+<p>To solve the second problem, we must take care to use an appropriate representation for the parameters. Two examples are shown below.</p>
+<h3 id="location-parameter">Location Parameter</h3>
+<p>Suppose <span class="math inline">\(p(x|\mu)\)</span> takes the form <span class="math inline">\(f(x-\mu)\)</span>, such density functions compose the translation invariant family, and <span class="math inline">\(\mu\)</span> is known as location parameter. Now if we move <span class="math inline">\(x\)</span> to become <span class="math inline">\(x&#39;=x+c\)</span>, to make the density function still a member of translation invariant family, we should take <span class="math inline">\(\mu&#39;=\mu+c\)</span>, and we see that <span class="math inline">\(p(x&#39;|\mu&#39;)\)</span> takes the same form <span class="math inline">\(f(x&#39;-\mu&#39;)\)</span>.</p>
+<p>Since they are both members of translation invariant family, <span class="math inline">\(p(x|\mu)\)</span> and <span class="math inline">\(p(x|\mu&#39;)\)</span> are equally likely to be the real likelihood, <span class="math inline">\(p(\mu)\)</span> and <span class="math inline">\(p(\mu&#39;)\)</span> should take the same noninformative distribution form, i.e. <span class="math inline">\(p(\mu) = p(\mu&#39;)\)</span>. Note that <span class="math display">\[
+p(\mu) = p(\mu&#39;) \left|\frac{\mathrm{d} \mu&#39;}{\mathrm{d} \mu}\right| = p(\mu&#39;) = p(\mu+c)
+\]</span> First let <span class="math inline">\(\mu=-c​\)</span>, we have <span class="math inline">\(p(-c) = p(0)=\mathrm{const}​\)</span>, and note that <span class="math inline">\(c​\)</span> can be arbitrary, so we know that the noninformative distribution <span class="math inline">\(p(\mu)​\)</span> is constant.</p>
+<h3 id="scale-parameter">Scale Parameter</h3>
+<p>Similarly, suppose <span class="math inline">\(p(x|\sigma)​\)</span> takes the form <span class="math inline">\(\frac{1}{\sigma}f(\frac{x}{\sigma})​\)</span>, such density functions compose the scale invariant family, and <span class="math inline">\(\sigma​\)</span> is known as scale parameter. Now if we scale <span class="math inline">\(x​\)</span> to become <span class="math inline">\(x&#39;=cx​\)</span>, we see that <span class="math inline">\(p(x&#39;|\sigma&#39;) =p(x|\sigma)/c = \frac{1}{c\sigma}f(\frac{cx}{c\sigma}) = \frac{1}{\sigma&#39;}f(\frac{x&#39;}{\sigma&#39;})​\)</span>, where we take <span class="math inline">\(\sigma&#39;=c\sigma​\)</span>.</p>
+<p>Since they are both members of scale invariant family, <span class="math inline">\(p(x|\sigma)\)</span> and <span class="math inline">\(p(x|\sigma&#39;)\)</span> are equally likely to be the real likelihood, <span class="math inline">\(p(\sigma)\)</span> and <span class="math inline">\(p(\sigma&#39;)\)</span> should take the same noninformative distribution form, i.e. <span class="math inline">\(p(\sigma) = p(\sigma&#39;)\)</span>. Note that <span class="math display">\[
+p(\sigma) = p(\sigma&#39;) \left|\frac{\mathrm{d} \sigma&#39;}{\mathrm{d} \sigma}\right| = cp(\sigma&#39;) = cp(c\sigma)
+\]</span> First let <span class="math inline">\(\sigma=1/c\)</span>, we have <span class="math inline">\(p(1/c) = cp(1)\)</span>, and note that <span class="math inline">\(c\)</span> can be arbitrary, so we know that <span class="math inline">\(p(1/\sigma)\propto \sigma\)</span>, i.e. <span class="math inline">\(p(\sigma) \propto \sigma^{-1}\)</span>.</p>
+<blockquote>
+<p>Actually, there is no objective and unique prior that represents ignorance instead noninformative priors are chosen by public agreement much like units of length and weight. See <a href="https://www.ime.unicamp.br/~veronica/MI402/Randi21998.pdf" target="_blank" rel="noopener">here</a>.</p>
+</blockquote>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/">#</a></span>
+    
+    </div>
+    
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/cache/PRML2-4.html';
+        this.page.identifier = 'prml2-4';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+    
+</body>
+</html>

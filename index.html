@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>Wiljohn&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -41,7 +41,7 @@
 
 <link rel="stylesheet" href="/css/style.css">
 
-<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
     
@@ -57,7 +57,7 @@
 </head>
 <body>
     
-<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
     <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item navbar-logo" href="/">
@@ -105,32 +105,159 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/12/16/git/" itemprop="url">Git 备忘</a>
+            <a href="/2018/04/21/KKT/" itemprop="url">Lagrange Multiplier and KKT Conditions</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-12-15T17:20:26.000Z" itemprop="datePublished">Dec 16 2019</time>
+            <time datetime="2018-04-21T03:11:11.000Z" itemprop="datePublished">Apr 21 2018</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            8 minutes read (About 1239 words)
+            10 minutes read (About 1488 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/24813213.jpg"></p>
+<blockquote>
+<p>In mathematical optimization, the method of Lagrange multipliers is a strategy for finding the local maximum and minimum of a function subject to equality constraints, while KKT conditions solve the problems with inequality constraints.</p>
+</blockquote>
+<h2 id="naive-approach">Naive Approach</h2>
+<p>Consider the problem of finding the maximum of a function <span class="math inline">\(f(x_1, x_2)\)</span> subject to a constraint relating <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>, which we write in the form <span class="math display">\[
+g(x_1, x_2) = 0
+\]</span> One approach would be to solve the above equation to express <span class="math inline">\(x_2\)</span> as a function of <span class="math inline">\(x_1\)</span> in the form of <span class="math inline">\(x_2 = h(x_1)\)</span>, then apply differentiation to <span class="math inline">\(f(x_1, h(x_1))\)</span> w.r.t. <span class="math inline">\(x_1\)</span> in the usual way. However, there are at least two drawbacks of this simple approach:</p>
+        <p class="article-more-link">
+            <a href="/2018/04/21/KKT/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/04/18/variations/" itemprop="url">Calculus of Variations</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-04-18T03:11:11.000Z" itemprop="datePublished">Apr 18 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            6 minutes read (About 909 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
         <blockquote>
-<p><strong>Git</strong> 是一个开源的分布式版本控制系统。温习一下 Git 操作对于提升工作效率确实很有帮助。</p>
+<p><em>Calculus of variations</em> is a field of mathematical analysis that uses variations, which are small changes in functions and functionals, to find maximum and minimum of functionals.</p>
 </blockquote>
-<h3 id="本地基本操作">本地基本操作</h3>
-<p>创建仓库:</p>
+<h2 id="introduction">Introduction</h2>
+<p><strong>Functional</strong> is the function's function, in other words, functional takes a function as input and outputs a real number, or more mathematically, it refers to a mapping from a space <span class="math inline">\(X\)</span> (commonly <span class="math inline">\(X\)</span> is a space of functions) into the real numbers.</p>
+<p>In the <strong>calculus of variations</strong>, we seek a functional <span class="math inline">\(f(x)\)</span> that maximizes (or minimizes) a functional <span class="math inline">\(F[f]\)</span>. For example, as we all know, the shortest curve between two fixed points is the straight line, and this can be proved using calculus of variations.</p>
+<h2 id="example-1-shortest-curve">Example 1: Shortest Curve</h2>
+<p>To find out the shortest curve <span class="math inline">\(y(x)\)</span> between two fixed points <span class="math inline">\((a_1, b_1)\)</span> and <span class="math inline">\((a_2, b_2)\)</span>, we first express the length of the curve in the form of integration <span class="math display">\[
+F[y] = \int_{a_1}^{a_2} \sqrt{1+[y&#39;(x)]^2} dx
+\]</span></p>
+        <p class="article-more-link">
+            <a href="/2018/04/18/variations/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/03/21/ssr/" itemprop="url">ShadowsocksR资源整理</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-03-21T04:41:26.000Z" itemprop="datePublished">Mar 21 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            10 minutes read (About 1549 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/20-02-06/ssr.png"></p>
+<blockquote>
+<p>由于一些众所周知的原因，我们并不能自由访问完整的互联网。但是互联网审查粒度过粗，导致许多本不需要审查的内容被拒之墙外，如Google Scholar，Wikipedia等。</p>
+<p>ShadowsocksR是一种基于Socks5代理的加密传输协议，是shadowsocks的加强版本，可以帮助我们突破中国互联网审查(GFW)从而浏览被封锁的内容。ShadowsocksR分为服务器端和客户端，在使用之前，需要先将服务器端部署到服务器上面，然后通过客户端连接并创建本地代理。</p>
+</blockquote>
+<p>下面整理的是近期配置SSR时收集的一些资源。</p>
+        <p class="article-more-link">
+            <a href="/2018/03/21/ssr/#more">Read More</a>
+        </p>
+    
+    </div>
+    
+    
+</article>
+
+
+
+
+    
+        <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            <a href="/2018/02/02/py-decorator/" itemprop="url">Python 装饰器</a>
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-02-02T14:32:11.000Z" itemprop="datePublished">Feb 2 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            9 minutes read (About 1301 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/20-02-06/image.png"></p>
+<blockquote>
+<p>装饰器（decorator）是Python的一种高级语法，是用于修改其它函数功能的函数。装饰器代码本身比较复杂，但是使用起来方便简洁，大大提高可读性。</p>
+</blockquote>
+<h3 id="最简单的装饰器例子记录运行时间">最简单的装饰器例子：记录运行时间</h3>
+<p>假设我们需要log某个函数的运行时间，最直接的做法便是在函数开头和结束处分别插入记录时间的代码片段，并在最后打印时长：</p>
 <p><epacse hidden>0</epacse></p>
         <p class="article-more-link">
-            <a href="/2019/12/16/git/#more">Read More</a>
+            <a href="/2018/02/02/py-decorator/#more">Read More</a>
         </p>
     
     </div>
@@ -145,34 +272,33 @@
         <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            <a href="/2019/04/14/PRML4-5/" itemprop="url">(PRML Notes) 4.5 Bayesian Logistic Regression</a>
+            <a href="/2018/01/12/hexo-install/" itemprop="url">Hexo配置备忘</a>
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-04-14T10:52:04.000Z" itemprop="datePublished">Apr 14 2019</time>
+            <time datetime="2018-01-12T01:44:51.000Z" itemprop="datePublished">Jan 12 2018</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            7 minutes read (About 1093 words)
+            3 minutes read (About 409 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
+        <p><img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/20-02-06/hexo.png"></p>
+<blockquote>
+<p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+<p>Minos is a simple and retro styled Hexo theme, concentrating more on your ideas.</p>
 </blockquote>
-<p>This section turns to a Bayesian treatment of logistic regression, as mentioned in the last section, we should apply the Laplace approximation.</p>
-<h2 id="laplace-approximation">Laplace Approximation</h2>
-<p>First we introduce a prior <span class="math inline">\(p(\mathbf{w})=\mathcal{N}\left(\mathbf{w} | \mathbf{m}_{0}, \mathbf{S}_{0}\right)\)</span>, where <span class="math inline">\(\mathbf{m}_{0}\)</span> and <span class="math inline">\(\mathbf{S}_{0}\)</span> are fixed hyperparameters. And recall that the likelihood of logistic regression is given by <span class="math display">\[
-p(\boldsymbol{\mathsf{t}} | \mathbf{w}) = \prod_{n=1}^{N} y_{n}^{t_{n}}\left\{1-y_{n}\right\}^{1-t_{n}}
-\]</span></p>
+<h3 id="基本流程">基本流程</h3>
+<p>hexo建站基本配置直接参照<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官网步骤</a>，配置主题为<a href="https://github.com/ppoffice/hexo-theme-minos" target="_blank" rel="noopener">Minos</a>。</p>
         <p class="article-more-link">
-            <a href="/2019/04/14/PRML4-5/#more">Read More</a>
+            <a href="/2018/01/12/hexo-install/#more">Read More</a>
         </p>
     
     </div>
@@ -184,344 +310,6 @@ p(\boldsymbol{\mathsf{t}} | \mathbf{w}) = \prod_{n=1}^{N} y_{n}^{t_{n}}\left\{1-
 
 
     
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/04/14/PRML4-4/" itemprop="url">(PRML Notes) 4.4 The Laplace Approximation</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-04-14T09:08:04.000Z" itemprop="datePublished">Apr 14 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            8 minutes read (About 1149 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>For a Bayesian treatment of logistic regression, it is more complex than that of linear regression discuss before, since we cannot integrate analytically over <span class="math inline">\(\mathbf{w}\)</span> due to the posterior is no longer Gaussian. Instead, we should introduce some form of approximation.</p>
-        <p class="article-more-link">
-            <a href="/2019/04/14/PRML4-4/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/04/11/PRML4-3/" itemprop="url">(PRML Notes) 4.3 Probabilistic Discriminative Models</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-04-11T02:30:04.000Z" itemprop="datePublished">Apr 11 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            18 minutes read (About 2690 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>Previously the discussed generative approach of classification is indirect that fits conditional densities and priors separately then applies Bayes' theorem. Now a direct discriminative approach will be discussed with following advantages:</p>
-<ul>
-<li>Typically fewer adaptive parameters to be determined.</li>
-<li>May led to improved predictive performance particularly when conditional density is poorly approximated.</li>
-</ul>
-        <p class="article-more-link">
-            <a href="/2019/04/11/PRML4-3/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/04/07/PRML4-2/" itemprop="url">(PRML Notes) 4.2 Probabilistic Generative Model</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-04-07T03:37:04.000Z" itemprop="datePublished">Apr 7 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            16 minutes read (About 2371 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>This section turns to a probabilistic view of classification and show how models with linear decision boundaries arise from generative approach with simple assumptions about the distribution of the data.</p>
-        <p class="article-more-link">
-            <a href="/2019/04/07/PRML4-2/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/04/03/PRML4-1/" itemprop="url">(PRML Notes) 4.1 Discriminant Functions</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-04-03T15:05:04.000Z" itemprop="datePublished">Apr 3 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            29 minutes read (About 4294 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>This chapter focuses on solving classification problems, where the input space divided by <strong>decision boundaries</strong> that can be expressed by linear functions of input vector.</p>
-<p><strong>About the labels</strong>: For probabilistic models, in the case of two-class problem, we usually use single target variable <span class="math inline">\(t\in\{0,1\}\)</span> to present the probability of taking one class label, thus <span class="math inline">\(1-t\)</span> for the other, and for <span class="math inline">\(K&gt;2\)</span> classes, we use a <span class="math inline">\(1\)</span>-of-<span class="math inline">\(K\)</span> coding <span class="math inline">\(\mathbf{t}=(0,1,0,0,0)^{\mathrm{T}}\)</span> to present the probability of taking every class label. For non-probabilistic models, alternative choice of target variable representation sometimes will also be convenient.</p>
-        <p class="article-more-link">
-            <a href="/2019/04/03/PRML4-1/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/25/PRML3-5/" itemprop="url">(PRML Notes) 3.5 The Evidence Approximation</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-25T07:14:04.000Z" itemprop="datePublished">Mar 25 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            20 minutes read (About 2990 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<h2 id="general-framework-of-fully-bayesian-approach">General Framework of Fully Bayesian Approach</h2>
-<p>In a fully Bayesian treatment, a prior will be introduced over precision hyperparameters <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, and predictions are made by marginalizing w.r.t. these hyperparameters as well as <span class="math inline">\(\mathbf{w}\)</span> <span class="math display">\[
-p(t | \boldsymbol{\mathsf{t}})=\iiint p(t | \mathbf{w}, \beta) p(\mathbf{w} | \boldsymbol{\mathsf{t}}, \alpha, \beta) p(\alpha, \beta | \boldsymbol{\mathsf{t}}) \mathrm{d} \mathbf{w} \mathrm{d} \alpha \mathrm{d} \beta \tag{1}
-\]</span> where the posterior distribution of <span class="math inline">\(\alpha​\)</span> and <span class="math inline">\(\beta​\)</span> is given by <span class="math display">\[
-p(\alpha, \beta | \boldsymbol{\mathsf{t}}) \propto p(\boldsymbol{\mathsf{t}} | \alpha, \beta) p(\alpha, \beta)
-\]</span></p>
-        <p class="article-more-link">
-            <a href="/2019/03/25/PRML3-5/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/24/PRML3-4/" itemprop="url">(PRML Notes) 3.4 Bayesian Model Comparison</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-24T07:54:04.000Z" itemprop="datePublished">Mar 24 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            7 minutes read (About 1085 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>Here we consider the problem of model selection from a Bayesian perspective, which avoid the over-fitting of making point estimates of model parameters by marginalizing over these parameters. Through this way, models can be compared directly on the training data.</p>
-<h2 id="general-procedure-of-bayesian-model-selection">General Procedure of Bayesian Model Selection</h2>
-<p>Suppose we wish to compare <span class="math inline">\(L\)</span> models <span class="math inline">\(\left\{\mathcal{M}_{i}\right\}\)</span>, where <span class="math inline">\(i=1, \dots, L\)</span>, and in each model we defined a prior over model parameters, <span class="math inline">\(p(\mathbf{w} | \mathcal{M}_{i})\)</span>, and for each choice of parameters in each model, the uncertainty over the observed data is described in a likelihood <span class="math inline">\(p(\mathcal{D} | \mathbf{w}, \mathcal{M}_{i})\)</span>.</p>
-        <p class="article-more-link">
-            <a href="/2019/03/24/PRML3-4/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/23/PRML3-3/" itemprop="url">(PRML Notes) 3.3 Bayesian Linear Regression</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-23T10:54:04.000Z" itemprop="datePublished">Mar 23 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            10 minutes read (About 1494 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>This section turns to a <em>Bayesian view</em> of linear regression, which avoids the over-fitting problem of MLE and also leads to automatic methods of determining the model complexity using a single training data set alone.</p>
-        <p class="article-more-link">
-            <a href="/2019/03/23/PRML3-3/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-        <article class="article content gallery" itemscope="" itemprop="blogPost">
-    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
-        
-            <a href="/2019/03/23/PRML3-2/" itemprop="url">(PRML Notes) 3.2 The Bias-Variance Decomposition</a>
-        
-    </h1>
-    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
-        <span class="column is-narrow">
-            <time datetime="2019-03-23T07:25:04.000Z" itemprop="datePublished">Mar 23 2019</time>
-        </span>
-        
-        
-        <span class="column is-narrow">
-            
-            
-            8 minutes read (About 1195 words)
-        </span>
-        
-    </div>
-    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
-    
-        <blockquote>
-<p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
-</blockquote>
-<p>In the last section we remain a question about how to determine the regularization parameter <span class="math inline">\(\lambda\)</span>, so that the model can be applied better to new data set. Seeking solution that minimizes both <span class="math inline">\(\mathbf{w}\)</span> and <span class="math inline">\(\lambda\)</span> is not right approach since this leads to unregularized solution <span class="math inline">\(\lambda=0\)</span>.</p>
-<p>This section focuses on the <em>frequentist view</em> of the model complexity issue, known as <strong>bias-variance trade-off</strong>.</p>
-        <p class="article-more-link">
-            <a href="/2019/03/23/PRML3-2/#more">Read More</a>
-        </p>
-    
-    </div>
-    
-    
-</article>
-
-
-
-
-    
-    
-        
-<nav class="pagination is-centered is-rounded" role="navigation" aria-label="pagination">
-    <div class="pagination-previous is-invisible is-hidden-mobile">
-        <a href="/page/0/">Prev</a>
-    </div>
-    <div class="pagination-next">
-        <a href="/page/2/">Next</a>
-    </div>
-    <ul class="pagination-list is-hidden-mobile">
-        
-        <li><a class="pagination-link is-current" href="/">1</a></li>
-        
-        <li><a class="pagination-link" href="/page/2/">2</a></li>
-        
-        <li><a class="pagination-link" href="/page/3/">3</a></li>
-        
-        <li><a class="pagination-link" href="/page/4/">4</a></li>
-        
-    </ul>
-</nav>
     
     </div>
 </section>
@@ -529,7 +317,7 @@ p(\alpha, \beta | \boldsymbol{\mathsf{t}}) \propto p(\boldsymbol{\mathsf{t}} | \
     <div class="container">
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
-                &copy; 2019 wiljohn&nbsp;
+                &copy; 2022 wiljohn&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>
@@ -720,7 +508,24 @@ p(\alpha, \beta | \boldsymbol{\mathsf{t}}) \propto p(\boldsymbol{\mathsf{t}} | \
         window.INSIGHT_CONFIG = INSIGHT_CONFIG;
     })(window);
 </script>
-<script src="/js/insight.js"></script>
+<script src="/js/insight.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
     
 </body>
 </html>

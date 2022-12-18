@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>Planning by Dynamic Programming - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="Dynamic programming assumes full knowledge of the MDP.  Dynamic Programming Dynamic: sequential or temporal component to the problem (like a table storing subproblem solutions) Programming: optimizin">
+<meta name="keywords" content="RL">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Planning by Dynamic Programming">
+<meta property="og:url" content="http://wiljohn.top/cache/RL_DP.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="Dynamic programming assumes full knowledge of the MDP.  Dynamic Programming Dynamic: sequential or temporal component to the problem (like a table storing subproblem solutions) Programming: optimizin">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl3-1.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl3-2.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl3-3.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl3-4.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl3-5.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl3-6.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl3-7.png">
+<meta property="og:updated_time" content="2020-10-24T15:22:50.865Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Planning by Dynamic Programming">
+<meta name="twitter:description" content="Dynamic programming assumes full knowledge of the MDP.  Dynamic Programming Dynamic: sequential or temporal component to the problem (like a table storing subproblem solutions) Programming: optimizin">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl3-1.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            Planning by Dynamic Programming
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2018-09-25T03:33:44.000Z" itemprop="datePublished">Sep 25 2018</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            7 minutes read (About 1102 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <blockquote>
+<p><em>Dynamic programming assumes <strong>full knowledge</strong> of the MDP.</em></p>
+</blockquote>
+<h2 id="dynamic-programming">Dynamic Programming</h2>
+<p><strong>Dynamic</strong>: sequential or temporal component to the problem (like a table storing subproblem solutions)</p>
+<p><strong>Programming</strong>: optimizing a "problem", i.e. a policy</p>
+<p>DP is a very general solution method for problems which have two properties (MDP satisfies both):</p>
+<ul>
+<li>Optimal substructure (see the first theorem for optimal policy in last note)</li>
+<li>Overlapping subproblems (recurring many times, reused by Bellman equation)</li>
+</ul>
+<a id="more"></a>
+<p>DP is used for <strong>planning</strong> in an MDP (recall that it means we have full knowledge of the MDP):</p>
+<ul>
+<li>For prediction
+<ul>
+<li>Input: MDP <span class="math inline">\(\left\langle \mathcal{S,A,P,R,\gamma}\right\rangle​\)</span> and policy <span class="math inline">\(\pi​\)</span> (or MRP <span class="math inline">\(\left\langle \mathcal{S,P,R,\boldsymbol{\gamma}}\right\rangle​\)</span> without any policy)</li>
+<li>Output: value function <span class="math inline">\(v_{\pi}\)</span></li>
+</ul></li>
+<li>For control
+<ul>
+<li>Input: MDP <span class="math inline">\(\left\langle \mathcal{S,A,P,R,\gamma}\right\rangle\)</span> without policy</li>
+<li>Output: optimal value function <span class="math inline">\(v_*\)</span> and optimal policy <span class="math inline">\(\pi_*\)</span></li>
+</ul></li>
+</ul>
+<h2 id="policy-evaluation">Policy Evaluation</h2>
+<p><strong>Problem</strong>: evaluate a given policy <span class="math inline">\(\pi\)</span>.</p>
+<p><strong>Solution</strong>: iterative application of Bellman expectation backup. (here <em>backup</em> means using future state value to update the past)</p>
+<ul>
+<li>By using <em>synchronous</em> backups: at each iteration <span class="math inline">\(k+1\)</span>, for all states <span class="math inline">\(s\in S\)</span>, we update <span class="math inline">\(v_{k+1}(s)\)</span> from <span class="math inline">\(v_k(s&#39;)\)</span>, where <span class="math inline">\(s&#39;\)</span> is a successor state of <span class="math inline">\(s\)</span>. (<span class="math inline">\(v_k(s)\)</span> means the value of state <span class="math inline">\(s\)</span> at <span class="math inline">\(k\)</span>th iteration.)</li>
+<li><em>Asynchronous</em> backups will be discussed later</li>
+</ul>
+<p>(Convergence has been proven. And note that before convergence, in general, the values for all states do not correspond to any policy, so we denote the change of state value as <span class="math inline">\(v_1 \rightarrow v_2 \rightarrow\dots\rightarrow v_\pi\)</span>.)</p>
+<p>We use the same Bellman expectation equation for all states at each iteration: <span class="math display">\[
+v_{k+1}(s) = \sum_{a\in{\mathcal{A}}} \pi{(a|s)} \left( \mathcal{R}_s^a + \gamma \sum_{s&#39;\in{\mathcal{S}}} \mathcal{P}_{ss&#39;}^a v_k(s&#39;)  \right)
+\]</span></p>
+<h3 id="example-small-gridworld">Example: Small Gridworld</h3>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl3-1.png"></p>
+<ul>
+<li><span class="math inline">\(\mathcal{S}\)</span> : nonterminal states <span class="math inline">\(1,...,14\)</span> and one terminal state shown twice as shaded squares.</li>
+<li><span class="math inline">\(\mathcal{A}​\)</span> : four directions.</li>
+<li><span class="math inline">\(\mathcal{P}\)</span> : leading out of the grid leave state unchanged, otherwise with probability <span class="math inline">\(1\)</span> move to the state directed.</li>
+<li><span class="math inline">\(\mathcal{R}\)</span> : Reward is <span class="math inline">\(−1\)</span> until the terminal state is reached.</li>
+<li><span class="math inline">\(\mathcal{\gamma}\)</span> : <span class="math inline">\(1\)</span></li>
+</ul>
+<p>Agent follows uniform random policy, which is going to be evaluated <span class="math display">\[
+\pi(n|\cdot) = \pi(w|\cdot) = \pi(s|\cdot) = \pi(e|\cdot) = 0.25
+\]</span> <img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl3-2.png"></p>
+<p>Initially, all state values are <span class="math inline">\(0\)</span>. At each iteration, we synchronously backup the value.</p>
+<p>In <span class="math inline">\(k=2\)</span>, we gain the value <span class="math inline">\(-1.7\)</span> from <span class="math inline">\(-1+0.25\times ((-1)+(-1)+(-1)+0)\)</span>.</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl3-3.png"></p>
+<p>The value eventually converges to the true value under random policy, <span class="math inline">\(v_\pi\)</span>.</p>
+<p>(<em>The second column of the two pictures correspond to the policy improvement using current value.</em>)</p>
+<h2 id="policy-iteration">Policy Iteration</h2>
+<p>Policy iteration is used to improve a policy <span class="math inline">\(\pi\)</span>, by following the two steps:</p>
+<ul>
+<li><strong>Evaluate</strong> the policy <span class="math inline">\(\pi\)</span> (namely, policy evaluation)</li>
+<li><strong>Improve</strong> the policy by acting greedily w.r.t. <span class="math inline">\(v_\pi\)</span> : <span class="math display">\[\pi&#39;(s)=\text{greedy}(v_\pi(s)) = \mathop{\arg\max}_{a\in\mathcal{A}} q_\pi{(s,a)}\]</span></li>
+</ul>
+<p>In the small gridworld example above, the improved policy after one evaluation pass was already optimal, while in general, it need more iterations of evaluation and improvement.</p>
+<p>It has been proven that policy iteration always converges to <span class="math inline">\(\pi^*\)</span>.</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl3-4.png"></p>
+<h3 id="example-car-rental">Example: Car Rental</h3>
+<ul>
+<li><span class="math inline">\(\mathcal{S}\)</span> : two locations, maximum <span class="math inline">\(20\)</span> of each (<span class="math inline">\(400\)</span> states in total).</li>
+<li><span class="math inline">\(\mathcal{A}\)</span> : move up to 5 cars between locations overnight.</li>
+<li><span class="math inline">\(\mathcal{P}\)</span> : cars are returned and requested randomly with prob <span class="math inline">\(\frac{\lambda^n}{n!}e^{-\lambda}\)</span> (Poisson distribution).
+<ul>
+<li>1st location: average requests = 3, average returns = 3</li>
+<li>1st location: average requests = 4, average returns = 2</li>
+</ul></li>
+<li><span class="math inline">\(\mathcal{R}\)</span> : $10 for each car rented.</li>
+<li><span class="math inline">\(\mathcal{\gamma}\)</span> : <span class="math inline">\(0.9\)</span></li>
+</ul>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl3-5.png"></p>
+<p>(<em>There is a demonstration for policy improvement will always converge to an optimal policy in David Silver's course, but it seems that this demonstration does not figure out it won't be stuck in a local maximum. A formal version of the demonstration is by using contraction mapping.</em>)</p>
+<h3 id="modified-policy-iteration">Modified Policy Iteration</h3>
+<p>Note that in small gridworld and many other problems, after only a few iteration will it be able to achieve optimal policy, so</p>
+<ul>
+<li><p>We can simply stop after <span class="math inline">\(k\)</span> iterations</p></li>
+<li><p>Or introduce a stopping condition, e.g. <span class="math inline">\(\epsilon\)</span>-convergence of value function since there's no need to figure out the true value for every policy.</p></li>
+</ul>
+<p>A more radical but efficient way is to update policy after only one iteration. This is equivalent to <strong>value iteration</strong>.</p>
+<h3 id="generalized-policy-iteration">Generalized Policy Iteration</h3>
+<p>As we will see later, policy evaluation may not strictly follow the Bellman Equation, neither does the policy improvement algorithm to be greedy.</p>
+<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl3-6.png"></p>
+<h2 id="value-iteration">Value Iteration</h2>
+<p><strong>Principle of optimality</strong>: A policy <span class="math inline">\(\pi(a|s)\)</span> achieves the optimal value from state <span class="math inline">\(s\)</span>, <span class="math inline">\(v_\pi(s) = v_*(s)\)</span>, if and only if for any state <span class="math inline">\(s&#39;\)</span> reachable from <span class="math inline">\(s\)</span>, <span class="math inline">\(\pi\)</span> achieves the optimal value from <span class="math inline">\(s&#39;\)</span>, <span class="math inline">\(v_\pi(s) = v_*(s)\)</span>.</p>
+<p>Following this principle, if we know the solution to subproblems <span class="math inline">\(v_*(s&#39;)\)</span>, then solution <span class="math inline">\(v_*(s)\)</span> can be found by one-step lookahead (just the same idea in Bellman optimality equation) <span class="math display">\[
+v_*(s) = \max_{a\in{\mathcal{A}}} \left( \mathcal{R}_s^a + \gamma \sum_{s&#39;\in{\mathcal{S}}} \mathcal{P}_{ss&#39;}^a v_*(s&#39;)  \right)
+\]</span> So the basic idea is starting from the final rewards and working backwards to update values iteratively. However, such idea also works with loopy, stochastic MDPs (those without final state), and finally updates all values to the optimal even their subproblems' solutions are unknown from the beginning.</p>
+<h3 id="example-shortest-path">Example: Shortest Path</h3>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-01/rl3-7.png" alt="Each step with reward -1"><figcaption>Each step with reward -1</figcaption>
+</figure>
+<p>Here we iteratively applies Bellman optimality backup, and we get <span class="math inline">\(v_1 \rightarrow v_2 \rightarrow \cdots \rightarrow v_*\)</span>. At each iteration, we use synchronous backups.</p>
+<p>Note that unlike policy iteration, there is no explicit policy, intermediate value functions may <strong>not correspond to any policy</strong>.</p>
+<h3 id="summary-of-synchronous-dp-algorithms">Summary of Synchronous DP Algorithms</h3>
+<table>
+<colgroup>
+<col style="width: 12%">
+<col style="width: 51%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Problem</th>
+<th>Equation</th>
+<th>Algorithm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Prediction</td>
+<td>Bellman Expectation Equation</td>
+<td>Iterative Policy Evaluation</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>Bellman Expectation Equation + Greedy Policy Improvement</td>
+<td>Policy Iteration</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>Bellman Optimality Equation</td>
+<td>Value Iteration</td>
+</tr>
+</tbody>
+</table>
+<p>All the algorithms above are discussed based on state-value function, and the complexity is <span class="math inline">\(O(mn^2)\)</span> per iteration, for <span class="math inline">\(m\)</span> actions and <span class="math inline">\(n\)</span> states. We could also apply the algorithms to action-value function, but the complexity will rise to <span class="math inline">\(O(m^2n^2)\)</span>.</p>
+<h2 id="reference">Reference</h2>
+<p>[1] <a href="http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching_files/DP.pdf" target="_blank" rel="noopener">David Silver's RL course</a></p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/">#</a></span>
+    
+    </div>
+    
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/cache/RL_DP.html';
+        this.page.identifier = 'rl-dp';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+    
+</body>
+</html>

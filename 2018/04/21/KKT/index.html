@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
 <title>Lagrange Multiplier and KKT Conditions - Wiljohn&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -22,16 +22,17 @@
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
 <meta property="og:description" content="In mathematical optimization, the method of Lagrange multipliers is a strategy for finding the local maximum and minimum of a function subject to equality constraints, while KKT conditions solve the">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/24813213.jpg">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/32336612.jpg">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/15242653.jpg">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/65223811.jpg">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/65427367.jpg">
 <meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/24813213.jpg">
-<meta property="og:updated_time" content="2019-01-04T08:21:07.403Z">
+<meta property="og:updated_time" content="2020-10-24T15:22:50.863Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lagrange Multiplier and KKT Conditions">
 <meta name="twitter:description" content="In mathematical optimization, the method of Lagrange multipliers is a strategy for finding the local maximum and minimum of a function subject to equality constraints, while KKT conditions solve the">
-<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/32336612.jpg">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/24813213.jpg">
 
 
 
@@ -52,7 +53,7 @@
 
 <link rel="stylesheet" href="/css/style.css">
 
-<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
     
@@ -68,7 +69,7 @@
 </head>
 <body>
     
-<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
     <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item navbar-logo" href="/">
@@ -127,13 +128,14 @@
         <span class="column is-narrow">
             
             
-            10 minutes read (About 1479 words)
+            10 minutes read (About 1488 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <blockquote>
+        <p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-21/24813213.jpg"></p>
+<blockquote>
 <p>In mathematical optimization, the method of Lagrange multipliers is a strategy for finding the local maximum and minimum of a function subject to equality constraints, while KKT conditions solve the problems with inequality constraints.</p>
 </blockquote>
 <h2 id="naive-approach">Naive Approach</h2>
@@ -269,9 +271,7 @@ L(\mathbf{x}, w, v) = (x_1^2 - x_2 - 3x_3) - w(-x_1 - x_2 - x_3) - v(x_1^2 + 2x_
     
     
     <div class="columns is-mobile is-multiline article-nav">
-        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
-            
-            <a href="/2018/04/22/PRML1-1/">(PRML Notes) 1.1 Polynomial Curve Fitting as an Introductory Example</a>
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
             
         </span>
         <span class="column is-12-mobile is-half-desktop  article-nav-next">
@@ -324,7 +324,7 @@ L(\mathbf{x}, w, v) = (x_1^2 - x_2 - 3x_3) - w(-x_1 - x_2 - x_3) - v(x_1^2 + 2x_
     <div class="container">
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
-                &copy; 2019 wiljohn&nbsp;
+                &copy; 2022 wiljohn&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
             <div class="column is-hidden-mobile"></div>
@@ -515,7 +515,24 @@ L(\mathbf{x}, w, v) = (x_1^2 - x_2 - 3x_3) - w(-x_1 - x_2 - x_3) - v(x_1^2 + 2x_
         window.INSIGHT_CONFIG = INSIGHT_CONFIG;
     })(window);
 </script>
-<script src="/js/insight.js"></script>
+<script src="/js/insight.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
     
 </body>
 </html>
