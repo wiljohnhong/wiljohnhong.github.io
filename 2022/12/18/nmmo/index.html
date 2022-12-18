@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+<title>1st Place Solution of NeurIPS 2022 The Neural MMO Challenge - Wiljohn&#39;s Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="The Neural MMO environment was firstly released by OpenAI in 2019[1] and is now developed and maintained by the Massachusetts Institute of Technology[2]. It is a platform for large-scale multi-agent">
+<meta name="keywords" content="reinforcement learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1st Place Solution of NeurIPS 2022 The Neural MMO Challenge">
+<meta property="og:url" content="http://wiljohn.top/2022/12/18/nmmo/index.html">
+<meta property="og:site_name" content="Wiljohn&#39;s Blog">
+<meta property="og:description" content="The Neural MMO environment was firstly released by OpenAI in 2019[1] and is now developed and maintained by the Massachusetts Institute of Technology[2]. It is a platform for large-scale multi-agent">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://images.aicrowd.com/raw_images/challenges/banner_file/1096/35cafc23d4dfd01cc773.png">
+<meta property="og:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/nmmo.png">
+<meta property="og:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/features.png">
+<meta property="og:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/block.gif">
+<meta property="og:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/%2Bkill.gif">
+<meta property="og:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/group.gif">
+<meta property="og:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/overview.gif">
+<meta property="og:updated_time" content="2022-12-18T09:22:00.788Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1st Place Solution of NeurIPS 2022 The Neural MMO Challenge">
+<meta name="twitter:description" content="The Neural MMO environment was firstly released by OpenAI in 2019[1] and is now developed and maintained by the Massachusetts Institute of Technology[2]. It is a platform for large-scale multi-agent">
+<meta name="twitter:image" content="https://images.aicrowd.com/raw_images/challenges/banner_file/1096/35cafc23d4dfd01cc773.png">
+
+
+
+
+
+<link rel="icon" href="/favicon.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    
+    
+
+    
+    
+    
+    
+    
+
+
+</head>
+<body>
+    
+<!-- hexo-inject:begin --><!-- hexo-inject:end --><nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item " href="/archives">Archives</a>
+            
+            <a class="navbar-item " href="/tags">Tags</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            
+            <a class="navbar-item" title="GitHub" href="https://github.com/wiljohnhong">
+                
+                <i class="fab-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope="" itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            1st Place Solution of NeurIPS 2022 The Neural MMO Challenge
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            <time datetime="2022-12-18T05:53:06.000Z" itemprop="datePublished">Dec 18 2022</time>
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            13 minutes read (About 1987 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <p><img src="https://images.aicrowd.com/raw_images/challenges/banner_file/1096/35cafc23d4dfd01cc773.png"></p>
+<p>The Neural MMO environment was firstly released by OpenAI in 2019[1] and is now developed and maintained by the Massachusetts Institute of Technology[2]. It is a platform for large-scale multi-agent research. The design of Neural MMO is inspired by large-scale multiplayer online role-playing games (MMORPGs) and simulates a large ecosystem in which a variable number of players can compete in a vast environment. Unlike Dota[3] and Starcraft[4], where AI has already achieved super-human performance, AI design in Neural MMO should not only consider coordination among a large number of agents within a team, but also consider competition with dozens of enemy teams or even more.</p>
+<p>Based on this environment, the Neural MMO challenge has been held for three times so far. By introducing new equipment system, trade system and poison fog, the difficulty of the competition has been largely increased for <a href="https://www.aicrowd.com/challenges/neurips-2022-the-neural-mmo-challenge" target="_blank" rel="noopener">the NeurIPS challenge</a>. This post will briefly introduce our solution of <em>realikun</em>, which got the 1st place in this challenge with the highest kill number, longest alive time, highest received damage and most gold farmed.</p>
+<a id="more"></a>
+<p>The method is a combination of multi-agent reinforcement learning and rule-based approach. We train the agents with PPO[5] in a CTCE (Centralized-Training-Centralized-Execution) style, where the whole observation is team-based and also augmented from the teammates for each agent. The reinforcement learning model is heavily involved in the decision of choosing moving directions, targets of attacking, and the using and selling of only consumable items, some corner cases like forcing the agent not to walk onto lava or always not attacking the neutral NPCs in our PvP version, are controlled via action masks. The rule-based policy controls the selection of attacking styles, the pricing of selling, selling of non-consumable items and all kinds of buying. We do not use the communication action from the raw action space as our method is a CTCE approach.</p>
+<h2 id="model-architecture">Model Architecture</h2>
+<p>The most parts of the post will be focused on the introduction to the model architecture we use. The transformer and LSTM locates in the core of the network, which compose most of the model’s total parameter count. Each of the eight players on the team is controlled by a replica of this network but with nearly totally different input of their own. The design is mainly borrowed from <em>OpenAI Five</em>[3] and <em>Hide and Seek</em>[6]. Now let’s dive into the details of each part.</p>
+<figure>
+<img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/nmmo.png" alt="Model Architecture"><figcaption>Model Architecture</figcaption>
+</figure>
+<p>The first to introduce is the <strong>Item Encoder</strong>. For each item, an embedding is generated according to its type, and concatenated with some other statistical information of the item like the level or damage, and then projected through a fully connected layer. The 12 item hiddens are then pooled into a single vector to get a summary of the player’s inventory.</p>
+<p>The <strong>Action Encoder</strong> is rather simple, it takes the 4 kinds of chosen actions in the last turn as the input / and outputs the concatenation of their embeddings.</p>
+<p>We use a 3-layer resnet as <strong>Tile Encoder</strong> to encode the 2-dimensional features, the input for each player has 7 channels with a <span class="math inline">\(25\times25\)</span> plane. Each resnet layer consists of 2 residual blocks.</p>
+<p>The internal representation for each player is a combination of the hidden representations from the previous 3 encoders, plus 3 kinds of raw features including the action masks we defined, player info like position, health, and some info about the whole environment like the game progress. All these informations are <strong>concatenated to form a summary vector about each controlled player</strong>.</p>
+<p>Now we get 8 vectors in total, representing the 8 players in the controlled team respectively. To do <strong>feature interactions</strong> among different entities, we use a 3-layer transformer encoder as the backbone. For each agent, the input for the transformer consists of hidden representations of 26 entities, 1 from the controlled player itself, 7 from the teammates, and the nearest 9 NPCs and 9 enemies. Note that we extend the info of nearest NPCs and enemies of the controlled player from its teammates’ view, so for example, if some other teammate finds an enemy, the feature of this enemy may appear in the input of the controlled agent, though the agent can’t see the enemy by itself. To reduce the computation cost of transformer, the hidden representations of controlled players are first projected into a space with lower dimension. To motivate stronger interaction between the controlled player and other entities, the hidden representation of the controlled player itself is concatenated with the representation of others and goes through an additional fully connected layer before they are fed into the transformer.</p>
+<p>The last part of the model is the <strong>Action Decoder</strong>, where a 1-layer LSTM is applied to deal with the partially observable problems in this environment. We first max pool the output of the transformer over the dimension of sequence, but before it is further to be pro’cessed, it is concatenated of some additional information provided by projection from the original hidden representation of the controlled player, because we think some important information may get lost from the low-dimension input of transformer we used before. After some interactions with historial infos, we use four separate policy heads to output the agent’s decisions about moving, targets of attacking, using and selling, action masks are applied here to reduce the some exploration cost. We only use a single scalar output to predict the value of the whole team, whose input is an averaged pool over the output of LSTM from all the 8 agents.</p>
+<figure>
+<img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/features.png" alt="7 Channels of Tile Feature"><figcaption>7 Channels of Tile Feature</figcaption>
+</figure>
+<p>As we mentioned before that the 2-dimensional feature of tile encoder has the shape of <span class="math inline">\(7\times25\times25\)</span>, these channels are specially designed as follows. First we extend the original <span class="math inline">\(15\times15\)</span> view of agent to <span class="math inline">\(25\times25\)</span>, the information in the extended areas come from both the historical view and something currently shared by its teammates. The first channel is the tile type, the type info is compressed into a single channel by dividing by 16, and we add an additional type representing the unexplored area. The second channel is the entity type, the different values are assigned for teammates, enemies and 3 kinds of NPCs. The third channel is the fog of war, which is a common concept used in RTS games, where a higher value indicates the tile has been recently explored. The fourth channel is the footprint, which explicitly encodes the historical moves of the agent. The last three channels are the poison intensity and coordinates of each tile.</p>
+<h2 id="reward-design">Reward Design</h2>
+<p>Only six kinds of reward is straightly defined as follows:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>dead</td>
+<td><span class="math inline">\(-1\)</span></td>
+</tr>
+<tr class="even">
+<td>defeat an enemy</td>
+<td><span class="math inline">\(+0.3\)</span></td>
+</tr>
+<tr class="odd">
+<td>last hit on a passive NPC</td>
+<td><span class="math inline">\(+0.02\)</span></td>
+</tr>
+<tr class="even">
+<td>per HP change</td>
+<td><span class="math inline">\(\pm0.005\)</span></td>
+</tr>
+<tr class="odd">
+<td>hostile NPC in view</td>
+<td><span class="math inline">\(-0.1\)</span></td>
+</tr>
+<tr class="even">
+<td>collect a poultice by walking onto a herb tile when #<span class="math inline">\(item &lt; 10\)</span></td>
+<td><span class="math inline">\(+0.025\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="behavior-analysis">Behavior Analysis</h2>
+<h3 id="blocking">Blocking</h3>
+<p><img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/block.gif"></p>
+<ol type="1">
+<li><em>passerby_82</em> finds two ikuns and starts to move backward, <em>realikun_25</em> tries to chase it.</li>
+<li><em>passerby_82</em> doesn’t know the place of <em>realikun_31</em>, it chooses move along the edge of death fog while keeping away from <em>realikun_25</em>, getting closer to <em>realikun_31</em>.</li>
+<li><em>realikun_25</em> and <em>realikun_31</em> join together and drive <em>passerby_82</em> to a corner, where it either receives a lot of damage from death fog if it continues to escape, or being attacked by two ikuns if it wants to receive less damage from death fog. Note that <em>realikun_25</em> and <em>realikun_31</em> are also farming by killing NPCs around in the meanwhile.</li>
+<li>No NPC is left, <em>realikun_31</em> thinks <em>passerby_82</em> won’t move away and believes its teammate can handle the case (my guess) and moves away.</li>
+<li>now the damage of death fog is really high and <em>passerby_82</em> is going to die, <em>realikun_25</em> gets closer to it and takes the last hit, then quickly move towards the map center.</li>
+</ol>
+<h3 id="crossfire">Crossfire</h3>
+<p><img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/%2Bkill.gif"></p>
+<ol type="1">
+<li><em>zhangzhang_65</em> is found by <em>realikun_31</em>.</li>
+<li>After some battle, none of them can effectively hurt each other because both of them equips high level armors/tool and they have the same profession.</li>
+<li><em>realikun_25</em> and <em>realikun_28</em> come to help.</li>
+<li>As the agent ids of <em>realikun</em> team are smaller than <em>zhangzhang</em>’s, they have higher priority to move (IIRC), and finally with the help of stone terrain, the three ikuns block all the directions to move for <em>zhangzhang_65</em>, and finally kill it.</li>
+<li>Unfortunately, <em>zhangzhang_65</em> has stored many poultices before this combat, which can’t be known by other agents. It takes too many rounds for <em>realikun_31</em> to kill it, but this agent doesn’t have enough poultices or rations and soon dies of starving.</li>
+</ol>
+<h3 id="group-fighting">Group Fighting</h3>
+<p><img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/group.gif"></p>
+<ol type="1">
+<li>In the very beginning, killing even passive NPC can take a lot of time for a single agent. The <em>realikun</em> team qiuckly form into two groups, one has 3 agents, and the other has 5 agents with more NPCs wandering around them.</li>
+<li>All the agents’ highest combat levels are at least 3, and they do not witness any enemy in their sight, so now they decide to farm separately. During this period, some of them sometimes get closer as they find some enemy they can kill, but not very strong enemy. <em>realikun_109</em> loses its life for running out of resource.</li>
+<li>The team fighting starts. <em>realikun_112</em> alone meets three agents from the team <em>passerby</em> and starts to escape, then all other alive teammates, except <em>reaikun_106/111</em> who are busy fighting against <em>Qinwen_15</em>, start moving towards it to help. <em>realikun_105</em> and <em>realikun_108</em> meet <em>mori_89</em> on their way and change their idea to kill the opponent at their present, <em>realikun_106/107/110</em> reach the battleground and turn the situation from 1v3 into 4v3, and then quickly eliminate two of the <em>passerby</em> agents, the left one escaped.</li>
+<li>All the four <em>realikuns</em> who just fight against <em>passerby</em> team join the group of <em>reaikun_106/111</em> to chase the not killed opponent <em>mori_89</em>.</li>
+<li><em>realikun_110</em> leaves them, now there are 5 <em>realikuns</em> chasing <em>mori_89</em>.</li>
+<li><em>realikun_105</em> in the <em>mori</em>-chasing group finds another 2 <em>passerby</em> agents, and at the same time the <em>realikun_110</em>, who is now grouping with <em>realikun_111</em> and chasing the escaping <em>passerby</em> agent, is also coming.</li>
+<li>Seven <em>realikuns</em> fight together, try to lock up the opponents from different sides with the help of surrounding stones. Finally, <em>mori_89</em> and another <em>passerby</em> agent get killed.</li>
+</ol>
+<h2 id="big-picture">Big Picture</h2>
+<p><img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/overview.gif"></p>
+<p>This segment shows the tactics of the <em>realikun</em> team, born on the left side of the map, in the first 600 rounds of the game from a more macro perspective. In the first 50 rounds, due to the weak individual combat power, <em>realikun</em> spontaneously formed two small teams to kill NPCs. Between the round 50th and 250th, as each agent had accumulated a certain amount of equipment, they chose the more efficient strategy of dispersed money making, but still kept a certain distance from each other and could form small teams to protect each other when encountering threats. After the 250th round, when the equipment set was basically formed, each agent had strong combat ability, and the team goal changed to actively searching for other players to kill, and the team's action radius was further expanded.</p>
+<h2 id="references">References</h2>
+<p>[1] <a href="https://arxiv.org/abs/1903.00784" target="_blank" rel="noopener">Neural MMO: A massively multiagent game environment for training and evaluating intelligent agents</a></p>
+<p>[2] <a href="https://arxiv.org/abs/2110.07594" target="_blank" rel="noopener">The Neural MMO Platform for Massively Multiagent Research</a></p>
+<p>[3] <a href="https://arxiv.org/abs/1912.06680" target="_blank" rel="noopener">Dota 2 with Large Scale Deep Reinforcement Learning</a></p>
+<p>[4] <a href="https://www.deepmind.com/blog/alphastar-mastering-the-real-time-strategy-game-starcraft-ii" target="_blank" rel="noopener">AlphaStar: Mastering the real-time strategy game StarCraft II</a></p>
+<p>[5] <a href="https://arxiv.org/abs/1707.06347" target="_blank" rel="noopener">Proximal Policy Optimization Algorithms</a></p>
+<p>[6] <a href="http://arxiv.org/abs/1909.07528" target="_blank" rel="noopener">Emergent Tool Use From Multi-Agent Autocurricula</a></p>
+
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/reinforcement-learning/">#reinforcement learning</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2018/04/21/KKT/">Lagrange Multiplier and KKT Conditions</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5c1be99859895a00110ffa34&amp;product=inline-share-buttons" async="async"></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://wiljohn.top/2022/12/18/nmmo/';
+        this.page.identifier = 'nmmo';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'wiljohnhong-github-io' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2022 wiljohn&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" href="https://github.com/wiljohnhong">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+
+
+<script src="/js/script.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something...">
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+    
+</body>
+</html>
