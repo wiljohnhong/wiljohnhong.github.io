@@ -22,18 +22,18 @@
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
 <meta property="og:description" content="The Neural MMO environment was firstly released by OpenAI in 2019[1] and is now developed and maintained by the Massachusetts Institute of Technology[2]. It is a platform for large-scale multi-agent">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/banner.png">
-<meta property="og:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/nmmo.png">
-<meta property="og:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/features.png">
-<meta property="og:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/block.gif">
-<meta property="og:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/%2Bkill.gif">
-<meta property="og:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/group.gif">
-<meta property="og:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/overview.gif">
-<meta property="og:updated_time" content="2022-12-18T09:31:49.109Z">
+<meta property="og:image" content="https://z4a.net/images/2022/12/22/banner.png">
+<meta property="og:image" content="https://z4a.net/images/2022/12/22/arch.png">
+<meta property="og:image" content="https://z4a.net/images/2022/12/22/features.png">
+<meta property="og:image" content="https://z4a.net/images/2022/12/22/block.gif">
+<meta property="og:image" content="https://z4a.net/images/2022/12/22/kill.gif">
+<meta property="og:image" content="https://z4a.net/images/2022/12/22/group2b7cdc7d2054a177.gif">
+<meta property="og:image" content="https://z4a.net/images/2022/12/22/overview.gif">
+<meta property="og:updated_time" content="2022-12-22T03:11:33.617Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="1st Place Solution of NeurIPS 2022 The Neural MMO Challenge">
 <meta name="twitter:description" content="The Neural MMO environment was firstly released by OpenAI in 2019[1] and is now developed and maintained by the Massachusetts Institute of Technology[2]. It is a platform for large-scale multi-agent">
-<meta name="twitter:image" content="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/banner.png">
+<meta name="twitter:image" content="https://z4a.net/images/2022/12/22/banner.png">
 
 
 
@@ -129,13 +129,13 @@
         <span class="column is-narrow">
             
             
-            13 minutes read (About 1983 words)
+            13 minutes read (About 1966 words)
         </span>
         
     </div>
     <div class="article-entry is-size-6-mobile" itemprop="articleBody">
     
-        <p><img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/banner.png"></p>
+        <p><img src="https://z4a.net/images/2022/12/22/banner.png"></p>
 <p>The Neural MMO environment was firstly released by OpenAI in 2019[1] and is now developed and maintained by the Massachusetts Institute of Technology[2]. It is a platform for large-scale multi-agent research. The design of Neural MMO is inspired by large-scale multiplayer online role-playing games (MMORPGs) and simulates a large ecosystem in which a variable number of players can compete in a vast environment. Unlike Dota[3] and Starcraft[4], where AI has already achieved super-human performance, AI design in Neural MMO should not only consider coordination among a large number of agents within a team, but also consider competition with dozens of enemy teams or even more.</p>
 <p>Based on this environment, the Neural MMO challenge has been held for three times so far. By introducing new equipment system, trade system and poison fog, the difficulty of the competition has been largely increased for <a href="https://www.aicrowd.com/challenges/neurips-2022-the-neural-mmo-challenge" target="_blank" rel="noopener">the NeurIPS challenge</a>. This post will briefly introduce our solution of <em>realikun</em>, which got the 1st place in this challenge with the highest kill number, longest alive time, highest received damage and most gold farmed.</p>
 <a id="more"></a>
@@ -143,7 +143,7 @@
 <h2 id="model-architecture">Model Architecture</h2>
 <p>The most parts of the post will be focused on the introduction to the model architecture we use. The transformer and LSTM locates in the core of the network, which compose most of the model’s total parameter count. Each of the eight players on the team is controlled by a replica of this network but with nearly totally different input of their own. The design is mainly borrowed from <em>OpenAI Five</em>[3] and <em>Hide and Seek</em>[6]. Now let’s dive into the details of each part.</p>
 <figure>
-<img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/nmmo.png" alt="Model Architecture"><figcaption>Model Architecture</figcaption>
+<img src="https://z4a.net/images/2022/12/22/arch.png" alt="Model Architecture"><figcaption>Model Architecture</figcaption>
 </figure>
 <p>The first to introduce is the <strong>Item Encoder</strong>. For each item, an embedding is generated according to its type, and concatenated with some other statistical information of the item like the level or damage, and then projected through a fully connected layer. The 12 item hiddens are then pooled into a single vector to get a summary of the player’s inventory.</p>
 <p>The <strong>Action Encoder</strong> is rather simple, it takes the 4 kinds of chosen actions in the last turn as the input / and outputs the concatenation of their embeddings.</p>
@@ -152,7 +152,7 @@
 <p>Now we get 8 vectors in total, representing the 8 players in the controlled team respectively. To do <strong>feature interactions</strong> among different entities, we use a 3-layer transformer encoder as the backbone. For each agent, the input for the transformer consists of hidden representations of 26 entities, 1 from the controlled player itself, 7 from the teammates, and the nearest 9 NPCs and 9 enemies. Note that we extend the info of nearest NPCs and enemies of the controlled player from its teammates’ view, so for example, if some other teammate finds an enemy, the feature of this enemy may appear in the input of the controlled agent, though the agent can’t see the enemy by itself. To reduce the computation cost of transformer, the hidden representations of controlled players are first projected into a space with lower dimension. To motivate stronger interaction between the controlled player and other entities, the hidden representation of the controlled player itself is concatenated with the representation of others and goes through an additional fully connected layer before they are fed into the transformer.</p>
 <p>The last part of the model is the <strong>Action Decoder</strong>, where a 1-layer LSTM is applied to deal with the partially observable problems in this environment. We first max pool the output of the transformer over the dimension of sequence, but before it is further to be pro’cessed, it is concatenated of some additional information provided by projection from the original hidden representation of the controlled player, because we think some important information may get lost from the low-dimension input of transformer we used before. After some interactions with historial infos, we use four separate policy heads to output the agent’s decisions about moving, targets of attacking, using and selling, action masks are applied here to reduce the some exploration cost. We only use a single scalar output to predict the value of the whole team, whose input is an averaged pool over the output of LSTM from all the 8 agents.</p>
 <figure>
-<img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/features.png" alt="7 Channels of Tile Feature"><figcaption>7 Channels of Tile Feature</figcaption>
+<img src="https://z4a.net/images/2022/12/22/features.png" alt="7 Channels of Tile Feature"><figcaption>7 Channels of Tile Feature</figcaption>
 </figure>
 <p>As we mentioned before that the 2-dimensional feature of tile encoder has the shape of <span class="math inline">\(7\times25\times25\)</span>, these channels are specially designed as follows. First we extend the original <span class="math inline">\(15\times15\)</span> view of agent to <span class="math inline">\(25\times25\)</span>, the information in the extended areas come from both the historical view and something currently shared by its teammates. The first channel is the tile type, the type info is compressed into a single channel by dividing by 16, and we add an additional type representing the unexplored area. The second channel is the entity type, the different values are assigned for teammates, enemies and 3 kinds of NPCs. The third channel is the fog of war, which is a common concept used in RTS games, where a higher value indicates the tile has been recently explored. The fourth channel is the footprint, which explicitly encodes the historical moves of the agent. The last three channels are the poison intensity and coordinates of each tile.</p>
 <h2 id="reward-design">Reward Design</h2>
@@ -193,7 +193,7 @@
 </table>
 <h2 id="behavior-analysis">Behavior Analysis</h2>
 <h3 id="blocking">Blocking</h3>
-<p><img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/block.gif"></p>
+<p><img src="https://z4a.net/images/2022/12/22/block.gif"></p>
 <ol type="1">
 <li><em>passerby_82</em> finds two ikuns and starts to move backward, <em>realikun_25</em> tries to chase it.</li>
 <li><em>passerby_82</em> doesn’t know the place of <em>realikun_31</em>, it chooses move along the edge of death fog while keeping away from <em>realikun_25</em>, getting closer to <em>realikun_31</em>.</li>
@@ -202,7 +202,7 @@
 <li>now the damage of death fog is really high and <em>passerby_82</em> is going to die, <em>realikun_25</em> gets closer to it and takes the last hit, then quickly move towards the map center.</li>
 </ol>
 <h3 id="crossfire">Crossfire</h3>
-<p><img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/%2Bkill.gif"></p>
+<p><img src="https://z4a.net/images/2022/12/22/kill.gif"></p>
 <ol type="1">
 <li><em>zhangzhang_65</em> is found by <em>realikun_31</em>.</li>
 <li>After some battle, none of them can effectively hurt each other because both of them equips high level armors/tool and they have the same profession.</li>
@@ -211,7 +211,7 @@
 <li>Unfortunately, <em>zhangzhang_65</em> has stored many poultices before this combat, which can’t be known by other agents. It takes too many rounds for <em>realikun_31</em> to kill it, but this agent doesn’t have enough poultices or rations and soon dies of starving.</li>
 </ol>
 <h3 id="group-fighting">Group Fighting</h3>
-<p><img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/group.gif"></p>
+<p><img src="https://z4a.net/images/2022/12/22/group2b7cdc7d2054a177.gif"></p>
 <ol type="1">
 <li>In the very beginning, killing even passive NPC can take a lot of time for a single agent. The <em>realikun</em> team qiuckly form into two groups, one has 3 agents, and the other has 5 agents with more NPCs wandering around them.</li>
 <li>All the agents’ highest combat levels are at least 3, and they do not witness any enemy in their sight, so now they decide to farm separately. During this period, some of them sometimes get closer as they find some enemy they can kill, but not very strong enemy. <em>realikun_109</em> loses its life for running out of resource.</li>
@@ -222,7 +222,7 @@
 <li>Seven <em>realikuns</em> fight together, try to lock up the opponents from different sides with the help of surrounding stones. Finally, <em>mori_89</em> and another <em>passerby</em> agent get killed.</li>
 </ol>
 <h2 id="big-picture">Big Picture</h2>
-<p><img src="https://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/22-12-18/overview.gif"></p>
+<p><img src="https://z4a.net/images/2022/12/22/overview.gif"></p>
 <p>This segment shows the tactics of the <em>realikun</em> team, born on the left side of the map, in the first 600 rounds of the game from a more macro perspective. In the first 50 rounds, due to the weak individual combat power, <em>realikun</em> spontaneously formed two small teams to kill NPCs. Between the round 50th and 250th, as each agent had accumulated a certain amount of equipment, they chose the more efficient strategy of dispersed money making, but still kept a certain distance from each other and could form small teams to protect each other when encountering threats. After the 250th round, when the equipment set was basically formed, each agent had strong combat ability, and the team goal changed to actively searching for other players to kill, and the team's action radius was further expanded.</p>
 <h2 id="references">References</h2>
 <p>[1] <a href="https://arxiv.org/abs/1903.00784" target="_blank" rel="noopener">Neural MMO: A massively multiagent game environment for training and evaluating intelligent agents</a></p>
