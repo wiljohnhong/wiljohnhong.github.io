@@ -14,18 +14,18 @@
 
 
 
-    <meta name="description" content="Git 是一个开源的分布式版本控制系统。温习一下 Git 操作对于提升工作效率确实很有帮助。  本地基本操作 创建仓库: 22">
+    <meta name="description" content="Git 是一个开源的分布式版本控制系统。温习一下 Git 操作对于提升工作效率确实很有帮助。  本地基本操作 创建仓库: 0">
 <meta name="keywords" content="git,memo">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Git 备忘">
-<meta property="og:url" content="http://wiljohn.top/cache/git.html">
+<meta property="og:url" content="http://wiljohn.top/old/git.html">
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
-<meta property="og:description" content="Git 是一个开源的分布式版本控制系统。温习一下 Git 操作对于提升工作效率确实很有帮助。  本地基本操作 创建仓库: 22">
+<meta property="og:description" content="Git 是一个开源的分布式版本控制系统。温习一下 Git 操作对于提升工作效率确实很有帮助。  本地基本操作 创建仓库: 0">
 <meta property="og:locale" content="en">
 <meta property="og:updated_time" content="2020-10-24T15:22:50.871Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git 备忘">
-<meta name="twitter:description" content="Git 是一个开源的分布式版本控制系统。温习一下 Git 操作对于提升工作效率确实很有帮助。  本地基本操作 创建仓库: 22">
+<meta name="twitter:description" content="Git 是一个开源的分布式版本控制系统。温习一下 Git 操作对于提升工作效率确实很有帮助。  本地基本操作 创建仓库: 0">
 
 
 
@@ -132,88 +132,88 @@
 </blockquote>
 <h3 id="本地基本操作">本地基本操作</h3>
 <p>创建仓库:</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git init</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git init</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <p>将一个文件添加至暂存区</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git add &lt;file&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git add &lt;file&gt;</span><br></pre></td></tr></table></figure></p>
 <p>将一个文件从暂存区中移除（同时也会从磁盘上移除）</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git rm &lt;file&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git rm &lt;file&gt;</span><br></pre></td></tr></table></figure></p>
 <p>提交改动</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git commit -m <span class="hljs-string">'&lt;message&gt;'</span></span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git commit -m '&lt;message&gt;'</span><br></pre></td></tr></table></figure></p>
 <p>检查仓库状态</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git status</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git status</span><br></pre></td></tr></table></figure></p>
 <p>展示工作区和暂存区的不同之处</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git diff</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git diff</span><br></pre></td></tr></table></figure></p>
 <p>查看提交历史</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git <span class="hljs-built_in">log</span></span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git log</span><br></pre></td></tr></table></figure></p>
 <p>回退到某个提交版本</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git reset --hard &lt;commit_id&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git reset --hard &lt;commit_id&gt;</span><br></pre></td></tr></table></figure></p>
 <p>显示过去执行的命令（撤销改动时很有用）</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git reflog</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git reflog</span><br></pre></td></tr></table></figure></p>
 <p>丢弃工作区（还未被<code>add</code>到暂存区）的改动</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git checkout -- &lt;file&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git checkout -- &lt;file&gt;</span><br></pre></td></tr></table></figure></p>
 <p>丢弃暂存区中的改动</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git reset HEAD &lt;file&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git reset HEAD &lt;file&gt;</span><br></pre></td></tr></table></figure></p>
 <h3 id="分支管理">分支管理</h3>
 <p>查看所有分支</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git branch</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git branch</span><br></pre></td></tr></table></figure></p>
 <p>创建并切换分支</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git checkout -b &lt;branch&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git checkout -b &lt;branch&gt;</span><br></pre></td></tr></table></figure></p>
 <p>合并某分支到当前分支</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git merge &lt;branch&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git merge &lt;branch&gt;</span><br></pre></td></tr></table></figure></p>
 <p>删除分支</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git branch -d &lt;branch&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git branch -d &lt;branch&gt;</span><br></pre></td></tr></table></figure></p>
 <p>对于未被合并的分支，删除可能造成修改内容的丢失，需要使用大写参数<code>-D</code></p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git branch -D &lt;branch&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git branch -D &lt;branch&gt;</span><br></pre></td></tr></table></figure></p>
 <p>合并分支时可能会使用<code>fast forward</code>模式进行合并，仅仅移动了分支指针，看不出做过的改动。加上<code>--no-ff</code>参数可以用普通模式合并，将合并操作作为一次提交写入历史，所以通常还要用<code>-m</code>对提交进行说明</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git merge &lt;branch&gt; --no-ff -m <span class="hljs-string">'blabla'</span></span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git merge &lt;branch&gt; --no-ff -m 'blabla'</span><br></pre></td></tr></table></figure></p>
 <p>切换分支时保存现场（即把暂存区和未保存的部分存到当前分支下，否则改动会随分支切换而转移），常见于临时进行其他与当前分支无关的改动（如修bug）</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git stash</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git stash</span><br></pre></td></tr></table></figure></p>
 <p>需要恢复现场时先查看可恢复的现场列表</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git stash list</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git stash list</span><br></pre></td></tr></table></figure></p>
 <p>恢复某个现场并删除记录</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git stash pop &lt;stash_id&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git stash pop &lt;stash_id&gt;</span><br></pre></td></tr></table></figure></p>
 <p><code>pop</code>命令相当于连续分别执行恢复<code>apply</code>和删除<code>drop</code></p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git stash apply &lt;stash_id&gt;</span></span><br><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git stash drop &lt;stash_id&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git stash apply &lt;stash_id&gt;</span><br><span class="line"><span class="hljs-meta">$</span> git stash drop &lt;stash_id&gt;</span><br></pre></td></tr></table></figure></p>
 <p>在某一分支上修复bug后可能要将改动也重现在当前分支上，使用<code>cherry-pick</code>命令可以将一个特定的提交复制到当前分支</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git cherry-pick &lt;commit_id&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git cherry-pick &lt;commit_id&gt;</span><br></pre></td></tr></table></figure></p>
 <p>分支开多了后，为了<code>merge</code>之后提交历史看起来更清晰，我们希望将提交历史整理成直线，可以使用<code>rebase</code>命令。但是注意，<code>rebase</code>仅可以把本地<strong>未<code>push</code>的</strong>分叉提交历史整理成直线</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git rebase</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git rebase</span><br></pre></td></tr></table></figure></p>
 <h3 id="远程仓库">远程仓库</h3>
 <p>为本地仓库关联一个远程仓库（如在GItHub上新创建的仓库）</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git remote add origin &lt;remote_repo_addr&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git remote add origin &lt;remote_repo_addr&gt;</span><br></pre></td></tr></table></figure></p>
 <p>查看远程仓库的信息，<code>-v</code>显示更详细的信息</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git remote -v</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git remote -v</span><br></pre></td></tr></table></figure></p>
 <p>进行第一次推送，例如推送本地master分支的所有内容</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git push origin master</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git push origin master</span><br></pre></td></tr></table></figure></p>
 <p>如果要从已有的远程仓库克隆代码来创建本地仓库</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git <span class="hljs-built_in">clone</span> &lt;remote_repo_addr&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git clone &lt;remote_repo_addr&gt;</span><br></pre></td></tr></table></figure></p>
 <p>克隆后默认只能看到本地的<code>master</code>分支，如果要在其他分支如<code>dev</code>进行修改则要创建远程的<code>dev</code>分支到本地</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git checkout -b dev origin/dev</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git checkout -b dev origin/dev</span><br></pre></td></tr></table></figure></p>
 <p>推送本地的<code>dev</code>分支到远程仓库也类似地是</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git push origin dev</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git push origin dev</span><br></pre></td></tr></table></figure></p>
 <p>多人协作时常常会因为他人更新而推送失败，需要先试图先用<code>pull</code>合并，如果遇到冲突则还要解决冲突，最后再<code>push</code>到远程仓库</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git pull</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git pull</span><br></pre></td></tr></table></figure></p>
 <p>而对于非<code>master</code>分支，在第一次<code>pull</code>时会因为没有指定本地<code>dev</code>分支与远程<code>origin/dev</code>分支的链接而失败，需要设置关联如下</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git branch --<span class="hljs-built_in">set</span>-upstream-to=origin/dev dev</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git branch --set-upstream-to=origin/dev dev</span><br></pre></td></tr></table></figure></p>
 <h3 id="标签">标签</h3>
 <p>为当前分支上最近一次提交（即<code>HEAD</code>）打上标签</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git tag &lt;tag_name&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git tag &lt;tag_name&gt;</span><br></pre></td></tr></table></figure></p>
 <p>对指定的提交打上标签，<code>-a</code>指定标签名，<code>-m</code>指定说明文字</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git tag -a &lt;tag_name&gt; -m <span class="hljs-string">'&lt;description&gt;'</span> &lt;commit_id&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git tag -a &lt;tag_name&gt; -m '&lt;description&gt;' &lt;commit_id&gt;</span><br></pre></td></tr></table></figure></p>
 <p>查看所有标签</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git tag</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git tag</span><br></pre></td></tr></table></figure></p>
 <p>向远程仓库推送一个标签</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git push origin &lt;tag_name&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git push origin &lt;tag_name&gt;</span><br></pre></td></tr></table></figure></p>
 <p>推送所有未被推送过的标签</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git push origin --tags</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git push origin --tags</span><br></pre></td></tr></table></figure></p>
 <p>删除本地仓库的标签</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git tag -d &lt;tag_name&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git tag -d &lt;tag_name&gt;</span><br></pre></td></tr></table></figure></p>
 <p>将删除推送到远程仓库</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git push origin :refs/tags/&lt;tag_name&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git push origin :refs/tags/&lt;tag_name&gt;</span><br></pre></td></tr></table></figure></p>
 <h3 id="配置">配置</h3>
 <p>全局自报家门</p>
-<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git config --global user.name &lt;name&gt;</span></span><br><span class="line"><span class="hljs-meta">$</span><span class="hljs-bash"> git config --global user.email &lt;email&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">$</span> git config --global user.name &lt;name&gt;</span><br><span class="line"><span class="hljs-meta">$</span> git config --global user.email &lt;email&gt;</span><br></pre></td></tr></table></figure></p>
 <p>或者直接修改全局配置文件，路径为<code>~/.gitconfig</code></p>
 <p><figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[user]</span><br><span class="line">        email = &lt;email&gt;</span><br><span class="line">        name = &lt;name&gt;</span><br></pre></td></tr></table></figure></p>
 <p>在配置文件中还可以使用别名，常用的配置是优化<code>git log</code>输出格式的别名</p>
@@ -255,7 +255,7 @@
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://wiljohn.top/cache/git.html';
+        this.page.url = 'http://wiljohn.top/old/git.html';
         this.page.identifier = 'git';
         
         this.language = 'en';

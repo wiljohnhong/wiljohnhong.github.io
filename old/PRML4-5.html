@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-<title>(PRML Notes) 1.4 The Curse of Dimensionality - Wiljohn&#39;s Blog</title>
+<title>(PRML Notes) 4.5 Bayesian Logistic Regression - Wiljohn&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,21 +14,18 @@
 
 
 
-    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Consider a naive &quot;cell&quot; solution for classification, which divides the input space into many cells and each test point is assig">
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a Bayesian treatment of logistic regression, as mentioned in the last section, we should apply the Laplac">
 <meta name="keywords" content="PRML">
 <meta property="og:type" content="website">
-<meta property="og:title" content="(PRML Notes) 1.4 The Curse of Dimensionality">
-<meta property="og:url" content="http://wiljohn.top/cache/PRML1-4.html">
+<meta property="og:title" content="(PRML Notes) 4.5 Bayesian Logistic Regression">
+<meta property="og:url" content="http://wiljohn.top/old/PRML4-5.html">
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
-<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Consider a naive &quot;cell&quot; solution for classification, which divides the input space into many cells and each test point is assig">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a Bayesian treatment of logistic regression, as mentioned in the last section, we should apply the Laplac">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/49913951.jpg">
-<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/6320386.jpg">
 <meta property="og:updated_time" content="2020-10-24T15:22:50.872Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="(PRML Notes) 1.4 The Curse of Dimensionality">
-<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Consider a naive &quot;cell&quot; solution for classification, which divides the input space into many cells and each test point is assig">
-<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/49913951.jpg">
+<meta name="twitter:title" content="(PRML Notes) 4.5 Bayesian Logistic Regression">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  This section turns to a Bayesian treatment of logistic regression, as mentioned in the last section, we should apply the Laplac">
 
 
 
@@ -112,19 +109,19 @@
     <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            (PRML Notes) 1.4 The Curse of Dimensionality
+            (PRML Notes) 4.5 Bayesian Logistic Regression
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2018-04-29T07:18:34.000Z" itemprop="datePublished">Apr 29 2018</time>
+            <time datetime="2019-04-14T10:52:04.000Z" itemprop="datePublished">Apr 14 2019</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            2 minutes read (About 331 words)
+            7 minutes read (About 1093 words)
         </span>
         
     </div>
@@ -133,23 +130,82 @@
         <blockquote>
 <p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
 </blockquote>
-<p>Consider a naive "cell" solution for classification, which divides the input space into many cells and each test point is assigned to the class that has a majority number of representatives in the same cell.</p>
-<p><img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/49913951.jpg"></p>
-<p>One problem is we need to gather exponentially large quantity of data as the number of cells grows exponentially in higher dimensions in order to ensure that the cells are not empty.</p>
-<a id="more"></a>
-<p>Similarly, the number of coefficients in polynomial curve fitting will grow in power law as the dimension increases, making the method becomes unwieldy. For example an order-3 polynomial takes the form <span class="math display">\[
-y(\mathbf{x}, \mathbf{w}) = w_0 + \sum_{i=1}^D w_i x_i + \sum_{i=1}^D\sum_{j=1}^i w_{ij}x_ix_j + \sum_{i=1}^D\sum_{j=1}^i\sum_{k=1}^j w_{ijk} x_i x_j x_k
-\]</span> On geometrical intuitions, the volume of <span class="math inline">\(D\)</span>-dimensional spherecis <span class="math inline">\(V_D(r)=K_Dr^D\)</span>, where the constant <span class="math inline">\(K_D\)</span> only depends on <span class="math inline">\(D\)</span>, and most of the volume is concentrated in a thin shell near the surface since <span class="math display">\[
-\frac{V_D(1) - V_D(1-\epsilon)}{V_D(1)} = 1-(1-\epsilon)^D
-\]</span> For a Gaussian as well, most of the probability mass is located within a thin shell at a specific radius.</p>
-<figure>
-<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/6320386.jpg" alt="Plot of the probability density of a Gaussian w.r.t. r."><figcaption>Plot of the probability density of a Gaussian w.r.t. <span class="math inline">\(r\)</span>.</figcaption>
-</figure>
-<p>So not all intuitions developed in spaces of low dimensionality will generalize to spaces of many dimensions, such difficulty is called the <strong>curse of dimensionality</strong>. However, It's not a severe problem in real application because</p>
-<ul>
-<li>Real data is often confined to a <em>subspace</em> in high dimensional space (like high dimensional image data generated from <span class="math inline">\(3D\)</span> real world)</li>
-<li>Real data typically exhibit some <em>smoothness</em> properties, where interpolation can be applied to gain more data (the same reason for regularization being applied)</li>
-</ul>
+<p>This section turns to a Bayesian treatment of logistic regression, as mentioned in the last section, we should apply the Laplace approximation.</p>
+<h2 id="laplace-approximation">Laplace Approximation</h2>
+<p>First we introduce a prior <span class="math inline">\(p(\mathbf{w})=\mathcal{N}\left(\mathbf{w} | \mathbf{m}_{0}, \mathbf{S}_{0}\right)\)</span>, where <span class="math inline">\(\mathbf{m}_{0}\)</span> and <span class="math inline">\(\mathbf{S}_{0}\)</span> are fixed hyperparameters. And recall that the likelihood of logistic regression is given by <span class="math display">\[
+p(\boldsymbol{\mathsf{t}} | \mathbf{w}) = \prod_{n=1}^{N} y_{n}^{t_{n}}\left\{1-y_{n}\right\}^{1-t_{n}}
+\]</span> <a id="more"></a></p>
+<p>where <span class="math inline">\(y_{n}=\sigma\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}_{n}\right)\)</span>. The posterior is given by <span class="math inline">\(p(\mathbf{w} | \boldsymbol{\mathsf{t}}) \propto p(\mathbf{w}) p(\boldsymbol{\mathsf{t}} | \mathbf{w})\)</span>, and take log of both sides we have <span class="math display">\[
+\begin{aligned} \ln p(\mathbf{w} | \boldsymbol{\mathsf{t}})=&amp;-\frac{1}{2}\left(\mathbf{w}-\mathbf{m}_{0}\right)^{\mathrm{T}} \mathbf{S}_{0}^{-1}\left(\mathbf{w}-\mathbf{m}_{0}\right) \\ &amp;+\sum_{n=1}^{N}\left\{t_{n} \ln y_{n}+\left(1-t_{n}\right) \ln \left(1-y_{n}\right)\right\}+\text { const } \end{aligned}
+\]</span> Use the previous results in 4.3.3, we can find the Hessian matrix <span class="math display">\[
+\mathbf{S}_{N}^{-1}=-\nabla^2_\mathbf{w} \ln p(\mathbf{w} | \boldsymbol{\mathsf{t}})=\mathbf{S}_{0}^{-1}+ \boldsymbol{\Phi}^\mathrm{T} \mathbf{R}\boldsymbol{\Phi}
+\]</span> Then the Laplace approximation to the posterior is given by <span class="math display">\[
+q(\mathbf{w})=\mathcal{N}\left(\mathbf{w} | \mathbf{w}_{\mathrm{MAP}}, \mathbf{S}_{N}\right)
+\]</span></p>
+<h2 id="predictive-distribution">Predictive Distribution</h2>
+<p>The remained task is now to marginalizing w.r.t. <span class="math inline">\(\mathbf{w}​\)</span> to make predictions for a new point <span class="math inline">\(\boldsymbol{\phi}​\)</span>. In the two classes case we have <span class="math display">\[
+p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \boldsymbol{\mathsf{t}}\right)=\int p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \mathbf{w}\right) p(\mathbf{w} | \boldsymbol{\mathsf{t}}) \mathrm{d} \mathbf{w} \simeq \int \sigma\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}
+\]</span> Now to evaluate this expression, we will introduce the Dirac delta function <span class="math inline">\(\delta\)</span></p>
+<p><span class="math display">\[
+\sigma\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right)=\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) \sigma(a) \mathrm{d} a
+\]</span></p>
+<blockquote>
+<p>To my intuitive understanding, the Dirac delta function is used as a variable changing method for high dimension integral. In this case, <span class="math inline">\(a=\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}​\)</span>.</p>
+</blockquote>
+<p>From this we obtain <span class="math display">\[
+\begin{align}
+p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \boldsymbol{\mathsf{t}}\right)&amp;\simeq \int \sigma\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}
+\\ &amp;= \int\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right)  q(\mathbf{w}) \mathrm{d} \mathbf{w} \ \sigma(a)\mathrm{d} a 
+\\ &amp;\equiv \int p(a)\sigma(a)\mathrm{d} a
+\end{align}
+\]</span></p>
+<p>where we have defined</p>
+<p><span class="math display">\[
+p(a)=\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}
+\]</span></p>
+<p><span class="math inline">\(p(a)\)</span> can be easily evaluated by noting that it is a Gaussian, since the delta function imposes a linear constraint on <span class="math inline">\(\mathbf{w}\)</span>, i.e. <span class="math inline">\(a=\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\)</span>. So we can evaluate the form <span class="math inline">\(p(a)\)</span> by computing the mean</p>
+<p><span class="math display">\[
+\begin{align}
+\mu_{a}&amp;=\int p(a) a \mathrm{d} a
+\\ &amp;=\int \int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}\ a \mathrm{d} a
+\\ &amp;=\int \int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right)a \mathrm{d} a \  q(\mathbf{w}) \mathrm{d} \mathbf{w}
+\\ &amp;=\int \mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\ q(\mathbf{w})  \mathrm{d} \mathbf{w}
+\\&amp;=\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}} \boldsymbol{\phi}
+\end{align}
+\]</span></p>
+<p>and the variance</p>
+<p><span class="math display">\[
+\begin{align} 
+\sigma_{a}^{2} &amp;=\int p(a)\left\{a^{2}-\mathbb{E}[a]^{2}\right\} \mathrm{d} a 
+\\ &amp;= \int\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) q(\mathbf{w}) \mathrm{d} \mathbf{w}\left\{a^{2}-\left(\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}} \boldsymbol{\phi}\right)^{2}\right\} \mathrm{d} a 
+\\ &amp;= \int\int \delta\left(a-\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right) \left\{a^{2}-\left(\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}} \boldsymbol{\phi}\right)^{2}\right\} \mathrm{d} a \ q(\mathbf{w}) \mathrm{d} \mathbf{w}
+\\ &amp;=\int \left\{\left(\mathbf{w}^{\mathrm{T}} \boldsymbol{\phi}\right)^{2}-\left(\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}} \boldsymbol{\phi}\right)^{2}\right\} q(\mathbf{w}) \mathrm{d} \mathbf{w}
+\\ &amp;=\boldsymbol{\phi}^{\mathrm{T}}\int \left\{ \mathbf{w}\mathbf{w}^{\mathrm{T}}   -\mathbf{w}_{\mathrm{MAP}}\mathbf{w}_{\mathrm{MAP}}^{\mathrm{T}}\right\} q(\mathbf{w}) \mathrm{d} \mathbf{w}\ \boldsymbol{\phi}
+\\&amp;=\boldsymbol{\phi}^{\mathrm{T}} \mathbf{S}_{N} \boldsymbol{\phi}
+\end{align}
+\]</span></p>
+<p>So the predictive distribution becomes</p>
+<p><span class="math display">\[
+p\left(\mathcal{C}_{1} | \boldsymbol{\phi},\boldsymbol{\mathsf{t}}\right) \simeq\int \sigma(a) p(a) \mathrm{d} a=\int \sigma(a) \mathcal{N}\left(a | \mu_{a}, \sigma_{a}^{2}\right) \mathrm{d} a
+\]</span></p>
+<p>Note that we still cannot analytically evaluate the integral over <span class="math inline">\(a\)</span>, but we can obtain a good approximation by making use of the close similarity between the inverse probit function and sigmoid function, where we have introduced in 4.3.5 that</p>
+<p><span class="math display">\[
+\sigma(a) \simeq \Phi (\lambda a)
+\]</span> where <span class="math inline">\(\lambda^2 = \pi/8\)</span>. The reason to use inverse probit is that its convolution with a Gaussian can be expressed analytically in terms of another inverse probit function. (proof omitted.)</p>
+<p>Now by a series of approximation we can obtain <span class="math display">\[
+\begin{align}
+p\left(\mathcal{C}_{1} | \boldsymbol{\phi},\boldsymbol{\mathsf{t}}\right) &amp;\simeq\int \sigma(a) p(a) \mathrm{d} a 
+\\ &amp;\simeq\int \Phi(\lambda a) \mathcal{N}\left(a | \mu_{a}, \sigma_{a}^{2}\right) \mathrm{d} a 
+\\ &amp; = \Phi\left(\frac{\mu_a}{\left(\lambda^{-2}+\sigma_a^{2}\right)^{1 / 2}}\right) &amp;&amp; \scriptstyle{\text{(proof omitted.) }}
+\\ &amp;\simeq \sigma\left(\kappa\left(\sigma_a^{2}\right) \mu_a\right)
+\end{align}
+\]</span> where we have defined <span class="math inline">\(\kappa\left(\sigma_a^{2}\right)=\left(1+\pi \sigma_a^{2} / 8\right)^{-1 / 2}​\)</span>.</p>
+<h3 id="some-analysis">Some Analysis</h3>
+<p>Note that the decision boundary defined via this Bayesian treatment, i.e. <span class="math inline">\(p\left(\mathcal{C}_{1} | \boldsymbol{\phi}, \boldsymbol{\mathsf{t}}\right)=0.5\)</span>, is the same as that obtained by using the MAP value for <span class="math inline">\(\mathbf{w}\)</span>. Thus if the decision criterion is based on minimizing misclassification rate, then the marginalization over <span class="math inline">\(\mathbf{w}\)</span> has no effect.</p>
+<p>However, for more complex decision criteria this marginalization will play an important role.</p>
+<blockquote>
+<p>Intuitively, under a Bayesian treatment the slope around the origin will not be very large, the approximated predictive distribution as sigmoid will be more smooth, so for more complex decision criteria, we can witness the boundary move more far away from the origin than that obtained by MAP.</p>
+</blockquote>
 
     
     </div>
@@ -178,8 +234,8 @@ y(\mathbf{x}, \mathbf{w}) = w_0 + \sum_{i=1}^D w_i x_i + \sum_{i=1}^D\sum_{j=1}^
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://wiljohn.top/cache/PRML1-4.html';
-        this.page.identifier = 'prml1-4';
+        this.page.url = 'http://wiljohn.top/old/PRML4-5.html';
+        this.page.identifier = 'prml4-5';
         
         this.language = 'en';
         

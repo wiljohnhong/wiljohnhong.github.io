@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-<title>(PRML Notes) 1.3 Model Selection - Wiljohn&#39;s Blog</title>
+<title>(PRML Notes) 3.2 The Bias-Variance Decomposition - Wiljohn&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,20 +14,21 @@
 
 
 
-    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Training set is used to generate the predictive models and validation set to select the one with the best predictive performanc">
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  In the last section we remain a question about how to determine the regularization parameter \(\lambda\), so that the model can">
 <meta name="keywords" content="PRML">
 <meta property="og:type" content="website">
-<meta property="og:title" content="(PRML Notes) 1.3 Model Selection">
-<meta property="og:url" content="http://wiljohn.top/cache/PRML1-3.html">
+<meta property="og:title" content="(PRML Notes) 3.2 The Bias-Variance Decomposition">
+<meta property="og:url" content="http://wiljohn.top/old/PRML3-2.html">
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
-<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Training set is used to generate the predictive models and validation set to select the one with the best predictive performanc">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  In the last section we remain a question about how to determine the regularization parameter \(\lambda\), so that the model can">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/96251872.jpg">
-<meta property="og:updated_time" content="2020-10-24T15:22:50.869Z">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2017-28-35.png">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2017-28-49.png">
+<meta property="og:updated_time" content="2020-10-24T15:22:50.870Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="(PRML Notes) 1.3 Model Selection">
-<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Training set is used to generate the predictive models and validation set to select the one with the best predictive performanc">
-<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/96251872.jpg">
+<meta name="twitter:title" content="(PRML Notes) 3.2 The Bias-Variance Decomposition">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  In the last section we remain a question about how to determine the regularization parameter \(\lambda\), so that the model can">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2017-28-35.png">
 
 
 
@@ -111,19 +112,19 @@
     <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            (PRML Notes) 1.3 Model Selection
+            (PRML Notes) 3.2 The Bias-Variance Decomposition
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2018-04-28T10:38:59.000Z" itemprop="datePublished">Apr 28 2018</time>
+            <time datetime="2019-03-23T07:25:04.000Z" itemprop="datePublished">Mar 23 2019</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            2 minutes read (About 289 words)
+            8 minutes read (About 1195 words)
         </span>
         
     </div>
@@ -132,17 +133,55 @@
         <blockquote>
 <p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
 </blockquote>
-<p><strong>Training set</strong> is used to generate the predictive models and <strong>validation set</strong> to select the one with the best predictive performance. But if the model design is iterated many times using a limited size data set, then some over-fitting to the validation data can occur and we keep aside a third <strong>test set</strong> to evaluate the performance of the final selected model.</p>
+<p>In the last section we remain a question about how to determine the regularization parameter <span class="math inline">\(\lambda\)</span>, so that the model can be applied better to new data set. Seeking solution that minimizes both <span class="math inline">\(\mathbf{w}\)</span> and <span class="math inline">\(\lambda\)</span> is not right approach since this leads to unregularized solution <span class="math inline">\(\lambda=0\)</span>.</p>
+<p>This section focuses on the <em>frequentist view</em> of the model complexity issue, known as <strong>bias-variance trade-off</strong>.</p>
 <a id="more"></a>
-<p>Since separating a finite data set into these subsets is wasteful for data, we use <strong>K-fold</strong> cross-validation to assess performance. At the beginning the data is separated into groups, each time groups are used to train model and the remained one to evaluate. This procedure is repeated for all possible choices. When data is particularly scarce, we consider the case where the number of groups equals to the data points, which gives out the <strong>leave-one-out</strong> technique.</p>
+<h2 id="recall-of-decision-theory">Recall of Decision Theory</h2>
+<p>Recall that in section 1.5, the optimal prediction of regression problem under a squared loss function is given by the conditional mean, here we denote it by <span class="math inline">\(h(\mathbf{x})​\)</span> <span class="math display">\[
+h(\mathbf{x})=\mathbb{E}[t | \mathbf{x}]=\int t p(t | \mathbf{x}) \mathrm{d} t
+\]</span></p>
+<blockquote>
+<p><strong>Difference between squared loss and sum-of-square error</strong>:</p>
+<p>​ The squared loss arises form decision theory and is used to give prediction, given the distribution of <span class="math inline">\(p(t | \mathbf{x})\)</span>. While the sum-of-square error arises from MLE of model parameters, which is used to determine <span class="math inline">\(p(t | \mathbf{x})\)</span>.</p>
+</blockquote>
+<p>And we saw that the expected squared loss can be written as <span class="math display">\[
+\begin{align}
+\mathbb{E}_{\mathbf{x}, t}[L] &amp;= \int\int\{y(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t
+\\ &amp;= \int\int\{y(\mathbf{x}) - h(\mathbf{x}) + h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t
+\\ &amp;= \int\int\{y(\mathbf{x})-h(\mathbf{x})\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t + \int\int\{h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t + \int\int2\{y(\mathbf{x})-h(\mathbf{x})\}\{h(\mathbf{x})-t\} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t
+\\ &amp;=\int\{y(\mathbf{x})-h(\mathbf{x})\}^{2} p(\mathbf{x}) \mathrm{d} \mathbf{x}+\int\int\{h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t \quad\ \scriptstyle{(\text{The last term vanishes since } \int \{h(\mathbf{x})-t\} p(t|\mathbf{x}) \mathrm{d} t=0 )}
+\end{align}
+\]</span> where the second term arises from the intrinsic noise and is irreducible, and the first term depend on the choice of <span class="math inline">\(f(\mathbf{x})\)</span>. If we have unlimited supply of data and <span class="math inline">\(f(\mathbf{x})​\)</span> is set to enough degrees of freedom, then the first term can be reduced to zero.</p>
+<h2 id="bayesian-vs-frequentist">Bayesian vs Frequentist</h2>
+<p>If <span class="math inline">\(y(\mathbf{x})​\)</span> is modeled via a parametric approach as <span class="math inline">\(y(\mathbf{x}, \mathbf{w})​\)</span>, then from a Bayesian approach the uncertainty is expressed through a posterior distribution over <span class="math inline">\(\mathbf{w}​\)</span>.</p>
+<p>While a frequentist treatment, involves making a point estimate of <span class="math inline">\(\mathbf{w}​\)</span>, based on the given data set <span class="math inline">\(\mathcal{D}​\)</span>. We denote the <span class="math inline">\(y(\mathbf{x})​\)</span> modeled in this way as <span class="math inline">\(y(\mathbf{x}; \mathcal{D})​\)</span>. The performance of a particular learning algorithm is then assessed by taking the average over <span class="math inline">\(y(\mathbf{x}; \mathcal{D})​\)</span> on different data sets.</p>
+<h2 id="frequentist-model-comparison">Frequentist Model Comparison</h2>
+<p>Frequentists further define the expected prediction loss over different data sets as</p>
+<p><span class="math display">\[
+\begin{align}
+\mathbb{E}_\mathcal{D}[\mathbb{E}_{\mathbf{x}, t}[L]] &amp; = \mathbb{E}_\mathcal{D}\left[\int\{y(\mathbf{x}; \mathcal{D})-h(\mathbf{x})\}^{2} p(\mathbf{x}) \mathrm{d} \mathbf{x}+\int\int\{h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t\right]
+\\&amp; = \int\mathbb{E}_\mathcal{D}\left[\{y(\mathbf{x; \mathcal{D}})-h(\mathbf{x})\}^{2}\right] p(\mathbf{x}) \mathrm{d} \mathbf{x}+\int\int\{h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t
+\\&amp; = \int\mathbb{E}_\mathcal{D}\left[\left\{y(\mathbf{x} ; \mathcal{D})-\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]+\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]-h(\mathbf{x})\right\}^{2}\right] p(\mathbf{x}) \mathrm{d} \mathbf{x}+\int\int\{h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t
+\\&amp; = \int\mathbb{E}_\mathcal{D}\left[{\left\{y(\mathbf{x} ; \mathcal{D})-\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]\right\}^{2}+\left\{\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]-h(\mathbf{x})\right\}^{2}} {+2\left\{y(\mathbf{x} ; \mathcal{D})-\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]\right\}\left\{\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]-h(\mathbf{x})\right\}}\right] p(\mathbf{x}) \mathrm{d} \mathbf{x}+\int\int\{h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t
+\\&amp; = \underbrace{\int\mathbb{E}_\mathcal{D}\left[\left\{y(\mathbf{x} ; \mathcal{D})-\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]\right\}^{2}\right]p(\mathbf{x}) \mathrm{d} \mathbf{x}}_\text{variance} + \underbrace{\int\left\{\mathbb{E}_{\mathcal{D}}[y(\mathbf{x} ; \mathcal{D})]-h(\mathbf{x})\right\}^{2}p(\mathbf{x}) \mathrm{d} \mathbf{x}}_{\text{(bias)}^2}+ \underbrace{\int\int\{h(\mathbf{x})-t\}^{2} p(\mathbf{x}, t) \mathrm{d} \mathbf{x} \mathrm{d} t}_\text{noise}
+\end{align}
+\]</span></p>
+<p>where the <strong>bias</strong> represents the extent to which the average prediction over all data sets differs from the desired regression function, and the <strong>variance</strong> measures the extent to which the solutions for individual data sets vary around their average, i.e. how sensitive <span class="math inline">\(y(\mathbf{x}; \mathcal{D})\)</span> is to the particular choice of <span class="math inline">\(\mathcal{D}\)</span>. And the <strong>noise</strong> remains the same as before.</p>
+<p>There is a trade-off between bias and variance, with very flexible models having low bias and high variance, and relatively rigid models having high bias and low variance. The optimal model leads to the best balance between bias and variance.</p>
+<p>To take an intuitive understand of this trade-off, we can examine the bias and variance quantitatively by sampling <span class="math display">\[
+\begin{aligned}(\text {bias})^{2} &amp;=\frac{1}{N} \sum_{n=1}^{N}\left\{\overline{y}\left(x_{n}\right)-h\left(x_{n}\right)\right\}^{2} \\ \text { variance } &amp;=\frac{1}{N} \sum_{n=1}^{N} \frac{1}{L} \sum_{l=1}^{L}\left\{y^{(l)}\left(x_{n}\right)-\overline{y}\left(x_{n}\right)\right\}^{2} \end{aligned}
+\]</span> where we have <span class="math inline">\(L\)</span> data sets, each having <span class="math inline">\(N\)</span> data points, and <span class="math inline">\(\overline{y}(x_n)\)</span> and the averaged prediction of <span class="math inline">\(x_n\)</span> on different models given by <span class="math display">\[
+\overline{y}(x_n)=\frac{1}{L} \sum_{l=1}^{L} y^{(l)}(x_n)
+\]</span> The following illustration shows the results of <span class="math inline">\(L=100\)</span> data sets generated from <span class="math inline">\(h(x)=\sin(2\pi x)\)</span>, each data set has <span class="math inline">\(N=25\)</span> data points and modeled with <span class="math inline">\(24​\)</span> Gaussian basis functions.</p>
 <figure>
-<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/96251872.jpg" alt="4-fold example."><figcaption>4-fold example.</figcaption>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2017-28-35.png" alt="Left shows 20 fitted curves for 20 i.i.d. drawn \mathcal{D}s, presents the variance, and the right shows the bias, that for more complex model (smaller \lambda, the averaged curve (red line) is closer to h(x) (green line)."><figcaption>Left shows 20 fitted curves for 20 i.i.d. drawn <span class="math inline">\(\mathcal{D}\)</span>s, presents the variance, and the right shows the bias, that for more complex model (smaller <span class="math inline">\(\lambda\)</span>, the averaged curve (red line) is closer to <span class="math inline">\(h(x)\)</span> (green line).</figcaption>
 </figure>
-<p>It's computationally expensive if <span class="math inline">\(K\)</span> is large, and often we should evaluate a model under every possible hyperparameter choice, which require training runs exponential in the number of parameters. So we need to find a measure of performance which depends only on the training data and not suffers from bias due to over-fitting (so that only a single run is needed).</p>
-<p><strong>Akaike information criterion (AIC)</strong> chooses model for which the quantity <span class="math display">\[
-\ln p(\mathcal{D}|\mathbf{w}_\mathrm{ML}) -M
-\]</span> is largest, where <span class="math inline">\(p(\mathcal{D}|\mathbf{w}_\mathrm{ML})\)</span> is the best-fit likelihood, and <span class="math inline">\(M\)</span> is the number of adjustable parameters in the model.</p>
-<p><strong>Bayesian information criterion (BIC)</strong> is a variant of this quantity, will be discussed in section 4.4.1.</p>
+<figure>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-23%2017-28-49.png" alt="Plot of squared bias and variance, together with their sum."><figcaption>Plot of squared bias and variance, together with their sum.</figcaption>
+</figure>
+<blockquote>
+<p>A last, the author as a Bayesian criticizes that frequentist perspective is of limited practical value since we only have a single data set. (Partitioning it into smaller data sets for validation wastes data).</p>
+</blockquote>
 
     
     </div>
@@ -171,8 +210,8 @@
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://wiljohn.top/cache/PRML1-3.html';
-        this.page.identifier = 'prml1-3';
+        this.page.url = 'http://wiljohn.top/old/PRML3-2.html';
+        this.page.identifier = 'prml3-2';
         
         this.language = 'en';
         

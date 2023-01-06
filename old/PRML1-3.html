@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-<title>(PRML Notes) 2.2 Multinomial Variables - Wiljohn&#39;s Blog</title>
+<title>(PRML Notes) 1.3 Model Selection - Wiljohn&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,20 +14,20 @@
 
 
 
-    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Multivariate Bernoulli Distribution For a random multivariate variable \(\mathbf{x}\) that, for example, describes the \(K=6\)">
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Training set is used to generate the predictive models and validation set to select the one with the best predictive performanc">
 <meta name="keywords" content="PRML">
 <meta property="og:type" content="website">
-<meta property="og:title" content="(PRML Notes) 2.2 Multinomial Variables">
-<meta property="og:url" content="http://wiljohn.top/cache/PRML2-2.html">
+<meta property="og:title" content="(PRML Notes) 1.3 Model Selection">
+<meta property="og:url" content="http://wiljohn.top/old/PRML1-3.html">
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
-<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Multivariate Bernoulli Distribution For a random multivariate variable \(\mathbf{x}\) that, for example, describes the \(K=6\)">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Training set is used to generate the predictive models and validation set to select the one with the best predictive performanc">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-02-28%2015-59-42.png">
-<meta property="og:updated_time" content="2020-10-24T15:22:50.866Z">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/96251872.jpg">
+<meta property="og:updated_time" content="2020-10-24T15:22:50.869Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="(PRML Notes) 2.2 Multinomial Variables">
-<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Multivariate Bernoulli Distribution For a random multivariate variable \(\mathbf{x}\) that, for example, describes the \(K=6\)">
-<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-02-28%2015-59-42.png">
+<meta name="twitter:title" content="(PRML Notes) 1.3 Model Selection">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Training set is used to generate the predictive models and validation set to select the one with the best predictive performanc">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/96251872.jpg">
 
 
 
@@ -111,19 +111,19 @@
     <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            (PRML Notes) 2.2 Multinomial Variables
+            (PRML Notes) 1.3 Model Selection
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-02-28T06:46:04.000Z" itemprop="datePublished">Feb 28 2019</time>
+            <time datetime="2018-04-28T10:38:59.000Z" itemprop="datePublished">Apr 28 2018</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            4 minutes read (About 573 words)
+            2 minutes read (About 289 words)
         </span>
         
     </div>
@@ -132,36 +132,17 @@
         <blockquote>
 <p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
 </blockquote>
-<h2 id="multivariate-bernoulli-distribution">Multivariate Bernoulli Distribution</h2>
-<p>For a random multivariate variable <span class="math inline">\(\mathbf{x}\)</span> that, for example, describes the <span class="math inline">\(K=6\)</span> possible outcomes of rolling a damaged dice, each outcome is presented in an one-hot vector like <span class="math inline">\(\mathbf{x}=(0,0,1,0,0,0)^T\)</span>. If we denote the probability of <span class="math inline">\(x_k=1\)</span> by <span class="math inline">\(u_k\)</span>, then the distribution of <span class="math inline">\(\mathbf{x}\)</span> is given by <span class="math display">\[
-p(\mathbf{x}|\boldsymbol{\mu}) = \prod_{k=1}^K \mu_k^{x_k}
-\]</span> where <span class="math inline">\(\boldsymbol{\mu}=(\mu_1, ...,\mu_K)^T​\)</span> satisfying <span class="math inline">\(\sum_k \mu_k =1​\)</span>. It can be easily verified that <span class="math display">\[
-\mathbb{E}[\mathbf{x}|\boldsymbol{\mu}] = \sum_\mathbf{x} p(\mathbf{x}|\boldsymbol{\mu})\mathbf{x} =(\mu_1, ...,\mu_K)^T=\boldsymbol{\mu}
-\]</span></p>
+<p><strong>Training set</strong> is used to generate the predictive models and <strong>validation set</strong> to select the one with the best predictive performance. But if the model design is iterated many times using a limited size data set, then some over-fitting to the validation data can occur and we keep aside a third <strong>test set</strong> to evaluate the performance of the final selected model.</p>
 <a id="more"></a>
-<h3 id="maximum-likelihood-estimation">Maximum Likelihood Estimation</h3>
-<p>Consider a dataset <span class="math inline">\(\mathcal{D} = \{\mathbf{x}_1, ...,\mathbf{x}_N\}\)</span>, the corresponding likelihood function takes the form <span class="math display">\[
-p(\mathcal{D}|\boldsymbol{\mu}) = \prod_{n=1}^N \prod_{k=1}^K \mu_k^{x_{nk}} = \prod_{k=1}^K \mu_k^{\sum_n x_{nk}} = \prod_{k=1}^K \mu_k^{m_k}
-\]</span> where <span class="math inline">\(m_k=\sum_n x_{nk}\)</span> denotes the number of observations of <span class="math inline">\(x_k=1\)</span>, which is also the sufficient statistics for this distribution.</p>
-<p>To do MLE, we first take the log likelihood and apply Lagrange multiplier and maximizing <span class="math display">\[
-\sum_{k=1}^K m_k \ln \mu_k + \lambda\left( \sum_{k=1}^K \mu_k - 1\right)
-\]</span> we get <span class="math inline">\(\mu_k^\mathrm{ML} = m_k/N\)</span>, which is the fraction of the <span class="math inline">\(N\)</span> observations where <span class="math inline">\(x_k = 1\)</span>.</p>
-<h2 id="multinomial-distribution">Multinomial Distribution</h2>
-<p>the multinomial distribution is the joint distribution of <span class="math inline">\(m_1,...,m_K\)</span> that conditioned on the parameters <span class="math inline">\(\boldsymbol{\mu}\)</span> and <span class="math inline">\(N=\sum_k m_k\)</span> <span class="math display">\[
-\mathrm{Mult}(m_1,...,m_K|\boldsymbol{\mu}, N) = \binom{N}{m_1m_2... m_K}\prod_{k=1}^K \mu_k^{m_k}
-\]</span> Note that two-state quantities can either be represented as binary variables and modeled using the binomial distribution or as 1-of-2 variables and modeled using the multinomial distribution with <span class="math inline">\(K = 2\)</span>.</p>
-<h2 id="dirichlet-distribution">Dirichlet Distribution</h2>
-<p>The Dirichlet distribution takes the form <span class="math display">\[
-\mathrm{Dir}(\boldsymbol{\mu}|\boldsymbol{\alpha}) = \frac{\Gamma(\alpha_0)}{\Gamma(\alpha_1)\cdots\Gamma(\alpha_K)} \prod_{k=1}^K \mu_k^{\alpha_k-1}
-\]</span> where <span class="math inline">\(\boldsymbol{\alpha} = (\alpha_0,...,\alpha_K)^T​\)</span> and <span class="math inline">\(\alpha_0=\sum_k \alpha_k​\)</span>. It is a conjugate prior for the multinomial. Note that the distribution over the space of the <span class="math inline">\(\{\mu_k\}​\)</span> is confined to a <em>simplex</em> of dimensionality <span class="math inline">\(K=1​\)</span> because of the constraint <span class="math inline">\(\sum_k \mu_k = 1​\)</span>.</p>
-<p>Just like that discussed for beta distribution (with the same interpretation), the posterior for <span class="math inline">\(\{\mu_k\}\)</span> takes the form <span class="math display">\[
-p(\boldsymbol{\mu}|\mathcal{D},\boldsymbol{\alpha}) \propto p(\boldsymbol{\mu}|\mathcal{D}) p(\boldsymbol{\mu}|\boldsymbol{\alpha}) \propto\prod_{k=1}^K \mu_k^{\alpha_k+\color{blue}{m_k}-1}
-\]</span> or we can write it in the normalized form <span class="math display">\[
-\mathrm{Dir}(\boldsymbol{\mu}|\mathcal{D},\boldsymbol{\alpha}) = \frac{\Gamma(\alpha_0+\color{blue}{N})}{\Gamma(\alpha_1+\color{blue}{m_1})\cdots\Gamma(\alpha_K+\color{blue}{m_K})} \prod_{k=1}^K \mu_k^{\alpha_k+\color{blue}{m_k}-1}
-\]</span></p>
+<p>Since separating a finite data set into these subsets is wasteful for data, we use <strong>K-fold</strong> cross-validation to assess performance. At the beginning the data is separated into groups, each time groups are used to train model and the remained one to evaluate. This procedure is repeated for all possible choices. When data is particularly scarce, we consider the case where the number of groups equals to the data points, which gives out the <strong>leave-one-out</strong> technique.</p>
 <figure>
-<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-02-28%2015-59-42.png" alt="Plots of the Dirichlet distribution over three variables, where the two horizontal axes are coordinates in the plane of the simplex and the vertical axis corresponds to the value of the density. Here \alpha_k = 0.1, \forall k on the left plot, \alpha_k = 1, \forall k in the center plot, and \alpha_k = 10, \forall k in the right plot."><figcaption>Plots of the Dirichlet distribution over three variables, where the two horizontal axes are coordinates in the plane of the simplex and the vertical axis corresponds to the value of the density. Here <span class="math inline">\(\alpha_k = 0.1, \forall k\)</span> on the left plot, <span class="math inline">\(\alpha_k = 1, \forall k\)</span> in the center plot, and <span class="math inline">\(\alpha_k = 10, \forall k\)</span> in the right plot.</figcaption>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/18-12-24/96251872.jpg" alt="4-fold example."><figcaption>4-fold example.</figcaption>
 </figure>
+<p>It's computationally expensive if <span class="math inline">\(K\)</span> is large, and often we should evaluate a model under every possible hyperparameter choice, which require training runs exponential in the number of parameters. So we need to find a measure of performance which depends only on the training data and not suffers from bias due to over-fitting (so that only a single run is needed).</p>
+<p><strong>Akaike information criterion (AIC)</strong> chooses model for which the quantity <span class="math display">\[
+\ln p(\mathcal{D}|\mathbf{w}_\mathrm{ML}) -M
+\]</span> is largest, where <span class="math inline">\(p(\mathcal{D}|\mathbf{w}_\mathrm{ML})\)</span> is the best-fit likelihood, and <span class="math inline">\(M\)</span> is the number of adjustable parameters in the model.</p>
+<p><strong>Bayesian information criterion (BIC)</strong> is a variant of this quantity, will be discussed in section 4.4.1.</p>
 
     
     </div>
@@ -190,8 +171,8 @@ p(\boldsymbol{\mu}|\mathcal{D},\boldsymbol{\alpha}) \propto p(\boldsymbol{\mu}|\
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://wiljohn.top/cache/PRML2-2.html';
-        this.page.identifier = 'prml2-2';
+        this.page.url = 'http://wiljohn.top/old/PRML1-3.html';
+        this.page.identifier = 'prml1-3';
         
         this.language = 'en';
         

@@ -2,7 +2,7 @@
 <html class="has-navbar-fixed-top">
 <head><meta name="generator" content="Hexo 3.8.0">
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-<title>(PRML Notes) 3.4 Bayesian Model Comparison - Wiljohn&#39;s Blog</title>
+<title>(PRML Notes) 2.2 Multinomial Variables - Wiljohn&#39;s Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
@@ -14,21 +14,20 @@
 
 
 
-    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Here we consider the problem of model selection from a Bayesian perspective, which avoid the over-fitting of making point estim">
+    <meta name="description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Multivariate Bernoulli Distribution For a random multivariate variable \(\mathbf{x}\) that, for example, describes the \(K=6\)">
 <meta name="keywords" content="PRML">
 <meta property="og:type" content="website">
-<meta property="og:title" content="(PRML Notes) 3.4 Bayesian Model Comparison">
-<meta property="og:url" content="http://wiljohn.top/cache/PRML3-4.html">
+<meta property="og:title" content="(PRML Notes) 2.2 Multinomial Variables">
+<meta property="og:url" content="http://wiljohn.top/old/PRML2-2.html">
 <meta property="og:site_name" content="Wiljohn&#39;s Blog">
-<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Here we consider the problem of model selection from a Bayesian perspective, which avoid the over-fitting of making point estim">
+<meta property="og:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Multivariate Bernoulli Distribution For a random multivariate variable \(\mathbf{x}\) that, for example, describes the \(K=6\)">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-24%2018-33-22.png">
-<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-24%2018-33-16.png">
-<meta property="og:updated_time" content="2020-10-24T15:22:50.871Z">
+<meta property="og:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-02-28%2015-59-42.png">
+<meta property="og:updated_time" content="2020-10-24T15:22:50.866Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="(PRML Notes) 3.4 Bayesian Model Comparison">
-<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Here we consider the problem of model selection from a Bayesian perspective, which avoid the over-fitting of making point estim">
-<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-24%2018-33-22.png">
+<meta name="twitter:title" content="(PRML Notes) 2.2 Multinomial Variables">
+<meta name="twitter:description" content="A series of notes taken from Pattern Recognition and Machine Learning.  Multivariate Bernoulli Distribution For a random multivariate variable \(\mathbf{x}\) that, for example, describes the \(K=6\)">
+<meta name="twitter:image" content="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-02-28%2015-59-42.png">
 
 
 
@@ -112,19 +111,19 @@
     <article class="article content gallery" itemscope="" itemprop="blogPost">
     <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-            (PRML Notes) 3.4 Bayesian Model Comparison
+            (PRML Notes) 2.2 Multinomial Variables
         
     </h1>
     <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
         <span class="column is-narrow">
-            <time datetime="2019-03-24T07:54:04.000Z" itemprop="datePublished">Mar 24 2019</time>
+            <time datetime="2019-02-28T06:46:04.000Z" itemprop="datePublished">Feb 28 2019</time>
         </span>
         
         
         <span class="column is-narrow">
             
             
-            7 minutes read (About 1085 words)
+            4 minutes read (About 573 words)
         </span>
         
     </div>
@@ -133,50 +132,36 @@
         <blockquote>
 <p>A series of notes taken from <em>Pattern Recognition and Machine Learning</em>.</p>
 </blockquote>
-<p>Here we consider the problem of model selection from a Bayesian perspective, which avoid the over-fitting of making point estimates of model parameters by marginalizing over these parameters. Through this way, models can be compared directly on the training data.</p>
-<h2 id="general-procedure-of-bayesian-model-selection">General Procedure of Bayesian Model Selection</h2>
-<p>Suppose we wish to compare <span class="math inline">\(L\)</span> models <span class="math inline">\(\left\{\mathcal{M}_{i}\right\}\)</span>, where <span class="math inline">\(i=1, \dots, L\)</span>, and in each model we defined a prior over model parameters, <span class="math inline">\(p(\mathbf{w} | \mathcal{M}_{i})\)</span>, and for each choice of parameters in each model, the uncertainty over the observed data is described in a likelihood <span class="math inline">\(p(\mathcal{D} | \mathbf{w}, \mathcal{M}_{i})\)</span>.</p>
-<a id="more"></a>
-<p>And we also suppose that <strong>data is generated from one of these models</strong>, but we are just uncertain about which one. So the posterior after observing the data for each model is given by</p>
-<p><span class="math display">\[
-p\left(\mathcal{M}_{i} | \mathcal{D}\right) \propto p\left(\mathcal{M}_{i}\right) p(\mathcal{D} | \mathcal{M}_{i}) = p\left(\mathcal{M}_{i}\right) \int p(\mathcal{D} | \mathbf{w}, \mathcal{M}_{i}) p(\mathbf{w} | \mathcal{M}_{i}) \mathrm{d} \mathbf{w}
+<h2 id="multivariate-bernoulli-distribution">Multivariate Bernoulli Distribution</h2>
+<p>For a random multivariate variable <span class="math inline">\(\mathbf{x}\)</span> that, for example, describes the <span class="math inline">\(K=6\)</span> possible outcomes of rolling a damaged dice, each outcome is presented in an one-hot vector like <span class="math inline">\(\mathbf{x}=(0,0,1,0,0,0)^T\)</span>. If we denote the probability of <span class="math inline">\(x_k=1\)</span> by <span class="math inline">\(u_k\)</span>, then the distribution of <span class="math inline">\(\mathbf{x}\)</span> is given by <span class="math display">\[
+p(\mathbf{x}|\boldsymbol{\mu}) = \prod_{k=1}^K \mu_k^{x_k}
+\]</span> where <span class="math inline">\(\boldsymbol{\mu}=(\mu_1, ...,\mu_K)^T​\)</span> satisfying <span class="math inline">\(\sum_k \mu_k =1​\)</span>. It can be easily verified that <span class="math display">\[
+\mathbb{E}[\mathbf{x}|\boldsymbol{\mu}] = \sum_\mathbf{x} p(\mathbf{x}|\boldsymbol{\mu})\mathbf{x} =(\mu_1, ...,\mu_K)^T=\boldsymbol{\mu}
 \]</span></p>
-<p>If all models are given equal prior probability, i.e. <span class="math inline">\(p\left(\mathcal{M}_{i}\right)\)</span> is the same for all <span class="math inline">\(i\)</span>, then we only care about <span class="math inline">\(p(\mathcal{D} | \mathcal{M}_{i})\)</span>, called <strong>model evidence</strong>, which expresses the preference shown by data for different models.</p>
-<p>The ratio of model evidences <span class="math inline">\(p(\mathcal{D} | \mathcal{M}_{i}) / p(\mathcal{D} | \mathcal{M}_{j})\)</span> is called <strong>Bayes factor</strong>.</p>
-<p>Once we know the posterior over models, and if we choose to average the predictive distributions <span class="math inline">\(p(t | \mathbf{x}, \mathcal{M}_{i}, \mathcal{D})\)</span>, then the prediction is given by <span class="math display">\[
-p(t | \mathbf{x}, \mathcal{D})=\sum_{i=1}^{L} p(t | \mathbf{x}, \mathcal{M}_{i}, \mathcal{D}) p\left(\mathcal{M}_{i} | \mathcal{D}\right)
-\]</span> or simply we can just do <strong>model selection</strong>, which use the single most probable model alone to make predictions.</p>
-<h2 id="interpretation-from-internal-view">Interpretation from Internal View</h2>
-<p>We can obtain some insight into model evidence by making a simple approximation to the integral over parameters.</p>
-<p>Consider the case of a model with a prior <span class="math inline">\(p(\mathbf{w} | \mathcal{M}_{k})\)</span> distributed uniformly as an <span class="math inline">\(M\)</span>-dimensional hypercube with length <span class="math inline">\(\Delta w_{\text {prior}}\)</span> in an <span class="math inline">\(M\)</span>-dimensional space, and assume the posterior is sharply peaked around the most probable value <span class="math inline">\(\mathbf{w}_\mathrm{MAP}\)</span>, within the hypercube with length <span class="math inline">\(\Delta w_{\text {posterior}}\)</span>, then we have the approximation <span class="math display">\[
-p(\mathcal{D}|\mathcal{M}_{k})=\int p(\mathcal{D} | \mathbf{w},\mathcal{M}_{k}) p(\mathbf{w}|\mathcal{M}_{k}) \mathrm{d} \mathbf{w} \simeq p(\mathcal{D} | \mathbf{w}_{\mathrm{MAP}},\mathcal{M}_{k}) \left(\frac{1}{\Delta \mathbf{w}_{\mathrm{prior}}}\right)^M (\Delta \mathbf{w}_{\mathrm{posterior}})^M
-\]</span> consider the logarithm <span class="math display">\[
-\ln p(\mathcal{D}|\mathcal{M}_{k}) \simeq \ln p(\mathcal{D} | \mathbf{w}_{\mathrm{MAP}},\mathcal{M}_{k})+M \ln \left(\frac{\Delta w_{\mathrm{posterior}}}{\Delta w_{\mathrm{prior}}}\right)
-\]</span> The first term represents the fit to the data given by the most probable parameter values, and the second term penalizes the model according to its complexity.</p>
+<a id="more"></a>
+<h3 id="maximum-likelihood-estimation">Maximum Likelihood Estimation</h3>
+<p>Consider a dataset <span class="math inline">\(\mathcal{D} = \{\mathbf{x}_1, ...,\mathbf{x}_N\}\)</span>, the corresponding likelihood function takes the form <span class="math display">\[
+p(\mathcal{D}|\boldsymbol{\mu}) = \prod_{n=1}^N \prod_{k=1}^K \mu_k^{x_{nk}} = \prod_{k=1}^K \mu_k^{\sum_n x_{nk}} = \prod_{k=1}^K \mu_k^{m_k}
+\]</span> where <span class="math inline">\(m_k=\sum_n x_{nk}\)</span> denotes the number of observations of <span class="math inline">\(x_k=1\)</span>, which is also the sufficient statistics for this distribution.</p>
+<p>To do MLE, we first take the log likelihood and apply Lagrange multiplier and maximizing <span class="math display">\[
+\sum_{k=1}^K m_k \ln \mu_k + \lambda\left( \sum_{k=1}^K \mu_k - 1\right)
+\]</span> we get <span class="math inline">\(\mu_k^\mathrm{ML} = m_k/N\)</span>, which is the fraction of the <span class="math inline">\(N\)</span> observations where <span class="math inline">\(x_k = 1\)</span>.</p>
+<h2 id="multinomial-distribution">Multinomial Distribution</h2>
+<p>the multinomial distribution is the joint distribution of <span class="math inline">\(m_1,...,m_K\)</span> that conditioned on the parameters <span class="math inline">\(\boldsymbol{\mu}\)</span> and <span class="math inline">\(N=\sum_k m_k\)</span> <span class="math display">\[
+\mathrm{Mult}(m_1,...,m_K|\boldsymbol{\mu}, N) = \binom{N}{m_1m_2... m_K}\prod_{k=1}^K \mu_k^{m_k}
+\]</span> Note that two-state quantities can either be represented as binary variables and modeled using the binomial distribution or as 1-of-2 variables and modeled using the multinomial distribution with <span class="math inline">\(K = 2\)</span>.</p>
+<h2 id="dirichlet-distribution">Dirichlet Distribution</h2>
+<p>The Dirichlet distribution takes the form <span class="math display">\[
+\mathrm{Dir}(\boldsymbol{\mu}|\boldsymbol{\alpha}) = \frac{\Gamma(\alpha_0)}{\Gamma(\alpha_1)\cdots\Gamma(\alpha_K)} \prod_{k=1}^K \mu_k^{\alpha_k-1}
+\]</span> where <span class="math inline">\(\boldsymbol{\alpha} = (\alpha_0,...,\alpha_K)^T​\)</span> and <span class="math inline">\(\alpha_0=\sum_k \alpha_k​\)</span>. It is a conjugate prior for the multinomial. Note that the distribution over the space of the <span class="math inline">\(\{\mu_k\}​\)</span> is confined to a <em>simplex</em> of dimensionality <span class="math inline">\(K=1​\)</span> because of the constraint <span class="math inline">\(\sum_k \mu_k = 1​\)</span>.</p>
+<p>Just like that discussed for beta distribution (with the same interpretation), the posterior for <span class="math inline">\(\{\mu_k\}\)</span> takes the form <span class="math display">\[
+p(\boldsymbol{\mu}|\mathcal{D},\boldsymbol{\alpha}) \propto p(\boldsymbol{\mu}|\mathcal{D}) p(\boldsymbol{\mu}|\boldsymbol{\alpha}) \propto\prod_{k=1}^K \mu_k^{\alpha_k+\color{blue}{m_k}-1}
+\]</span> or we can write it in the normalized form <span class="math display">\[
+\mathrm{Dir}(\boldsymbol{\mu}|\mathcal{D},\boldsymbol{\alpha}) = \frac{\Gamma(\alpha_0+\color{blue}{N})}{\Gamma(\alpha_1+\color{blue}{m_1})\cdots\Gamma(\alpha_K+\color{blue}{m_K})} \prod_{k=1}^K \mu_k^{\alpha_k+\color{blue}{m_k}-1}
+\]</span></p>
 <figure>
-<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-24%2018-33-22.png" alt="A rough approximation to the model evidence for the case M=1."><figcaption>A rough approximation to the model evidence for the case <span class="math inline">\(M=1\)</span>.</figcaption>
+<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-02-27/Screenshot%20from%202019-02-28%2015-59-42.png" alt="Plots of the Dirichlet distribution over three variables, where the two horizontal axes are coordinates in the plane of the simplex and the vertical axis corresponds to the value of the density. Here \alpha_k = 0.1, \forall k on the left plot, \alpha_k = 1, \forall k in the center plot, and \alpha_k = 10, \forall k in the right plot."><figcaption>Plots of the Dirichlet distribution over three variables, where the two horizontal axes are coordinates in the plane of the simplex and the vertical axis corresponds to the value of the density. Here <span class="math inline">\(\alpha_k = 0.1, \forall k\)</span> on the left plot, <span class="math inline">\(\alpha_k = 1, \forall k\)</span> in the center plot, and <span class="math inline">\(\alpha_k = 10, \forall k\)</span> in the right plot.</figcaption>
 </figure>
-<p>Since complex models are more finely tuned to the data, resulting in a high likelihood but small <span class="math inline">\(\Delta w_{\mathrm{posterior}} /\Delta w_{\mathrm{prior}}​\)</span> ratio, while simple models are under-fit to the data but not still sure on the choice the parameter after observing data, resulting in a low likelihood but high <span class="math inline">\(\Delta w_{\mathrm{posterior}} /\Delta w_{\mathrm{prior}}​\)</span> ratio.</p>
-<p>So the optimal model complexity, as determined by model evidence, will be given by a trade-off between these two competing terms.</p>
-<blockquote>
-<p>In Bayesian point of view, a good model should have a proper range of parameters that can fit the data well.</p>
-</blockquote>
-<h2 id="interpretation-from-external-view">Interpretation from External View</h2>
-<p>This time from another point of view, consider running three models <span class="math inline">\(\mathcal{M}_{1}, \mathcal{M}_{2}\)</span> and <span class="math inline">\(\mathcal{M}_{3}\)</span> generatively to produce example data sets, and then looking at the distribution of data sets that result.</p>
-<p>A simple model like <span class="math inline">\(\mathcal{M}_{1}​\)</span> has little variability so will generate data very similar to each other. And for complex model like <span class="math inline">\(\mathcal{M}_{3}​\)</span>, it can generate a variety of different data sets.</p>
-<p>Because the distributions <span class="math inline">\(p(\mathcal{D} | \mathcal{M}_{i})\)</span> are normalized, so for a particular data set <span class="math inline">\(\mathcal{D}_0\)</span>, maybe <span class="math inline">\(\mathcal{M}_{1}\)</span> can not fit it well, while <span class="math inline">\(\mathcal{M}_{3}\)</span> spreads its predictive probability over too broad a range so assigns <span class="math inline">\(\mathcal{D}_0\)</span> with a relatively small probability, then only the model <span class="math inline">\(\mathcal{M}_{2}​\)</span> of intermediate complexity has the highest value of evidence.</p>
-<figure>
-<img src="http://wiljohn-blog.oss-cn-shanghai.aliyuncs.com/19-03-22/Screenshot%20from%202019-03-24%2018-33-16.png" alt="Illustration of the distribution of data sets for three models of different complexity"><figcaption>Illustration of the distribution of data sets for three models of different complexity</figcaption>
-</figure>
-<h2 id="relation-to-kl-divergence">Relation to KL Divergence</h2>
-<p>Recall that we have made an assumption that data is generated from one of these models under consideration. We can show that Bayesian model comparison will <em>on average</em> favor the correct model.</p>
-<p>Consider two models <span class="math inline">\(\mathcal{M}_{1}\)</span> and <span class="math inline">\(\mathcal{M}_{2}\)</span>, where the data actually generated from <span class="math inline">\(\mathcal{M}_1\)</span>. The expected Bayes factor over the distribution of data sets is given by <span class="math display">\[
-\int p(\mathcal{D} | \mathcal{M}_{1}) \ln \frac{p(\mathcal{D} | \mathcal{M}_{1})}{p(\mathcal{D} | \mathcal{M}_{2})} \mathrm{d} \mathcal{D} = \mathrm{KL}(p(\mathcal{D} | \mathcal{M}_{1}) \| p(\mathcal{D} | \mathcal{M}_{2})) \geq 0
-\]</span> However, for a particular finite data set, it is possible for the Bayes factor to be larger for the incorrect model.</p>
-<h2 id="limitation">Limitation</h2>
-<p>Model evidence can be sensitive to many aspects of the prior, as we see the choice of prior plays an important role in the ratio <span class="math inline">\(\Delta w_{\mathrm{posterior}} /\Delta w_{\mathrm{prior}}\)</span>.</p>
-<p>And note that the evidence will be undefined if we take an improper prior. And if we consider a proper prior and take a suitable limit in order to obtain an approximate improper prior (e.g. infinite variance for Gaussian prior), then the evidence will go to zero. But if we really want to use such prior, it may be possible to consider the evidence ratio between two models first and then take a limit to obtain a meaningful answer.</p>
-<p>In practice, it will be wise to keep aside an independent test set to do evaluation.</p>
 
     
     </div>
@@ -205,8 +190,8 @@ p(\mathcal{D}|\mathcal{M}_{k})=\int p(\mathcal{D} | \mathbf{w},\mathcal{M}_{k}) 
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://wiljohn.top/cache/PRML3-4.html';
-        this.page.identifier = 'prml3-4';
+        this.page.url = 'http://wiljohn.top/old/PRML2-2.html';
+        this.page.identifier = 'prml2-2';
         
         this.language = 'en';
         
